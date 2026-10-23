@@ -2,7 +2,7 @@
 -- Como usar:
 --   1. Crie uma conta grátis em https://supabase.com e um projeto novo.
 --   2. Abra "SQL Editor", cole este arquivo inteiro e clique em "Run".
---   3. Em "Project Settings > API", copie a "Project URL" e a chave "anon public".
+--   3. Copie a "Project URL" e a chave pública ("Publishable key", ou "anon public" em projetos antigos).
 --   4. No index.html, preencha SUPABASE_URL e SUPABASE_KEY com esses dois valores.
 -- Para esconder uma mensagem: Table Editor > maos (ou respostas) > aprovado = false.
 -- Para ver os pedidos de café: Table Editor > agendamentos.

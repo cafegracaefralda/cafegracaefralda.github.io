@@ -1159,7 +1159,9 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
 
   var store = null;
   function supabaseStore(){
-    var hd = { apikey: SUPABASE_KEY, Authorization: "Bearer " + SUPABASE_KEY, "Content-Type": "application/json" };
+    // Chaves antigas (anon) são JWT e também vão no Authorization; as novas (sb_publishable_…) vão só no apikey.
+    var hd = { apikey: SUPABASE_KEY, "Content-Type": "application/json" };
+    if (SUPABASE_KEY.indexOf("eyJ") === 0) hd.Authorization = "Bearer " + SUPABASE_KEY;
     function req(path, opts){
       return fetch(SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + path, opts).then(function(r){
         if (!r.ok) throw new Error("http " + r.status);
