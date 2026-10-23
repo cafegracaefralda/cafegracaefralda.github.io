@@ -32,7 +32,7 @@ head = f"""<!doctype html>
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Café & Graça">
+<meta name="apple-mobile-web-app-title" content="Café, Graça &amp; Fralda">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
