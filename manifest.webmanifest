@@ -1,0 +1,23 @@
+{
+  "name": "Café, Graça & Fralda",
+  "short_name": "Café & Graça",
+  "description": "Fé e família na vida real, com Denny Silva.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8F5F0",
+  "theme_color": "#F8F5F0",
+  "categories": ["lifestyle", "books", "education"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Devocional de hoje", "url": "./#devocional", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Agendar um café", "url": "./#agendar", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Levante a mão", "url": "./#mesa", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
