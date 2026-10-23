@@ -69,3 +69,8 @@ create policy "responder" on public.respostas for insert to anon with check (apr
 create policy "cadastrar inscrito" on public.inscritos for insert to anon with check (true);
 create policy "pedir horario" on public.agendamentos for insert to anon with check (data >= current_date);
 grant select on public.horarios_ocupados to anon;
+
+-- Permissões explícitas: funcionam mesmo com "Expor automaticamente novas tabelas" desligado.
+grant usage on schema public to anon;
+grant select, insert on public.maos, public.respostas to anon;
+grant insert on public.inscritos, public.agendamentos to anon;
