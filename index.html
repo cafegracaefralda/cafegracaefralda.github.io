@@ -1471,7 +1471,7 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
     var save = AGENDA_URL ? agendaBook : store ? store.addBooking : null;
     if (!save) { finishBooking(b, false); return; }
     bSend.disabled = true; setStatus(bStatus, "Reservando seu horário…");
-    save(b).then(function(res){ finishBooking(b, true, res && res.meet); }, function(err){
+    save(b).then(function(res){ taken[slotKey(b.data, b.hora)] = true; finishBooking(b, true, res && res.meet); }, function(err){
       if (err && err.message === "taken") { taken[slotKey(b.data, b.hora)] = true; renderTimes(); setStatus(bStatus, "Alguém acabou de reservar esse horário. Escolha outro, por favor.", "err"); }
       else finishBooking(b, false);
     }).then(function(){ bSend.disabled = false; });
