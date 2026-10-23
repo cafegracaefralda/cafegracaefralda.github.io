@@ -9,7 +9,7 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BASE_URL = "https://dennydjsilva-stack.github.io/cafe-graca-fralda/"
+BASE_URL = "https://cafegracaefralda.github.io/"
 TITLE = "Café, Graça & Fralda"
 DESCRIPTION = "Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, conversa entre pais e um café na sua mesa."
 
