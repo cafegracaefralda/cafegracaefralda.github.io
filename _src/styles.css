@@ -235,7 +235,7 @@ textarea{min-height:96px;resize:vertical}
 .filters{display:flex;flex-wrap:wrap;gap:8px}
 
 /* Café na mesa */
-.cafe-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,64px);align-items:start}
+.cafe-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:start}
 .cafe-info{display:grid;gap:16px;position:sticky;top:96px}
 .cafe-info h2{font-size:clamp(34px,4vw,54px)}
 .cafe-info > p{color:var(--muted);font-size:16.5px}
@@ -252,6 +252,7 @@ textarea{min-height:96px;resize:vertical}
 .gate{display:grid;gap:14px;justify-items:start}
 .gate h3{font-size:clamp(26px,2.6vw,34px)}
 .gate p{color:var(--muted);font-size:15.5px;max-width:52ch}
+.gate-steps{display:grid;gap:12px;width:100%;border-top:1px solid var(--line);padding-top:18px;margin-top:6px}
 .gate .alt{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
 .times{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}

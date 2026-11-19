@@ -31,6 +31,7 @@
       <a href="#devocional" data-tab="devocional">5 minutos</a>
       <a href="#cafe" data-tab="cafe">Café na mesa</a>
       <a href="#comunidade" data-tab="comunidade">Comunidade</a>
+      <a href="#palestra" data-tab="palestra">Palestras</a>
       <a href="#sobre" data-tab="sobre">Sobre</a>
     </nav>
     <div class="top-actions">
@@ -156,11 +157,6 @@
           <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
           <li><b>3 jeitos</b><span>WhatsApp, vídeo ou presencial</span></li>
         </ul>
-        <ol class="steps">
-          <li><span><b>Entre com o Google</b> para ver e desmarcar o seu horário quando precisar.</span></li>
-          <li><span><b>Conte o que está no coração.</b> Pode ser pouco.</span></li>
-          <li><span><b>Escolha o dia e o horário</b> que cabem na sua rotina.</span></li>
-        </ol>
       </div>
       <div>
         <div class="card" id="bookGate">
@@ -171,6 +167,13 @@
             <div class="alt">
               <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
               <a class="btn btn-wa" data-wa="Oi, Denny! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
+            </div>
+            <div class="gate-steps"><span class="label">Como funciona</span>
+            <ol class="steps">
+              <li><span><b>Entre com o Google</b> para ver e desmarcar o seu horário quando precisar.</span></li>
+              <li><span><b>Conte o que está no coração.</b> Pode ser pouco.</span></li>
+              <li><span><b>Escolha o dia e o horário</b> que cabem na sua rotina.</span></li>
+            </ol>
             </div>
           </div>
         </div>
@@ -308,6 +311,57 @@
         </div>
         <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- CONVITE PARA PALESTRA -->
+  <section class="view" id="v-palestra" data-view="palestra">
+    <div class="wrap cafe-grid">
+      <div class="cafe-info">
+        <span class="label">Convite para palestra</span>
+        <h2>Leve o Café, Graça &amp; Fralda para o seu encontro</h2>
+        <p>Conversas simples e profundas sobre família, casamento e fé em casa, para igrejas, escolas, grupos e empresas. Preencha os dados e me chame no WhatsApp. Eu respondo para combinarmos data, tema e formato.</p>
+        <ul class="facts">
+          <li><b>Igrejas</b><span>cultos, encontros de casais e de pais</span></li>
+          <li><b>Escolas e grupos</b><span>reuniões e eventos de família</span></li>
+          <li><b>Empresas</b><span>semana da família e datas especiais</span></li>
+        </ul>
+        <ol class="steps">
+          <li><span><b>Preencha os dados</b> do seu evento.</span></li>
+          <li><span><b>Toque em “Convidar pelo WhatsApp”.</b> A mensagem já sai pronta.</span></li>
+          <li><span><b>Eu respondo</b> para combinar os detalhes.</span></li>
+        </ol>
+      </div>
+      <form class="card form" id="talkForm" novalidate>
+        <div class="row2">
+          <div class="field"><label for="t-name">Seu nome</label><input id="t-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
+          <div class="field"><label for="t-phone">Seu WhatsApp</label><input id="t-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="t-org">Igreja ou organização</label><input id="t-org" placeholder="Nome da igreja, escola ou empresa" maxlength="80"></div>
+          <div class="field"><label for="t-city">Cidade</label><input id="t-city" placeholder="Recife, PE" autocomplete="address-level2" maxlength="60"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="t-date">Data ou período previsto</label><input id="t-date" placeholder="Ex.: 15 de março, ou 1º semestre" maxlength="60"></div>
+          <div class="field"><label for="t-size">Público estimado</label>
+            <select id="t-size"><option value="">Ainda não sei</option><option>Até 30 pessoas</option><option>30 a 100 pessoas</option><option>100 a 300 pessoas</option><option>Mais de 300 pessoas</option></select>
+          </div>
+        </div>
+        <fieldset class="field">
+          <span class="legend">Formato</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="t-format" value="Presencial" checked><span>Presencial</span></label>
+            <label class="opt"><input type="radio" name="t-format" value="Online"><span>Online</span></label>
+            <label class="opt"><input type="radio" name="t-format" value="A combinar"><span>A combinar</span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="t-topic">Tema de interesse</label>
+          <select id="t-topic"><option>Família na vida real</option><option>Casamento depois dos filhos</option><option>Paternidade e maternidade</option><option>Fé em casa</option><option>Outro (escrevo na mensagem)</option></select>
+        </div>
+        <div class="field"><label for="t-msg">Mensagem <span class="hint">(opcional)</span></label><textarea id="t-msg" placeholder="Conte um pouco sobre o evento e o público." maxlength="800"></textarea></div>
+        <button class="btn btn-wa btn-block" id="talkSend" type="submit"><svg><use href="#i-wa"/></svg>Convidar pelo WhatsApp</button>
+        <p class="status" id="talkStatus" role="status"></p>
+      </form>
     </div>
   </section>
 
