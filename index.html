@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, conversa entre pais e um café na sua mesa.">
+<title>Café, Graça &amp; Fralda</title>
+<meta name="description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, chat entre pais e um café na sua mesa.">
 <link rel="canonical" href="https://cafegracaefralda.github.io/">
 <meta name="theme-color" content="#F8F5F0">
 <link rel="manifest" href="manifest.webmanifest">
@@ -15,549 +16,567 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="Café, Graça & Fralda">
-<meta property="og:title" content="Café, Graça & Fralda · Família de verdade. Fé de verdade.">
-<meta property="og:description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, conversa entre pais e um café na sua mesa.">
+<meta property="og:site_name" content="Café, Graça &amp; Fralda">
+<meta property="og:title" content="Café, Graça &amp; Fralda · Família de verdade. Fé de verdade.">
+<meta property="og:description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, chat entre pais e um café na sua mesa.">
 <meta property="og:url" content="https://cafegracaefralda.github.io/">
 <meta property="og:image" content="https://cafegracaefralda.github.io/icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
-<title>Café, Graça &amp; Fralda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: editorial limpo e quente. Coluna central de 1120px, fotos com cantos suaves,
-   títulos em serifa clássica, rótulos em mono espaçado, um único acento terracota. */
+/* Layout: app editorial limpo e quente. Telas (views) em vez de uma página longa, barra inferior no celular,
+   títulos em serifa, rótulos em mono espaçado, um único acento terracota. */
 :root{
-  --bg:#F8F5F0;
-  --surface:#FFFFFF;
-  --sand:#F1ECE5;
-  --ink:#1D1A17;
-  --muted:#6E655C;
-  --terra:#B65B3A;
-  --terra-soft:#F3E3DA;
-  --terra-light:#D9845F;
-  --line:#E7E0D7;
-  --night:#1F1C19;
-  --night-ink:#F4EFE8;
-  --night-muted:#A69C91;
-  --serif:"Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --sans:"Plus Jakarta Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --mono:"DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  --r-lg:22px; --r-md:14px;
-  --shadow:0 24px 50px -30px rgba(60,40,25,.35);
+  --bg:#F8F5F0; --surface:#FFFFFF; --sand:#F1ECE5; --ink:#1D1A17; --muted:#6E655C;
+  --terra:#B65B3A; --terra-soft:#F3E3DA; --terra-light:#D9845F; --line:#E7E0D7;
+  --night:#1F1C19; --night-ink:#F4EFE8; --night-muted:#A69C91;
+  --ok:#2F7A4B; --err:#B3261E; --wa:#25D366;
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --sans:"Plus Jakarta Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"DM Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r-lg:22px; --r-md:14px; --shadow:0 24px 50px -30px rgba(60,40,25,.35);
+  --gx:max(clamp(16px,2.6vw,40px),env(safe-area-inset-left,0px));
+  --gxr:max(clamp(16px,2.6vw,40px),env(safe-area-inset-right,0px));
+  --tabh:64px;
   color-scheme:light;
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
-body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 img{max-width:100%;display:block}
-h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.08;letter-spacing:-.01em;text-wrap:balance;margin:0}
 p{margin:0}
-.wrap{max-width:1120px;margin-inline:auto;padding-left:max(20px, env(safe-area-inset-left,0px));padding-right:max(20px, env(safe-area-inset-right,0px))}
-.label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--terra)}
-.ref{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra);font-style:normal}
+h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.06;letter-spacing:-.01em;text-wrap:balance;margin:0}
+.wrap{max-width:1440px;margin-inline:auto;padding-left:var(--gx);padding-right:var(--gxr)}
+.label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
+.ref{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);font-style:normal}
+.muted{color:var(--muted)}
 :focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:6px}
+svg{flex:none}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;font-family:var(--sans);font-weight:600;font-size:14px;text-decoration:none;padding:13px 24px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s ease,color .2s ease,transform .2s ease,border-color .2s ease}
+/* Botões */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55em;font-family:var(--sans);font-weight:600;font-size:14px;text-decoration:none;padding:12px 22px;border-radius:999px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s,transform .2s,border-color .2s;line-height:1.2}
 .btn:hover{transform:translateY(-1px)}
-.btn svg{width:16px;height:16px;flex:none}
-.btn[disabled]{opacity:.6;pointer-events:none}
+.btn svg{width:16px;height:16px}
+.btn[disabled]{opacity:.55;pointer-events:none}
 .btn-dark{background:var(--ink);color:var(--bg)}
 .btn-dark:hover{background:#3a332c}
 .btn-ghost{border-color:#CFC5B9}
 .btn-ghost:hover{border-color:var(--ink);background:var(--surface)}
 .btn-terra{background:var(--terra);border-color:var(--terra);color:#fff}
 .btn-terra:hover{background:#9f4d30;border-color:#9f4d30}
-.btn-wa{background:#25D366;border-color:#25D366;color:#0B2E18}
+.btn-wa{background:var(--wa);border-color:var(--wa);color:#0B2E18}
 .btn-wa:hover{background:#2EE072;border-color:#2EE072}
+.btn-google{background:#fff;border-color:#DADCE0;color:#3c4043}
+.btn-google:hover{background:#f8f9fa;border-color:#c6c9cc}
+.btn-google svg{width:18px;height:18px}
+.btn-sm{padding:8px 14px;font-size:13px}
+.btn-block{width:100%}
+.link{background:none;border:0;padding:0;font:inherit;font-weight:600;color:var(--terra);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
-/* Header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(248,245,240,.86);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
-.top.scrolled{border-bottom-color:var(--line)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:16px}
-.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--serif);font-size:19px;font-weight:600}
+/* Cabeçalho */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(248,245,240,.9);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+.top .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:var(--serif);font-size:clamp(21px,2.1vw,27px);font-weight:600;line-height:1;white-space:nowrap}
 .logo i{font-style:normal;color:var(--terra)}
-.logo-mark{width:32px;height:32px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center}
-.logo-mark svg{width:17px;height:17px}
-.nav{display:flex;align-items:center;gap:22px}
-.nav a{text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+.logo-mark{width:clamp(44px,4vw,52px);height:clamp(44px,4vw,52px);border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center}
+.logo-mark svg{width:68%;height:68%}
+.nav{display:flex;align-items:center;gap:6px;margin-left:auto}
+.nav a{text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-radius:999px;transition:color .2s,background .2s}
 .nav a:hover{color:var(--ink)}
-.nav .btn{font-family:var(--sans);font-size:13px;letter-spacing:0;text-transform:none;color:#fff;padding:10px 20px}
-.menu-btn{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;place-items:center}
-.menu-btn svg{width:18px;height:18px}
-@media (max-width:1060px){
-  .menu-btn{display:grid}
-  .nav{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px max(20px, env(safe-area-inset-right,0px)) 20px max(20px, env(safe-area-inset-left,0px));display:none}
-  .nav.open{display:flex}
-  .nav a{padding:16px 0;border-bottom:1px solid var(--line);font-size:12px}
-  .nav .btn{margin-top:16px;border-bottom:1px solid var(--terra)}
+.nav a[aria-current="page"]{color:var(--ink);background:var(--sand)}
+.top-actions{display:flex;align-items:center;gap:10px}
+.acct{position:relative}
+.acct-btn{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 14px 5px 5px;cursor:pointer;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:19px;font-weight:600;flex:none}
+.menu{position:absolute;right:0;top:calc(100% + 8px);min-width:240px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--shadow);padding:8px;display:grid;gap:2px;z-index:70}
+.menu-head{padding:10px 12px 12px;border-bottom:1px solid var(--line);margin-bottom:6px;display:grid;gap:2px}
+.menu-head b{font-size:14.5px}
+.menu-head span{font-size:12.5px;color:var(--muted);overflow-wrap:anywhere}
+.menu a,.menu button{display:block;text-align:left;width:100%;background:none;border:0;font:inherit;font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer;text-decoration:none;color:var(--ink)}
+.menu a:hover,.menu button:hover{background:var(--sand)}
+
+/* Barra inferior (celular e app) */
+.tabbar{display:none}
+@media (max-width:980px){
+  .nav{display:none}
+  .top .wrap{justify-content:space-between}
+  .top-actions .btn-wa-top{display:none}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(248,245,240,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+  .tabbar a{display:grid;justify-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:11px;font-weight:600;padding:6px 2px;border-radius:12px;min-height:48px;align-content:center}
+  .tabbar svg{width:23px;height:23px}
+  .tabbar a[aria-current="page"]{color:var(--terra)}
+  body{padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px))}
 }
 
-/* Hero */
-.hero{padding-block:56px 72px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:64px;align-items:center}
-.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid #E5CDBF;border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra)}
-.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--terra)}
-.hero h1{font-size:clamp(46px,6.4vw,84px);line-height:1;margin-top:28px;letter-spacing:-.02em}
-.hero h1 em{font-style:italic;color:var(--terra)}
-.lede{margin-top:26px;max-width:470px;color:var(--muted);font-size:17px}
-.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
-.hero-verse{margin-top:44px;max-width:440px;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.4;color:var(--muted)}
-.hero-verse .ref{display:block;margin-top:6px}
-.arch{position:relative;justify-self:end;width:min(100%,440px)}
-.arch::before{content:"";position:absolute;inset:-14px -14px 40px -14px;border:1.5px solid #E8D9CC;border-radius:999px 999px 0 0;z-index:0}
-.arch-img{position:relative;z-index:1;border-radius:999px 999px var(--r-lg) var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow)}
-.arch-img img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
-.float-quote{position:absolute;z-index:2;left:-40px;bottom:46px;max-width:220px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-md);padding:16px 18px;box-shadow:var(--shadow)}
-.float-quote p{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.35}
-.float-quote .ref{display:block;margin-top:8px}
-@media (max-width:880px){
-  .hero{padding-top:32px}
-  .hero-grid{grid-template-columns:1fr;gap:56px}
-  .arch{justify-self:center;width:min(86%,400px)}
-  .float-quote{left:-14px;bottom:24px;max-width:190px}
-}
-
-/* Faixa */
-.ticker{background:var(--night);color:var(--night-ink);overflow:hidden}
-.ticker-track{display:flex;width:max-content;animation:tick 44s linear infinite}
-.ticker span{font-family:var(--serif);font-style:italic;font-size:20px;padding:18px 0;white-space:nowrap;display:flex;align-items:center}
-.ticker span::after{content:"✦";font-style:normal;font-size:11px;color:var(--terra);margin-inline:30px}
-@keyframes tick{to{transform:translateX(-50%)}}
-
-section{padding-block:clamp(72px,10vw,120px)}
-.head{display:grid;gap:16px;max-width:620px;margin-bottom:48px}
-.head h2{font-size:clamp(36px,4.4vw,54px)}
-.head p{color:var(--muted);font-size:16.5px}
+/* Telas */
+.view{display:none;padding-block:clamp(20px,3vw,40px) clamp(28px,4vw,56px)}
+.view.on{display:block}
+.view-head{display:grid;gap:8px;max-width:760px;margin-bottom:clamp(16px,2.4vw,28px)}
+.view-head h2{font-size:clamp(32px,3.6vw,50px)}
+.view-head p{color:var(--muted);font-size:16.5px}
+.seg{display:flex;gap:4px;background:var(--sand);padding:4px;border-radius:999px;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none;margin-bottom:clamp(14px,2vw,22px)}
+.seg::-webkit-scrollbar{display:none}
+.seg button{border:0;background:none;font:inherit;font-size:14px;font-weight:600;padding:9px 18px;border-radius:999px;cursor:pointer;color:var(--muted);white-space:nowrap}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+[data-sub-panel]{display:none}
+[data-sub-panel].on{display:block}
 .photo{border-radius:var(--r-lg);overflow:hidden;background:var(--sand);box-shadow:var(--shadow)}
 .photo img{width:100%;height:100%;object-fit:cover}
 
-/* Boas-vindas */
-.welcome{padding-block:clamp(64px,8vw,104px) 0;text-align:center}
-.welcome-inner{display:grid;gap:22px;justify-items:center;max-width:900px}
-.welcome-text{font-family:var(--serif);font-size:clamp(28px,3.4vw,42px);line-height:1.25;text-wrap:balance}
-.welcome-text em{color:var(--terra)}
-.welcome-sub{color:var(--muted);font-size:16.5px;max-width:560px}
-.welcome-tags{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
-.welcome-tags li{font-size:13px;font-weight:500;padding:8px 14px;border:1px solid var(--line);background:var(--surface);border-radius:999px}
-.welcome .btn{margin-top:6px;text-align:left}
-
-/* O que aprendemos */
-.learn{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:72px;align-items:start}
+/* Início */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:7px 15px;border:1px solid #E5CDBF;border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--terra)}
+.hero h1{font-size:clamp(42px,5.6vw,82px);line-height:1;margin-top:22px;letter-spacing:-.02em}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.lede{margin-top:20px;max-width:520px;color:var(--muted);font-size:17px}
+.ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.hero-verse{margin-top:28px;max-width:460px;font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;color:var(--muted)}
+.hero-verse .ref{display:block;margin-top:4px}
+.arch{position:relative;justify-self:end;width:min(100%,380px)}
+.arch::before{content:"";position:absolute;inset:-12px -12px 36px -12px;border:1.5px solid #E8D9CC;border-radius:999px 999px 0 0}
+.arch-img{position:relative;border-radius:999px 999px var(--r-lg) var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow)}
+.arch-img img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.float-quote{position:absolute;left:-36px;bottom:40px;max-width:210px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:var(--r-md);padding:14px 16px;box-shadow:var(--shadow)}
+.float-quote p{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.3}
+.float-quote .ref{display:block;margin-top:6px}
+.mesa-band{margin-top:clamp(22px,3vw,40px);background:var(--sand);border-radius:var(--r-lg);padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3vw,48px);align-items:center}
+.mesa-band h2{font-size:clamp(26px,2.6vw,36px);margin:8px 0 10px}
+.mesa-band p{color:var(--muted);font-size:15.5px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.tags li{font-size:13px;font-weight:500;padding:7px 13px;border:1px solid var(--line);background:var(--surface);border-radius:999px}
+.learn{margin-top:clamp(24px,3.4vw,48px);display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(24px,4vw,64px);align-items:start}
 .learn .photo{aspect-ratio:4/5;position:sticky;top:100px}
 .learn .photo img{object-position:50% 20%}
-.lessons{border-top:1px solid var(--line)}
+.learn h2{font-size:clamp(28px,3vw,42px);margin:6px 0 4px}
+.lessons{border-top:1px solid var(--line);margin-top:16px}
 .lesson{border-bottom:1px solid var(--line)}
-.lesson summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 36px;gap:18px;align-items:start;padding:26px 0}
+.lesson summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:16px;align-items:start;padding:18px 0}
 .lesson summary::-webkit-details-marker{display:none}
-.lesson h3{font-size:clamp(26px,2.8vw,32px);line-height:1.15;transition:color .2s}
+.lesson h3{font-size:clamp(23px,2.2vw,29px);line-height:1.15;transition:color .2s}
 .lesson[open] h3,.lesson summary:hover h3{color:var(--terra)}
-.lesson-sub{display:block;color:var(--muted);font-size:15.5px;margin-top:8px}
-.lesson-x{width:36px;height:36px;border-radius:50%;border:1px solid #CFC5B9;display:grid;place-items:center;transition:all .25s ease;margin-top:4px}
-.lesson-x svg{width:13px;height:13px;transition:transform .25s ease}
+.lesson-sub{display:block;color:var(--muted);font-size:15px;margin-top:6px}
+.lesson-x{width:34px;height:34px;border-radius:50%;border:1px solid #CFC5B9;display:grid;place-items:center;transition:all .25s;margin-top:2px}
+.lesson-x svg{width:13px;height:13px;transition:transform .25s}
 .lesson[open] .lesson-x{background:var(--terra);border-color:var(--terra);color:#fff}
 .lesson[open] .lesson-x svg{transform:rotate(45deg)}
-.devo{display:grid;gap:16px;padding:0 0 32px}
-.devo-verse{background:var(--sand);border-radius:var(--r-md);padding:22px 24px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;margin:0}
-.devo-verse .ref{display:block;margin-top:12px}
-.devo p{font-size:15.5px;color:#3d3630;max-width:62ch}
-.devo-box{display:grid;gap:6px;padding:18px 20px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface)}
+.devo{display:grid;gap:14px;padding:0 0 26px}
+.devo-verse{background:var(--sand);border-radius:var(--r-md);padding:20px 22px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;margin:0}
+.devo-verse .ref{display:block;margin-top:10px}
+.devo p{font-size:15.5px;color:#3d3630;max-width:66ch}
+.devo-box{display:grid;gap:6px;padding:16px 18px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--surface)}
 .devo-box p{color:var(--muted)}
 .devo-pray{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;color:var(--ink)}
-@media (max-width:880px){
-  .learn{grid-template-columns:1fr;gap:40px}
-  .learn .photo{aspect-ratio:3/2;position:static}
-}
 
-/* Textos */
-.texts-sec{background:var(--surface)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
-.chip{font-family:var(--sans);font-size:13.5px;font-weight:500;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--muted);cursor:pointer;transition:all .2s}
-.chip:hover{color:var(--ink);border-color:#CFC5B9}
-.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
-.articles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
-.card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:32px;display:flex;flex-direction:column;gap:14px;transition:transform .25s ease, box-shadow .25s ease, border-color .25s}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:transparent}
-.card-meta{display:flex;justify-content:space-between;gap:12px}
-.card-meta .t{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
-.card h3{font-size:28px;line-height:1.15}
-.card p{color:var(--muted);font-size:15px}
-.card button{margin-top:auto;padding-top:10px;align-self:flex-start;background:none;border:0;font-family:var(--sans);font-weight:600;font-size:14px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.card button svg{width:15px;height:15px;transition:transform .2s}
-.card:hover button{color:var(--terra)}
-.card:hover button svg{transform:translateX(4px)}
-@media (max-width:760px){.articles{grid-template-columns:1fr}.card{padding:26px}}
-
-.devo-feature{background:var(--night);color:var(--night-ink);border-radius:28px;padding:clamp(28px,5vw,52px);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,.5fr);gap:40px;align-items:center;margin-bottom:56px}
-.df-main{display:grid;gap:16px;justify-items:start}
+/* 5 minutos */
+.devo-feature{background:var(--night);color:var(--night-ink);border-radius:26px;padding:clamp(24px,3.4vw,44px);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,.4fr);gap:32px;align-items:center}
+.df-main{display:grid;gap:14px;justify-items:start}
 .df-tags{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.badge{background:var(--terra);color:#fff;font-size:11px;font-weight:700;padding:5px 11px;border-radius:999px;letter-spacing:.08em;text-transform:uppercase}
+.badge{background:var(--terra);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.08em;text-transform:uppercase}
 .devo-feature .label{color:var(--terra-light)}
-.devo-feature h3{font-size:clamp(34px,4.4vw,52px)}
-.devo-feature p{color:var(--night-muted);max-width:52ch}
-.devo-feature .df-next{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-.df-side{border-left:1px solid rgba(255,255,255,.12);padding-left:32px;display:grid;gap:4px}
-.df-side b{font-family:var(--serif);font-weight:500;font-size:110px;line-height:.9;color:var(--terra-light)}
+.devo-feature h3{font-size:clamp(30px,3.8vw,48px)}
+.devo-feature p{color:var(--night-muted);max-width:56ch}
+.df-next{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.df-side{border-left:1px solid rgba(255,255,255,.12);padding-left:28px;display:grid;gap:2px}
+.df-side b{font-family:var(--serif);font-weight:500;font-size:96px;line-height:.9;color:var(--terra-light)}
 .df-side span{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--night-muted)}
-.devo-feature .df-side p{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.35;color:var(--night-ink);margin-top:10px}
-@media (max-width:760px){.devo-feature{grid-template-columns:1fr}.df-side{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.12);padding-top:24px}.df-side b{font-size:72px}}
-.reader .label + .verse{margin-top:-8px}
-.archive-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}
-.archive-head .filters{margin-bottom:0}
-.reader .devo-box p{color:var(--muted)}
-.reader .devo-pray{color:var(--ink);font-size:19px}
+.devo-cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(20px,3vw,36px);align-items:start}
+.cols-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
+.rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.row h3{font-size:24px;line-height:1.15;transition:color .2s}
+.row:hover h3{color:var(--terra)}
+.row .meta{display:flex;gap:12px;align-items:center;margin-bottom:4px}
+.row .t{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
+.row .go{width:38px;height:38px;border-radius:50%;border:1px solid #CFC5B9;display:grid;place-items:center;background:none;color:var(--ink);cursor:pointer}
+.row .go svg{width:15px;height:15px}
+.news-card{background:var(--sand);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,30px);display:grid;gap:12px}
+.news-card h3{font-size:clamp(26px,2.4vw,32px)}
+.news-card h3 em{font-style:italic;color:var(--terra)}
+.news-card > p{color:var(--muted);font-size:15px}
+.news-done{display:grid;gap:12px;justify-items:start}
+.news-done h3{font-size:28px}
 
-dialog{border:0;padding:0;width:min(680px,calc(100vw - 32px));max-height:calc(100dvh - 48px);background:var(--bg);color:var(--ink);border-radius:var(--r-lg);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
+/* Leitura (janela) */
+dialog{border:0;padding:0;width:min(680px,calc(100vw - 24px));max-height:calc(100dvh - 40px);background:var(--bg);color:var(--ink);border-radius:var(--r-lg);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
 dialog::backdrop{background:rgba(31,28,25,.55);backdrop-filter:blur(4px)}
-.reader-top{position:sticky;top:0;display:flex;justify-content:flex-end;padding:16px 16px 0;background:var(--bg)}
-.reader-top button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center}
-.reader-top svg{width:14px;height:14px}
-.reader{padding:4px clamp(24px,6vw,52px) clamp(28px,6vw,48px);display:grid;gap:18px}
-.reader h3{font-size:clamp(32px,4vw,42px)}
+.reader-top{position:sticky;top:0;display:flex;justify-content:flex-end;padding:14px 14px 0;background:var(--bg)}
+.icon-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;display:grid;place-items:center;padding:0}
+.icon-btn svg{width:14px;height:14px}
+.reader{padding:4px clamp(22px,5vw,48px) clamp(24px,5vw,40px);display:grid;gap:16px}
+.reader h3{font-size:clamp(30px,4vw,40px)}
 .reader p{color:#3d3630;font-size:16.5px}
-.reader .verse{background:var(--sand);border-radius:var(--r-md);padding:20px 22px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:var(--ink)}
+.reader .verse{background:var(--sand);border-radius:var(--r-md);padding:18px 20px;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:var(--ink)}
 .reader .verse .ref{display:block;margin-top:10px}
-.reader-foot{border-top:1px solid var(--line);padding-top:22px;margin-top:6px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
-.sig{font-family:var(--serif);font-style:italic;font-size:22px}
+.reader .devo-pray{font-size:19px}
+.reader-foot{border-top:1px solid var(--line);padding-top:18px;margin-top:4px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.reader-foot .sig{font-family:var(--serif);font-style:italic;font-size:22px;margin-right:auto}
+.ios-steps{margin:0;padding-left:1.2em;display:grid;gap:10px;font-size:16px}
 
-/* Puxe uma cadeira */
-.chairs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
-.chair{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:32px 28px;display:flex;flex-direction:column;gap:12px}
-.chair .ic{width:50px;height:50px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;margin-bottom:6px}
-.chair .ic svg{width:22px;height:22px}
-.chair h3{font-size:32px}
-.chair .tagline{font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.35;color:var(--terra)}
-.chair .desc{color:var(--muted);font-size:15px;margin-bottom:12px}
-.chair > *{max-width:100%;overflow-wrap:break-word}
-.chair .btn{margin-top:auto;align-self:flex-start}
-.chair.featured{background:var(--night);border-color:var(--night);color:var(--night-ink)}
-.chair.featured .ic{background:rgba(217,132,95,.16);color:var(--terra-light)}
-.chair.featured .desc{color:var(--night-muted)}
-.chair.featured .tagline{color:var(--terra-light)}
-@media (max-width:980px){.chairs{grid-template-columns:1fr}}
-
-/* Agendar */
-.book-sec{background:var(--surface)}
-.book-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
-.book-info{display:grid;gap:22px;position:sticky;top:96px}
-.book-info h2{font-size:clamp(36px,4.4vw,54px)}
-.book-info > p{color:var(--muted);font-size:16.5px}
-.book-facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.book-facts li{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:14px;display:grid;gap:4px;align-content:start}
-.book-facts b{font-family:var(--serif);font-size:21px;font-weight:500;line-height:1.1}
-.book-facts span{font-size:12.5px;color:var(--muted);line-height:1.4}
-.book-steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:14px}
-.book-steps li{counter-increment:s;display:grid;grid-template-columns:32px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;color:var(--muted)}
-.book-steps li::before{content:counter(s);width:32px;height:32px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:17px;font-weight:600}
-.book-steps li > span{padding-top:4px}
-.book-steps b{color:var(--ink);font-weight:600}
-.book-sec .form-card{border:1px solid var(--line)}
+/* Formulários */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,30px)}
+.form{display:grid;gap:14px}
+.field{display:grid;gap:7px;min-width:0}
 fieldset{border:0;margin:0;padding:0;min-width:0}
-.legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);padding:0;margin-bottom:8px}
-label .hint-sm,.legend .hint-sm{font-family:var(--sans);letter-spacing:0;text-transform:none}
+label,.legend{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0}
+.legend{margin-bottom:7px;display:block}
+.hint{font-family:var(--sans);letter-spacing:0;text-transform:none;font-size:12.5px;color:var(--muted)}
+input,select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:11px 14px;width:100%;transition:border-color .2s,box-shadow .2s,background .2s}
+input::placeholder,textarea::placeholder{color:#A99F94}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-soft)}
+textarea{min-height:96px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.status{font-size:13.5px;color:var(--muted);min-height:1.1em}
+.status.ok{color:var(--ok)}
+.status.err{color:var(--err)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .opts{display:flex;flex-wrap:wrap;gap:8px}
 .opt{position:relative;cursor:pointer;font-family:var(--sans);letter-spacing:0;text-transform:none;color:var(--ink)}
 .opt input{position:absolute;opacity:0;width:1px;height:1px}
-.opt span{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:13.5px;font-weight:500;line-height:1.25;transition:background .15s,border-color .15s,color .15s}
+.opt span{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:13.5px;font-weight:500;line-height:1.25;transition:background .15s,border-color .15s,color .15s}
 .opt:hover span{border-color:#CFC5B9}
 .opt input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .opt input:focus-visible + span{outline:2px solid var(--terra);outline-offset:2px}
 .opt input:disabled + span{opacity:.4;text-decoration:line-through;cursor:not-allowed}
-.days,.times{display:grid;gap:8px}
-.days{grid-template-columns:repeat(5,minmax(0,1fr))}
-.times{grid-template-columns:repeat(4,minmax(0,1fr))}
+.chip{font-family:var(--sans);font-size:13.5px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;transition:all .2s}
+.chip:hover{color:var(--ink);border-color:#CFC5B9}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+
+/* Café na mesa */
+.cafe-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(24px,4vw,64px);align-items:start}
+.cafe-info{display:grid;gap:16px;position:sticky;top:96px}
+.cafe-info h2{font-size:clamp(34px,4vw,54px)}
+.cafe-info > p{color:var(--muted);font-size:16.5px}
+.cafe-info .story{border-left:2px solid var(--terra);padding:2px 0 2px 18px;font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.4;color:var(--ink)}
+.facts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.facts li{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;display:grid;gap:3px;align-content:start}
+.facts b{font-family:var(--serif);font-size:21px;font-weight:500;line-height:1.1}
+.facts span{font-size:12.5px;color:var(--muted);line-height:1.35}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:10px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;font-size:15px;color:var(--muted)}
+.steps li::before{content:counter(s);width:30px;height:30px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:16px;font-weight:600}
+.steps li > span{padding-top:3px}
+.steps b{color:var(--ink);font-weight:600}
+.gate{display:grid;gap:14px;justify-items:start}
+.gate h3{font-size:clamp(26px,2.6vw,34px)}
+.gate p{color:var(--muted);font-size:15.5px;max-width:52ch}
+.gate .alt{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.days{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.times{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
 .days .opt,.times .opt{display:block}
-.days .opt span,.times .opt span{width:100%;border-radius:12px;padding:10px 4px;font-variant-numeric:tabular-nums}
+.days .opt span,.times .opt span{width:100%;border-radius:12px;padding:8px 4px;font-variant-numeric:tabular-nums}
 .days .opt small{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
 .days .opt b{font-weight:600;font-size:15px}
-.times .hint-sm,.days .hint-sm{grid-column:1 / -1}
-.hint-sm{font-size:12.5px;color:var(--muted)}
-.book-done{display:grid;gap:16px;justify-items:start}
-.book-done h3{font-size:32px}
-.book-done p{color:var(--muted);font-size:15px}
-.book-summary{list-style:none;margin:0;padding:16px 18px;display:grid;gap:6px;font-size:15px;background:var(--bg);border-radius:var(--r-md);width:100%}
-.book-summary b{font-weight:600}
-.book-summary a{color:var(--terra);font-weight:600;overflow-wrap:anywhere}
-@media (max-width:880px){.book-grid{grid-template-columns:1fr;gap:40px}.book-info{position:static}}
-@media (max-width:480px){.days{grid-template-columns:repeat(3,minmax(0,1fr))}.book-facts{grid-template-columns:1fr}}
+.days .hint,.times .hint{grid-column:1/-1}
+.book-done{display:grid;gap:14px;justify-items:start}
+.book-done h3{font-size:30px}
+.summary{list-style:none;margin:0;padding:14px 16px;display:grid;gap:5px;font-size:15px;background:var(--bg);border-radius:var(--r-md);width:100%}
+.mine{display:grid;gap:10px}
+.booking{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px}
+.booking b{font-weight:600}
+.booking small{display:block;color:var(--muted);font-size:13px}
+.booking.off{opacity:.6}
+.pill-s{display:inline-block;font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--terra-soft);color:var(--terra);letter-spacing:.04em;text-transform:uppercase}
+.pill-s.cancel{background:#eee;color:var(--muted)}
+.confirm{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
-/* Levante a mão */
-.talk{background:var(--sand)}
-.mesa-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:48px;align-items:start}
-.mesa-side{display:grid;gap:22px;position:sticky;top:96px}
-.form-card{background:var(--surface);border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow);display:grid;gap:18px}
-.form-card .btn{width:100%;padding-block:15px}
-.field{display:grid;gap:8px}
-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-input,select,textarea{font:inherit;font-size:15px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:13px 15px;width:100%;transition:border-color .2s, box-shadow .2s, background .2s}
-input::placeholder,textarea::placeholder{color:#A99F94}
-input:focus,select:focus,textarea:focus{outline:none;border-color:var(--terra);background:var(--surface);box-shadow:0 0 0 4px var(--terra-soft)}
-textarea{min-height:120px;resize:vertical}
-.form-status{font-size:13.5px;text-align:center;color:var(--muted);min-height:1.2em}
-.form-status.ok{color:#2F7A4B}
-.form-status.err{color:#B3261E}
-.rules{display:grid;gap:12px;padding-inline:4px}
-.rules ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px;color:var(--muted)}
-.rules li{display:flex;gap:10px}
-.rules li::before{content:"✦";color:var(--terra);font-size:10px;padding-top:5px}
-.closed-card{background:var(--surface);border-radius:var(--r-lg);padding:32px;box-shadow:var(--shadow);display:grid;gap:14px}
-.closed-card h3{font-size:26px}
-.closed-card p{color:var(--muted);font-size:15px}
-.closed-card .btn{justify-self:start}
-.mesa-feed{display:grid;gap:16px;align-content:start;min-width:0}
-.mesa-feed .filters{margin-bottom:0}
-.hands{list-style:none;margin:0;padding:0;display:grid;gap:12px}
-.hand-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:20px 22px;display:grid;gap:12px}
-.hc-head{display:flex;align-items:center;gap:12px}
-.avatar{width:40px;height:40px;flex:none;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:20px;font-weight:600}
-.hc-who{display:grid;line-height:1.3;min-width:0;flex:1}
-.hc-who b{font-weight:600;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.hc-who time,.bubble-top time{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted)}
-.topic{flex:none;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:999px;background:var(--terra-soft);color:var(--terra)}
-.hc-text{font-size:15.5px;color:#3d3630;white-space:pre-wrap;overflow-wrap:anywhere}
-.hc-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;border-top:1px solid var(--line)}
-.hc-toggle{background:none;border:0;padding:0;font:inherit;font-weight:600;font-size:13.5px;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
-.hc-toggle::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--terra)}
-.hc-toggle:hover{color:var(--terra)}
-.hc-report{font-size:12px;color:var(--muted);text-decoration:none}
-.hc-report:hover{text-decoration:underline}
-.hc-replies{display:grid;gap:10px;padding-left:16px;margin-left:19px;border-left:2px solid var(--line)}
-.bubble{background:var(--bg);border-radius:4px 14px 14px 14px;padding:10px 14px;display:grid;gap:2px}
-.bubble-top{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
-.bubble-top b{font-size:13.5px;font-weight:600}
-.bubble p{font-size:14.5px;color:#3d3630;white-space:pre-wrap;overflow-wrap:anywhere}
-.reply-form{display:grid;gap:8px;margin-top:4px}
-.reply-form input{padding:10px 13px;font-size:14px}
-.reply-form > input{max-width:240px}
-.reply-row{display:flex;gap:8px}
-.reply-row input{flex:1;min-width:0}
-.reply-row .btn{padding:0;width:44px;height:44px;flex:none}
-.reply-form .form-status{text-align:left}
-.reply-form .form-status:empty{display:none}
-.empty{background:var(--surface);border:1px dashed #D8CDC0;border-radius:var(--r-lg);padding:40px 32px;text-align:center;display:grid;gap:12px;justify-items:center}
-.empty .ic{width:48px;height:48px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center}
-.empty .ic svg{width:20px;height:20px}
-.empty h3{font-size:26px}
-.empty p{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--muted);max-width:320px}
-@media (max-width:880px){.mesa-grid{grid-template-columns:1fr;gap:36px}.mesa-side{position:static}.hc-replies{margin-left:0}}
-@media (max-width:560px){.form-card{padding:24px}}
-
-/* Indicações: recados sobre a mesa de madeira */
-.fridge{background:repeating-linear-gradient(90deg,rgba(120,80,40,.05) 0 1px,transparent 1px 7px,rgba(120,80,40,.03) 7px 9px,transparent 9px 83px),linear-gradient(180deg,#E8D8C3,#DFCCB4);border-radius:28px;padding:clamp(22px,4vw,40px);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(90,60,30,.08)}
-.fridge .filters{margin-bottom:28px}
+/* Comunidade */
+.chat{display:grid;grid-template-columns:230px minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);height:min(calc(100dvh - 250px),680px);min-height:420px;overflow:hidden}
+.rooms{border-right:1px solid var(--line);overflow-y:auto;padding:10px;display:grid;gap:4px;align-content:start}
+.room{display:block;width:100%;text-align:left;border:0;background:none;font:inherit;font-size:14px;font-weight:600;padding:11px 12px;border-radius:12px;cursor:pointer;color:var(--ink)}
+.room:hover{background:var(--sand)}
+.room[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.room small{display:block;font-weight:400;font-size:12px;opacity:.7}
+.chat-main{display:grid;grid-template-rows:auto minmax(0,1fr) auto;min-width:0;min-height:0}
+.chat-head{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}
+.chat-head b{font-family:var(--serif);font-size:23px;font-weight:500}
+.msgs{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;background:var(--bg)}
+.msg{display:flex;gap:10px;max-width:min(560px,86%);align-items:flex-end}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.bubble{background:var(--surface);border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:9px 13px;min-width:0}
+.msg.me .bubble{background:var(--terra-soft);border-color:#EBCFC1;border-radius:16px 4px 16px 16px}
+.bubble.mao{border-color:var(--terra);box-shadow:0 0 0 2px var(--terra-soft)}
+.bubble-top{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.bubble-top b{font-size:13.5px}
+.bubble-top time{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.bubble p{font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble .tag-mao{font-size:12px;font-weight:700;color:var(--terra)}
+.bubble-act{display:flex;gap:10px;margin-top:2px}
+.bubble-act button,.bubble-act a{background:none;border:0;padding:0;font:inherit;font-size:12px;color:var(--muted);cursor:pointer;text-decoration:underline}
+.composer{border-top:1px solid var(--line);padding:10px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:8px;align-items:center;background:var(--surface)}
+.composer input{border-radius:999px;padding:11px 16px}
+.hand-btn{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);cursor:pointer;display:grid;place-items:center;color:var(--muted)}
+.hand-btn svg{width:20px;height:20px}
+.hand-btn[aria-pressed="true"]{background:var(--terra);border-color:var(--terra);color:#fff}
+.rules-note{font-size:12.5px;color:var(--muted);padding:8px 16px;background:var(--sand);display:flex;gap:10px;justify-content:space-between;align-items:center}
+.empty{text-align:center;color:var(--muted);padding:40px 20px;display:grid;gap:8px;justify-items:center;margin:auto}
+.empty h3{font-size:26px;color:var(--ink)}
+.empty p{font-family:var(--serif);font-style:italic;font-size:18px;max-width:34ch}
+.cmt-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,3vw,44px);align-items:start}
+.cmt-list{display:grid;gap:10px;max-height:min(calc(100dvh - 260px),640px);overflow-y:auto;padding-right:4px;align-content:start}
+.cmt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:grid;gap:6px}
+.cmt-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cmt-top b{font-size:14.5px}
+.cmt-top time{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.cmt .about{font-size:11.5px;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--terra-soft);color:var(--terra)}
+.cmt p{font-size:15px;white-space:pre-wrap;overflow-wrap:anywhere}
+.fridge{background:repeating-linear-gradient(90deg,rgba(120,80,40,.05) 0 1px,transparent 1px 7px,rgba(120,80,40,.03) 7px 9px,transparent 9px 83px),linear-gradient(180deg,#E8D8C3,#DFCCB4);border-radius:26px;padding:clamp(18px,3vw,32px)}
+.fridge .filters{margin-bottom:22px}
 .fridge .chip{background:rgba(255,255,255,.75);border-color:rgba(255,255,255,.4)}
-.fridge .chip[aria-pressed="true"]{background:var(--ink)}
-.notes{list-style:none;margin:0;padding:12px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px 22px}
-.note{position:relative;background:var(--surface);border-radius:6px;padding:30px 24px 24px;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 1px rgba(0,0,0,.04),0 14px 28px -18px rgba(60,40,25,.45);transform:rotate(-1.2deg);transition:transform .25s ease}
-.note:nth-child(3n+2){transform:rotate(.9deg)}
+.fridge .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.notes{list-style:none;margin:0;padding:10px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px 20px}
+.note{position:relative;background:var(--surface);border-radius:6px;padding:28px 22px 22px;display:flex;flex-direction:column;gap:9px;box-shadow:0 1px 1px rgba(0,0,0,.04),0 14px 28px -18px rgba(60,40,25,.45);transform:rotate(-1deg);transition:transform .25s}
+.note:nth-child(3n+2){transform:rotate(.8deg)}
 .note:nth-child(3n){transform:rotate(-.4deg)}
 .note:hover{transform:rotate(0) translateY(-3px)}
-.tape{position:absolute;top:-10px;left:50%;width:78px;height:22px;margin-left:-39px;background:var(--m);opacity:.6;transform:rotate(-3deg);border-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,.12)}
-.note:nth-child(even) .tape{transform:rotate(4deg)}
+.tape{position:absolute;top:-10px;left:50%;width:78px;height:22px;margin-left:-39px;background:var(--m);opacity:.6;transform:rotate(-3deg);border-radius:2px}
 .note-top{display:flex;justify-content:space-between;gap:10px;align-items:center}
 .ex{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:999px;background:var(--sand);color:var(--muted)}
-.note h3{font-size:26px;line-height:1.15}
-.note-what{font-size:14px;font-weight:600;color:var(--ink)}
-.note-why{display:grid;gap:4px;padding:12px 0;border-block:1px dashed var(--line)}
+.note h3{font-size:25px;line-height:1.15}
+.note-what{font-size:14px;font-weight:600}
+.note-why{display:grid;gap:4px;padding:10px 0;border-block:1px dashed var(--line)}
 .note-small{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 .note-why p{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.35}
 .note-meta{font-size:13px;color:var(--muted)}
 .note-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:6px}
-.note-acts .btn{padding:9px 14px;font-size:13px}
-.fridge-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 24px;margin-top:28px}
-.fridge-foot p{max-width:56ch;color:var(--muted);font-size:15px}
-.fridge-foot b{color:var(--ink);font-weight:600}
-.fridge-note{margin-top:18px;font-size:12.5px;color:var(--muted)}
-@media (max-width:900px){.notes{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:600px){.notes{grid-template-columns:1fr}.note,.note:nth-child(3n+2),.note:nth-child(3n){transform:none}}
+.fridge-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;margin-top:20px}
+.fridge-foot p{max-width:60ch;color:var(--muted);font-size:15px}
+.fridge-note{margin-top:12px;font-size:12.5px;color:var(--muted)}
 
 /* Sobre */
-.about{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:72px;align-items:center}
-.about-text{display:grid;gap:20px}
-.about-text h2{font-size:clamp(38px,4.4vw,56px)}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:start}
+.about-text{display:grid;gap:16px}
+.about-text h2{font-size:clamp(36px,4.2vw,58px)}
 .about-text > p{color:var(--muted);font-size:16.5px}
-.blockq{border-left:2px solid var(--terra);padding:6px 0 6px 22px;font-family:var(--serif);font-style:italic;font-size:23px;line-height:1.4}
-.about-text > p.blockq{color:var(--ink)}
-.stats{display:flex;flex-wrap:wrap;gap:36px;padding-top:8px}
+.blockq{border-left:2px solid var(--terra);padding:4px 0 4px 20px;font-family:var(--serif);font-style:italic;font-size:23px;line-height:1.4;color:var(--ink)}
+.stats{display:flex;flex-wrap:wrap;gap:32px}
 .stat{display:grid;gap:2px}
-.stat b{font-family:var(--serif);font-weight:500;font-size:46px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
+.stat b{font-family:var(--serif);font-weight:500;font-size:44px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
 .stat span{font-size:13px;color:var(--muted)}
-.about-text > p.creds{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
-.about .photo{aspect-ratio:4/5}
-.about .photo img{object-position:50% 30%}
-@media (max-width:880px){.about{grid-template-columns:1fr;gap:40px}.about .photo{aspect-ratio:3/2;order:-1}}
-
-/* Conversa final */
-.final{padding-top:0}
-.final-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:stretch}
-.talk-card{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:clamp(28px,5vw,48px);display:grid;gap:18px;align-content:start}
-.talk-card h2{font-size:clamp(34px,4vw,48px)}
-.talk-card > p{color:var(--muted)}
+.creds{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.about-side{display:grid;gap:16px}
+.about-side .photo{aspect-ratio:3/2}
+.about-side .photo img{object-position:50% 30%}
+.contact{background:var(--night);color:var(--night-ink);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,30px);display:grid;gap:12px}
+.contact .label{color:var(--terra-light)}
+.contact h3{font-size:clamp(28px,2.6vw,36px)}
+.contact p{color:var(--night-muted);font-size:15px}
 .wa-num{font-family:var(--serif);font-size:30px;font-variant-numeric:lining-nums;user-select:all}
-.talk-links{display:flex;flex-wrap:wrap;gap:10px}
-.news-card{background:var(--night);color:var(--night-ink);border-radius:28px;padding:clamp(28px,5vw,48px);display:grid;gap:18px;align-content:start;position:relative;overflow:hidden}
-.news-card::after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;border:1.5px solid rgba(217,132,95,.22);right:-150px;top:-180px;pointer-events:none}
-.news-card h2{font-size:clamp(32px,3.6vw,44px)}
-.news-card h2 em{font-style:italic;color:var(--terra-light)}
-.news-card .label{color:var(--terra-light)}
-.news-card > p{color:var(--night-muted)}
-.news-form{display:grid;gap:12px;position:relative;z-index:1}
-.news-form label{color:var(--night-muted)}
-.news-form input{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:var(--night-ink)}
-.news-form input::placeholder{color:#8A8178}
-.news-form input:focus{background:rgba(255,255,255,.1);border-color:var(--terra-light);box-shadow:0 0 0 4px rgba(217,132,95,.18)}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.consent{display:flex;gap:10px;align-items:flex-start;font-family:var(--sans);font-size:13px;letter-spacing:0;text-transform:none;color:var(--night-muted);cursor:pointer}
-.consent input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--terra-light);padding:0}
-.news-form .btn{width:100%;padding-block:15px}
-.news-form .form-status{color:var(--night-muted)}
-.news-form .form-status.ok{color:#7FD3A0}
-.news-form .form-status.err{color:#F2A08F}
-.news-done{display:grid;gap:14px;justify-items:start;position:relative;z-index:1}
-.news-done h3{font-size:30px}
-.news-done p{color:var(--night-muted);font-size:15px}
-@media (max-width:880px){.final-grid{grid-template-columns:1fr}}
-@media (max-width:480px){.row2{grid-template-columns:1fr}}
+.contact .row-btns{display:flex;flex-wrap:wrap;gap:10px}
+.contact .btn-ghost{border-color:rgba(255,255,255,.3);color:var(--night-ink)}
+.contact .btn-ghost:hover{background:rgba(255,255,255,.08);border-color:var(--night-ink)}
+.app-band{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;background:var(--sand);border-radius:var(--r-lg);padding:18px 22px}
+.app-icon{width:64px;height:64px;border-radius:16px;box-shadow:var(--shadow)}
+.app-band h3{font-size:24px}
+.app-band p{color:var(--muted);font-size:14px}
 
-/* Instalar o app */
-.app-sec{padding-block:0 clamp(72px,10vw,120px)}
-.app-band{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:28px;align-items:center;background:var(--sand);border-radius:28px;padding:clamp(24px,4vw,40px)}
-.app-icon{width:96px;height:96px;border-radius:22px;box-shadow:var(--shadow)}
-.app-copy{display:grid;gap:8px}
-.app-copy h2{font-size:clamp(28px,3.2vw,40px)}
-.app-copy p{color:var(--muted);max-width:56ch}
-.ios-steps{margin:0;padding-left:1.2em;display:grid;gap:10px;font-size:16px}
-.ios-steps b{font-weight:600}
-@media (max-width:760px){.app-band{grid-template-columns:1fr;justify-items:start}.app-icon{width:72px;height:72px;border-radius:18px}}
+/* Painel */
+.panel-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(18px,3vw,40px);align-items:start}
+.agenda{display:grid;gap:8px}
+.dayrow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:9px 12px}
+.dayrow b{font-size:14px}
+.dayrow small{display:block;color:var(--muted);font-size:11.5px}
+.slots{display:flex;flex-wrap:wrap;gap:6px}
+.slot{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:6px 10px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;font-variant-numeric:tabular-nums;color:var(--ink)}
+.slot.free:hover{border-color:var(--terra)}
+.slot.blocked{background:#eee;color:var(--muted);text-decoration:line-through}
+.slot.booked{background:var(--terra);border-color:var(--terra);color:#fff}
+.legend-row{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:10px}
+.legend-row i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+.table td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;overflow-wrap:anywhere}
+.scroll-x{overflow-x:auto}
+.weekgrid{display:grid;gap:8px}
+.weekrow{display:grid;grid-template-columns:70px minmax(0,1fr);gap:10px;align-items:center}
+.weekrow .slots{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px}
+.slot.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.mod-list{display:grid;gap:8px}
+.mod-item{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:10px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.mod-item.off{opacity:.55}
+.mod-item p{font-size:14px;overflow-wrap:anywhere}
+.mod-item small{color:var(--muted)}
 
-/* Rodapé */
-footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;margin-top:clamp(72px,10vw,120px)}
-.foot-big{font-family:var(--serif);font-size:clamp(38px,5vw,60px);font-weight:500;line-height:1.05;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.1)}
-.foot-big em{color:var(--terra-light)}
-.foot-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;padding-block:36px;align-items:center}
-.foot-row .logo{color:var(--night-ink)}
-.foot-row .logo-mark{background:var(--night-ink);color:var(--night)}
-.foot-nav{display:flex;flex-wrap:wrap;gap:12px 28px;font-size:14px}
-.foot-nav a{text-decoration:none;color:var(--night-muted);transition:color .2s}
-.foot-nav a:hover{color:var(--night-ink)}
-.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--night-muted)}
-
-/* WhatsApp flutuante */
-.wa-float{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .2s}
+/* Rodapé, WhatsApp e avisos */
+.foot{padding-block:14px 22px;border-top:1px solid var(--line);margin-top:auto}
+.foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.wa-float{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .2s}
 .wa-float:hover{transform:scale(1.06)}
 .wa-float svg{width:28px;height:28px}
-.wa-float .tip{position:absolute;right:70px;white-space:nowrap;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;transform:translateX(6px);transition:all .2s;pointer-events:none}
+.wa-float .tip{position:absolute;right:68px;white-space:nowrap;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;transform:translateX(6px);transition:all .2s;pointer-events:none}
 .wa-float:hover .tip,.wa-float:focus-visible .tip{opacity:1;transform:none}
+@media (max-width:980px){.wa-float{bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));width:52px;height:52px}}
+.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:80;max-width:calc(100vw - 32px)}
+.page{display:flex;flex-direction:column;min-height:calc(100dvh - 76px)}
 
+/* Responsivo */
+@media (max-width:980px){
+  .hero-grid,.mesa-band,.learn,.devo-cols,.cafe-grid,.cmt-grid,.about-grid,.panel-grid{grid-template-columns:1fr}
+  .arch{justify-self:center;width:min(78%,340px)}
+  .float-quote{left:-8px}
+  .learn .photo{position:static;aspect-ratio:3/2}
+  .cafe-info{position:static}
+  .devo-feature{grid-template-columns:1fr}
+  .df-side{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+  .df-side b{font-size:64px}
+  .notes{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chat{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);height:calc(100dvh - 270px)}
+  .rooms{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow-x:auto;overflow-y:hidden;padding:8px;scrollbar-width:none}
+  .room{width:auto;white-space:nowrap}
+  .room small{display:none}
+  .cmt-list{max-height:none;overflow:visible}
+  .top .logo{font-size:20px}
+}
+@media (max-width:600px){
+  .row2{grid-template-columns:1fr}
+  .hero-verse,.df-side{display:none}
+  .hero h1{margin-top:16px}
+  .lede{font-size:16px;margin-top:14px}
+  .ctas{margin-top:18px}
+  .arch{width:min(66%,270px)}
+  .learn .photo{aspect-ratio:16/9}
+  .facts{gap:8px}
+  .facts li{padding:10px}
+  .facts b{font-size:17px}
+  .facts span{font-size:11.5px}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .stat b{font-size:36px}
+  .seg button{padding:9px 14px}
+  .view-head h2{font-size:32px}
+  .days{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .notes{grid-template-columns:1fr}
+  .note,.note:nth-child(3n+2),.note:nth-child(3n){transform:none}
+  .dayrow{grid-template-columns:1fr}
+  .app-band{grid-template-columns:auto 1fr}
+  .app-band .btn{grid-column:1/-1}
+  .booking{grid-template-columns:1fr}
+  .mesa-band .tags{margin-top:4px}
+  .acct-btn .nm{display:none}
+  .acct-btn{padding:5px}
+}
 @media (prefers-reduced-motion:no-preference){
-  .in{animation:in .9s cubic-bezier(.2,.7,.2,1) both}
-  .d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}
-  @keyframes in{from{transform:translateY(16px)}to{transform:none}}
+  .in{animation:in .7s cubic-bezier(.2,.7,.2,1) both}
+  @keyframes in{from{transform:translateY(12px);opacity:.01}to{transform:none;opacity:1}}
 }
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
-  .ticker-track{animation:none}
-  *{transition:none!important}
-}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
 </style>
 </head>
 <body>
-
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11.4 .7v2.3M10.25 1.85h2.3"/>
+ <path d="M7.6 4.3h7.6v2.7a3 3 0 0 1-3 3H10.6a3 3 0 0 1-3-3V4.3Z"/>
+ <path d="M15.2 5.1h.7a1.35 1.35 0 0 1 0 2.7h-.7"/>
+ <path d="M3.8 10.9h16.4l-.4 3c-.4 2.6-2 4.4-4.1 5.4-.9.4-1.5 1.2-1.7 2.2H10c-.2-1-.8-1.8-1.7-2.2-2.1-1-3.7-2.8-4.1-5.4l-.4-3Z"/>
+ <path d="M3.8 10.9H2.2a.8.8 0 0 0-.8.8v1.8a.8.8 0 0 0 .8.8h1.9M20.2 10.9h1.6a.8.8 0 0 1 .8.8v1.8a.8.8 0 0 1-.8.8h-1.9"/>
+ <path d="M12 14.4v2.6" stroke-width="1.2"/></g></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></symbol>
   <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></symbol>
   <symbol id="i-cup" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h13v4a6 6 0 0 1-6 6h-1a6 6 0 0 1-6-6v-4Z"/><path d="M17 11h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M10.5 3v4M8 5h5"/></g></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C10.5 5 8 4.5 4 4.5v14c4 0 6.5.5 8 2m0-14c1.5-1.5 4-2 8-2v14c-4 0-6.5.5-8 2m0-14v14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
-  <symbol id="i-pen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></g></symbol>
-  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></g></symbol>
+  <symbol id="i-google" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></symbol>
 </svg>
 
 <header class="top" id="top">
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="Café, Graça &amp; Fralda, início">
-      <span class="logo-mark"><svg><use href="#i-cup"/></svg></span>
+      <span class="logo-mark"><svg><use href="#logo"/></svg></span>
       <span>Café, Graça <i>&amp;</i> Fralda</span>
     </a>
-    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#devocional">5 minutos</a>
-      <a href="#cadeira">Puxe uma cadeira</a>
-      <a href="#agendar">Agendar</a>
-      <a href="#mesa">Levante a mão</a>
-      <a href="#indicacoes">Indicações</a>
-      <a href="#sobre">Sobre</a>
-      <a class="btn btn-terra" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Fale comigo</a>
+      <a href="#inicio" data-tab="inicio">Início</a>
+      <a href="#devocional" data-tab="devocional">5 minutos</a>
+      <a href="#cafe" data-tab="cafe">Café na mesa</a>
+      <a href="#comunidade" data-tab="comunidade">Comunidade</a>
+      <a href="#sobre" data-tab="sobre">Sobre</a>
     </nav>
+    <div class="top-actions">
+      <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <div class="acct">
+        <button class="btn btn-google btn-sm" type="button" id="loginBtn" data-auth="out"><svg><use href="#i-google"/></svg>Entrar</button>
+        <button class="acct-btn" type="button" id="acctBtn" data-auth="in" aria-haspopup="true" aria-expanded="false" hidden>
+          <span class="avatar" id="acctAvatar">A</span><span class="nm" id="acctName">Conta</span>
+        </button>
+        <div class="menu" id="acctMenu" hidden>
+          <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
+          <a href="#cafe/meus">Meus horários</a>
+          <a href="#painel" id="menuPainel" hidden>Painel do Denny</a>
+          <button type="button" id="menuOut">Sair</button>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<main id="inicio">
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div>
-        <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
-        <h1 class="in d1">Família de verdade.<br><em>Fé de verdade.</em></h1>
-        <p class="lede in d2">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
-        <div class="ctas in d3">
-          <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
-          <a class="btn btn-ghost" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Falar com o Denny</a>
+<nav class="tabbar" id="tabbar" aria-label="Navegação do aplicativo">
+  <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg>Início</a>
+  <a href="#devocional" data-tab="devocional"><svg><use href="#i-book"/></svg>5 minutos</a>
+  <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg>Café</a>
+  <a href="#comunidade" data-tab="comunidade"><svg><use href="#i-chat"/></svg>Comunidade</a>
+  <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg>Sobre</a>
+</nav>
+
+<main class="page" id="main">
+
+  <!-- INÍCIO -->
+  <section class="view" id="v-inicio" data-view="inicio">
+    <div class="wrap">
+      <div class="hero hero-grid">
+        <div>
+          <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
+          <h1 class="in">Família de verdade.<br><em>Fé de verdade.</em></h1>
+          <p class="lede in">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
+          <div class="ctas in">
+            <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
+            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+          </div>
+          <p class="hero-verse in">“Se o Senhor não edificar a casa, em vão trabalham os que a edificam.”<span class="ref">Salmos 127:1</span></p>
         </div>
-        <p class="hero-verse in d4">“Se o Senhor não edificar a casa, em vão trabalham os que a edificam.”<span class="ref">Salmos 127:1</span></p>
-      </div>
-      <div class="arch in d2">
-        <div class="arch-img"><img src="img/familia-1.jpg" alt="Denny, Gabi, os gêmeos e o bebê recém-nascido sorrindo juntos" width="1280" height="853"></div>
-        <div class="float-quote">
-          <p>“Filhos são herança do Senhor.”</p>
-          <span class="ref">Salmos 127:3</span>
+        <div class="arch in">
+          <div class="arch-img"><img src="img/familia-1.jpg" alt="Denny, Gabi, os gêmeos e o bebê recém-nascido sorrindo juntos" width="1280" height="853"></div>
+          <div class="float-quote"><p>“Filhos são herança do Senhor.”</p><span class="ref">Salmos 127:3</span></div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <div class="ticker" aria-label="Temas: casamento, filhos, madrugadas, perdão, rotina, fé no dia a dia, recomeços">
-    <div class="ticker-track" aria-hidden="true">
-      <span>Casamento</span><span>Filhos</span><span>Madrugadas</span><span>Perdão</span><span>Rotina</span><span>Fé no dia a dia</span><span>Recomeços</span>
-      <span>Casamento</span><span>Filhos</span><span>Madrugadas</span><span>Perdão</span><span>Rotina</span><span>Fé no dia a dia</span><span>Recomeços</span>
-      <span>Casamento</span><span>Filhos</span><span>Madrugadas</span><span>Perdão</span><span>Rotina</span><span>Fé no dia a dia</span><span>Recomeços</span>
-      <span>Casamento</span><span>Filhos</span><span>Madrugadas</span><span>Perdão</span><span>Rotina</span><span>Fé no dia a dia</span><span>Recomeços</span>
-    </div>
-  </div>
+      <div class="mesa-band">
+        <div>
+          <span class="label">Por que “mesa”?</span>
+          <h2>Na nossa casa, tudo acontece à mesa.</h2>
+          <p>O café da madrugada, a conversa difícil, a oração antes de dormir. Este espaço é essa mesa, aberta para você. Eu falo de Deus porque foi Ele quem mudou a minha casa, e você é livre para tirar as suas próprias conclusões.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:10px"><b style="color:var(--ink)">Você não precisa ser cristão para puxar uma cadeira.</b></p>
+          <ul class="tags" aria-label="Quem senta nesta mesa">
+            <li>Cristão de longa data</li><li>Afastado da igreja</li><li>Só curioso</li><li>Nunca abri uma Bíblia</li>
+          </ul>
+        </div>
+      </div>
 
-  <section class="welcome" aria-label="Para quem é esta mesa">
-    <div class="wrap welcome-inner">
-      <span class="label">Para quem é esta mesa</span>
-      <p class="welcome-text">Você não precisa ser cristão para puxar uma cadeira aqui. Seja da igreja há anos, esteja afastado ou nunca tenha aberto uma Bíblia, <em>esta mesa é sua também.</em></p>
-      <p class="welcome-sub">Eu falo de Deus porque foi Ele quem mudou a minha casa. E você é livre para tirar as suas próprias conclusões.</p>
-      <ul class="welcome-tags" aria-label="Quem senta nesta mesa">
-        <li>Cristão de longa data</li><li>Afastado da igreja</li><li>Só curioso</li><li>Nunca abri uma Bíblia</li>
-      </ul>
-      <a class="btn btn-ghost" href="#devocional">Comece pelos 5 minutos de hoje<svg><use href="#i-arrow"/></svg></a>
-    </div>
-  </section>
-
-  <section id="aprendemos">
-    <div class="wrap learn">
-      <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Denny segurando os gêmeos no colo, com o bebê recém-nascido entre eles" width="853" height="1280" loading="lazy"></div>
-      <div>
-        <div class="head" style="margin-bottom:28px">
+      <div class="learn">
+        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Denny segurando os gêmeos no colo, com o bebê recém-nascido entre eles" width="853" height="1280" loading="lazy"></div>
+        <div>
           <span class="label">10 anos construindo uma família</span>
           <h2>O que a gente aprendeu até aqui</h2>
-          <p>Nada de fórmula. Só o que a vida em casa ensinou.</p>
-        </div>
-        <div class="lessons">
-          <details class="lesson" open>
+          <p class="muted">Nada de fórmula. Só o que a vida em casa ensinou. Toque para abrir.</p>
+          <div class="lessons">
+          <details class="lesson">
             <summary>
               <span><h3>Filho aprende mais com o que vê do que com o que ouve.</h3><span class="lesson-sub">O jeito como a gente trata quem está em casa ensina mais do que qualquer conversa.</span></span>
               <span class="lesson-x" aria-hidden="true"><svg><use href="#i-plus"/></svg></span>
@@ -625,226 +644,221 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
               <p class="devo-pray">Jesus, eu estou cansado. Venho do jeito que estou. Me dá o teu descanso e me ensina a não carregar tudo sozinho. Amém.</p>
             </div>
           </details>
+</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="texts-sec" id="devocional">
+  <!-- 5 MINUTOS -->
+  <section class="view" id="v-devocional" data-view="devocional">
     <div class="wrap">
-      <div class="head">
+      <div class="view-head">
         <span class="label">Devocional · toda quarta-feira</span>
         <h2>5 minutos para a sua casa</h2>
         <p>Um café, uma palavra e cinco minutos. Para ler antes que o bebê acorde ou que apareça a próxima tarefa.</p>
       </div>
       <article class="devo-feature" id="devoFeature"></article>
-      <div id="archiveWrap">
-        <div class="archive-head">
-          <span class="label">Devocionais anteriores</span>
-          <div class="filters" id="textFilters" role="group" aria-label="Filtrar devocionais">
-            <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
-            <button class="chip" aria-pressed="false" data-filter="Filhos">Filhos</button>
-            <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
-            <button class="chip" aria-pressed="false" data-filter="Para você">Para você</button>
+      <div class="devo-cols">
+        <div id="archiveWrap">
+          <div class="cols-title"><span class="label">Devocionais anteriores</span></div>
+          <ul class="rows" id="devoList"></ul>
+        </div>
+        <div class="news-card" id="novidades">
+          <span class="label">Toda quarta-feira</span>
+          <h3>Receba no <em>e-mail</em> e no <em>WhatsApp</em></h3>
+          <p>O devocional de 5 minutos, para ler antes de o dia começar. Sem spam, e você sai quando quiser.</p>
+          <form class="form" id="newsForm" novalidate>
+            <div class="field"><label for="n-name">Nome</label><input id="n-name" placeholder="Seu nome" autocomplete="name" maxlength="60" required></div>
+            <div class="row2">
+              <div class="field"><label for="n-email">E-mail</label><input id="n-email" type="email" placeholder="voce@email.com" autocomplete="email" maxlength="120" required></div>
+              <div class="field"><label for="n-phone">WhatsApp</label><input id="n-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20" required></div>
+            </div>
+            <label class="hint" for="n-consent" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer"><input id="n-consent" type="checkbox" style="width:18px;height:18px;margin-top:2px;accent-color:var(--terra)" required>Aceito receber os devocionais por e-mail e WhatsApp.</label>
+            <button class="btn btn-terra btn-block" id="newsSend" type="submit">Quero receber</button>
+            <p class="status" id="newsStatus" role="status"></p>
+          </form>
+          <div class="news-done" id="newsDone" hidden>
+            <h3>Cadastro feito!</h3>
+            <p class="muted">Para garantir os devocionais no WhatsApp, mande um “oi” e salve o número na sua agenda.</p>
+            <a class="btn btn-wa" id="newsWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Confirmar no WhatsApp</a>
           </div>
         </div>
-        <div class="articles" id="articles"></div>
       </div>
     </div>
   </section>
 
-  <section id="cadeira">
-    <div class="wrap">
-      <div class="head">
-        <span class="label">Puxe uma cadeira</span>
-        <h2>Não é curso. É mesa.</h2>
-        <p>Três jeitos simples de caminharmos juntos. Gente cuidando de gente.</p>
-      </div>
-      <div class="chairs">
-        <article class="chair featured">
-          <span class="ic"><svg><use href="#i-hand"/></svg></span>
-          <h3>A Visita</h3>
-          <p class="tagline">Um café, um pacote de fraldas e uma oração.</p>
-          <p class="desc">Conhece uma família que acabou de ter um bebê? A gente aparece, ouve e ora pela casa. Meia hora, sem sermão.</p>
-          <a class="btn btn-terra" data-wa="Oi, Denny! Quero indicar uma família para A Visita.&#10;Nome da família: &#10;Bairro/cidade: &#10;O bebê nasceu em: " href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Indicar uma família</a>
-        </article>
-        <article class="chair">
-          <span class="ic"><svg><use href="#i-cup"/></svg></span>
-          <h3>Um café na sua mesa</h3>
-          <p class="tagline">30 minutos para se abrir, desabafar, sorrir ou receber uma palavra.</p>
-          <p class="desc">Online ou presencial, de segunda a sexta, das 20h às 22h. Você conta o que está no coração e escolhe o horário.</p>
-          <a class="btn btn-dark" href="#agendar"><svg><use href="#i-arrow"/></svg>Agendar um horário</a>
-        </article>
-        <article class="chair">
-          <span class="ic"><svg><use href="#i-heart"/></svg></span>
-          <h3>A Noite da Bênção</h3>
-          <p class="tagline">Pais abençoando os filhos, em voz alta.</p>
-          <p class="desc">Um encontro para igrejas e grupos em que pais e mães colocam a mão na cabeça dos filhos e os abençoam.</p>
-          <a class="btn btn-dark" data-wa="Oi, Denny! Gostaria de levar A Noite da Bênção para a minha igreja ou grupo.&#10;Igreja/grupo: &#10;Cidade: " href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Levar para o meu grupo</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section class="book-sec" id="agendar">
-    <div class="wrap book-grid">
-      <div class="book-info">
+  <!-- CAFÉ NA MESA -->
+  <section class="view" id="v-cafe" data-view="cafe">
+    <div class="wrap cafe-grid">
+      <div class="cafe-info">
         <span class="label">Um café na sua mesa</span>
         <h2>30 minutos para conversar</h2>
-        <p>Eu vou até a sua mesa, por vídeo ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
-        <ul class="book-facts">
+        <p class="story">Aqui em casa, a mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que eu quero sentar com você.</p>
+        <p>Eu vou até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
+        <ul class="facts">
           <li><b>30 min</b><span>de conversa sem pressa</span></li>
           <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
-          <li><b>Online ou presencial</b><span>você escolhe</span></li>
+          <li><b>3 jeitos</b><span>WhatsApp, vídeo ou presencial</span></li>
         </ul>
-        <ol class="book-steps">
-          <li><span><b>Conte o que está no coração.</b> Pode ser pouco. Só o Denny lê.</span></li>
+        <ol class="steps">
+          <li><span><b>Entre com o Google</b> para ver e desmarcar o seu horário quando precisar.</span></li>
+          <li><span><b>Conte o que está no coração.</b> Pode ser pouco.</span></li>
           <li><span><b>Escolha o dia e o horário</b> que cabem na sua rotina.</span></li>
-          <li><span><b>Receba a confirmação no WhatsApp,</b> com o link da chamada ou o endereço combinado.</span></li>
         </ol>
       </div>
       <div>
-        <form class="form-card book-form" id="bookForm" novalidate>
-          <fieldset class="field">
-            <legend class="legend">Como prefere?</legend>
-            <div class="opts">
-              <label class="opt"><input type="radio" name="b-format" value="Online (vídeo)" checked><span>Online, por vídeo</span></label>
-              <label class="opt"><input type="radio" name="b-format" value="Presencial"><span>Presencial, na sua casa</span></label>
+        <div class="card" id="bookGate">
+          <div class="gate">
+            <span class="label">Para agendar</span>
+            <h3>Entre com o Google para marcar o seu café</h3>
+            <p>Assim você enxerga o seu horário e pode desmarcar sozinho se precisar. Só o seu nome e o seu e-mail ficam guardados no agendamento.</p>
+            <div class="alt">
+              <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+              <a class="btn btn-wa" data-wa="Oi, Denny! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
             </div>
-          </fieldset>
-          <div class="field" id="placeField" hidden><label for="b-place">Bairro e cidade</label><input id="b-place" placeholder="Boa Viagem, Recife" maxlength="80" autocomplete="address-level2"></div>
-          <fieldset class="field">
-            <legend class="legend">Sobre o que quer conversar?</legend>
-            <div class="opts">
-              <label class="opt"><input type="radio" name="b-topic" value="Desabafar"><span>Desabafar</span></label>
-              <label class="opt"><input type="radio" name="b-topic" value="Casamento"><span>Casamento</span></label>
-              <label class="opt"><input type="radio" name="b-topic" value="Filhos"><span>Filhos</span></label>
-              <label class="opt"><input type="radio" name="b-topic" value="Fé e dúvidas"><span>Fé e dúvidas</span></label>
-              <label class="opt"><input type="radio" name="b-topic" value="Receber uma palavra"><span>Receber uma palavra</span></label>
-              <label class="opt"><input type="radio" name="b-topic" value="Outro assunto"><span>Outro assunto</span></label>
-            </div>
-          </fieldset>
-          <div class="field"><label for="b-need">O que está no seu coração?</label><textarea id="b-need" placeholder="Conte um pouco do que você está vivendo. Isso me ajuda a chegar preparado." maxlength="1500"></textarea></div>
-          <fieldset class="field">
-            <legend class="legend">Dia</legend>
-            <div class="days" id="bookDays"></div>
-          </fieldset>
-          <fieldset class="field">
-            <legend class="legend">Horário <span class="hint-sm">(de Brasília)</span></legend>
-            <div class="times" id="bookTimes"></div>
-          </fieldset>
-          <div class="row2">
-            <div class="field"><label for="b-name">Seu nome</label><input id="b-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
-            <div class="field"><label for="b-phone">WhatsApp</label><input id="b-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
           </div>
-          <div class="field"><label for="b-email">E-mail <span class="hint-sm">(opcional, para receber o convite na sua agenda)</span></label><input id="b-email" type="email" placeholder="voce@email.com" autocomplete="email" maxlength="120"></div>
-          <button class="btn btn-terra" id="bookSend" type="submit"><svg><use href="#i-cup"/></svg>Pedir este horário</button>
-          <p class="form-status" id="bookStatus" role="status"></p>
-        </form>
-        <div class="form-card book-done" id="bookDone" hidden>
-          <span class="label" id="bookDoneLabel">Pedido enviado</span>
-          <h3 id="bookDoneTitle">Seu café está marcado!</h3>
-          <ul class="book-summary" id="bookSummary"></ul>
-          <p id="bookDoneText">O Denny confirma pelo WhatsApp. Para agilizar, mande o pedido por lá também:</p>
-          <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Enviar no WhatsApp</a>
-          <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro horário</button>
+        </div>
+        <div id="bookApp" hidden>
+          <div class="seg" role="tablist" aria-label="Agendamento">
+            <button type="button" role="tab" data-sub="agendar" aria-selected="true">Agendar</button>
+            <button type="button" role="tab" data-sub="meus" aria-selected="false">Meus horários <span id="mineCount"></span></button>
+          </div>
+          <div data-sub-panel="agendar" class="on">
+            <div class="card">
+              <form class="form" id="bookForm" novalidate>
+                <fieldset class="field">
+                  <span class="legend">Como prefere conversar?</span>
+                  <div class="opts">
+                    <label class="opt"><input type="radio" name="b-format" value="whatsapp" checked><span>Chamada no WhatsApp</span></label>
+                    <label class="opt"><input type="radio" name="b-format" value="video"><span>Vídeo (eu mando o link)</span></label>
+                    <label class="opt"><input type="radio" name="b-format" value="presencial"><span>Presencial</span></label>
+                  </div>
+                </fieldset>
+                <div class="field" id="placeField" hidden><label for="b-place">Bairro e cidade</label><input id="b-place" placeholder="Boa Viagem, Recife" maxlength="80"></div>
+                <fieldset class="field">
+                  <span class="legend">Sobre o que quer conversar?</span>
+                  <div class="opts">
+                    <label class="opt"><input type="radio" name="b-topic" value="Desabafar"><span>Desabafar</span></label>
+                    <label class="opt"><input type="radio" name="b-topic" value="Casamento"><span>Casamento</span></label>
+                    <label class="opt"><input type="radio" name="b-topic" value="Filhos"><span>Filhos</span></label>
+                    <label class="opt"><input type="radio" name="b-topic" value="Fé e dúvidas"><span>Fé e dúvidas</span></label>
+                    <label class="opt"><input type="radio" name="b-topic" value="Receber uma palavra"><span>Receber uma palavra</span></label>
+                    <label class="opt"><input type="radio" name="b-topic" value="Outro assunto"><span>Outro assunto</span></label>
+                  </div>
+                </fieldset>
+                <div class="field"><label for="b-need">O que está no seu coração?</label><textarea id="b-need" placeholder="Conte um pouco do que você está vivendo. Isso me ajuda a chegar preparado." maxlength="1500"></textarea></div>
+                <fieldset class="field"><span class="legend">Dia</span><div class="days" id="bookDays"></div></fieldset>
+                <fieldset class="field"><span class="legend">Horário <span class="hint">(de Brasília)</span></span><div class="times" id="bookTimes"></div></fieldset>
+                <div class="field"><label for="b-phone">Seu WhatsApp <span class="hint">(para eu falar com você)</span></label><input id="b-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
+                <button class="btn btn-terra btn-block" id="bookSend" type="submit"><svg><use href="#i-cup"/></svg>Reservar este horário</button>
+                <p class="status" id="bookStatus" role="status"></p>
+              </form>
+              <div class="book-done" id="bookDone" hidden>
+                <span class="label">Horário reservado</span>
+                <h3>Seu café está marcado!</h3>
+                <ul class="summary" id="bookSummary"></ul>
+                <p class="muted" id="bookDoneText"></p>
+                <div class="confirm">
+                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar o Denny no WhatsApp</a>
+                  <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div data-sub-panel="meus">
+            <div class="card"><div class="mine" id="myList"></div></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="talk" id="mesa">
+  <!-- COMUNIDADE -->
+  <section class="view" id="v-comunidade" data-view="comunidade">
     <div class="wrap">
-      <div class="head">
-        <span class="label">Levante a mão</span>
-        <h2>Uma mesa para pais conversarem</h2>
-        <p>Dúvida, desabafo ou uma pequena vitória? Levante a mão. Outros pais e mães respondem.</p>
+      <div class="view-head">
+        <span class="label">Comunidade</span>
+        <h2>Gente cuidando de gente</h2>
       </div>
-      <div class="mesa-grid">
-        <div class="mesa-side">
-          <form class="form-card" id="mesaForm" novalidate>
-            <div class="field"><label for="m-name">Seu nome</label><input id="m-name" placeholder="Como quer ser chamado" autocomplete="given-name" maxlength="60" required></div>
-            <div class="field"><label for="m-topic">Assunto</label>
-              <select id="m-topic">
-                <option>Sono</option>
-                <option>Birra</option>
-                <option>Casamento</option>
-                <option>Cansaço</option>
-                <option>Fé em casa</option>
-                <option>Dúvidas sobre fé</option>
-                <option>Outro assunto</option>
-              </select>
+      <div class="seg" role="tablist" aria-label="Comunidade">
+        <button type="button" role="tab" data-sub="chat" aria-selected="true">Levante a mão</button>
+        <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
+        <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
+      </div>
+
+      <div data-sub-panel="chat" class="on">
+        <div class="card" id="chatGate">
+          <div class="gate">
+            <span class="label">Chat entre pais</span>
+            <h3>Uma mesa para pais e mães conversarem</h3>
+            <p>Dúvida, desabafo ou uma pequena vitória? Levante a mão e converse com outros pais. Para manter a mesa segura, entre com o Google. Só o seu primeiro nome aparece para os outros.</p>
+            <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+          </div>
+        </div>
+        <div class="chat" id="chatApp" hidden>
+          <div class="rooms" id="rooms" role="group" aria-label="Salas"></div>
+          <div class="chat-main">
+            <div class="chat-head"><b id="chatTitle">Mesa geral</b><a class="link" style="font-size:13px" href="#" id="rulesToggle">Combinados</a></div>
+            <div class="msgs" id="msgs" aria-live="polite"></div>
+            <div>
+              <div class="rules-note" id="chatRules" hidden><span>Fale com respeito. Não publique nome completo, foto ou escola dos filhos. Conselho de pai não substitui médico ou psicólogo. Aqui ninguém é julgado por ainda não crer.</span><button class="link" type="button" id="rulesOk">Entendi</button></div>
+              <form class="composer" id="composer" autocomplete="off">
+                <button class="hand-btn" type="button" id="handBtn" aria-pressed="false" title="Levantar a mão (destaca a sua pergunta)" aria-label="Levantar a mão"><svg><use href="#i-hand"/></svg></button>
+                <input id="msgText" placeholder="Escreva uma mensagem…" maxlength="1000" aria-label="Mensagem">
+                <button class="btn btn-terra" id="msgSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
+              </form>
             </div>
-            <div class="field"><label for="m-text">O que você quer dividir?</label><textarea id="m-text" placeholder="Minha filha de 2 anos acorda toda noite às 3h. Alguém já passou por isso?" maxlength="1500" required></textarea></div>
-            <button class="btn btn-terra" id="mesaSend" type="submit"><svg><use href="#i-hand"/></svg>Levantar a mão</button>
-            <p class="form-status" id="mesaStatus" role="status"></p>
+          </div>
+        </div>
+      </div>
+
+      <div data-sub-panel="comentarios">
+        <div class="cmt-grid">
+          <form class="card form" id="cmtForm" novalidate>
+            <div>
+              <span class="label">Aberto a todos</span>
+              <h3 style="font-size:30px;margin-top:6px">Deixe o seu comentário</h3>
+              <p class="muted" style="margin-top:6px;font-size:15px">Gostou de um devocional? Discordou? Tem uma história? Escreva aqui. Qualquer pessoa pode ler.</p>
+            </div>
+            <div class="field"><label for="c-name">Seu nome</label><input id="c-name" placeholder="Como quer ser chamado" maxlength="60" autocomplete="given-name"></div>
+            <div class="field"><label for="c-sobre">Sobre qual conteúdo?</label><select id="c-sobre"></select></div>
+            <div class="field"><label for="c-text">Comentário</label><textarea id="c-text" maxlength="800" placeholder="Escreva aqui…"></textarea></div>
+            <div class="hp" aria-hidden="true"><label for="c-site">Não preencha</label><input id="c-site" tabindex="-1" autocomplete="off"></div>
+            <button class="btn btn-terra btn-block" id="cmtSend" type="submit"><svg><use href="#i-chat"/></svg>Publicar comentário</button>
+            <p class="status" id="cmtStatus" role="status"></p>
           </form>
-          <div class="closed-card" id="mesaClosed" hidden>
-            <span class="label">Em breve</span>
-            <h3>A mesa está sendo montada</h3>
-            <p>Enquanto a conversa entre pais não abre, mande sua dúvida direto para o Denny.</p>
-            <a class="btn btn-wa" data-wa="Oi, Denny! Tenho uma dúvida:" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Perguntar no WhatsApp</a>
-          </div>
-          <div class="rules">
-            <span class="label">Combinados da mesa</span>
-            <ul>
-              <li>Fale com respeito, como quem está sentado à mesa.</li>
-              <li>Não publique nome completo, foto ou escola dos filhos.</li>
-              <li>Conselho de pai não substitui médico ou psicólogo.</li>
-              <li>Aqui ninguém é julgado por ainda não crer. Pergunte o que quiser.</li>
-            </ul>
+          <div>
+            <div class="cols-title"><span class="label" id="cmtCount">Comentários</span></div>
+            <div class="cmt-list" id="cmtList"></div>
           </div>
         </div>
-        <div class="mesa-feed">
-          <span class="label" id="mesaCount">Mãos levantadas</span>
-          <div class="filters" id="mesaFilters" role="group" aria-label="Filtrar conversas">
-            <button class="chip" aria-pressed="true" data-filter="all">Todas</button>
-            <button class="chip" aria-pressed="false" data-filter="Sono">Sono</button>
-            <button class="chip" aria-pressed="false" data-filter="Birra">Birra</button>
+      </div>
+
+      <div data-sub-panel="indicacoes">
+        <div class="fridge">
+          <div class="filters" id="fridgeFilters" role="group" aria-label="Filtrar indicações">
+            <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
+            <button class="chip" aria-pressed="false" data-filter="Saúde dos pequenos">Saúde dos pequenos</button>
+            <button class="chip" aria-pressed="false" data-filter="Gestação e bebê">Gestação e bebê</button>
+            <button class="chip" aria-pressed="false" data-filter="Mente e emoções">Mente e emoções</button>
+            <button class="chip" aria-pressed="false" data-filter="Desenvolvimento">Desenvolvimento</button>
             <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
-            <button class="chip" aria-pressed="false" data-filter="Cansaço">Cansaço</button>
-            <button class="chip" aria-pressed="false" data-filter="Fé em casa">Fé em casa</button>
-            <button class="chip" aria-pressed="false" data-filter="Dúvidas sobre fé">Dúvidas sobre fé</button>
           </div>
-          <ul class="hands" id="mesaList" hidden></ul>
-          <div class="empty" id="mesaEmpty">
-            <span class="ic"><svg><use href="#i-hand"/></svg></span>
-            <h3>Ninguém levantou a mão ainda</h3>
-            <p>“Puxe uma cadeira e comece a conversa. A primeira pergunta é sempre a mais corajosa.”</p>
-          </div>
+          <ul class="notes" id="fridgeNotes"></ul>
         </div>
+        <div class="fridge-foot">
+          <p><b>Da nossa mesa para a sua.</b> Profissionais que já cuidaram bem da nossa casa. Conhece alguém que cuidou bem da sua família? Conte pra gente.</p>
+          <a class="btn btn-dark" data-wa="Oi, Denny! Quero indicar um profissional para a mesa do Café, Graça & Fralda.&#10;Nome: &#10;O que faz: &#10;Cidade: &#10;Por que indico: " href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Indicar alguém</a>
+        </div>
+        <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
       </div>
     </div>
   </section>
 
-  <section id="indicacoes">
-    <div class="wrap">
-      <div class="head">
-        <span class="label">Da nossa mesa para a sua</span>
-        <h2>Gente boa que a gente indica</h2>
-        <p>Sabe quando alguém pergunta na mesa do almoço “você conhece um bom pediatra?”. Estas são as nossas respostas: profissionais que já cuidaram bem da nossa casa.</p>
-      </div>
-      <div class="fridge">
-        <div class="filters" id="fridgeFilters" role="group" aria-label="Filtrar indicações">
-          <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
-          <button class="chip" aria-pressed="false" data-filter="Saúde dos pequenos">Saúde dos pequenos</button>
-          <button class="chip" aria-pressed="false" data-filter="Gestação e bebê">Gestação e bebê</button>
-          <button class="chip" aria-pressed="false" data-filter="Mente e emoções">Mente e emoções</button>
-          <button class="chip" aria-pressed="false" data-filter="Desenvolvimento">Desenvolvimento</button>
-          <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
-        </div>
-        <ul class="notes" id="fridgeNotes"></ul>
-      </div>
-      <div class="fridge-foot">
-        <p><b>Conhece alguém que cuidou bem da sua família?</b> Conte pra gente. Depois de conversar com a pessoa, a gente pode colocar na mesa.</p>
-        <a class="btn btn-dark" data-wa="Oi, Denny! Quero indicar um profissional para a mesa do Café, Graça & Fralda.&#10;Nome: &#10;O que faz: &#10;Cidade: &#10;Por que indico: " href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Indicar alguém</a>
-      </div>
-      <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
-    </div>
-  </section>
-
-  <section id="sobre">
-    <div class="wrap about">
+  <!-- SOBRE -->
+  <section class="view" id="v-sobre" data-view="sobre">
+    <div class="wrap about-grid">
       <div class="about-text">
         <span class="label">Quem escreve</span>
         <h2>Prazer, eu sou o Denny.</h2>
@@ -858,88 +872,86 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
         </div>
         <p class="creds">Teologia · Liderança (Florida Christian University) · Pós em Gestão de Pessoas</p>
       </div>
-      <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>
-    </div>
-  </section>
-
-  <section class="final" id="contato">
-    <div class="wrap final-grid">
-      <div class="talk-card">
-        <span class="label">Fale comigo</span>
-        <h2>Vamos conversar?</h2>
-        <p>Uma dúvida, um convite para falar na sua igreja ou só vontade de trocar uma ideia. Respondo pelo WhatsApp.</p>
-        <span class="wa-num">(81) 99270-2353</span>
-        <div class="talk-links">
-          <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Abrir WhatsApp</a>
-          <a class="btn btn-ghost" href="https://instagram.com/denny___silva" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@denny___silva</a>
-        </div>
-      </div>
-      <div class="news-card" id="novidades">
-        <span class="label">Toda quarta-feira</span>
-        <h2>Receba no <em>e-mail</em> e no <em>WhatsApp</em></h2>
-        <p>O devocional de 5 minutos, para ler antes de o dia começar. Sem spam, e você sai quando quiser.</p>
-        <form class="news-form" id="newsForm" novalidate>
-          <div class="field"><label for="n-name">Nome</label><input id="n-name" placeholder="Seu nome" autocomplete="name" maxlength="60" required></div>
-          <div class="row2">
-            <div class="field"><label for="n-email">E-mail</label><input id="n-email" type="email" placeholder="voce@email.com" autocomplete="email" maxlength="120" required></div>
-            <div class="field"><label for="n-phone">WhatsApp</label><input id="n-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20" required></div>
+      <div class="about-side">
+        <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>
+        <div class="contact">
+          <span class="label">Fale comigo</span>
+          <h3>Vamos conversar?</h3>
+          <p>Uma dúvida, um convite para falar na sua igreja ou só vontade de trocar uma ideia.</p>
+          <span class="wa-num">(81) 99270-2353</span>
+          <div class="row-btns">
+            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+            <a class="btn btn-ghost" href="https://instagram.com/denny___silva" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@denny___silva</a>
           </div>
-          <label class="consent" for="n-consent"><input id="n-consent" type="checkbox" required>Aceito receber os devocionais por e-mail e WhatsApp.</label>
-          <button class="btn btn-terra" id="newsSend" type="submit">Quero receber</button>
-          <p class="form-status" id="newsStatus" role="status"></p>
-        </form>
-        <div class="news-done" id="newsDone" hidden>
-          <h3>Cadastro feito!</h3>
-          <p>Para garantir os devocionais no WhatsApp, mande um “oi” e salve o número na sua agenda.</p>
-          <a class="btn btn-wa" id="newsWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Confirmar no WhatsApp</a>
         </div>
-      </div>
-    </div>
-  </section>
-  <section class="app-sec" id="app" hidden>
-    <div class="wrap">
-      <div class="app-band">
-        <img class="app-icon" src="icons/icon-192.png" alt="" width="96" height="96">
-        <div class="app-copy">
-          <span class="label">Leve no celular</span>
-          <h2>Café, Graça &amp; Fralda no seu celular</h2>
-          <p>Instale como aplicativo: abre em tela cheia, fica na tela inicial e você recebe o devocional de quarta num toque.</p>
+        <div class="app-band" id="app" hidden>
+          <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
+          <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
+          <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
         </div>
-        <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
       </div>
     </div>
   </section>
 
+  <!-- PAINEL (só o Denny) -->
+  <section class="view" id="v-painel" data-view="painel">
+    <div class="wrap">
+      <div class="view-head">
+        <span class="label">Só para o Denny</span>
+        <h2>Painel</h2>
+        <p id="panelNote">Verificando o seu acesso…</p>
+      </div>
+      <div id="panelApp" hidden>
+        <div class="seg" role="tablist" aria-label="Painel">
+          <button type="button" role="tab" data-sub="agenda" aria-selected="true">Agenda</button>
+          <button type="button" role="tab" data-sub="horarios" aria-selected="false">Horários</button>
+          <button type="button" role="tab" data-sub="inscritos" aria-selected="false">Inscritos</button>
+          <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Moderação</button>
+        </div>
+        <div data-sub-panel="agenda" class="on">
+          <div class="panel-grid">
+            <div>
+              <div class="legend-row"><span><i style="background:var(--bg);border:1px solid var(--line)"></i>Livre (toque para bloquear)</span><span><i style="background:#ddd"></i>Bloqueado (toque para liberar)</span><span><i style="background:var(--terra)"></i>Reservado (toque para ver)</span></div>
+              <div class="agenda" id="pAgenda"></div>
+            </div>
+            <div>
+              <div class="cols-title"><span class="label">Próximos cafés</span></div>
+              <div class="mine" id="pBooked"></div>
+            </div>
+          </div>
+        </div>
+        <div data-sub-panel="horarios">
+          <p class="muted" style="margin-bottom:12px">Toque nos horários para ligar ou desligar. Eles valem para todas as semanas. Horários já reservados continuam valendo.</p>
+          <div class="weekgrid" id="pWeek"></div>
+        </div>
+        <div data-sub-panel="inscritos">
+          <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
+          <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
+        </div>
+        <div data-sub-panel="moderacao">
+          <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+            <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
+            <div><div class="cols-title"><span class="label">Comentários</span></div><div class="mod-list" id="pModCmts"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda · Denny Silva</span><span>Soli Deo Gloria</span></div></footer>
 </main>
 
-<footer>
-  <div class="wrap">
-    <p class="foot-big">Onde a <em>fé</em> encontra a <em>rotina</em>.</p>
-    <div class="foot-row">
-      <a class="logo" href="#inicio"><span class="logo-mark"><svg><use href="#i-cup"/></svg></span><span>Café, Graça &amp; Fralda</span></a>
-      <nav class="foot-nav" aria-label="Rodapé">
-        <a href="#devocional">5 minutos</a>
-        <a href="#cadeira">Puxe uma cadeira</a>
-        <a href="#agendar">Agendar um café</a>
-        <a href="#mesa">Levante a mão</a>
-        <a href="#indicacoes">Indicações</a>
-        <a href="#sobre">Sobre</a>
-        <a href="https://instagram.com/denny___silva" target="_blank" rel="noopener">Instagram</a>
-      </nav>
-    </div>
-    <div class="legal">
-      <span>© <span id="year">2026</span> Café, Graça &amp; Fralda · Denny Silva</span>
-      <span>Soli Deo Gloria</span>
-    </div>
-  </div>
-</footer>
-
-<a class="wa-float" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
-  <svg><use href="#i-wa"/></svg><span class="tip">Fale com o Denny</span>
+<a class="wa-float" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg><use href="#i-wa"/></svg><span class="tip">Chamar o Denny</span>
 </a>
 
+<dialog id="reader" aria-labelledby="readerTitle">
+  <div class="reader-top"><button class="icon-btn" type="button" id="readerClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <article class="reader" id="readerBody"></article>
+</dialog>
+
 <dialog id="iosHelp" aria-labelledby="iosTitle">
-  <div class="reader-top"><button type="button" id="iosClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
+  <div class="reader-top"><button class="icon-btn" type="button" id="iosClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
   <div class="reader">
     <span class="label">No iPhone</span>
     <h3 id="iosTitle">Instale em 3 toques</h3>
@@ -948,54 +960,86 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
       <li>Toque no botão <b>Compartilhar</b> (o quadrado com a seta para cima).</li>
       <li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li>
     </ol>
-    <p>Pronto: o ícone da xícara aparece junto com os seus apps.</p>
+    <p>Pronto: o ícone aparece junto com os seus apps.</p>
   </div>
 </dialog>
 
-<dialog id="reader" aria-labelledby="readerTitle">
-  <div class="reader-top"><button type="button" id="readerClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
-  <article class="reader" id="readerBody"></article>
-</dialog>
+<div class="toast" id="toast" role="status" hidden></div>
 
+<script src="vendor/supabase.js"></script>
 <script>
 (function(){
-  var WA = "5581992702353";
-  function waLink(text){ return "https://wa.me/" + WA + "?text=" + encodeURIComponent(text); }
-  document.querySelectorAll("[data-wa]").forEach(function(a){ a.href = waLink(a.getAttribute("data-wa")); });
-  function val(id){ return document.getElementById(id).value.trim(); }
-  function setStatus(el, msg, kind){ el.textContent = msg; el.className = "form-status" + (kind ? " " + kind : ""); }
-  function h(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
-  function maskPhone(e){
-    var d = e.target.value.replace(/\D/g, "").slice(0, 11);
-    e.target.value = d.length > 6 ? "(" + d.slice(0,2) + ") " + d.slice(2, d.length - 4) + "-" + d.slice(-4)
-                   : d.length > 2 ? "(" + d.slice(0,2) + ") " + d.slice(2) : d;
-  }
-  function filterChips(groupId, onPick){
-    var chips = document.querySelectorAll("#" + groupId + " .chip");
-    chips.forEach(function(c){
-      c.addEventListener("click", function(){
-        chips.forEach(function(x){ x.setAttribute("aria-pressed", x === c); });
-        onPick(c.getAttribute("data-filter"));
-      });
-    });
-  }
+"use strict";
+// Núcleo: configuração, utilidades e conexão com o Supabase.
+var WA = "5581992702353";
+var SUPABASE_URL = "https://ckzeechkxghhmoshgzyv.supabase.co";
+var SUPABASE_KEY = "sb_publishable_h_dmTjHQHfyA0FyFXqePYg_I3RJvt0k"; // chave pública: pode ficar no site
 
-  var top = document.getElementById("top");
-  function onScroll(){ top.classList.toggle("scrolled", window.scrollY > 8); }
-  window.addEventListener("scroll", onScroll, { passive:true }); onScroll();
+function $(id){ return document.getElementById(id); }
+function $$(sel, root){ return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+function h(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function val(id){ return $(id).value.trim(); }
+function setStatus(el, msg, kind){ el.textContent = msg; el.className = "status" + (kind ? " " + kind : ""); }
+function waLink(text, number){ return "https://wa.me/" + (number || WA) + (text ? "?text=" + encodeURIComponent(text) : ""); }
+function lsGet(k){ try { return localStorage.getItem(k) || ""; } catch(e){ return ""; } }
+function lsSet(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+function firstName(full){ return String(full || "").trim().split(/\s+/)[0] || ""; }
+function initial(name){ return (String(name || "?").trim().charAt(0) || "?").toUpperCase(); }
+function icon(id){ var s = document.createElementNS("http://www.w3.org/2000/svg", "svg"), u = document.createElementNS("http://www.w3.org/2000/svg", "use"); u.setAttribute("href", "#" + id); s.appendChild(u); return s; }
+function maskPhone(e){
+  var d = e.target.value.replace(/\D/g, "").slice(0, 11);
+  e.target.value = d.length > 6 ? "(" + d.slice(0,2) + ") " + d.slice(2, d.length - 4) + "-" + d.slice(-4) : d.length > 2 ? "(" + d.slice(0,2) + ") " + d.slice(2) : d;
+}
+var fmtDate = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
+var rtf = new Intl.RelativeTimeFormat("pt-BR", { numeric: "auto" });
+function ago(iso){
+  var d = new Date(iso); if (isNaN(d)) return "";
+  var s = (d - Date.now()) / 1000, a = Math.abs(s);
+  if (a < 60) return "agora";
+  if (a < 3600) return rtf.format(Math.round(s / 60), "minute");
+  if (a < 86400) return rtf.format(Math.round(s / 3600), "hour");
+  if (a < 86400 * 30) return rtf.format(Math.round(s / 86400), "day");
+  return fmtDate.format(d).replace(".", "");
+}
+function toast(msg){
+  var t = $("toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast.t); toast.t = setTimeout(function(){ t.hidden = true; }, 2600);
+}
+function copyText(text, okMsg){
+  function fallback(){ toast("Não foi possível copiar. Selecione e copie manualmente."); }
+  try { navigator.clipboard.writeText(text).then(function(){ toast(okMsg || "Copiado"); }, fallback); } catch(e){ fallback(); }
+}
 
-  var menuBtn = document.getElementById("menuBtn"), nav = document.getElementById("nav");
-  function setMenu(open){
-    nav.classList.toggle("open", open);
-    menuBtn.setAttribute("aria-expanded", open);
-    menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
-    menuBtn.querySelector("use").setAttribute("href", open ? "#i-x" : "#i-menu");
-  }
-  menuBtn.addEventListener("click", function(){ setMenu(!nav.classList.contains("open")); });
-  nav.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ setMenu(false); }); });
+// Horário de Brasília e datas no formato AAAA-MM-DD
+function nowBR(){ return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })); }
+function isoDay(d){ return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function parseDay(s){ var p = s.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function isoWeekday(d){ return d.getDay() === 0 ? 7 : d.getDay(); }
+var WEEKDAYS = ["", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom"];
+var fmtLong = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" });
 
-  // Devocional de 5 minutos: um novo toda quarta-feira, na ordem da lista.
-  // Para continuar a série, acrescente devocionais no fim de DEVOS.
+// Links do WhatsApp com mensagem pronta
+$$("[data-wa]").forEach(function(a){ a.href = waLink(a.getAttribute("data-wa")); });
+
+// Supabase: login com Google e banco de dados. Se a biblioteca não carregar, o site segue funcionando pelo WhatsApp.
+var sb = null;
+try {
+  if (window.supabase) sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, {
+    auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: "pkce" }
+  });
+} catch(e){ sb = null; }
+function errCode(err){
+  var m = String((err && (err.message || err.details || err.code)) || "");
+  var codes = ["login_necessario","horario_ocupado","horario_indisponivel","horario_passado","limite_agendamentos","dados_invalidos","nao_encontrado"];
+  for (var i = 0; i < codes.length; i++) if (m.indexOf(codes[i]) > -1) return codes[i];
+  return "";
+}
+
+
+// Conteúdo do site: devocionais, indicações e calendário.
+
+// Devocional de 5 minutos: um novo toda quarta-feira, na ordem da lista.
+// Para continuar a série, acrescente devocionais no fim de DEVOS.
   var DEVOS = [
     { cat:"Filhos", title:"Pedir desculpa para um filho",
       lede:"Parece que a gente perde autoridade. Na verdade, é ali que o filho aprende o que é perdão.",
@@ -1110,400 +1154,21 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
       prayer:"Jesus, eu quero levar meus filhos até ti. Mesmo sem saber orar bonito, eu trago cada um do jeito que é. Abençoa meus filhos e faz deles pessoas que te conhecem. Amém." }
   ];
 
-  // Calendário: o primeiro devocional saiu na quarta 30/09/2026; depois, um por semana, toda quarta.
-  var FIRST_RELEASE = new Date(2026, 8, 30);
-  function devoSchedule(now){
-    var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    var days = Math.round((today - FIRST_RELEASE) / 86400000);
-    if (days < 0) return { k: 0, next: FIRST_RELEASE };
-    var k = Math.floor(days / 7), next = new Date(FIRST_RELEASE);
-    next.setDate(FIRST_RELEASE.getDate() + (k + 1) * 7);
-    return { k: k, next: next };
-  }
-  var sched = devoSchedule(new Date()), N = DEVOS.length;
-  var featured = DEVOS[sched.k % N];
-  var archive = [];
-  for (var j = sched.k - 1; j >= 0 && archive.length < N - 1; j--) archive.push(DEVOS[j % N]);
+// O primeiro devocional saiu na quarta 30/09/2026. A lista não se repete: quando acaba, o último fica em destaque.
+var FIRST_RELEASE = new Date(2026, 8, 30);
+function devoSchedule(now){
+  var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var days = Math.round((today - FIRST_RELEASE) / 86400000);
+  var k = days < 0 ? 0 : Math.floor(days / 7), last = DEVOS.length - 1, next = null;
+  if (k < last) { next = new Date(FIRST_RELEASE); next.setDate(FIRST_RELEASE.getDate() + (k + 1) * 7); }
+  return { k: Math.min(k, last), next: next };
+}
+var SCHED = devoSchedule(new Date());
+var FEATURED = DEVOS[SCHED.k];
+var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 
-  var feat = document.getElementById("devoFeature");
-  (function renderFeature(){
-    var main = h("div", "df-main"), tags = h("div", "df-tags");
-    tags.append(h("span", "badge", "Novo"), h("span", "label", featured.cat + " · 5 min"));
-    var btn = h("button", "btn btn-terra"); btn.type = "button";
-    btn.innerHTML = '<svg><use href="#i-book"/></svg>Ler em 5 minutos';
-    btn.addEventListener("click", function(){ openReader(featured); });
-    var nextFmt = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" }).format(sched.next);
-    main.append(tags, h("h3", null, featured.title), h("p", null, featured.lede), btn, h("p", "df-next", "Próximo devocional: " + nextFmt));
-    var side = h("div", "df-side"); side.setAttribute("aria-hidden", "true");
-    side.append(h("b", null, "5"), h("span", null, "minutos"), h("p", null, "Um café, uma Palavra. Antes que o bebê acorde."));
-    feat.append(main, side);
-  })();
-
-  var list = document.getElementById("articles");
-  function renderArchive(filter){
-    list.innerHTML = "";
-    archive.forEach(function(a){
-      if (filter !== "all" && a.cat !== filter) return;
-      var el = h("article", "card");
-      var meta = h("div", "card-meta"); meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
-      var btn = h("button"); btn.type = "button"; btn.innerHTML = 'Ler agora<svg><use href="#i-arrow"/></svg>';
-      btn.addEventListener("click", function(){ openReader(a); });
-      el.append(meta, h("h3", null, a.title), h("p", null, a.lede), btn);
-      list.appendChild(el);
-    });
-  }
-  filterChips("textFilters", renderArchive);
-  renderArchive("all");
-  document.getElementById("archiveWrap").hidden = archive.length === 0;
-  document.getElementById("readToday").addEventListener("click", function(){ openReader(featured); });
-
-  var dlg = document.getElementById("reader"), body = document.getElementById("readerBody");
-  function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "label", label), h("p", null, text)); return b; }
-  function openReader(a){
-    body.innerHTML = "";
-    var title = h("h3", null, a.title); title.id = "readerTitle";
-    var v = h("div", "verse", "“" + a.passage[0] + "”"); v.appendChild(h("span", "ref", a.passage[1]));
-    body.append(h("span", "label", "5 minutos para a sua casa · " + a.cat), title, h("span", "label", "O que a Bíblia diz sobre isso"), v);
-    a.body.forEach(function(t){ body.appendChild(h("p", null, t)); });
-    body.append(box("Para pensar", a.think), box("Para hoje", a.today), h("span", "label", "Se quiser, ore assim"), h("p", "devo-pray", a.prayer));
-    var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Denny Silva"));
-    var talk = h("a", "btn btn-terra"); talk.target = "_blank"; talk.rel = "noopener";
-    talk.innerHTML = '<svg><use href="#i-wa"/></svg>Conversar sobre isso';
-    talk.href = waLink('Oi, Denny! Li o devocional "' + a.title + '" e queria conversar: ');
-    foot.appendChild(talk); body.appendChild(foot);
-    dlg.showModal(); dlg.scrollTop = 0;
-  }
-  document.getElementById("readerClose").addEventListener("click", function(){ dlg.close(); });
-  dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
-
-  /* ---------- Armazenamento: mesa de conversa e inscritos ----------
-     1. Site hospedado: preencha SUPABASE_URL e SUPABASE_KEY (veja supabase-setup.sql).
-     2. Prévia no Claude: usa o banco do próprio artifact quando disponível.
-     3. Sem nenhum dos dois: a mesa fica fechada e o cadastro segue pelo WhatsApp. */
-  var SUPABASE_URL = "https://ckzeechkxghhmoshgzyv.supabase.co";
-  var SUPABASE_KEY = "sb_publishable_h_dmTjHQHfyA0FyFXqePYg_I3RJvt0k"; // chave pública: pode ficar no site
-
-  var store = null;
-  function supabaseStore(){
-    // Chaves antigas (anon) são JWT e também vão no Authorization; as novas (sb_publishable_…) vão só no apikey.
-    var hd = { apikey: SUPABASE_KEY, "Content-Type": "application/json" };
-    if (SUPABASE_KEY.indexOf("eyJ") === 0) hd.Authorization = "Bearer " + SUPABASE_KEY;
-    function req(path, opts){
-      return fetch(SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/" + path, opts).then(function(r){
-        if (!r.ok) throw new Error("http " + r.status);
-        return r.status === 204 || r.status === 201 ? null : r.json();
-      });
-    }
-    function post(table, data){ return req(table, { method: "POST", headers: hd, body: JSON.stringify(data) }); }
-    var listener = null;
-    function load(){
-      if (!listener) return;
-      Promise.all([
-        req("maos?select=id,nome,tema,texto,criado_em&aprovado=eq.true&order=criado_em.desc&limit=100", { headers: hd }),
-        req("respostas?select=id,mao_id,nome,texto,criado_em&aprovado=eq.true&order=criado_em.asc&limit=1000", { headers: hd })
-      ]).then(function(r){
-        listener(
-          r[0].map(function(x){ return { id: x.id, nome: x.nome, tema: x.tema, texto: x.texto, criadoEm: x.criado_em }; }),
-          r[1].map(function(x){ return { id: x.id, maoId: x.mao_id, nome: x.nome, texto: x.texto, criadoEm: x.criado_em }; })
-        );
-      }).catch(function(){});
-    }
-    return {
-      subscribe: function(cb){ listener = cb; load(); setInterval(function(){ if (!document.hidden) load(); }, 25000); },
-      addMao: function(m){ return post("maos", { nome: m.nome, tema: m.tema, texto: m.texto }).then(load); },
-      addResposta: function(r){ return post("respostas", { mao_id: r.maoId, nome: r.nome, texto: r.texto }).then(load); },
-      addSubscriber: function(s){ return post("inscritos", { nome: s.nome, email: s.email, whatsapp: s.whatsapp }); },
-      subscribeTaken: function(cb){
-        function loadTaken(){
-          req("horarios_ocupados?select=data,hora&data=gte." + isoDay(nowBR()), { headers: hd })
-            .then(function(rows){ cb(rows.map(function(r){ return slotKey(r.data, r.hora.slice(0, 5)); })); }).catch(function(){});
-        }
-        loadTaken(); setInterval(function(){ if (!document.hidden) loadTaken(); }, 60000);
-      },
-      addBooking: function(b){
-        var row = Object.assign({}, b); delete row.email;
-        return post("agendamentos", row).catch(function(e){ throw new Error(String(e.message).indexOf("409") > -1 ? "taken" : "failed"); });
-      }
-    };
-  }
-  function artifactStore(db, uid){
-    var maos = [], resps = [], listener = null;
-    function emit(){ if (listener) listener(maos, resps); }
-    function rows(snap){ return snap.docs.map(function(d){ return Object.assign({ id: d.id }, d.data()); }); }
-    function now(){ return new Date().toISOString(); }
-    return {
-      subscribe: function(cb){
-        listener = cb;
-        db.collection("maos").orderBy("criadoEm", "desc").limit(100).onSnapshot(function(s){ maos = rows(s); emit(); }, function(){});
-        db.collection("respostas").orderBy("criadoEm", "asc").limit(1000).onSnapshot(function(s){ resps = rows(s); emit(); }, function(){});
-      },
-      addMao: function(m){ return db.collection("maos").doc().set({ nome: m.nome, tema: m.tema, texto: m.texto, criadoEm: now() }); },
-      addResposta: function(r){ return db.collection("respostas").doc().set({ maoId: r.maoId, nome: r.nome, texto: r.texto, criadoEm: now() }); },
-      addSubscriber: function(s){
-        if (!uid) return Promise.reject(new Error("no_user"));
-        return db.doc("inscritos/" + uid).set({ nome: s.nome, email: s.email, whatsapp: s.whatsapp, criadoEm: now() });
-      },
-      subscribeTaken: function(cb){
-        db.collection("ocupados").onSnapshot(function(s){ cb(s.docs.map(function(d){ return d.id; })); }, function(){});
-      },
-      addBooking: function(b){
-        if (!uid) return Promise.reject(new Error("failed"));
-        var slot = db.doc("ocupados/" + slotKey(b.data, b.hora));
-        return slot.get().then(function(snap){
-          if (snap.exists) throw new Error("taken");
-          return slot.set({ data: b.data, hora: b.hora });
-        }).then(function(){
-          return db.collection("pedidos/" + uid + "/itens").doc().set(Object.assign({ criadoEm: now() }, b));
-        });
-      }
-    };
-  }
-
-  // Levante a mão: conversa entre pais
-  var NAME_KEY = "cgf-nome";
-  function savedName(){ try { return localStorage.getItem(NAME_KEY) || ""; } catch(e){ return ""; } }
-  function rememberName(n){ try { localStorage.setItem(NAME_KEY, n); } catch(e){} }
-
-  var mesa = { maos: [], resps: [], filter: "all", open: {}, drafts: {} };
-  var mForm = document.getElementById("mesaForm"), mSend = document.getElementById("mesaSend"),
-      mStatus = document.getElementById("mesaStatus"), mList = document.getElementById("mesaList"),
-      mEmpty = document.getElementById("mesaEmpty"), mClosed = document.getElementById("mesaClosed"),
-      mCount = document.getElementById("mesaCount");
-  var fmt = new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "short", year: "numeric" });
-  var rtf = new Intl.RelativeTimeFormat("pt-BR", { numeric: "auto" });
-  function ago(iso){
-    var d = new Date(iso); if (isNaN(d)) return "";
-    var s = (d - Date.now()) / 1000, a = Math.abs(s);
-    if (a < 60) return "agora";
-    if (a < 3600) return rtf.format(Math.round(s / 60), "minute");
-    if (a < 86400) return rtf.format(Math.round(s / 3600), "hour");
-    if (a < 86400 * 30) return rtf.format(Math.round(s / 86400), "day");
-    return fmt.format(d).replace(".", "");
-  }
-
-  function renderMesa(){
-    var active = document.activeElement, activeId = active && active.dataset ? active.dataset.reply : null;
-    var byMao = {};
-    mesa.resps.forEach(function(r){ (byMao[r.maoId] = byMao[r.maoId] || []).push(r); });
-    var items = mesa.maos.filter(function(m){ return mesa.filter === "all" || m.tema === mesa.filter; });
-    mList.innerHTML = "";
-    items.forEach(function(m){
-      var replies = byMao[m.id] || [];
-      var li = h("li", "hand-card");
-      var head = h("div", "hc-head"), who = h("div", "hc-who");
-      who.append(h("b", null, m.nome || "Anônimo"), h("time", null, ago(m.criadoEm)));
-      head.append(h("span", "avatar", (m.nome || "?").trim().charAt(0).toUpperCase()), who, h("span", "topic", m.tema || "Conversa"));
-      li.append(head, h("p", "hc-text", m.texto));
-
-      var foot = h("div", "hc-foot");
-      var label = replies.length ? (replies.length === 1 ? "1 resposta" : replies.length + " respostas") : "Responder";
-      var tog = h("button", "hc-toggle", mesa.open[m.id] && replies.length ? "Fechar conversa" : label);
-      tog.type = "button"; tog.setAttribute("aria-expanded", !!mesa.open[m.id]);
-      tog.addEventListener("click", function(){ mesa.open[m.id] = !mesa.open[m.id]; renderMesa(); });
-      var rep = h("a", "hc-report", "Denunciar"); rep.target = "_blank"; rep.rel = "noopener";
-      rep.href = waLink('Oi, Denny! Quero denunciar uma mensagem no "Levante a mão" (de ' + (m.nome || "") + '): "' + (m.texto || "").slice(0, 120) + '"');
-      foot.append(tog, rep); li.append(foot);
-
-      if (mesa.open[m.id]) {
-        var box = h("div", "hc-replies");
-        replies.forEach(function(r){
-          var b = h("div", "bubble"), t = h("div", "bubble-top");
-          t.append(h("b", null, r.nome || "Anônimo"), h("time", null, ago(r.criadoEm)));
-          b.append(t, h("p", null, r.texto)); box.append(b);
-        });
-        var f = h("form", "reply-form"); f.noValidate = true;
-        var nm = h("input"); nm.id = "r-name-" + m.id; nm.placeholder = "Seu nome"; nm.maxLength = 60; nm.value = savedName(); nm.setAttribute("aria-label", "Seu nome");
-        var row = h("div", "reply-row");
-        var tx = h("input"); tx.id = "r-text-" + m.id; tx.placeholder = "Escreva uma resposta…"; tx.maxLength = 1000; tx.dataset.reply = m.id; tx.setAttribute("aria-label", "Sua resposta");
-        tx.value = mesa.drafts[m.id] || "";
-        tx.addEventListener("input", function(){ mesa.drafts[m.id] = tx.value; });
-        var sb = h("button", "btn btn-dark"); sb.type = "submit"; sb.setAttribute("aria-label", "Enviar resposta");
-        sb.innerHTML = '<svg><use href="#i-arrow"/></svg>';
-        var st = h("p", "form-status"); st.setAttribute("role", "status");
-        row.append(tx, sb); f.append(nm, row, st);
-        f.addEventListener("submit", function(e){
-          e.preventDefault();
-          var nome = nm.value.trim(), texto = tx.value.trim();
-          if (!nome || !texto) { setStatus(st, "Escreva seu nome e a resposta.", "err"); return; }
-          rememberName(nome); sb.disabled = true;
-          store.addResposta({ maoId: m.id, nome: nome, texto: texto }).then(function(){
-            mesa.drafts[m.id] = ""; renderMesa();
-          }, function(){ setStatus(st, "Não foi possível enviar agora. Tente de novo em instantes.", "err"); sb.disabled = false; });
-        });
-        box.append(f); li.append(box);
-      }
-      mList.append(li);
-    });
-    mList.hidden = items.length === 0;
-    mEmpty.hidden = items.length > 0;
-    var n = mesa.maos.length;
-    mCount.textContent = n === 1 ? "1 mão levantada" : n + " mãos levantadas";
-    if (activeId) { var el = document.getElementById("r-text-" + activeId); if (el) { el.focus(); el.setSelectionRange(el.value.length, el.value.length); } }
-  }
-  filterChips("mesaFilters", function(f){ mesa.filter = f; renderMesa(); });
-
-  mForm.addEventListener("submit", function(e){
-    e.preventDefault();
-    if (!store) { setStatus(mStatus, "Conectando à mesa. Tente de novo em alguns segundos."); return; }
-    var nome = val("m-name"), tema = val("m-topic"), texto = val("m-text");
-    if (!nome || !texto) { setStatus(mStatus, "Escreva seu nome e o que quer dividir.", "err"); return; }
-    rememberName(nome); mSend.disabled = true; setStatus(mStatus, "Levantando a mão…");
-    store.addMao({ nome: nome, tema: tema, texto: texto }).then(function(){
-      document.getElementById("m-text").value = "";
-      setStatus(mStatus, "Sua mão está levantada. Agora é esperar a mesa responder.", "ok");
-    }, function(){
-      setStatus(mStatus, "Não foi possível publicar agora. Tente de novo em instantes.", "err");
-    }).then(function(){ mSend.disabled = false; });
-  });
-
-  // Um texto por semana (e-mail + WhatsApp)
-  var nForm = document.getElementById("newsForm"), nStatus = document.getElementById("newsStatus"),
-      nSend = document.getElementById("newsSend"), nDone = document.getElementById("newsDone"), nWa = document.getElementById("newsWa");
-  function finishNews(){
-    nWa.href = waLink("Oi, Denny! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
-    nForm.hidden = true; nDone.hidden = false;
-  }
-  document.getElementById("n-phone").addEventListener("input", maskPhone);
-  nForm.addEventListener("submit", function(e){
-    e.preventDefault();
-    var nome = val("n-name"), email = val("n-email"), phone = val("n-phone").replace(/\D/g, "");
-    if (!nome) return setStatus(nStatus, "Digite seu nome.", "err");
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setStatus(nStatus, "Confira o e-mail: ele precisa ter @ e domínio.", "err");
-    if (phone.length < 10) return setStatus(nStatus, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
-    if (!document.getElementById("n-consent").checked) return setStatus(nStatus, "Marque a autorização para receber os devocionais.", "err");
-    if (!store) { finishNews(); return; }
-    nSend.disabled = true; setStatus(nStatus, "Cadastrando…");
-    store.addSubscriber({ nome: nome, email: email, whatsapp: "+55" + phone }).then(finishNews, finishNews)
-      .then(function(){ nSend.disabled = false; });
-  });
-
-  // Um café na sua mesa: agendamento de 30 minutos, seg a sex, das 20h às 22h (horário de Brasília).
-  // AGENDA_URL: link do Google Apps Script (pasta agenda/). Com ele, o pedido entra na sua Agenda do Google,
-  // com link do Meet, e você recebe um e-mail na hora. Sem ele, o pedido segue pelo banco de dados ou WhatsApp.
-  var AGENDA_URL = "";
-  var BOOK_TIMES = ["20:00", "20:30", "21:00", "21:30"];
-  var BOOK_DAYS = 10, MIN_NOTICE_MIN = 60;
-  var taken = {};
-  function nowBR(){ return new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" })); }
-  function isoDay(d){ return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
-  function slotKey(day, time){ return day + "_" + time.replace(":", ""); }
-  function slotOpen(day, time){
-    if (taken[slotKey(day, time)]) return false;
-    var p = day.split("-"), t = time.split(":");
-    var start = new Date(+p[0], +p[1] - 1, +p[2], +t[0], +t[1]);
-    return start - nowBR() > MIN_NOTICE_MIN * 60000;
-  }
-  var bookDays = [];
-  (function(){
-    var d = nowBR(); d.setHours(0, 0, 0, 0);
-    while (bookDays.length < BOOK_DAYS) {
-      var wd = d.getDay(), key = isoDay(d);
-      if (wd >= 1 && wd <= 5 && BOOK_TIMES.some(function(t){ return slotOpen(key, t); })) bookDays.push(new Date(d));
-      d.setDate(d.getDate() + 1);
-    }
-  })();
-  var fmtWeek = new Intl.DateTimeFormat("pt-BR", { weekday: "short" });
-  var fmtLong = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" });
-  var book = { day: null, time: null };
-  var bDays = document.getElementById("bookDays"), bTimes = document.getElementById("bookTimes"),
-      bForm = document.getElementById("bookForm"), bStatus = document.getElementById("bookStatus"),
-      bSend = document.getElementById("bookSend"), bDone = document.getElementById("bookDone");
-
-  function opt(name, value, html, checked, disabled){
-    var l = h("label", "opt"), i = h("input");
-    i.type = "radio"; i.name = name; i.value = value; i.checked = !!checked; i.disabled = !!disabled;
-    var s = h("span"); s.innerHTML = html;
-    l.append(i, s); return { label: l, input: i };
-  }
-  function renderDays(){
-    bDays.innerHTML = "";
-    bookDays.forEach(function(d){
-      var key = isoDay(d);
-      var o = opt("b-day", key, "<small>" + fmtWeek.format(d).replace(".", "") + "</small><b>" + String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "</b>", book.day === key);
-      o.input.addEventListener("change", function(){ book.day = key; renderTimes(); });
-      bDays.appendChild(o.label);
-    });
-  }
-  function renderTimes(){
-    bTimes.innerHTML = "";
-    if (!book.day) { bTimes.appendChild(h("p", "hint-sm", "Escolha um dia para ver os horários.")); return; }
-    if (book.time && !slotOpen(book.day, book.time)) book.time = null;
-    var any = false;
-    BOOK_TIMES.forEach(function(t){
-      var open = slotOpen(book.day, t); any = any || open;
-      var o = opt("b-time", t, t, book.time === t, !open);
-      o.input.addEventListener("change", function(){ book.time = t; });
-      bTimes.appendChild(o.label);
-    });
-    if (!any) bTimes.appendChild(h("p", "hint-sm", "Esse dia já está cheio. Escolha outro."));
-  }
-  function onTaken(keys){ taken = {}; keys.forEach(function(k){ taken[k] = true; }); renderTimes(); }
-  function agendaTaken(){
-    fetch(AGENDA_URL).then(function(r){ return r.json(); }).then(function(d){ onTaken(d.ocupados || []); }).catch(function(){});
-  }
-  function agendaBook(b){
-    return fetch(AGENDA_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(b) })
-      .then(function(r){ return r.json(); })
-      .then(function(d){ if (d.ok) return d; throw new Error(d.erro === "ocupado" ? "taken" : "failed"); });
-  }
-  if (AGENDA_URL) { agendaTaken(); setInterval(function(){ if (!document.hidden) agendaTaken(); }, 60000); }
-  renderDays(); renderTimes();
-
-  function checked(name){ var el = bForm.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
-  bForm.querySelectorAll('input[name="b-format"]').forEach(function(r){
-    r.addEventListener("change", function(){ document.getElementById("placeField").hidden = checked("b-format") !== "Presencial"; });
-  });
-  document.getElementById("b-phone").addEventListener("input", maskPhone);
-
-  bForm.addEventListener("submit", function(e){
-    e.preventDefault();
-    var b = { formato: checked("b-format"), tema: checked("b-topic"), mensagem: val("b-need"), local: val("b-place"),
-              data: book.day, hora: book.time, nome: val("b-name"), whatsapp: val("b-phone").replace(/\D/g, ""), email: val("b-email") };
-    if (b.formato === "Presencial" && !b.local) return setStatus(bStatus, "Informe o bairro e a cidade para o encontro presencial.", "err");
-    if (!b.tema) return setStatus(bStatus, "Escolha sobre o que quer conversar.", "err");
-    if (b.mensagem.length < 5) return setStatus(bStatus, "Conte um pouco do que está no seu coração.", "err");
-    if (!b.data || !b.hora) return setStatus(bStatus, "Escolha o dia e o horário.", "err");
-    if (!b.nome) return setStatus(bStatus, "Digite seu nome.", "err");
-    if (b.whatsapp.length < 10) return setStatus(bStatus, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
-    if (b.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)) return setStatus(bStatus, "Confira o e-mail: ele precisa ter @ e domínio. Ou deixe em branco.", "err");
-    if (!b.local) b.local = "";
-    b.whatsapp = "+55" + b.whatsapp;
-    var save = AGENDA_URL ? agendaBook : store ? store.addBooking : null;
-    if (!save) { finishBooking(b, false); return; }
-    bSend.disabled = true; setStatus(bStatus, "Reservando seu horário…");
-    save(b).then(function(res){ taken[slotKey(b.data, b.hora)] = true; finishBooking(b, true, res && res.meet); }, function(err){
-      if (err && err.message === "taken") { taken[slotKey(b.data, b.hora)] = true; renderTimes(); setStatus(bStatus, "Alguém acabou de reservar esse horário. Escolha outro, por favor.", "err"); }
-      else finishBooking(b, false);
-    }).then(function(){ bSend.disabled = false; });
-  });
-
-  function finishBooking(b, saved, meet){
-    var p = b.data.split("-"), when = fmtLong.format(new Date(+p[0], +p[1] - 1, +p[2])) + ", às " + b.hora;
-    var sum = document.getElementById("bookSummary"); sum.innerHTML = "";
-    [["Quando", when], ["Como", b.formato + (b.local ? " · " + b.local : "")], ["Assunto", b.tema]].forEach(function(r){
-      var li = h("li"); li.append(h("b", null, r[0] + ": "), document.createTextNode(r[1])); sum.appendChild(li);
-    });
-    if (meet) {
-      var li = h("li"), a = h("a", null, meet); a.href = meet; a.target = "_blank"; a.rel = "noopener";
-      li.append(h("b", null, "Link da chamada: "), a); sum.appendChild(li);
-    }
-    document.getElementById("bookDoneLabel").textContent = saved ? "Horário reservado" : "Falta um passo";
-    document.getElementById("bookDoneTitle").textContent = saved ? "Seu café está marcado!" : "Envie seu pedido pelo WhatsApp";
-    document.getElementById("bookDoneText").textContent = saved
-      ? (b.email ? "O convite chegou no seu e-mail e já está na sua agenda. " : "") + "O Denny confirma pelo WhatsApp. Para agilizar, mande o pedido por lá também:"
-      : "Toque no botão abaixo para enviar o pedido. O horário fica reservado quando o Denny confirmar.";
-    document.getElementById("bookWa").href = waLink("Oi, Denny! Quero marcar Um café na sua mesa.\nQuando: " + when +
-      "\nComo: " + b.formato + (b.local ? " (" + b.local + ")" : "") + "\nAssunto: " + b.tema + "\nNome: " + b.nome + "\n\n" + b.mensagem);
-    bForm.hidden = true; bDone.hidden = false;
-    bDone.scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-  document.getElementById("bookAgain").addEventListener("click", function(){
-    book.time = null; document.getElementById("b-need").value = ""; setStatus(bStatus, "");
-    renderTimes(); bDone.hidden = true; bForm.hidden = false;
-  });
-
-  // Da nossa mesa para a sua: profissionais que a família indica.
-  // Para acrescentar alguém, copie um bloco e troque os dados. Apague os exemplos (exemplo: true).
+// Da nossa mesa para a sua: profissionais que a família indica.
+// Para acrescentar alguém, copie um bloco e troque os dados. Apague os exemplos (exemplo:true).
   var INDICACOES = [
     { cat:"Saúde dos pequenos", nome:"Dra. Nome da Pediatra", oque:"Pediatra", onde:"Recife", modo:"Presencial",
       porque:"Atende com calma, explica tudo sem assustar e responde mensagem de pai aflito.", whatsapp:"", instagram:"", exemplo:true },
@@ -1512,68 +1177,743 @@ footer{background:var(--night);color:var(--night-ink);padding-block:72px 32px;ma
     { cat:"Gestação e bebê", nome:"Nome da Consultora", oque:"Consultora de sono infantil", onde:"Atende todo o Brasil", modo:"Online",
       porque:"Quando as madrugadas pesaram, foi quem trouxe um plano possível, sem culpa.", whatsapp:"", instagram:"", exemplo:true }
   ];
-  var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
-  var fridge = document.getElementById("fridgeNotes");
-  function renderFridge(filter){
-    fridge.innerHTML = "";
-    INDICACOES.forEach(function(p){
-      if (filter !== "all" && p.cat !== filter) return;
-      var li = h("li", "note");
-      var mag = h("span", "tape"); mag.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); mag.setAttribute("aria-hidden", "true");
-      var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
-      if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
-      var why = h("div", "note-why"); why.append(h("span", "note-small", "Por que indicamos"), h("p", null, "“" + p.porque + "”"));
-      var meta = h("p", "note-meta", p.onde + " · " + p.modo);
-      var acts = h("div", "note-acts");
-      if (p.whatsapp) { var w = h("a", "btn btn-wa"); w.href = "https://wa.me/" + p.whatsapp.replace(/\D/g, ""); w.target = "_blank"; w.rel = "noopener"; w.innerHTML = '<svg><use href="#i-wa"/></svg>WhatsApp'; acts.append(w); }
-      if (p.instagram) { var ig = h("a", "btn btn-ghost"); ig.href = "https://instagram.com/" + p.instagram.replace(/^@/, ""); ig.target = "_blank"; ig.rel = "noopener"; ig.innerHTML = '<svg><use href="#i-ig"/></svg>Instagram'; acts.append(ig); }
-      li.append(mag, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, meta);
-      if (acts.childNodes.length) li.append(acts);
-      fridge.appendChild(li);
-    });
+var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+
+
+// Telas (views) e navegação por hash: #inicio, #devocional, #cafe, #comunidade, #sobre, #painel
+var VIEWS = ["inicio", "devocional", "cafe", "comunidade", "sobre", "painel"];
+var ALIAS = { agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
+              contato: "sobre", novidades: "devocional", artigos: "devocional", textos: "devocional", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
+var route = { view: "", sub: "" };
+var viewHooks = {};  // viewHooks[view] = function(sub)
+
+function parseHash(){
+  var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";
+  if (ALIAS[v]) { var a = ALIAS[v].split(":"); v = a[0]; s = s || a[1] || ""; }
+  if (VIEWS.indexOf(v) < 0) v = "inicio";
+  return { view: v, sub: s };
+}
+function go(view, sub){ var hash = "#" + view + (sub ? "/" + sub : ""); if (location.hash === hash) renderRoute(); else location.hash = hash; }
+
+function setSub(viewEl, sub){
+  var tabs = $$(".seg button[data-sub]", viewEl);
+  var panels = $$("[data-sub-panel]", viewEl);
+  var names = tabs.map(function(b){ return b.getAttribute("data-sub"); });
+  if (names.indexOf(sub) < 0) sub = names[0];
+  tabs.forEach(function(b){ b.setAttribute("aria-selected", b.getAttribute("data-sub") === sub); });
+  panels.forEach(function(p){ p.classList.toggle("on", p.getAttribute("data-sub-panel") === sub); });
+  return sub;
+}
+
+function renderRoute(){
+  var r = parseHash(), changed = r.view !== route.view;
+  $$(".view").forEach(function(v){ v.classList.toggle("on", v.getAttribute("data-view") === r.view); });
+  $$("[data-tab]").forEach(function(a){ if (a.getAttribute("data-tab") === r.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  var viewEl = $("v-" + r.view);
+  r.sub = setSub(viewEl, r.sub);
+  route = r;
+  document.body.setAttribute("data-view", r.view);
+  if (changed) window.scrollTo(0, 0);
+  if (viewHooks[r.view]) viewHooks[r.view](r.sub);
+}
+window.addEventListener("hashchange", renderRoute);
+
+// Abas internas de cada tela (segmented control) atualizam o hash
+$$(".seg button[data-sub]").forEach(function(b){
+  b.addEventListener("click", function(){ go(route.view, b.getAttribute("data-sub")); });
+});
+// Atalhos dentro da página
+$("readToday").addEventListener("click", function(){ go("devocional"); setTimeout(function(){ openReader(FEATURED); }, 60); });
+
+
+// Login com Google (Supabase Auth) e menu da conta.
+var auth = { user: null, admin: false, ready: false, listeners: [] };
+auth.on = function(fn){ auth.listeners.push(fn); };
+auth.name = function(){ var u = auth.user; return u ? (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || (u.email || "").split("@")[0] : ""; };
+function emitAuth(){ applyAuthUI(); auth.listeners.forEach(function(fn){ try { fn(auth); } catch(e){ console.error(e); } }); }
+
+function applyAuthUI(){
+  var inn = !!auth.user;
+  $$('[data-auth="in"]').forEach(function(e){ e.hidden = !inn; });
+  $$('[data-auth="out"]').forEach(function(e){ e.hidden = inn; });
+  $("acctAvatar").textContent = initial(auth.name());
+  $("acctName").textContent = firstName(auth.name());
+  $("menuName").textContent = auth.name();
+  $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
+  $("menuPainel").hidden = !auth.admin;
+  if (!inn) $("acctMenu").hidden = true;
+  var gates = [["bookGate", "bookApp"], ["chatGate", "chatApp"]];
+  gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
+}
+
+auth.signIn = function(){
+  if (!sb) { toast("O login não está disponível agora. Fale comigo no WhatsApp."); return; }
+  lsSet("cgf-after", location.hash || "#inicio");
+  sb.auth.signInWithOAuth({
+    provider: "google",
+    options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } }
+  }).then(function(r){ if (r && r.error) toast("Não foi possível entrar com o Google agora."); });
+};
+auth.signOut = function(){ if (sb) sb.auth.signOut(); };
+
+function setSession(session){
+  auth.user = session && session.user ? session.user : null;
+  auth.admin = false;
+  auth.ready = true;
+  emitAuth();
+  if (auth.user && sb) {
+    sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); renderRoute(); });
   }
-  filterChips("fridgeFilters", renderFridge);
-  renderFridge("all");
+}
 
-  // Escolhe onde guardar os dados
-  document.getElementById("m-name").value = savedName();
-  function onData(m, r){ mesa.maos = m; mesa.resps = r; renderMesa(); }
-  function openMesa(s){ store = s; mForm.hidden = false; mClosed.hidden = true; store.subscribe(onData); if (!AGENDA_URL) store.subscribeTaken(onTaken); }
-  function closeMesa(){ mForm.hidden = true; mClosed.hidden = false; }
-  if (SUPABASE_URL && SUPABASE_KEY) {
-    openMesa(supabaseStore());
-  } else if (window.claude && window.claude.use) {
-    Promise.all([claude.use("db"), claude.use("user")]).then(function(r){
-      if (!r[0]) return closeMesa();
-      return (r[1] ? r[1].id() : Promise.resolve(null)).then(function(uid){ openMesa(artifactStore(r[0], uid)); });
-    }).catch(closeMesa);
-  } else {
-    closeMesa();
-  }
+$$(".js-login, #loginBtn").forEach(function(b){ b.addEventListener("click", auth.signIn); });
+$("acctBtn").addEventListener("click", function(e){ e.stopPropagation(); var m = $("acctMenu"); m.hidden = !m.hidden; $("acctBtn").setAttribute("aria-expanded", !m.hidden); });
+document.addEventListener("click", function(e){ if (!$("acctMenu").hidden && !$("acctMenu").contains(e.target)) $("acctMenu").hidden = true; });
+$("acctMenu").addEventListener("click", function(){ $("acctMenu").hidden = true; });
+$("menuOut").addEventListener("click", function(){ auth.signOut(); go("inicio"); });
 
-  // Instalar o app (PWA). Só aparece no site publicado, que tem o manifesto do app.
-  (function(){
-    var sec = document.getElementById("app"), btn = document.getElementById("installBtn"), ios = document.getElementById("iosHelp");
-    var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
-    if (!document.querySelector('link[rel="manifest"]') || standalone) return;
-    var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-    var deferred = null;
-    window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; sec.hidden = false; });
-    window.addEventListener("appinstalled", function(){ sec.hidden = true; });
-    if (isIOS) sec.hidden = false;
-    btn.addEventListener("click", function(){
-      if (deferred) { deferred.prompt(); deferred.userChoice.then(function(){ deferred = null; }); }
-      else ios.showModal();
-    });
-    document.getElementById("iosClose").addEventListener("click", function(){ ios.close(); });
-    ios.addEventListener("click", function(e){ if (e.target === ios) ios.close(); });
-  })();
+if (sb) {
+  // Não chame o Supabase de dentro desta função: adie com setTimeout para evitar travar o login.
+  sb.auth.onAuthStateChange(function(event, session){
+    setTimeout(function(){
+      setSession(session);
+      if (event === "SIGNED_IN") {
+        if (/[?&](code|error)=/.test(location.search)) history.replaceState(null, "", location.pathname + location.hash);
+        var after = lsGet("cgf-after");
+        if (after) { lsSet("cgf-after", ""); if (after !== location.hash) location.hash = after; }
+      }
+    }, 0);
+  });
+  sb.auth.getSession().then(function(r){ if (!auth.ready) setSession(r && r.data ? r.data.session : null); });
+} else {
+  auth.ready = true;
+  emitAuth();
+}
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+
+// 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
+var dlg = $("reader"), readerBody = $("readerBody");
+
+function shareText(a){
+  return "☕ *" + a.title + "*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n“" + a.passage[0] + "”\n— " + a.passage[1] +
+         "\n\nLeia completo, com oração: " + location.origin + location.pathname + "#devocional";
+}
+function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "label", label), h("p", null, text)); return b; }
+
+function openReader(a){
+  readerBody.innerHTML = "";
+  var title = h("h3", null, a.title); title.id = "readerTitle";
+  var v = h("div", "verse", "“" + a.passage[0] + "”"); v.appendChild(h("span", "ref", a.passage[1]));
+  readerBody.append(h("span", "label", "5 minutos para a sua casa · " + a.cat), title, h("span", "label", "O que a Bíblia diz sobre isso"), v);
+  a.body.forEach(function(t){ readerBody.appendChild(h("p", null, t)); });
+  readerBody.append(box("Para pensar", a.think), box("Para hoje", a.today), h("span", "label", "Se quiser, ore assim"), h("p", "devo-pray", a.prayer));
+  var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Denny Silva"));
+  function act(cls, href, ic, label){ var x = h("a", "btn btn-sm " + cls); x.href = href; x.target = "_blank"; x.rel = "noopener"; x.append(icon(ic), document.createTextNode(label)); return x; }
+  foot.append(
+    act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
+    act("btn-ghost", waLink('Oi, Denny! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com o Denny")
+  );
+  var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-chat"), document.createTextNode("Comentar"));
+  cm.addEventListener("click", function(){ dlg.close(); $("c-sobre").value = a.title; go("comunidade", "comentarios"); });
+  foot.appendChild(cm);
+  readerBody.appendChild(foot);
+  dlg.showModal(); dlg.scrollTop = 0;
+}
+$("readerClose").addEventListener("click", function(){ dlg.close(); });
+dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); });
+
+(function renderDevocional(){
+  var feat = $("devoFeature"), main = h("div", "df-main"), tags = h("div", "df-tags");
+  tags.append(h("span", "badge", "Novo"), h("span", "label", FEATURED.cat + " · 5 min"));
+  var btn = h("button", "btn btn-terra"); btn.type = "button"; btn.append(icon("i-book"), document.createTextNode("Ler em 5 minutos"));
+  btn.addEventListener("click", function(){ openReader(FEATURED); });
+  main.append(tags, h("h3", null, FEATURED.title), h("p", null, FEATURED.lede), btn);
+  main.append(h("p", "df-next", SCHED.next
+    ? "Próximo devocional: " + new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" }).format(SCHED.next)
+    : "Novos devocionais em breve"));
+  var side = h("div", "df-side"); side.setAttribute("aria-hidden", "true");
+  side.append(h("b", null, "5"), h("span", null, "minutos"), h("p", null, "Um café, uma Palavra. Antes que o bebê acorde."));
+  side.lastChild.style.cssText = "font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.35;color:var(--night-ink);text-transform:none;letter-spacing:0;margin-top:8px";
+  feat.append(main, side);
+
+  var list = $("devoList");
+  ARCHIVE.forEach(function(a){
+    var li = h("li", "row"), left = h("div"), meta = h("div", "meta");
+    meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
+    left.append(meta, h("h3", null, a.title));
+    var go_ = h("button", "go"); go_.type = "button"; go_.setAttribute("aria-label", "Ler " + a.title); go_.appendChild(icon("i-arrow"));
+    li.append(left, go_);
+    li.addEventListener("click", function(){ openReader(a); });
+    list.appendChild(li);
+  });
+  $("archiveWrap").hidden = ARCHIVE.length === 0;
 })();
-</script>
 
-<script>
+// Cadastro de novidades (e-mail + WhatsApp)
+$("n-phone").addEventListener("input", maskPhone);
+var newsForm = $("newsForm"), newsStatus = $("newsStatus");
+function finishNews(){
+  $("newsWa").href = waLink("Oi, Denny! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
+  newsForm.hidden = true; $("newsDone").hidden = false;
+}
+newsForm.addEventListener("submit", function(e){
+  e.preventDefault();
+  var nome = val("n-name"), email = val("n-email"), phone = val("n-phone").replace(/\D/g, "");
+  if (!nome) return setStatus(newsStatus, "Digite seu nome.", "err");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return setStatus(newsStatus, "Confira o e-mail: ele precisa ter @ e domínio.", "err");
+  if (phone.length < 10) return setStatus(newsStatus, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
+  if (!$("n-consent").checked) return setStatus(newsStatus, "Marque a autorização para receber os devocionais.", "err");
+  if (!sb) { finishNews(); return; }
+  $("newsSend").disabled = true; setStatus(newsStatus, "Cadastrando…");
+  sb.from("inscritos").insert({ nome: nome, email: email, whatsapp: "+55" + phone }).then(function(){ finishNews(); $("newsSend").disabled = false; });
+});
+
+
+// Um café na sua mesa: agendar, ver e desmarcar. Seg a sex, das 20h às 22h (horário de Brasília), 30 minutos.
+var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (o Denny manda o link)", presencial: "Presencial" };
+var DEFAULT_TEMPLATE = [];
+[1, 2, 3, 4, 5].forEach(function(d){ ["20:00", "20:30", "21:00", "21:30"].forEach(function(t){ DEFAULT_TEMPLATE.push({ dia_semana: d, hora: t }); }); });
+var MIN_NOTICE_MIN = 60, BOOK_DAYS = 10;
+var cafe = { template: DEFAULT_TEMPLATE, taken: {}, days: [], day: null, time: null, mine: [], loaded: false };
+
+function slotKey(day, time){ return day + "_" + time; }
+function hoursFor(d){
+  return cafe.template.filter(function(t){ return t.dia_semana === isoWeekday(d); }).map(function(t){ return t.hora; }).sort();
+}
+function slotOpen(day, time){
+  if (cafe.taken[slotKey(day, time)]) return false;
+  var d = parseDay(day), t = time.split(":");
+  d.setHours(+t[0], +t[1], 0, 0);
+  return d - nowBR() > MIN_NOTICE_MIN * 60000;
+}
+function buildDays(){
+  var out = [], d = nowBR(); d.setHours(0, 0, 0, 0);
+  for (var i = 0; i < 45 && out.length < BOOK_DAYS; i++, d.setDate(d.getDate() + 1)) {
+    var key = isoDay(d);
+    if (hoursFor(d).some(function(t){ return slotOpen(key, t); })) out.push(new Date(d));
+  }
+  cafe.days = out;
+}
+
+var bDays = $("bookDays"), bTimes = $("bookTimes"), bForm = $("bookForm"), bStatus = $("bookStatus"), bSend = $("bookSend"), bDone = $("bookDone");
+function opt(name, value, html, checked, disabled){
+  var l = h("label", "opt"), i = h("input"), s = h("span");
+  i.type = "radio"; i.name = name; i.value = value; i.checked = !!checked; i.disabled = !!disabled;
+  s.innerHTML = html; l.append(i, s); return { label: l, input: i };
+}
+function renderDays(){
+  bDays.innerHTML = "";
+  if (!cafe.days.length) { bDays.appendChild(h("p", "hint", "Não há horários livres nos próximos dias. Chame no WhatsApp que a gente encaixa.")); return; }
+  if (cafe.day && cafe.days.every(function(d){ return isoDay(d) !== cafe.day; })) { cafe.day = null; cafe.time = null; }
+  cafe.days.forEach(function(d){
+    var key = isoDay(d), wd = WEEKDAYS[isoWeekday(d)];
+    var o = opt("b-day", key, "<small>" + wd + "</small><b>" + String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "</b>", cafe.day === key);
+    o.input.addEventListener("change", function(){ cafe.day = key; cafe.time = null; renderTimes(); });
+    bDays.appendChild(o.label);
+  });
+}
+function renderTimes(){
+  bTimes.innerHTML = "";
+  if (!cafe.day) { bTimes.appendChild(h("p", "hint", "Escolha um dia para ver os horários.")); return; }
+  if (cafe.time && !slotOpen(cafe.day, cafe.time)) cafe.time = null;
+  var hours = hoursFor(parseDay(cafe.day)), any = false;
+  hours.forEach(function(t){
+    var open = slotOpen(cafe.day, t); any = any || open;
+    var o = opt("b-time", t, t, cafe.time === t, !open);
+    o.input.addEventListener("change", function(){ cafe.time = t; });
+    bTimes.appendChild(o.label);
+  });
+  if (!any) bTimes.appendChild(h("p", "hint", "Esse dia já está cheio. Escolha outro."));
+}
+
+function loadAvailability(){
+  if (!sb) { buildDays(); renderDays(); renderTimes(); return; }
+  Promise.all([
+    sb.from("horarios_semana").select("dia_semana,hora"),
+    sb.from("horarios_ocupados").select("data,hora").gte("data", isoDay(nowBR()))
+  ]).then(function(r){
+    if (r[0].data && r[0].data.length) cafe.template = r[0].data;
+    if (r[1].data) { cafe.taken = {}; r[1].data.forEach(function(x){ cafe.taken[slotKey(x.data, x.hora)] = true; }); }
+    cafe.loaded = true;
+    buildDays(); renderDays(); renderTimes();
+  }).catch(function(){ buildDays(); renderDays(); renderTimes(); });
+}
+
+$$('input[name="b-format"]').forEach(function(r){
+  r.addEventListener("change", function(){ $("placeField").hidden = checkedVal("b-format") !== "presencial"; });
+});
+function checkedVal(name){ var el = bForm.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
+$("b-phone").addEventListener("input", maskPhone);
+
+var BOOK_ERR = {
+  horario_ocupado: "Alguém acabou de reservar esse horário. Escolha outro, por favor.",
+  horario_indisponivel: "Esse horário não está mais disponível. Escolha outro.",
+  horario_passado: "Esse horário já passou. Escolha outro.",
+  limite_agendamentos: "Você já tem 2 cafés marcados. Desmarque um para marcar outro.",
+  login_necessario: "Entre com o Google para agendar.",
+  dados_invalidos: "Confira os campos e tente de novo."
+};
+
+bForm.addEventListener("submit", function(e){
+  e.preventDefault();
+  var b = { p_data: cafe.day, p_hora: cafe.time, p_formato: checkedVal("b-format"), p_local: val("b-place"), p_tema: checkedVal("b-topic"),
+            p_mensagem: val("b-need"), p_whatsapp: val("b-phone").replace(/\D/g, "") };
+  if (b.p_formato === "presencial" && b.p_local.length < 3) return setStatus(bStatus, "Informe o bairro e a cidade para o encontro presencial.", "err");
+  if (!b.p_tema) return setStatus(bStatus, "Escolha sobre o que quer conversar.", "err");
+  if (b.p_mensagem.length < 5) return setStatus(bStatus, "Conte um pouco do que está no seu coração.", "err");
+  if (!b.p_data || !b.p_hora) return setStatus(bStatus, "Escolha o dia e o horário.", "err");
+  if (b.p_whatsapp.length < 10) return setStatus(bStatus, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
+  if (b.p_formato !== "presencial") b.p_local = "";
+  b.p_whatsapp = "+55" + b.p_whatsapp;
+  if (!sb || !auth.user) return setStatus(bStatus, BOOK_ERR.login_necessario, "err");
+  bSend.disabled = true; setStatus(bStatus, "Reservando seu horário…");
+  sb.rpc("agendar", b).then(function(r){
+    bSend.disabled = false;
+    if (r.error) {
+      var c = errCode(r.error);
+      if (c === "horario_ocupado" || c === "horario_indisponivel") { cafe.taken[slotKey(b.p_data, b.p_hora)] = true; cafe.time = null; buildDays(); renderDays(); renderTimes(); }
+      return setStatus(bStatus, BOOK_ERR[c] || "Não foi possível agendar agora. Tente de novo ou chame no WhatsApp.", "err");
+    }
+    lsSet("cgf-zap", val("b-phone"));
+    cafe.taken[slotKey(b.p_data, b.p_hora)] = true;
+    finishBooking(b); loadMine();
+  });
+});
+
+function whenText(day, time){ return fmtLong.format(parseDay(day)) + ", às " + time; }
+function finishBooking(b){
+  var sum = $("bookSummary"); sum.innerHTML = "";
+  [["Quando", whenText(b.p_data, b.p_hora)], ["Como", FORMATS[b.p_formato] + (b.p_local ? " · " + b.p_local : "")], ["Assunto", b.p_tema]].forEach(function(r){
+    var li = h("li"); li.append(h("b", null, r[0] + ": "), document.createTextNode(r[1])); sum.appendChild(li);
+  });
+  $("bookDoneText").textContent = b.p_formato === "whatsapp"
+    ? "Na hora marcada, o Denny te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
+    : b.p_formato === "video" ? "O Denny manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
+    : "O Denny confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
+  $("bookWa").href = waLink("Oi, Denny! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
+    (b.p_local ? " (" + b.p_local + ")" : "") + "\nAssunto: " + b.p_tema);
+  bForm.hidden = true; bDone.hidden = false;
+}
+$("bookAgain").addEventListener("click", function(){
+  cafe.time = null; $("b-need").value = ""; setStatus(bStatus, ""); renderTimes(); bDone.hidden = true; bForm.hidden = false;
+});
+
+// Meus horários
+function loadMine(){
+  if (!sb || !auth.user) return;
+  sb.from("agendamentos").select("id,data,hora,formato,local,tema,status").eq("user_id", auth.user.id)
+    .order("data", { ascending: true }).order("hora", { ascending: true }).then(function(r){
+      cafe.mine = r.data || []; renderMine();
+    });
+}
+function renderMine(){
+  var box = $("myList"), today = isoDay(nowBR());
+  box.innerHTML = "";
+  var up = cafe.mine.filter(function(x){ return x.status === "confirmado" && x.data >= today; });
+  var rest = cafe.mine.filter(function(x){ return up.indexOf(x) < 0; }).reverse();
+  $("mineCount").textContent = up.length ? "(" + up.length + ")" : "";
+  if (!cafe.mine.length) {
+    var e = h("div", "empty"); e.append(h("h3", null, "Nenhum café marcado"), h("p", null, "Quando você agendar, o seu horário aparece aqui e dá para desmarcar."));
+    box.appendChild(e); return;
+  }
+  up.concat(rest).forEach(function(x){
+    var past = up.indexOf(x) < 0, row = h("div", "booking" + (past ? " off" : ""));
+    var info = h("div"), b = h("b", null, whenText(x.data, x.hora));
+    info.append(b, h("small", null, FORMATS[x.formato] + (x.local ? " · " + x.local : "") + " · " + x.tema));
+    row.appendChild(info);
+    if (!past) {
+      var act = h("div", "confirm"), btn = h("button", "btn btn-ghost btn-sm", "Desmarcar"); btn.type = "button";
+      btn.addEventListener("click", function(){
+        act.innerHTML = "";
+        var yes = h("button", "btn btn-dark btn-sm", "Sim, desmarcar"), no = h("button", "btn btn-ghost btn-sm", "Manter"); yes.type = no.type = "button";
+        no.addEventListener("click", renderMine);
+        yes.addEventListener("click", function(){
+          yes.disabled = true;
+          sb.rpc("cancelar_agendamento", { p_id: x.id }).then(function(r){
+            if (r.error) { toast("Não foi possível desmarcar agora. Chame o Denny no WhatsApp."); renderMine(); return; }
+            delete cafe.taken[slotKey(x.data, x.hora)];
+            toast("Horário desmarcado."); loadMine(); loadAvailability();
+          });
+        });
+        act.append(h("span", "hint", "Desmarcar este horário?"), yes, no);
+      });
+      act.appendChild(btn); row.appendChild(act);
+    } else row.appendChild(h("span", "pill-s cancel", x.status === "cancelado" ? "Desmarcado" : "Realizado"));
+    box.appendChild(row);
+  });
+}
+
+viewHooks.cafe = function(sub){
+  loadAvailability();
+  if (auth.user) { loadMine(); if (!val("b-phone") && lsGet("cgf-zap")) $("b-phone").value = lsGet("cgf-zap"); }
+};
+auth.on(function(){ if (route.view === "cafe") viewHooks.cafe(route.sub); });
+setInterval(function(){ if (!document.hidden && route.view === "cafe" && !bForm.hidden) loadAvailability(); }, 60000);
+
+
+// Comunidade: chat entre pais (com login), comentários públicos e indicações.
+function filterChips(groupId, onPick){
+  var chips = $$("#" + groupId + " .chip");
+  chips.forEach(function(c){
+    c.addEventListener("click", function(){
+      chips.forEach(function(x){ x.setAttribute("aria-pressed", x === c); });
+      onPick(c.getAttribute("data-filter"));
+    });
+  });
+}
+
+/* ---------- Chat: "Levante a mão" ---------- */
+var ROOMS = [
+  { id: "geral", nome: "Mesa geral", desc: "Papo livre entre pais" },
+  { id: "sono", nome: "Sono e madrugadas", desc: "Quem está acordado às 3h" },
+  { id: "birra", nome: "Birra e limites", desc: "Disciplina com graça" },
+  { id: "casamento", nome: "Casamento", desc: "Depois dos filhos" },
+  { id: "cansaco", nome: "Cansaço", desc: "Desabafos e respiros" },
+  { id: "fe", nome: "Fé em casa", desc: "Orar e ensinar os filhos" },
+  { id: "duvidas", nome: "Dúvidas sobre fé", desc: "Pergunte sem medo" }
+];
+var chat = { room: "geral", msgs: [], hand: false, timer: null, sig: "" };
+var msgsEl = $("msgs");
+
+function renderRooms(){
+  var box = $("rooms"); box.innerHTML = "";
+  ROOMS.forEach(function(r){
+    var b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", r.id === chat.room);
+    b.append(document.createTextNode(r.nome), h("small", null, r.desc));
+    b.addEventListener("click", function(){ chat.room = r.id; chat.msgs = []; chat.sig = ""; $("chatTitle").textContent = r.nome; renderRooms(); renderMsgs(true); loadMsgs(true); });
+    box.appendChild(b);
+  });
+}
+function renderMsgs(force){
+  var sig = chat.msgs.length + ":" + (chat.msgs.length ? chat.msgs[chat.msgs.length - 1].id : "");
+  if (!force && sig === chat.sig) return;
+  chat.sig = sig;
+  var nearEnd = msgsEl.scrollHeight - msgsEl.scrollTop - msgsEl.clientHeight < 120;
+  msgsEl.innerHTML = "";
+  if (!chat.msgs.length) {
+    var e = h("div", "empty"); e.append(h("h3", null, "Ninguém levantou a mão ainda"), h("p", null, "Puxe uma cadeira e comece a conversa. A primeira pergunta é sempre a mais corajosa."));
+    msgsEl.appendChild(e); return;
+  }
+  chat.msgs.forEach(function(m){
+    var me = auth.user && m.user_id === auth.user.id;
+    var row = h("div", "msg" + (me ? " me" : "")), bub = h("div", "bubble" + (m.mao ? " mao" : "")), top = h("div", "bubble-top");
+    row.appendChild(h("span", "avatar", initial(m.nome)));
+    top.append(h("b", null, me ? "Você" : m.nome), h("time", null, ago(m.criado_em)));
+    bub.appendChild(top);
+    if (m.mao) bub.appendChild(h("span", "tag-mao", "✋ Levantou a mão"));
+    bub.appendChild(h("p", null, m.texto));
+    var act = h("div", "bubble-act");
+    if (me) {
+      var del = h("button", null, "Apagar"); del.type = "button";
+      del.addEventListener("click", function(){ sb.from("mensagens").delete().eq("id", m.id).then(function(){ chat.msgs = chat.msgs.filter(function(x){ return x.id !== m.id; }); renderMsgs(true); }); });
+      act.appendChild(del);
+    } else {
+      var rep = h("a", null, "Denunciar"); rep.href = waLink('Oi, Denny! Quero denunciar uma mensagem no chat (sala ' + chat.room + ', de ' + m.nome + '): "' + m.texto.slice(0, 120) + '"'); rep.target = "_blank"; rep.rel = "noopener";
+      act.appendChild(rep);
+    }
+    bub.appendChild(act); row.appendChild(bub); msgsEl.appendChild(row);
+  });
+  if (force || nearEnd) msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+function loadMsgs(force){
+  if (!sb || !auth.user) return;
+  var room = chat.room;
+  sb.from("mensagens").select("id,user_id,nome,texto,mao,criado_em").eq("sala", room).eq("aprovado", true)
+    .order("criado_em", { ascending: false }).limit(80).then(function(r){
+      if (room !== chat.room || !r.data) return;
+      chat.msgs = r.data.slice().reverse(); renderMsgs(!!force);
+    });
+}
+function startChat(){ stopChat(); loadMsgs(true); chat.timer = setInterval(function(){ if (!document.hidden) loadMsgs(false); }, 5000); }
+function stopChat(){ if (chat.timer) { clearInterval(chat.timer); chat.timer = null; } }
+
+$("composer").addEventListener("submit", function(e){
+  e.preventDefault();
+  var texto = $("msgText").value.trim();
+  if (!texto || !sb || !auth.user) return;
+  $("msgSend").disabled = true;
+  sb.from("mensagens").insert({ sala: chat.room, texto: texto, mao: chat.hand }).select("id,user_id,nome,texto,mao,criado_em").then(function(r){
+    $("msgSend").disabled = false;
+    if (r.error || !r.data || !r.data.length) { toast("Não foi possível enviar agora. Tente de novo."); return; }
+    $("msgText").value = ""; chat.hand = false; $("handBtn").setAttribute("aria-pressed", "false");
+    chat.msgs.push(r.data[0]); renderMsgs(true);
+  });
+});
+$("handBtn").addEventListener("click", function(){ chat.hand = !chat.hand; $("handBtn").setAttribute("aria-pressed", chat.hand); $("msgText").focus(); });
+$("rulesToggle").addEventListener("click", function(e){ e.preventDefault(); $("chatRules").hidden = !$("chatRules").hidden; });
+$("rulesOk").addEventListener("click", function(){ lsSet("cgf-rules", "1"); $("chatRules").hidden = true; });
+renderRooms();
+
+/* ---------- Comentários públicos ---------- */
+var cmtList = $("cmtList"), cmtStatus = $("cmtStatus");
+(function fillSobre(){
+  var sel = $("c-sobre"), seen = {};
+  ["Geral"].concat(DEVOS.map(function(d){ return d.title; })).concat(["Um café na sua mesa", "O site e o app"]).forEach(function(t){
+    if (seen[t]) return; seen[t] = 1; var o = h("option", null, t); o.value = t; sel.appendChild(o);
+  });
+})();
+function renderComments(items){
+  cmtList.innerHTML = "";
+  $("cmtCount").textContent = items.length === 1 ? "1 comentário" : items.length + " comentários";
+  if (!items.length) {
+    var e = h("div", "empty card"); e.append(h("h3", null, "Seja o primeiro a comentar"), h("p", null, "Ainda está quieto por aqui. Puxe uma cadeira e comece a conversa."));
+    cmtList.appendChild(e); return;
+  }
+  items.forEach(function(c){
+    var el = h("article", "cmt"), top = h("div", "cmt-top");
+    top.append(h("span", "avatar", initial(c.nome)), h("b", null, c.nome), h("time", null, ago(c.criado_em)));
+    el.appendChild(top);
+    if (c.sobre && c.sobre !== "Geral") el.appendChild(h("span", "about", "Sobre: " + c.sobre));
+    el.appendChild(h("p", null, c.texto)); cmtList.appendChild(el);
+  });
+}
+var cmtCache = [];
+function loadComments(){
+  if (!sb) { renderComments([]); return; }
+  sb.from("comentarios").select("id,sobre,nome,texto,criado_em").eq("aprovado", true).order("criado_em", { ascending: false }).limit(60).then(function(r){
+    if (r.data) { cmtCache = r.data; renderComments(cmtCache); }
+  });
+}
+$("cmtForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  if ($("c-site").value) { setStatus(cmtStatus, "Comentário publicado. Obrigado!", "ok"); return; }  // isca contra robôs
+  var nome = val("c-name"), texto = val("c-text"), sobre = $("c-sobre").value;
+  if (!nome || !texto) return setStatus(cmtStatus, "Escreva seu nome e o comentário.", "err");
+  if (Date.now() - (+lsGet("cgf-cmt-ts") || 0) < 30000) return setStatus(cmtStatus, "Aguarde alguns segundos para comentar de novo.", "err");
+  if (!sb) return setStatus(cmtStatus, "Comentários indisponíveis agora. Fale comigo no WhatsApp.", "err");
+  $("cmtSend").disabled = true; setStatus(cmtStatus, "Publicando…");
+  sb.from("comentarios").insert({ sobre: sobre, nome: nome, texto: texto }).select("id,sobre,nome,texto,criado_em").then(function(r){
+    $("cmtSend").disabled = false;
+    if (r.error) return setStatus(cmtStatus, "Não foi possível publicar agora. Tente de novo em instantes.", "err");
+    lsSet("cgf-cmt-ts", String(Date.now()));
+    $("c-text").value = ""; setStatus(cmtStatus, "Comentário publicado. Obrigado por puxar uma cadeira!", "ok");
+    if (r.data && r.data[0]) { cmtCache.unshift(r.data[0]); renderComments(cmtCache); } else loadComments();
+  });
+});
+
+/* ---------- Indicações: da nossa mesa para a sua ---------- */
+var fridge = $("fridgeNotes");
+function renderFridge(filter){
+  fridge.innerHTML = "";
+  INDICACOES.forEach(function(p){
+    if (filter !== "all" && p.cat !== filter) return;
+    var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
+    var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
+    if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
+    var why = h("div", "note-why"); why.append(h("span", "note-small", "Por que indicamos"), h("p", null, "“" + p.porque + "”"));
+    var acts = h("div", "note-acts");
+    function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
+    if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
+    if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
+    li.append(tape, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, h("p", "note-meta", p.onde + " · " + p.modo));
+    if (acts.childNodes.length) li.append(acts);
+    fridge.appendChild(li);
+  });
+}
+filterChips("fridgeFilters", renderFridge);
+renderFridge("all");
+
+viewHooks.comunidade = function(sub){
+  if (sub === "chat" && auth.user) {
+    $("chatRules").hidden = lsGet("cgf-rules") === "1";
+    startChat();
+  } else stopChat();
+  if (sub === "comentarios") { loadComments(); if (auth.user && !val("c-name")) $("c-name").value = firstName(auth.name()); }
+};
+auth.on(function(){ if (route.view === "comunidade") viewHooks.comunidade(route.sub); else stopChat(); });
+document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });
+
+
+// Painel do Denny (só administradores): agenda, horários da semana, inscritos e moderação.
+var panel = { bookings: [], blocks: [], template: [], subs: [], open: null };
+var WEEK_HOURS = [];
+for (var hh = 18; hh <= 23; hh++) ["00", "30"].forEach(function(mm){ WEEK_HOURS.push(String(hh).padStart(2, "0") + ":" + mm); });
+
+function panelDays(){
+  var out = [], d = nowBR(); d.setHours(0, 0, 0, 0);
+  for (var i = 0; i < 28; i++, d.setDate(d.getDate() + 1)) {
+    var key = isoDay(d);
+    var hasTpl = panel.template.some(function(t){ return t.dia_semana === isoWeekday(d); });
+    var hasAny = panel.bookings.some(function(b){ return b.data === key; }) || panel.blocks.some(function(b){ return b.data === key; });
+    if (hasTpl || hasAny) out.push(new Date(d));
+  }
+  return out.slice(0, 21);
+}
+function findBooking(day, hour){ return panel.bookings.filter(function(b){ return b.data === day && b.hora === hour && b.status === "confirmado"; })[0]; }
+function isBlocked(day, hour){ return panel.blocks.some(function(b){ return b.data === day && b.hora === hour; }); }
+
+function renderAgenda(){
+  var box = $("pAgenda"); box.innerHTML = "";
+  panelDays().forEach(function(d){
+    var key = isoDay(d), row = h("div", "dayrow"), lab = h("div");
+    lab.append(h("b", null, WEEKDAYS[isoWeekday(d)] + " " + String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0")));
+    var hours = {};
+    panel.template.filter(function(t){ return t.dia_semana === isoWeekday(d); }).forEach(function(t){ hours[t.hora] = 1; });
+    panel.bookings.filter(function(b){ return b.data === key && b.status === "confirmado"; }).forEach(function(b){ hours[b.hora] = 1; });
+    panel.blocks.filter(function(b){ return b.data === key; }).forEach(function(b){ hours[b.hora] = 1; });
+    var slots = h("div", "slots"), nFree = 0, nBlocked = 0;
+    Object.keys(hours).sort().forEach(function(t){
+      var bk = findBooking(key, t), bl = isBlocked(key, t);
+      var s = h("button", "slot " + (bk ? "booked" : bl ? "blocked" : "free"), t); s.type = "button";
+      s.title = bk ? bk.nome : bl ? "Bloqueado: toque para liberar" : "Livre: toque para bloquear";
+      if (bk) s.addEventListener("click", function(){ openBookingDialog(bk); });
+      else if (bl) { nBlocked++; s.addEventListener("click", function(){ sb.from("bloqueios").delete().eq("data", key).eq("hora", t).then(loadPanel); }); }
+      else { nFree++; s.addEventListener("click", function(){ sb.from("bloqueios").insert({ data: key, hora: t }).then(loadPanel); }); }
+      slots.appendChild(s);
+    });
+    row.append(lab, slots);
+    if (nFree || nBlocked) {
+      var day = h("button", "btn btn-ghost btn-sm", nFree ? "Bloquear dia" : "Liberar dia"); day.type = "button";
+      day.addEventListener("click", function(){
+        if (nFree) {
+          var rows = Object.keys(hours).filter(function(t){ return !findBooking(key, t) && !isBlocked(key, t); }).map(function(t){ return { data: key, hora: t }; });
+          sb.from("bloqueios").insert(rows).then(loadPanel);
+        } else sb.from("bloqueios").delete().eq("data", key).then(loadPanel);
+      });
+      row.appendChild(day);
+    }
+    box.appendChild(row);
+  });
+}
+
+function cancelAs(b, done){
+  sb.rpc("cancelar_agendamento", { p_id: b.id }).then(function(r){
+    if (r.error) toast("Não foi possível desmarcar agora."); else toast("Horário desmarcado.");
+    if (done) done(); loadPanel();
+  });
+}
+function bookingCard(b){
+  var card = h("div", "booking"), info = h("div");
+  info.append(h("b", null, whenText(b.data, b.hora)), h("small", null, b.nome + " · " + (FORMATS[b.formato] || b.formato) + (b.local ? " · " + b.local : "") + " · " + b.tema));
+  var msg = h("small", null, "“" + b.mensagem + "”"); msg.style.cssText = "margin-top:4px;color:var(--ink);white-space:pre-wrap";
+  info.appendChild(msg);
+  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é o Denny, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
+  wa.target = "_blank"; wa.rel = "noopener"; wa.append(icon("i-wa"), document.createTextNode("WhatsApp"));
+  var can = h("button", "btn btn-ghost btn-sm", "Desmarcar"); can.type = "button";
+  can.addEventListener("click", function(){
+    act.innerHTML = "";
+    var yes = h("button", "btn btn-dark btn-sm", "Sim, desmarcar"), no = h("button", "btn btn-ghost btn-sm", "Manter"); yes.type = no.type = "button";
+    no.addEventListener("click", function(){ renderBooked(); });
+    yes.addEventListener("click", function(){ yes.disabled = true; cancelAs(b); });
+    act.append(yes, no);
+  });
+  act.append(wa, can);
+  card.append(info, act);
+  return card;
+}
+function renderBooked(){
+  var box = $("pBooked"), today = isoDay(nowBR()); box.innerHTML = "";
+  var up = panel.bookings.filter(function(b){ return b.status === "confirmado" && b.data >= today; });
+  if (!up.length) { var e = h("div", "empty"); e.append(h("h3", null, "Nenhum café marcado"), h("p", null, "Quando alguém agendar, aparece aqui.")); box.appendChild(e); return; }
+  up.forEach(function(b){ box.appendChild(bookingCard(b)); });
+}
+function openBookingDialog(b){
+  readerBody.innerHTML = "";
+  var t = h("h3", null, "Café com " + b.nome); t.id = "readerTitle";
+  readerBody.append(h("span", "label", "Um café na sua mesa"), t, bookingCard(b));
+  dlg.showModal();
+}
+
+function renderWeek(){
+  var box = $("pWeek"); box.innerHTML = "";
+  for (var d = 1; d <= 7; d++) (function(d){
+    var row = h("div", "weekrow"), slots = h("div", "slots");
+    row.appendChild(h("b", null, WEEKDAYS[d]));
+    WEEK_HOURS.forEach(function(t){
+      var on = panel.template.some(function(x){ return x.dia_semana === d && x.hora === t; });
+      var s = h("button", "slot" + (on ? " on" : ""), t); s.type = "button"; s.setAttribute("aria-pressed", on);
+      s.addEventListener("click", function(){
+        var q = on ? sb.from("horarios_semana").delete().eq("dia_semana", d).eq("hora", t) : sb.from("horarios_semana").insert({ dia_semana: d, hora: t });
+        q.then(loadPanel);
+      });
+      slots.appendChild(s);
+    });
+    row.appendChild(slots); box.appendChild(row);
+  })(d);
+}
+
+function loadPanel(){
+  if (!sb || !auth.admin) return;
+  var today = isoDay(nowBR());
+  Promise.all([
+    sb.from("horarios_semana").select("dia_semana,hora"),
+    sb.from("agendamentos").select("*").gte("data", today).order("data", { ascending: true }).order("hora", { ascending: true }),
+    sb.from("bloqueios").select("data,hora").gte("data", today)
+  ]).then(function(r){
+    panel.template = r[0].data || []; panel.bookings = r[1].data || []; panel.blocks = r[2].data || [];
+    renderAgenda(); renderBooked(); renderWeek();
+  });
+}
+function loadSubs(){
+  sb.from("inscritos").select("nome,email,whatsapp,criado_em").order("criado_em", { ascending: false }).limit(500).then(function(r){
+    panel.subs = r.data || [];
+    $("pSubCount").textContent = panel.subs.length + (panel.subs.length === 1 ? " inscrito" : " inscritos");
+    var tb = $("pSubs"); tb.innerHTML = "";
+    panel.subs.forEach(function(s){
+      var tr = h("tr"); [s.nome, s.email, s.whatsapp, fmtDate.format(new Date(s.criado_em)).replace(".", "")].forEach(function(v){ tr.appendChild(h("td", null, v)); });
+      tb.appendChild(tr);
+    });
+  });
+}
+function modItem(table, it, extra){
+  var el = h("div", "mod-item" + (it.aprovado ? "" : " off")), body = h("div");
+  body.append(h("small", null, it.nome + (extra ? " · " + extra : "") + " · " + ago(it.criado_em) + (it.aprovado ? "" : " · oculto")), h("p", null, it.texto));
+  var act = h("div", "confirm"), hide = h("button", "btn btn-ghost btn-sm", it.aprovado ? "Ocultar" : "Mostrar"), del = h("button", "btn btn-ghost btn-sm", "Excluir"); hide.type = del.type = "button";
+  hide.addEventListener("click", function(){ sb.from(table).update({ aprovado: !it.aprovado }).eq("id", it.id).then(loadMod); });
+  del.addEventListener("click", function(){ del.textContent = "Confirmar?"; del.onclick = function(){ sb.from(table).delete().eq("id", it.id).then(loadMod); }; });
+  act.append(hide, del); el.append(body, act); return el;
+}
+function loadMod(){
+  Promise.all([
+    sb.from("mensagens").select("id,sala,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
+    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
+  ]).then(function(r){
+    var a = $("pModMsgs"), b = $("pModCmts"); a.innerHTML = ""; b.innerHTML = "";
+    (r[0].data || []).forEach(function(m){ a.appendChild(modItem("mensagens", m, "sala " + m.sala)); });
+    (r[1].data || []).forEach(function(c){ b.appendChild(modItem("comentarios", c, c.sobre)); });
+    if (!a.childNodes.length) a.appendChild(h("p", "muted", "Nenhuma mensagem ainda."));
+    if (!b.childNodes.length) b.appendChild(h("p", "muted", "Nenhum comentário ainda."));
+  });
+}
+$("copyMails").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.email; }).join(", "), "E-mails copiados"); });
+$("copyPhones").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.whatsapp; }).join("\n"), "WhatsApps copiados"); });
+
+viewHooks.painel = function(sub){
+  if (!auth.ready) return;
+  var note = $("panelNote");
+  if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
+  if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para o Denny." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
+  note.textContent = "Agenda, horários, inscritos e moderação.";
+  $("panelApp").hidden = false;
+  loadPanel();
+  if (sub === "inscritos") loadSubs();
+  if (sub === "moderacao") loadMod();
+};
+auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
+
+
+// Instalar o app (PWA) e inicialização.
+(function(){
+  var sec = $("app"), btn = $("installBtn"), ios = $("iosHelp");
+  var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+  if (!document.querySelector('link[rel="manifest"]') || standalone) return;
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var deferred = null;
+  window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; sec.hidden = false; });
+  window.addEventListener("appinstalled", function(){ sec.hidden = true; });
+  if (isIOS) sec.hidden = false;
+  btn.addEventListener("click", function(){
+    if (deferred) { deferred.prompt(); deferred.userChoice.then(function(){ deferred = null; }); } else ios.showModal();
+  });
+  $("iosClose").addEventListener("click", function(){ ios.close(); });
+  ios.addEventListener("click", function(e){ if (e.target === ios) ios.close(); });
+})();
+
+$("year").textContent = new Date().getFullYear();
+applyAuthUI();
+renderRoute();
+
+})();
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
 }

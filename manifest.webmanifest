@@ -3,21 +3,106 @@
   "short_name": "Café, Graça & Fralda",
   "description": "Fé e família na vida real, com Denny Silva.",
   "lang": "pt-BR",
-  "start_url": "./",
+  "start_url": "./#inicio",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F8F5F0",
   "theme_color": "#F8F5F0",
-  "categories": ["lifestyle", "books", "education"],
+  "categories": [
+    "lifestyle",
+    "books",
+    "education"
+  ],
   "icons": [
-    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "Devocional de hoje", "url": "./#devocional", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Agendar um café", "url": "./#agendar", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Levante a mão", "url": "./#mesa", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+    {
+      "name": "Devocional de hoje",
+      "short_name": "5 minutos",
+      "url": "./#devocional",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Agendar um café",
+      "short_name": "Café",
+      "url": "./#cafe",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Chat entre pais",
+      "short_name": "Comunidade",
+      "url": "./#comunidade",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
+  "id": "/",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "screenshots/app-1-inicio.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Início"
+    },
+    {
+      "src": "screenshots/app-2-devocional.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Devocional de 5 minutos"
+    },
+    {
+      "src": "screenshots/app-3-cafe.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Um café na sua mesa"
+    },
+    {
+      "src": "screenshots/desktop-1-inicio.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Início no computador"
+    }
   ]
 }

@@ -7,6 +7,7 @@ const CORE = [
   "manifest.webmanifest",
   "img/familia-1.jpg",
   "img/pai-e-filhos.jpg",
+  "vendor/supabase.js",
   "icons/icon-192.png",
   "icons/icon-512.png",
   "icons/favicon-32.png"
