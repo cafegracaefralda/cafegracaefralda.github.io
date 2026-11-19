@@ -1,6 +1,6 @@
 // Service worker do Café, Graça & Fralda: faz o site abrir como app e funcionar sem internet.
 // Gerado por _src/build.py; a versão muda a cada publicação para os celulares baixarem a novidade.
-const CACHE = "cgf-74b2f5b569";
+const CACHE = "cgf-16512240f3";
 const CORE = [
   "./",
   "index.html",

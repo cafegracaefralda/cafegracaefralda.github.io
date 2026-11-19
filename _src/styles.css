@@ -104,12 +104,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:7px 15px;border:1px solid #E5CDBF;border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
 .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--terra)}
-.hero h1{font-size:clamp(42px,5.6vw,82px);line-height:1;margin-top:22px;letter-spacing:-.02em}
+.hero h1{font-size:clamp(44px,5.4vw,80px);line-height:.98;margin-top:22px;letter-spacing:-.02em}
 .hero h1 em{font-style:italic;color:var(--terra)}
 .lede{margin-top:20px;max-width:520px;color:var(--muted);font-size:17px}
 .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-.hero-verse{margin-top:28px;max-width:460px;font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;color:var(--muted)}
-.hero-verse .ref{display:block;margin-top:4px}
+.trio{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:640px}
+.trio li{display:grid;gap:10px;align-content:start;border-top:2px solid var(--terra);padding-top:12px}
+.trio-ic{width:36px;height:36px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center}
+.trio-ic svg{width:19px;height:19px}
+.trio b{font-family:var(--serif);font-size:24px;font-weight:500;line-height:1}
+.trio p{font-size:13.5px;color:var(--muted);line-height:1.45;margin-top:4px}
 .arch{position:relative;justify-self:end;width:min(100%,380px)}
 .arch::before{content:"";position:absolute;inset:-12px -12px 36px -12px;border:1.5px solid #E8D9CC;border-radius:999px 999px 0 0}
 .arch-img{position:relative;border-radius:999px 999px var(--r-lg) var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow)}
@@ -407,7 +411,10 @@ textarea{min-height:96px;resize:vertical}
 }
 @media (max-width:600px){
   .row2{grid-template-columns:1fr}
-  .hero-verse,.df-side{display:none}
+  .df-side{display:none}
+  .trio{gap:8px;margin-top:20px}
+  .trio p{display:none}
+  .trio b{font-size:21px}
   .hero h1{margin-top:16px}
   .lede{font-size:16px;margin-top:14px}
   .ctas{margin-top:18px}

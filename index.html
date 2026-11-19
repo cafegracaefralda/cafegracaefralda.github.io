@@ -17,7 +17,7 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Café, Graça &amp; Fralda">
-<meta property="og:title" content="Café, Graça &amp; Fralda · Família de verdade. Fé de verdade.">
+<meta property="og:title" content="Café, Graça &amp; Fralda · Entre o café e a fralda, tem graça.">
 <meta property="og:description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, chat entre pais e um café na sua mesa.">
 <meta property="og:url" content="https://cafegracaefralda.github.io/">
 <meta property="og:image" content="https://cafegracaefralda.github.io/icons/og-image.jpg">
@@ -134,12 +134,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:7px 15px;border:1px solid #E5CDBF;border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
 .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--terra)}
-.hero h1{font-size:clamp(42px,5.6vw,82px);line-height:1;margin-top:22px;letter-spacing:-.02em}
+.hero h1{font-size:clamp(44px,5.4vw,80px);line-height:.98;margin-top:22px;letter-spacing:-.02em}
 .hero h1 em{font-style:italic;color:var(--terra)}
 .lede{margin-top:20px;max-width:520px;color:var(--muted);font-size:17px}
 .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
-.hero-verse{margin-top:28px;max-width:460px;font-family:var(--serif);font-style:italic;font-size:19px;line-height:1.4;color:var(--muted)}
-.hero-verse .ref{display:block;margin-top:4px}
+.trio{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:640px}
+.trio li{display:grid;gap:10px;align-content:start;border-top:2px solid var(--terra);padding-top:12px}
+.trio-ic{width:36px;height:36px;border-radius:50%;background:var(--terra-soft);color:var(--terra);display:grid;place-items:center}
+.trio-ic svg{width:19px;height:19px}
+.trio b{font-family:var(--serif);font-size:24px;font-weight:500;line-height:1}
+.trio p{font-size:13.5px;color:var(--muted);line-height:1.45;margin-top:4px}
 .arch{position:relative;justify-self:end;width:min(100%,380px)}
 .arch::before{content:"";position:absolute;inset:-12px -12px 36px -12px;border:1.5px solid #E8D9CC;border-radius:999px 999px 0 0}
 .arch-img{position:relative;border-radius:999px 999px var(--r-lg) var(--r-lg);overflow:hidden;aspect-ratio:4/5;background:var(--sand);box-shadow:var(--shadow)}
@@ -437,7 +441,10 @@ textarea{min-height:96px;resize:vertical}
 }
 @media (max-width:600px){
   .row2{grid-template-columns:1fr}
-  .hero-verse,.df-side{display:none}
+  .df-side{display:none}
+  .trio{gap:8px;margin-top:20px}
+  .trio p{display:none}
+  .trio b{font-size:21px}
   .hero h1{margin-top:16px}
   .lede{font-size:16px;margin-top:14px}
   .ctas{margin-top:18px}
@@ -488,6 +495,8 @@ textarea{min-height:96px;resize:vertical}
   <symbol id="i-user" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></g></symbol>
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></g></symbol>
@@ -541,13 +550,17 @@ textarea{min-height:96px;resize:vertical}
       <div class="hero hero-grid">
         <div>
           <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
-          <h1 class="in">Família de verdade.<br><em>Fé de verdade.</em></h1>
+          <h1 class="in">Entre o café<br>e a fralda,<br><em>tem graça.</em></h1>
           <p class="lede in">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
           <div class="ctas in">
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
             <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
-          <p class="hero-verse in">“Se o Senhor não edificar a casa, em vão trabalham os que a edificam.”<span class="ref">Salmos 127:1</span></p>
+          <ul class="trio in" aria-label="O que o nome quer dizer">
+            <li><span class="trio-ic"><svg><use href="#i-cup"/></svg></span><div><b>Café</b><p>A pausa da madrugada e a conversa que ninguém queria ter.</p></div></li>
+            <li><span class="trio-ic"><svg><use href="#i-heart"/></svg></span><div><b>Graça</b><p>O que sustenta quando a força acaba: perdão e recomeço.</p></div></li>
+            <li><span class="trio-ic"><svg><use href="#i-diaper"/></svg></span><div><b>Fralda</b><p>A rotina de cuidar, onde a fé deixa de ser teoria.</p></div></li>
+          </ul>
         </div>
         <div class="arch in">
           <div class="arch-img"><img src="img/familia-1.jpg" alt="Denny, Gabi, os gêmeos e o bebê recém-nascido sorrindo juntos" width="1280" height="853"></div>

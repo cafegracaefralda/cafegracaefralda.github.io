@@ -41,7 +41,7 @@ html = f"""<!doctype html>
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="{TITLE.replace("&", "&amp;")}">
-<meta property="og:title" content="{TITLE.replace("&", "&amp;")} · Família de verdade. Fé de verdade.">
+<meta property="og:title" content="{TITLE.replace("&", "&amp;")} · Entre o café e a fralda, tem graça.">
 <meta property="og:description" content="{DESCRIPTION}">
 <meta property="og:url" content="{BASE_URL}">
 <meta property="og:image" content="{BASE_URL}icons/og-image.jpg">
