@@ -44,8 +44,8 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   feat.append(main, side);
 
   var list = $("devoList");
-  ARCHIVE.forEach(function(a){
-    var li = h("li", "row"), left = h("div"), meta = h("div", "meta");
+  ARCHIVE.forEach(function(a, idx){
+    var li = h("li", "row" + (idx >= 4 ? " extra" : "")), left = h("div"), meta = h("div", "meta");
     meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
     left.append(meta, h("h3", null, a.title));
     var go_ = h("button", "go"); go_.type = "button"; go_.setAttribute("aria-label", "Ler " + a.title); go_.appendChild(icon("i-arrow"));
@@ -54,6 +54,11 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
     list.appendChild(li);
   });
   $("archiveWrap").hidden = ARCHIVE.length === 0;
+  var more = $("moreDevos");
+  if (ARCHIVE.length > 4) {
+    more.hidden = false; more.textContent = "Ver todos (" + ARCHIVE.length + ")";
+    more.addEventListener("click", function(){ var all = list.classList.toggle("all"); more.textContent = all ? "Ver menos" : "Ver todos (" + ARCHIVE.length + ")"; });
+  }
 })();
 
 // Cadastro de novidades (e-mail + WhatsApp)

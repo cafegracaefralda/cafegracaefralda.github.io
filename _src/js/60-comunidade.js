@@ -167,5 +167,5 @@ viewHooks.comunidade = function(sub){
   } else stopChat();
   if (sub === "comentarios") { loadComments(); if (auth.user && !val("c-name")) $("c-name").value = firstName(auth.name()); }
 };
-auth.on(function(){ if (route.view === "comunidade") viewHooks.comunidade(route.sub); else stopChat(); });
+auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else stopChat(); });
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });

@@ -102,22 +102,27 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .menu a,.menu button{display:block;text-align:left;width:100%;background:none;border:0;font:inherit;font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer;text-decoration:none;color:var(--ink)}
 .menu a:hover,.menu button:hover{background:var(--sand)}
 
-/* Barra inferior (celular e app) */
-.tabbar{display:none}
+/* Menu do celular */
+.menu-btn{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;place-items:center;padding:0}
+.menu-btn svg{width:18px;height:18px}
 @media (max-width:980px){
-  .nav{display:none}
-  .top .wrap{justify-content:space-between}
+  .menu-btn{display:grid}
+  .top .wrap{gap:10px}
+  .top .logo{margin-right:auto}
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:var(--bg);border-bottom:1px solid var(--line);padding:6px var(--gxr) 14px var(--gx);margin:0}
+  .nav.open{display:flex}
+  .nav a{padding:15px 4px;border-bottom:1px solid var(--line);border-radius:0;font-size:12px}
+  .nav a[aria-current="page"]{background:none;color:var(--terra)}
   .top-actions .btn-wa-top{display:none}
-  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:55;background:rgba(248,245,240,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
-  .tabbar a{display:grid;justify-items:center;gap:3px;text-decoration:none;color:var(--muted);font-size:11px;font-weight:600;padding:6px 2px;border-radius:12px;min-height:48px;align-content:center}
-  .tabbar svg{width:23px;height:23px}
-  .tabbar a[aria-current="page"]{color:var(--terra)}
-  body{padding-bottom:calc(var(--tabh) + env(safe-area-inset-bottom,0px))}
 }
 
 /* Telas */
-.view{display:none;padding-block:clamp(20px,3vw,40px) clamp(28px,4vw,56px)}
-.view.on{display:block}
+.view{padding-block:clamp(34px,4.4vw,60px)}
+#v-devocional,#v-sobre{background:var(--surface)}
+#v-comunidade{background:var(--sand)}
+body.painel-mode .view:not(#v-painel){display:none}
+body:not(.painel-mode) #v-painel{display:none}
+.view + .view{border-top:1px solid var(--line)}
 .view-head{display:grid;gap:8px;max-width:760px;margin-bottom:clamp(16px,2.4vw,28px)}
 .view-head h2{font-size:clamp(32px,3.6vw,50px)}
 .view-head p{color:var(--muted);font-size:16.5px}
@@ -134,8 +139,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,80px);align-items:center}
 .pill{display:inline-flex;align-items:center;gap:10px;padding:7px 15px;border:1px solid #E5CDBF;border-radius:999px;background:var(--surface);font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
 .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--terra)}
-.hero h1{font-size:clamp(44px,5.4vw,80px);line-height:.98;margin-top:22px;letter-spacing:-.02em}
+.hero h1{font-size:clamp(46px,6vw,92px);line-height:.96;margin-top:22px;letter-spacing:-.02em}
 .hero h1 em{font-style:italic;color:var(--terra)}
+.hero h1 .comma{color:var(--terra)}
+.swoosh{position:relative;display:inline-block;padding-bottom:.08em}
+.swoosh::after{content:"";position:absolute;left:-.02em;right:-.02em;bottom:-.04em;height:.2em;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8c24-7 46-7 70-3s50 5 76 0 38-3 50-1' fill='none' stroke='%23D9845F' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center/100% 100%}
 .lede{margin-top:20px;max-width:520px;color:var(--muted);font-size:17px}
 .ctas{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .trio{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:640px}
@@ -151,12 +159,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .float-quote{position:absolute;left:-36px;bottom:40px;max-width:210px;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:var(--r-md);padding:14px 16px;box-shadow:var(--shadow)}
 .float-quote p{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.3}
 .float-quote .ref{display:block;margin-top:6px}
-.mesa-band{margin-top:clamp(22px,3vw,40px);background:var(--sand);border-radius:var(--r-lg);padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3vw,48px);align-items:center}
+.mesa-band{margin-top:clamp(20px,2.6vw,32px);background:var(--sand);border-radius:var(--r-lg);padding:clamp(20px,3vw,34px);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3vw,48px);align-items:center}
 .mesa-band h2{font-size:clamp(26px,2.6vw,36px);margin:8px 0 10px}
 .mesa-band p{color:var(--muted);font-size:15.5px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .tags li{font-size:13px;font-weight:500;padding:7px 13px;border:1px solid var(--line);background:var(--surface);border-radius:999px}
-.learn{margin-top:clamp(24px,3.4vw,48px);display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(24px,4vw,64px);align-items:start}
+.learn{margin-top:clamp(20px,2.8vw,36px);display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(24px,4vw,64px);align-items:start}
 .learn .photo{aspect-ratio:4/5;position:sticky;top:100px}
 .learn .photo img{object-position:50% 20%}
 .learn h2{font-size:clamp(28px,3vw,42px);margin:6px 0 4px}
@@ -191,7 +199,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .df-side{border-left:1px solid rgba(255,255,255,.12);padding-left:28px;display:grid;gap:2px}
 .df-side b{font-family:var(--serif);font-weight:500;font-size:96px;line-height:.9;color:var(--terra-light)}
 .df-side span{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--night-muted)}
-.devo-cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(20px,3vw,36px);align-items:start}
+.devo-cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(18px,2.4vw,30px);align-items:start}
 .cols-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
@@ -201,7 +209,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .row .t{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
 .row .go{width:38px;height:38px;border-radius:50%;border:1px solid #CFC5B9;display:grid;place-items:center;background:none;color:var(--ink);cursor:pointer}
 .row .go svg{width:15px;height:15px}
-.news-card{background:var(--sand);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,30px);display:grid;gap:12px}
+.row.extra{display:none}
+.rows.all .row.extra{display:grid}
+.news-card{background:var(--bg);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,2.6vw,30px);display:grid;gap:12px}
 .news-card h3{font-size:clamp(26px,2.4vw,32px)}
 .news-card h3 em{font-style:italic;color:var(--terra)}
 .news-card > p{color:var(--muted);font-size:15px}
@@ -410,16 +420,15 @@ textarea{min-height:96px;resize:vertical}
 .mod-item small{color:var(--muted)}
 
 /* Rodapé, WhatsApp e avisos */
-.foot{padding-block:14px 22px;border-top:1px solid var(--line);margin-top:auto}
+.foot{padding-block:16px 24px;border-top:1px solid var(--line)}
 .foot .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 20px;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .wa-float{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:56px;height:56px;border-radius:50%;background:var(--wa);color:#fff;display:grid;place-items:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .2s}
 .wa-float:hover{transform:scale(1.06)}
 .wa-float svg{width:28px;height:28px}
 .wa-float .tip{position:absolute;right:68px;white-space:nowrap;background:var(--ink);color:var(--bg);font-size:13px;font-weight:600;padding:8px 14px;border-radius:999px;opacity:0;transform:translateX(6px);transition:all .2s;pointer-events:none}
 .wa-float:hover .tip,.wa-float:focus-visible .tip{opacity:1;transform:none}
-@media (max-width:980px){.wa-float{bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));width:52px;height:52px}}
-.toast{position:fixed;left:50%;bottom:calc(var(--tabh) + 24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:80;max-width:calc(100vw - 32px)}
-.page{display:flex;flex-direction:column;min-height:calc(100dvh - 76px)}
+@media (max-width:980px){.wa-float{width:52px;height:52px}}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);font-size:14px;font-weight:600;padding:11px 20px;border-radius:999px;z-index:80;max-width:calc(100vw - 32px)}
 
 /* Responsivo */
 @media (max-width:980px){
@@ -497,6 +506,7 @@ textarea{min-height:96px;resize:vertical}
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></g></symbol>
@@ -509,6 +519,7 @@ textarea{min-height:96px;resize:vertical}
       <span class="logo-mark"><svg><use href="#logo"/></svg></span>
       <span>Café, Graça <i>&amp;</i> Fralda</span>
     </a>
+    <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio">Início</a>
       <a href="#devocional" data-tab="devocional">5 minutos</a>
@@ -534,13 +545,6 @@ textarea{min-height:96px;resize:vertical}
   </div>
 </header>
 
-<nav class="tabbar" id="tabbar" aria-label="Navegação do aplicativo">
-  <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg>Início</a>
-  <a href="#devocional" data-tab="devocional"><svg><use href="#i-book"/></svg>5 minutos</a>
-  <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg>Café</a>
-  <a href="#comunidade" data-tab="comunidade"><svg><use href="#i-chat"/></svg>Comunidade</a>
-  <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg>Sobre</a>
-</nav>
 
 <main class="page" id="main">
 
@@ -550,7 +554,7 @@ textarea{min-height:96px;resize:vertical}
       <div class="hero hero-grid">
         <div>
           <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
-          <h1 class="in">Entre o café<br>e a fralda,<br><em>tem graça.</em></h1>
+          <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
           <p class="lede in">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
           <div class="ctas in">
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
@@ -676,6 +680,7 @@ textarea{min-height:96px;resize:vertical}
         <div id="archiveWrap">
           <div class="cols-title"><span class="label">Devocionais anteriores</span></div>
           <ul class="rows" id="devoList"></ul>
+          <button class="btn btn-ghost btn-sm" type="button" id="moreDevos" style="margin-top:14px" hidden>Ver todos</button>
         </div>
         <div class="news-card" id="novidades">
           <span class="label">Toda quarta-feira</span>
@@ -1193,12 +1198,13 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
 
 
-// Telas (views) e navegação por hash: #inicio, #devocional, #cafe, #comunidade, #sobre, #painel
+// Página única: as seções ficam empilhadas e o menu rola até elas. #painel abre uma página só do Denny.
 var VIEWS = ["inicio", "devocional", "cafe", "comunidade", "sobre", "painel"];
 var ALIAS = { agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
               contato: "sobre", novidades: "devocional", artigos: "devocional", textos: "devocional", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
-var viewHooks = {};  // viewHooks[view] = function(sub)
+var viewHooks = {};  // viewHooks[view] = function(sub): roda quando a seção aparece na tela
+var seen = {};       // seções que estão (ou estão quase) na tela
 
 function parseHash(){
   var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";
@@ -1206,37 +1212,82 @@ function parseHash(){
   if (VIEWS.indexOf(v) < 0) v = "inicio";
   return { view: v, sub: s };
 }
-function go(view, sub){ var hash = "#" + view + (sub ? "/" + sub : ""); if (location.hash === hash) renderRoute(); else location.hash = hash; }
-
+function isShown(view){ return !!seen[view] || route.view === view; }
+function currentSub(view){ var b = $$(".seg button[aria-selected='true']", $("v-" + view))[0]; return b ? b.getAttribute("data-sub") : ""; }
 function setSub(viewEl, sub){
-  var tabs = $$(".seg button[data-sub]", viewEl);
-  var panels = $$("[data-sub-panel]", viewEl);
+  var tabs = $$(".seg button[data-sub]", viewEl), panels = $$("[data-sub-panel]", viewEl);
   var names = tabs.map(function(b){ return b.getAttribute("data-sub"); });
   if (names.indexOf(sub) < 0) sub = names[0];
   tabs.forEach(function(b){ b.setAttribute("aria-selected", b.getAttribute("data-sub") === sub); });
   panels.forEach(function(p){ p.classList.toggle("on", p.getAttribute("data-sub-panel") === sub); });
   return sub;
 }
+function setCurrentNav(view){
+  $$("[data-tab]").forEach(function(a){ if (a.getAttribute("data-tab") === view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+}
 
 function renderRoute(){
-  var r = parseHash(), changed = r.view !== route.view;
-  $$(".view").forEach(function(v){ v.classList.toggle("on", v.getAttribute("data-view") === r.view); });
-  $$("[data-tab]").forEach(function(a){ if (a.getAttribute("data-tab") === r.view) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  var r = parseHash(), prev = route.view, first = prev === "";
+  document.body.classList.toggle("painel-mode", r.view === "painel");
   var viewEl = $("v-" + r.view);
   r.sub = setSub(viewEl, r.sub);
   route = r;
   document.body.setAttribute("data-view", r.view);
-  if (changed) window.scrollTo(0, 0);
-  if (viewHooks[r.view]) viewHooks[r.view](r.sub);
+  setCurrentNav(r.view);
+  if (!(first && !location.hash)) {
+    if (r.view === "painel" || r.view === "inicio") window.scrollTo({ top: 0, behavior: first ? "auto" : "smooth" });
+    else viewEl.scrollIntoView({ behavior: first ? "auto" : "smooth", block: "start" });
+  }
+  if (r.view === "painel" && viewHooks.painel) viewHooks.painel(r.sub);
+  else if (viewHooks[r.view]) viewHooks[r.view](r.sub);
 }
+function go(view, sub){ history.pushState(null, "", "#" + view + (sub ? "/" + sub : "")); renderRoute(); }
 window.addEventListener("hashchange", renderRoute);
 
-// Abas internas de cada tela (segmented control) atualizam o hash
-$$(".seg button[data-sub]").forEach(function(b){
-  b.addEventListener("click", function(){ go(route.view, b.getAttribute("data-sub")); });
+// Links internos (#cafe, #comunidade/comentarios...) rolam até a seção mesmo quando o endereço já é o mesmo
+document.addEventListener("click", function(e){
+  var a = e.target.closest && e.target.closest('a[href^="#"]');
+  if (!a) return;
+  var href = a.getAttribute("href"), name = href.slice(1).split("/")[0];
+  if (VIEWS.indexOf(name) < 0 && !ALIAS[name]) return;
+  e.preventDefault(); history.pushState(null, "", href); renderRoute();
 });
-// Atalhos dentro da página
-$("readToday").addEventListener("click", function(){ go("devocional"); setTimeout(function(){ openReader(FEATURED); }, 60); });
+
+// Abas internas de cada seção (segmented control): trocam o painel sem rolar a página
+$$(".seg button[data-sub]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var viewEl = b.closest(".view"), v = viewEl.getAttribute("data-view"), s = b.getAttribute("data-sub");
+    setSub(viewEl, s); history.replaceState(null, "", "#" + v + "/" + s);
+    if (viewHooks[v]) viewHooks[v](s);
+  });
+});
+
+// Menu do celular
+var menuBtn = $("menuBtn"), navEl = $("nav");
+function setMenu(open){ navEl.classList.toggle("open", open); menuBtn.setAttribute("aria-expanded", open); menuBtn.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu"); menuBtn.querySelector("use").setAttribute("href", open ? "#i-x" : "#i-menu"); }
+menuBtn.addEventListener("click", function(){ setMenu(!navEl.classList.contains("open")); });
+navEl.addEventListener("click", function(e){ if (e.target.closest("a")) setMenu(false); });
+
+// Carrega os dados de cada seção quando ela chega perto da tela, e marca no menu a seção atual
+var viewEls = ["inicio", "devocional", "cafe", "comunidade", "sobre"].map(function(v){ return $("v-" + v); });
+if ("IntersectionObserver" in window) {
+  var loader = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      var v = e.target.getAttribute("data-view"), was = seen[v];
+      seen[v] = e.isIntersecting;
+      if (e.isIntersecting && !was && viewHooks[v]) viewHooks[v](currentSub(v));
+      if (!e.isIntersecting && v === "comunidade") stopChat();
+    });
+  }, { rootMargin: "250px 0px 250px 0px" });
+  var spy = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting && route.view !== "painel") setCurrentNav(e.target.getAttribute("data-view")); });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  viewEls.forEach(function(el){ loader.observe(el); spy.observe(el); });
+} else {
+  viewEls.forEach(function(el){ seen[el.getAttribute("data-view")] = true; });
+}
+
+$("readToday").addEventListener("click", function(){ openReader(FEATURED); });
 
 
 // Login com Google (Supabase Auth) e menu da conta.
@@ -1275,7 +1326,7 @@ function setSession(session){
   auth.ready = true;
   emitAuth();
   if (auth.user && sb) {
-    sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); renderRoute(); });
+    sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); });
   }
 }
 
@@ -1350,8 +1401,8 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   feat.append(main, side);
 
   var list = $("devoList");
-  ARCHIVE.forEach(function(a){
-    var li = h("li", "row"), left = h("div"), meta = h("div", "meta");
+  ARCHIVE.forEach(function(a, idx){
+    var li = h("li", "row" + (idx >= 4 ? " extra" : "")), left = h("div"), meta = h("div", "meta");
     meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
     left.append(meta, h("h3", null, a.title));
     var go_ = h("button", "go"); go_.type = "button"; go_.setAttribute("aria-label", "Ler " + a.title); go_.appendChild(icon("i-arrow"));
@@ -1360,6 +1411,11 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
     list.appendChild(li);
   });
   $("archiveWrap").hidden = ARCHIVE.length === 0;
+  var more = $("moreDevos");
+  if (ARCHIVE.length > 4) {
+    more.hidden = false; more.textContent = "Ver todos (" + ARCHIVE.length + ")";
+    more.addEventListener("click", function(){ var all = list.classList.toggle("all"); more.textContent = all ? "Ver menos" : "Ver todos (" + ARCHIVE.length + ")"; });
+  }
 })();
 
 // Cadastro de novidades (e-mail + WhatsApp)
@@ -1560,8 +1616,8 @@ viewHooks.cafe = function(sub){
   loadAvailability();
   if (auth.user) { loadMine(); if (!val("b-phone") && lsGet("cgf-zap")) $("b-phone").value = lsGet("cgf-zap"); }
 };
-auth.on(function(){ if (route.view === "cafe") viewHooks.cafe(route.sub); });
-setInterval(function(){ if (!document.hidden && route.view === "cafe" && !bForm.hidden) loadAvailability(); }, 60000);
+auth.on(function(){ if (isShown("cafe")) viewHooks.cafe(currentSub("cafe")); });
+setInterval(function(){ if (!document.hidden && isShown("cafe") && !bForm.hidden) loadAvailability(); }, 60000);
 
 
 // Comunidade: chat entre pais (com login), comentários públicos e indicações.
@@ -1733,7 +1789,7 @@ viewHooks.comunidade = function(sub){
   } else stopChat();
   if (sub === "comentarios") { loadComments(); if (auth.user && !val("c-name")) $("c-name").value = firstName(auth.name()); }
 };
-auth.on(function(){ if (route.view === "comunidade") viewHooks.comunidade(route.sub); else stopChat(); });
+auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else stopChat(); });
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });
 
 

@@ -22,7 +22,7 @@ Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão pa
 - O Canal do WhatsApp aceita texto longo, mas o começo precisa convencer a abrir o link.
 
 ## Onde está cada coisa
-- Telas: Início, 5 minutos (`#devocional`), Café na mesa (`#cafe`), Comunidade (`#comunidade`: chat, comentários, indicações), Sobre (`#sobre`), Painel (`#painel`, só administradores). Links antigos (`#agendar`, `#mesa`, `#indicacoes`...) têm alias em `20-router.js`.
+- Seções da página única (o menu rola até elas): Início, 5 minutos (`#devocional`), Café na mesa (`#cafe`), Comunidade (`#comunidade`: chat, comentários, indicações), Sobre (`#sobre`), Painel (`#painel`, só administradores). Links antigos (`#agendar`, `#mesa`, `#indicacoes`...) têm alias em `20-router.js`.
 - Devocional da semana: lista `DEVOS` em `js/10-data.js`. Sai um novo toda quarta, na ordem da lista (a partir de 30/09/2026). A lista NÃO se repete: quando acaba, o último fica em destaque. Escreva novos devocionais antes de a lista acabar (hoje são 8).
 - Indicações ("Da nossa mesa para a sua"): `INDICACOES`. Itens com `exemplo: true` são placeholders.
 - Banco e login: Supabase `https://ckzeechkxghhmoshgzyv.supabase.co`, chave pública no código, login só com Google. Esquema em `_docs/supabase-v2.sql`; passo a passo do login em `_docs/LOGIN-GOOGLE.md`. As regras de segurança (RLS) ficam no banco: nunca confie só no front-end.

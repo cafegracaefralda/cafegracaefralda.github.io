@@ -176,5 +176,5 @@ viewHooks.cafe = function(sub){
   loadAvailability();
   if (auth.user) { loadMine(); if (!val("b-phone") && lsGet("cgf-zap")) $("b-phone").value = lsGet("cgf-zap"); }
 };
-auth.on(function(){ if (route.view === "cafe") viewHooks.cafe(route.sub); });
-setInterval(function(){ if (!document.hidden && route.view === "cafe" && !bForm.hidden) loadAvailability(); }, 60000);
+auth.on(function(){ if (isShown("cafe")) viewHooks.cafe(currentSub("cafe")); });
+setInterval(function(){ if (!document.hidden && isShown("cafe") && !bForm.hidden) loadAvailability(); }, 60000);

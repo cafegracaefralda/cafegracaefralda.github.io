@@ -34,7 +34,7 @@ function setSession(session){
   auth.ready = true;
   emitAuth();
   if (auth.user && sb) {
-    sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); renderRoute(); });
+    sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); });
   }
 }
 
