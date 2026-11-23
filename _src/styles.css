@@ -341,7 +341,7 @@ textarea{min-height:96px;resize:vertical}
 .fridge-note{margin-top:12px;font-size:12.5px;color:var(--muted)}
 
 /* Sobre */
-.about-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:start}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:center}
 .about-text{display:grid;gap:16px}
 .about-text h2{font-size:clamp(36px,4.2vw,58px)}
 .about-text > p{color:var(--muted);font-size:16.5px}
@@ -495,3 +495,10 @@ textarea{min-height:96px;resize:vertical}
 .post-cmt-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;background:var(--bg);padding:10px 16px;font:inherit;font-size:15px}
 .feed-more{justify-self:center}
 .view-head .muted{max-width:60ch;margin-top:8px}
+
+/* Indicações dos membros */
+.ind-form-wrap{max-width:760px;margin:26px auto 0}
+.note-meta2{font-size:12.5px;color:var(--muted)}
+.note-by{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.note .ex.pend{background:var(--sand);color:var(--ink)}
+.about-text .stats{margin-top:6px}

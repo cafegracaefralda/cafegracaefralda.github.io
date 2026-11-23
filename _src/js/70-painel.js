@@ -140,8 +140,15 @@ function modItem(table, it, extra){
 function loadMod(){
   Promise.all([
     sb.from("mensagens").select("id,sala,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
-    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
+    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
+    sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
   ]).then(function(r){
+    var c3 = $("pModInds"); c3.innerHTML = "";
+    (r[2].data || []).forEach(function(x){
+      c3.appendChild(modItem("indicacoes_membros", { id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
+        texto: x.especialidade + " · " + x.onde + " · " + (x.plano === "plano" ? "Plano: " + x.planos : "Particular") + " · Conheceu: " + x.como_conheceu + " — " + x.porque + (x.contato ? " · Contato: " + x.contato : "") }, x.aprovado ? "publicada" : "AGUARDANDO"));
+    });
+    if (!c3.childNodes.length) c3.appendChild(h("p", "muted", "Nenhuma indicação enviada ainda."));
     var a = $("pModMsgs"), b = $("pModCmts"); a.innerHTML = ""; b.innerHTML = "";
     (r[0].data || []).forEach(function(m){ a.appendChild(modItem("mensagens", m, "sala " + m.sala)); });
     (r[1].data || []).forEach(function(c){ b.appendChild(modItem("comentarios", c, c.sobre)); });

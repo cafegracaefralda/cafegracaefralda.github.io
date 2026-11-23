@@ -143,19 +143,39 @@ $("cmtForm").addEventListener("submit", function(e){
 
 /* ---------- Indicações: da nossa mesa para a sua ---------- */
 var fridge = $("fridgeNotes");
+var fridgeFilter = "all", fromMembers = [];
+function fridgeItems(){ return INDICACOES.concat(fromMembers); }
+function loadMemberInds(){
+  if (!sb) return;
+  sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
+    if (!r.data) return;
+    fromMembers = r.data.map(function(x){
+      var c = String(x.contato || "").trim(), d = c.replace(/\D/g, "");
+      return { cat: x.categoria, nome: x.nome, oque: x.especialidade, onde: x.onde, modo: x.atendimento, porque: x.porque, como: x.como_conheceu, por: x.autor,
+        plano: x.plano === "plano" ? "Aceita plano de saúde: " + x.planos : "Atendimento particular", pend: !x.aprovado,
+        whatsapp: d.length >= 10 && c.charAt(0) !== "@" ? d : "", instagram: c.charAt(0) === "@" ? c : "" };
+    });
+    renderFridge();
+  });
+}
 function renderFridge(filter){
+  if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
-  INDICACOES.forEach(function(p){
+  fridgeItems().forEach(function(p){
     if (filter !== "all" && p.cat !== filter) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
-    var why = h("div", "note-why"); why.append(h("span", "note-small", "Por que indicamos"), h("p", null, "“" + p.porque + "”"));
+    if (p.pend) top.append(h("span", "ex pend", "Em análise"));
+    var why = h("div", "note-why"); why.append(h("span", "note-small", p.por ? "Por que indica" : "Por que indicamos"),h("p", null, "“" + p.porque + "”"));
     var acts = h("div", "note-acts");
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     li.append(tape, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, h("p", "note-meta", p.onde + " · " + p.modo));
+    if (p.plano) li.appendChild(h("p", "note-meta2", p.plano));
+    if (p.como) li.appendChild(h("p", "note-meta2", "Como conheceu: " + p.como));
+    if (p.por) li.appendChild(h("p", "note-by", "Indicado por " + p.por));
     if (acts.childNodes.length) li.append(acts);
     fridge.appendChild(li);
   });
@@ -164,6 +184,7 @@ filterChips("fridgeFilters", renderFridge);
 renderFridge("all");
 
 viewHooks.comunidade = function(sub){
+  if (sub === "indicacoes") loadMemberInds();
   if (sub === "mural" && auth.user && !feed.loaded) loadFeed(true);
   if (sub === "chat" && auth.user) {
     $("chatRules").hidden = lsGet("cgf-rules") === "1";

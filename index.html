@@ -376,7 +376,7 @@ textarea{min-height:96px;resize:vertical}
 .fridge-note{margin-top:12px;font-size:12.5px;color:var(--muted)}
 
 /* Sobre */
-.about-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:start}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:center}
 .about-text{display:grid;gap:16px}
 .about-text h2{font-size:clamp(36px,4.2vw,58px)}
 .about-text > p{color:var(--muted);font-size:16.5px}
@@ -530,6 +530,13 @@ textarea{min-height:96px;resize:vertical}
 .post-cmt-form input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;background:var(--bg);padding:10px 16px;font:inherit;font-size:15px}
 .feed-more{justify-self:center}
 .view-head .muted{max-width:60ch;margin-top:8px}
+
+/* Indicações dos membros */
+.ind-form-wrap{max-width:760px;margin:26px auto 0}
+.note-meta2{font-size:12.5px;color:var(--muted)}
+.note-by{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.note .ex.pend{background:var(--sand);color:var(--ink)}
+.about-text .stats{margin-top:6px}
 
 </style>
 </head>
@@ -966,12 +973,46 @@ textarea{min-height:96px;resize:vertical}
             <button class="chip" aria-pressed="false" data-filter="Mente e emoções">Mente e emoções</button>
             <button class="chip" aria-pressed="false" data-filter="Desenvolvimento">Desenvolvimento</button>
             <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
+            <button class="chip" aria-pressed="false" data-filter="Outro">Outros</button>
           </div>
           <ul class="notes" id="fridgeNotes"></ul>
         </div>
         <div class="fridge-foot">
-          <p><b>Da nossa mesa para a sua.</b> Profissionais que já cuidaram bem da nossa casa. Conhece alguém que cuidou bem da sua família? Conte pra gente.</p>
-          <a class="btn btn-dark" data-wa="Oi, Denny! Quero indicar um profissional para a mesa do Café, Graça & Fralda.&#10;Nome: &#10;O que faz: &#10;Cidade: &#10;Por que indico: " href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Indicar alguém</a>
+          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. O Denny confere antes de publicar.</p>
+          <button class="btn btn-dark" type="button" id="indOpen"><svg><use href="#i-arrow"/></svg>Indicar um profissional</button>
+        </div>
+        <div class="card ind-form-wrap" id="indWrap" hidden>
+          <div class="gate" id="indGate">
+            <span class="label">Indicar um profissional</span>
+            <h3>Entre para indicar</h3>
+            <p>Para evitar spam, só quem entrou com o Google indica. Só o seu primeiro nome aparece, e o Denny confere cada indicação antes de publicar.</p>
+            <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+          </div>
+          <form class="form" id="indForm" novalidate hidden>
+            <div><span class="label">Da nossa mesa para a sua</span><h3 style="font-size:30px;margin-top:6px">Indique um profissional</h3></div>
+            <div class="row2">
+              <div class="field"><label for="i-nome">Nome do profissional</label><input id="i-nome" maxlength="80" placeholder="Ex.: Dra. Carla Souza"></div>
+              <div class="field"><label for="i-esp">Especialidade</label><input id="i-esp" maxlength="80" placeholder="Ex.: Pediatra, psicóloga, dentista"></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="i-cat">Assunto</label><select id="i-cat"><option>Saúde dos pequenos</option><option>Gestação e bebê</option><option>Mente e emoções</option><option>Desenvolvimento</option><option>Casamento</option><option>Outro</option></select></div>
+              <div class="field"><label for="i-modo">Atendimento</label><select id="i-modo"><option>Presencial</option><option>Online</option><option>Online e presencial</option></select></div>
+            </div>
+            <div class="field"><label for="i-onde">Onde fica</label><input id="i-onde" maxlength="140" placeholder="Cidade, bairro ou endereço da clínica"></div>
+            <div class="field"><label for="i-como">Como você conheceu</label><input id="i-como" maxlength="300" placeholder="Ex.: indicação de uma amiga, atendeu meu filho em 2025"></div>
+            <fieldset class="field"><span class="legend">Plano de saúde</span>
+              <div class="opts">
+                <label class="opt"><input type="radio" name="i-plano" value="particular" checked><span>Só particular</span></label>
+                <label class="opt"><input type="radio" name="i-plano" value="plano"><span>Aceita plano de saúde</span></label>
+              </div>
+              <input id="i-planos" maxlength="120" placeholder="Qual(is) plano(s)? Ex.: Unimed, Bradesco" hidden>
+            </fieldset>
+            <div class="field"><label for="i-porque">Por que você indica</label><textarea id="i-porque" maxlength="500" placeholder="Conte em poucas palavras como foi o cuidado."></textarea></div>
+            <div class="field"><label for="i-contato">WhatsApp ou Instagram do profissional (opcional)</label><input id="i-contato" maxlength="60" placeholder="(81) 90000-0000 ou @perfil"></div>
+            <div class="hp" aria-hidden="true"><label for="i-site">Não preencha</label><input id="i-site" tabindex="-1" autocomplete="off"></div>
+            <button class="btn btn-terra btn-block" id="indSend" type="submit">Enviar indicação</button>
+            <p class="status" id="indStatus" role="status"></p>
+          </form>
         </div>
         <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
       </div>
@@ -1035,7 +1076,7 @@ textarea{min-height:96px;resize:vertical}
       <div class="about-text">
         <span class="label">Quem escreve</span>
         <h2>Prazer, eu sou o Denny.</h2>
-        <p>Sou pai de três, incluindo gêmeos, e casado há 7 anos com uma mulher linda e incrível, a Gabi. Sou cristão, formado em Teologia e em Liderança, e também em Gestão de RH, com pós-graduação em Gestão de Pessoas e Liderança de Equipes. Trabalho na área comercial, sirvo na igreja local e, desde os 15 anos, caminho perto de pessoas.</p>
+        <p>Sou pai de três, incluindo gêmeos, e casado há 7 anos com uma mulher linda e incrível, a Gabi. Sou cristão há mais de 20 anos, formado em Teologia e em Liderança, e também em Gestão de RH, com pós-graduação em Gestão de Pessoas e Liderança de Equipes. Trabalho na área comercial, sirvo na igreja local e, desde os 15 anos, caminho perto de pessoas.</p>
         <p>Não sou especialista em família perfeita. Sou um pai aprendendo todo dia, com a Bíblia aberta e muito café. O que escrevo aqui é o que a gente vive em casa.</p>
         <p class="blockq">“Não escrevo para pais perfeitos. Escrevo para pais reais, que amam, cansam, erram e querem enxergar Deus nas madrugadas.”</p>
         <div class="stats">
@@ -1044,7 +1085,7 @@ textarea{min-height:96px;resize:vertical}
           <div class="stat"><b>19</b><span>anos caminhando com pessoas</span></div>
         </div>
         <ul class="tags creds" aria-label="Formação">
-          <li>Teologia</li><li>Liderança (Florida Christian University)</li><li>Gestão de RH</li><li>Pós em Gestão de Pessoas e Liderança de Equipes</li>
+          <li>Cristão há mais de 20 anos</li><li>Teologia</li><li>Liderança (Florida Christian University)</li><li>Gestão de RH</li><li>Pós em Gestão de Pessoas e Liderança de Equipes</li>
         </ul>
       </div>
       <div class="about-side">
@@ -1107,6 +1148,7 @@ textarea{min-height:96px;resize:vertical}
           <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
             <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
             <div><div class="cols-title"><span class="label">Comentários</span></div><div class="mod-list" id="pModCmts"></div></div>
+            <div style="grid-column:1/-1"><div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div><div class="mod-list" id="pModInds"></div></div>
           </div>
         </div>
       </div>
@@ -1958,19 +2000,39 @@ $("cmtForm").addEventListener("submit", function(e){
 
 /* ---------- Indicações: da nossa mesa para a sua ---------- */
 var fridge = $("fridgeNotes");
+var fridgeFilter = "all", fromMembers = [];
+function fridgeItems(){ return INDICACOES.concat(fromMembers); }
+function loadMemberInds(){
+  if (!sb) return;
+  sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
+    if (!r.data) return;
+    fromMembers = r.data.map(function(x){
+      var c = String(x.contato || "").trim(), d = c.replace(/\D/g, "");
+      return { cat: x.categoria, nome: x.nome, oque: x.especialidade, onde: x.onde, modo: x.atendimento, porque: x.porque, como: x.como_conheceu, por: x.autor,
+        plano: x.plano === "plano" ? "Aceita plano de saúde: " + x.planos : "Atendimento particular", pend: !x.aprovado,
+        whatsapp: d.length >= 10 && c.charAt(0) !== "@" ? d : "", instagram: c.charAt(0) === "@" ? c : "" };
+    });
+    renderFridge();
+  });
+}
 function renderFridge(filter){
+  if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
-  INDICACOES.forEach(function(p){
+  fridgeItems().forEach(function(p){
     if (filter !== "all" && p.cat !== filter) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
-    var why = h("div", "note-why"); why.append(h("span", "note-small", "Por que indicamos"), h("p", null, "“" + p.porque + "”"));
+    if (p.pend) top.append(h("span", "ex pend", "Em análise"));
+    var why = h("div", "note-why"); why.append(h("span", "note-small", p.por ? "Por que indica" : "Por que indicamos"),h("p", null, "“" + p.porque + "”"));
     var acts = h("div", "note-acts");
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     li.append(tape, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, h("p", "note-meta", p.onde + " · " + p.modo));
+    if (p.plano) li.appendChild(h("p", "note-meta2", p.plano));
+    if (p.como) li.appendChild(h("p", "note-meta2", "Como conheceu: " + p.como));
+    if (p.por) li.appendChild(h("p", "note-by", "Indicado por " + p.por));
     if (acts.childNodes.length) li.append(acts);
     fridge.appendChild(li);
   });
@@ -1979,6 +2041,7 @@ filterChips("fridgeFilters", renderFridge);
 renderFridge("all");
 
 viewHooks.comunidade = function(sub){
+  if (sub === "indicacoes") loadMemberInds();
   if (sub === "mural" && auth.user && !feed.loaded) loadFeed(true);
   if (sub === "chat" && auth.user) {
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
@@ -2193,6 +2256,35 @@ function reportPost(p){
   });
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; $("feedList").innerHTML = ""; } });
+
+
+// Indicar um profissional (membros logados). A indicação só aparece no site depois que o Denny aprova.
+var indWrap = $("indWrap"), indForm = $("indForm");
+function indSync(){ indForm.hidden = !auth.user; $("indGate").hidden = !!auth.user; }
+auth.on(indSync); indSync();
+$("indOpen").addEventListener("click", function(){ indWrap.hidden = !indWrap.hidden; if (!indWrap.hidden) indWrap.scrollIntoView({ behavior: "smooth", block: "center" }); });
+$$('input[name="i-plano"]').forEach(function(r){
+  r.addEventListener("change", function(){ var on = document.querySelector('input[name="i-plano"]:checked').value === "plano"; $("i-planos").hidden = !on; if (on) $("i-planos").focus(); });
+});
+indForm.addEventListener("submit", function(e){
+  e.preventDefault();
+  var st = $("indStatus");
+  if ($("i-site").value) { setStatus(st, "Indicação enviada. Obrigado!", "ok"); return; }  // isca contra robôs
+  var plano = document.querySelector('input[name="i-plano"]:checked').value;
+  var row = { nome: val("i-nome"), especialidade: val("i-esp"), categoria: $("i-cat").value, atendimento: $("i-modo").value, onde: val("i-onde"),
+              como_conheceu: val("i-como"), porque: val("i-porque"), contato: val("i-contato") || null, plano: plano, planos: plano === "plano" ? val("i-planos") : null };
+  if (row.nome.length < 2 || row.especialidade.length < 2 || row.onde.length < 2 || row.como_conheceu.length < 2 || row.porque.length < 2) return setStatus(st, "Preencha nome, especialidade, onde fica, como conheceu e por que indica.", "err");
+  if (plano === "plano" && (row.planos || "").length < 2) return setStatus(st, "Diga qual plano de saúde o profissional aceita.", "err");
+  if (!sb || !auth.user) return setStatus(st, "Entre com o Google para indicar.", "err");
+  $("indSend").disabled = true; setStatus(st, "Enviando…");
+  sb.from("indicacoes_membros").insert(row).then(function(r){
+    $("indSend").disabled = false;
+    if (r.error) return setStatus(st, String(r.error.message || "").indexOf("muito_rapido") > -1 ? "Você já enviou várias indicações hoje. Volte amanhã." : "Não foi possível enviar agora. Tente de novo.", "err");
+    indForm.reset(); $("i-planos").hidden = true;
+    setStatus(st, "Recebi! O Denny confere e publica em breve. Obrigado por indicar.", "ok");
+    loadMemberInds();
+  });
+});
 
 
 // Conversas privadas entre pais (só os dois participantes leem). Precisa de login.
@@ -2477,8 +2569,15 @@ function modItem(table, it, extra){
 function loadMod(){
   Promise.all([
     sb.from("mensagens").select("id,sala,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
-    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
+    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
+    sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
   ]).then(function(r){
+    var c3 = $("pModInds"); c3.innerHTML = "";
+    (r[2].data || []).forEach(function(x){
+      c3.appendChild(modItem("indicacoes_membros", { id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
+        texto: x.especialidade + " · " + x.onde + " · " + (x.plano === "plano" ? "Plano: " + x.planos : "Particular") + " · Conheceu: " + x.como_conheceu + " — " + x.porque + (x.contato ? " · Contato: " + x.contato : "") }, x.aprovado ? "publicada" : "AGUARDANDO"));
+    });
+    if (!c3.childNodes.length) c3.appendChild(h("p", "muted", "Nenhuma indicação enviada ainda."));
     var a = $("pModMsgs"), b = $("pModCmts"); a.innerHTML = ""; b.innerHTML = "";
     (r[0].data || []).forEach(function(m){ a.appendChild(modItem("mensagens", m, "sala " + m.sala)); });
     (r[1].data || []).forEach(function(c){ b.appendChild(modItem("comentarios", c, c.sobre)); });
