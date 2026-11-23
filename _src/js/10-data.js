@@ -125,6 +125,8 @@ function devoSchedule(now){
   if (k < last) { next = new Date(FIRST_RELEASE); next.setDate(FIRST_RELEASE.getDate() + (k + 1) * 7); }
   return { k: Math.min(k, last), next: next };
 }
+function slugify(t){ return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); }
+DEVOS.forEach(function(d){ d.slug = slugify(d.title); });
 var SCHED = devoSchedule(new Date());
 var FEATURED = DEVOS[SCHED.k];
 var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();

@@ -55,6 +55,9 @@ function renderMsgs(force){
       del.addEventListener("click", function(){ sb.from("mensagens").delete().eq("id", m.id).then(function(){ chat.msgs = chat.msgs.filter(function(x){ return x.id !== m.id; }); renderMsgs(true); }); });
       act.appendChild(del);
     } else {
+      var dmb = h("button", null, "Chamar no privado"); dmb.type = "button";
+      dmb.addEventListener("click", function(){ openDm(m.user_id, m.nome); });
+      act.appendChild(dmb);
       var rep = h("a", null, "Denunciar"); rep.href = waLink('Oi, Denny! Quero denunciar uma mensagem no chat (sala ' + chat.room + ', de ' + m.nome + '): "' + m.texto.slice(0, 120) + '"'); rep.target = "_blank"; rep.rel = "noopener";
       act.appendChild(rep);
     }
@@ -165,7 +168,8 @@ viewHooks.comunidade = function(sub){
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
     startChat();
   } else stopChat();
+  if (sub === "privado" && auth.user) startDm(); else stopDm();
   if (sub === "comentarios") { loadComments(); if (auth.user && !val("c-name")) $("c-name").value = firstName(auth.name()); }
 };
-auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else stopChat(); });
+auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else { stopChat(); stopDm(); } });
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });

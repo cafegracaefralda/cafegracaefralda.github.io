@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Café, Graça &amp; Fralda</title>
-<meta name="description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, chat entre pais e um café na sua mesa.">
+<title>Café, Graça &amp; Fralda | Devocional de 5 minutos para pais e famílias</title>
+<meta name="description" content="Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.">
+<meta name="keywords" content="devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, Denny Silva">
+<meta name="author" content="Denny Silva">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://cafegracaefralda.github.io/">
 <meta name="theme-color" content="#F8F5F0">
 <link rel="manifest" href="manifest.webmanifest">
@@ -18,12 +21,14 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Café, Graça &amp; Fralda">
 <meta property="og:title" content="Café, Graça &amp; Fralda · Entre o café e a fralda, tem graça.">
-<meta property="og:description" content="Fé e família na vida real, com Denny Silva. Um devocional de 5 minutos toda quarta, chat entre pais e um café na sua mesa.">
+<meta property="og:description" content="Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.">
 <meta property="og:url" content="https://cafegracaefralda.github.io/">
 <meta property="og:image" content="https://cafegracaefralda.github.io/icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Denny, Gabi e os três filhos sorrindo, com a frase: Entre o café e a fralda, tem graça.">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://cafegracaefralda.github.io/#site", "url": "https://cafegracaefralda.github.io/", "name": "Café, Graça & Fralda", "inLanguage": "pt-BR", "description": "Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.", "publisher": {"@id": "https://cafegracaefralda.github.io/#denny"}}, {"@type": "Person", "@id": "https://cafegracaefralda.github.io/#denny", "name": "Denny Silva", "url": "https://cafegracaefralda.github.io/", "description": "Pai, marido e discipulador. Escreve sobre fé e família na vida real.", "sameAs": ["https://instagram.com/denny___silva"]}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
@@ -197,7 +202,9 @@ body:not(.painel-mode) #v-painel{display:none}
 .cols-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
 .rows{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);cursor:pointer}
-.row h3{font-size:24px;line-height:1.15;transition:color .2s}
+.row h3,.devo-feature h3{font-size:24px;line-height:1.15;transition:color .2s}
+.row h3 a,.devo-feature h3 a{color:inherit;text-decoration:none}
+.devo-feature h3{font-size:clamp(30px,3.8vw,48px);line-height:1.06}
 .row:hover h3{color:var(--terra)}
 .row .meta{display:flex;gap:12px;align-items:center;margin-bottom:4px}
 .row .t{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.1em}
@@ -326,6 +333,14 @@ textarea{min-height:96px;resize:vertical}
 .hand-btn svg{width:20px;height:20px}
 .hand-btn[aria-pressed="true"]{background:var(--terra);border-color:var(--terra);color:#fff}
 .rules-note{font-size:12.5px;color:var(--muted);padding:8px 16px;background:var(--sand);display:flex;gap:10px;justify-content:space-between;align-items:center}
+.badge-n{display:inline-block;background:var(--terra);color:#fff;border-radius:999px;font-size:11px;font-weight:700;line-height:1;padding:3px 7px;margin-left:4px;vertical-align:1px}
+.composer.two{grid-template-columns:minmax(0,1fr) auto}
+.dm-opt{display:flex;gap:8px;align-items:flex-start;padding:12px;margin-top:8px;border-top:1px solid var(--line);font-family:var(--sans);font-size:12.5px;letter-spacing:0;text-transform:none;color:var(--muted);cursor:pointer;line-height:1.35}
+.dm-opt input{width:16px;height:16px;margin-top:1px;accent-color:var(--terra);flex:none;padding:0}
+.dm-tools{display:flex;gap:12px}
+.dm-tools button,.dm-tools a{background:none;border:0;padding:0;font:inherit;font-size:13px;color:var(--muted);cursor:pointer;text-decoration:underline}
+.room .nb{float:right;background:var(--terra);color:#fff;border-radius:999px;font-size:11px;font-weight:700;padding:2px 7px}
+.room[aria-pressed="true"] .nb{background:#fff;color:var(--terra)}
 .empty{text-align:center;color:var(--muted);padding:40px 20px;display:grid;gap:8px;justify-items:center;margin:auto}
 .empty h3{font-size:26px;color:var(--ink)}
 .empty p{font-family:var(--serif);font-style:italic;font-size:18px;max-width:34ch}
@@ -370,7 +385,8 @@ textarea{min-height:96px;resize:vertical}
 .stat{display:grid;gap:2px}
 .stat b{font-family:var(--serif);font-weight:500;font-size:44px;line-height:1;font-variant-numeric:lining-nums tabular-nums}
 .stat span{font-size:13px;color:var(--muted)}
-.creds{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.creds{margin-top:2px}
+.mesa-sub{margin-top:10px}
 .about-side{display:grid;gap:16px}
 .about-side .photo{aspect-ratio:3/2}
 .about-side .photo img{object-position:50% 30%}
@@ -563,8 +579,9 @@ textarea{min-height:96px;resize:vertical}
       <div class="mesa-band">
         <div>
           <span class="label">Por que “mesa”?</span>
-          <h2>Na nossa casa, tudo acontece à mesa.</h2>
-          <p>O café da madrugada, a conversa difícil, a oração antes de dormir. Este espaço é essa mesa, aberta para você. Eu falo de Deus porque foi Ele quem mudou a minha casa, e você é livre para tirar as suas próprias conclusões.</p>
+          <h2>Aqui em casa, a vida rola na mesa.</h2>
+          <p>Café que esfria, birra de segunda, riso de boca cheia e oração antes de dormir. Este cantinho é essa mesa, e já tem uma cadeira reservada pra você.</p>
+          <p class="mesa-sub">Eu falo de Deus porque foi Ele quem mudou a minha casa. Mas ninguém precisa concordar com tudo para ficar. 😉</p>
         </div>
         <div>
           <p style="margin-bottom:10px"><b style="color:var(--ink)">Você não precisa ser cristão para puxar uma cadeira.</b></p>
@@ -791,6 +808,7 @@ textarea{min-height:96px;resize:vertical}
       </div>
       <div class="seg" role="tablist" aria-label="Comunidade">
         <button type="button" role="tab" data-sub="chat" aria-selected="true">Levante a mão</button>
+        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
         <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
         <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
       </div>
@@ -817,6 +835,31 @@ textarea{min-height:96px;resize:vertical}
                 <button class="btn btn-terra" id="msgSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
               </form>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-sub-panel="privado">
+        <div class="card" id="dmGate">
+          <div class="gate">
+            <span class="label">Conversas privadas</span>
+            <h3>Converse no privado com outros pais</h3>
+            <p>Gostou de uma resposta no chat? Chame a pessoa no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
+            <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+          </div>
+        </div>
+        <div class="chat" id="dmApp" hidden>
+          <div class="rooms" role="group" aria-label="Conversas privadas">
+            <div id="dmList"></div>
+            <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
+          </div>
+          <div class="chat-main">
+            <div class="chat-head"><b id="dmTitle">Conversas privadas</b><span class="dm-tools" id="dmTools"></span></div>
+            <div class="msgs" id="dmMsgs" aria-live="polite"></div>
+            <form class="composer two" id="dmComposer" autocomplete="off" hidden>
+              <input id="dmText" placeholder="Escreva uma mensagem privada…" maxlength="1000" aria-label="Mensagem privada">
+              <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
+            </form>
           </div>
         </div>
       </div>
@@ -929,7 +972,9 @@ textarea{min-height:96px;resize:vertical}
           <div class="stat"><b>3</b><span>anos criando filhos</span></div>
           <div class="stat"><b>19</b><span>anos caminhando com pessoas</span></div>
         </div>
-        <p class="creds">Teologia · Liderança (Florida Christian University) · Pós em Gestão de Pessoas</p>
+        <ul class="tags creds" aria-label="Formação">
+          <li>Teologia</li><li>Gestão de RH</li><li>Liderança (Florida Christian University)</li><li>Pós em Gestão de Pessoas</li>
+        </ul>
       </div>
       <div class="about-side">
         <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>
@@ -1222,6 +1267,8 @@ function devoSchedule(now){
   if (k < last) { next = new Date(FIRST_RELEASE); next.setDate(FIRST_RELEASE.getDate() + (k + 1) * 7); }
   return { k: Math.min(k, last), next: next };
 }
+function slugify(t){ return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""); }
+DEVOS.forEach(function(d){ d.slug = slugify(d.title); });
 var SCHED = devoSchedule(new Date());
 var FEATURED = DEVOS[SCHED.k];
 var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
@@ -1317,7 +1364,7 @@ if ("IntersectionObserver" in window) {
       var v = e.target.getAttribute("data-view"), was = seen[v];
       seen[v] = e.isIntersecting;
       if (e.isIntersecting && !was && viewHooks[v]) viewHooks[v](currentSub(v));
-      if (!e.isIntersecting && v === "comunidade") stopChat();
+      if (!e.isIntersecting && v === "comunidade") { stopChat(); stopDm(); }
     });
   }, { rootMargin: "250px 0px 250px 0px" });
   var spy = new IntersectionObserver(function(entries){
@@ -1347,7 +1394,7 @@ function applyAuthUI(){
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
   $("menuPainel").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
-  var gates = [["bookGate", "bookApp"], ["chatGate", "chatApp"]];
+  var gates = [["bookGate", "bookApp"], ["chatGate", "chatApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
 
@@ -1399,9 +1446,15 @@ if (sb) {
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
 var dlg = $("reader"), readerBody = $("readerBody");
 
+function pageUrl(a){ return new URL("devocional/" + a.slug + "/", location.href).href; }
+function devoLink(a){
+  var l = h("a", null, a.title); l.href = "devocional/" + a.slug + "/";
+  l.addEventListener("click", function(e){ if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; e.preventDefault(); openReader(a); });
+  return l;
+}
 function shareText(a){
   return "☕ *" + a.title + "*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n“" + a.passage[0] + "”\n— " + a.passage[1] +
-         "\n\nLeia completo, com oração: " + location.origin + location.pathname + "#devocional";
+         "\n\nLeia completo, com oração: " + pageUrl(a);
 }
 function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "label", label), h("p", null, text)); return b; }
 
@@ -1432,7 +1485,8 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   tags.append(h("span", "badge", "Novo"), h("span", "label", FEATURED.cat + " · 5 min"));
   var btn = h("button", "btn btn-terra"); btn.type = "button"; btn.append(icon("i-book"), document.createTextNode("Ler em 5 minutos"));
   btn.addEventListener("click", function(){ openReader(FEATURED); });
-  main.append(tags, h("h3", null, FEATURED.title), h("p", null, FEATURED.lede), btn);
+  var ft = h("h3"); ft.appendChild(devoLink(FEATURED));
+  main.append(tags, ft, h("p", null, FEATURED.lede), btn);
   main.append(h("p", "df-next", SCHED.next
     ? "Próximo devocional: " + new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" }).format(SCHED.next)
     : "Novos devocionais em breve"));
@@ -1445,7 +1499,7 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   ARCHIVE.forEach(function(a, idx){
     var li = h("li", "row" + (idx >= 4 ? " extra" : "")), left = h("div"), meta = h("div", "meta");
     meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
-    left.append(meta, h("h3", null, a.title));
+    var rt = h("h3"); rt.appendChild(devoLink(a)); left.append(meta, rt);
     var go_ = h("button", "go"); go_.type = "button"; go_.setAttribute("aria-label", "Ler " + a.title); go_.appendChild(icon("i-arrow"));
     li.append(left, go_);
     li.addEventListener("click", function(){ openReader(a); });
@@ -1745,6 +1799,9 @@ function renderMsgs(force){
       del.addEventListener("click", function(){ sb.from("mensagens").delete().eq("id", m.id).then(function(){ chat.msgs = chat.msgs.filter(function(x){ return x.id !== m.id; }); renderMsgs(true); }); });
       act.appendChild(del);
     } else {
+      var dmb = h("button", null, "Chamar no privado"); dmb.type = "button";
+      dmb.addEventListener("click", function(){ openDm(m.user_id, m.nome); });
+      act.appendChild(dmb);
       var rep = h("a", null, "Denunciar"); rep.href = waLink('Oi, Denny! Quero denunciar uma mensagem no chat (sala ' + chat.room + ', de ' + m.nome + '): "' + m.texto.slice(0, 120) + '"'); rep.target = "_blank"; rep.rel = "noopener";
       act.appendChild(rep);
     }
@@ -1855,10 +1912,151 @@ viewHooks.comunidade = function(sub){
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
     startChat();
   } else stopChat();
+  if (sub === "privado" && auth.user) startDm(); else stopDm();
   if (sub === "comentarios") { loadComments(); if (auth.user && !val("c-name")) $("c-name").value = firstName(auth.name()); }
 };
-auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else stopChat(); });
+auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("comunidade")); else { stopChat(); stopDm(); } });
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });
+
+
+// Conversas privadas entre pais (só os dois participantes leem). Precisa de login.
+var dm = { convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: null, badgeTimer: null, profiled: "" };
+var dmMsgsEl = $("dmMsgs");
+function me(){ return auth.user ? auth.user.id : ""; }
+function otherOf(c){ return c.a === me() ? c.b : c.a; }
+function dmName(uid){ return dm.names[uid] || "Alguém"; }
+function setBadge(n){ var b = $("dmBadge"); b.textContent = n; b.hidden = !n; }
+
+function renderDmList(){
+  var box = $("dmList"); box.innerHTML = "";
+  if (!dm.convs.length) { box.appendChild(h("p", "hint", "Nenhuma conversa ainda. Chame alguém no privado pelo chat.")); box.firstChild.style.padding = "12px"; return; }
+  dm.convs.forEach(function(c){
+    var o = otherOf(c), b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", dm.current === c.id);
+    var n = dm.unread[c.id] || 0;
+    if (n) b.appendChild(h("span", "nb", String(n)));
+    b.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
+    b.addEventListener("click", function(){ openConv(c.id); });
+    box.appendChild(b);
+  });
+}
+function renderDmTools(){
+  var t = $("dmTools"); t.innerHTML = "";
+  var c = dm.convs.filter(function(x){ return x.id === dm.current; })[0];
+  if (!c) return;
+  var o = otherOf(c), blocked = !!dm.blocked[o];
+  var bl = h("button", null, blocked ? "Desbloquear" : "Bloquear"); bl.type = "button";
+  bl.addEventListener("click", function(){
+    var q = blocked ? sb.from("dm_bloqueios").delete().eq("bloqueado", o) : sb.from("dm_bloqueios").insert({ quem: me(), bloqueado: o });
+    q.then(function(r){ if (r.error) return toast("Não foi possível fazer isso agora."); dm.blocked[o] = !blocked; toast(blocked ? "Pessoa desbloqueada." : "Pessoa bloqueada. Ela não consegue mais te escrever."); renderDmTools(); });
+  });
+  var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi, Denny! Quero denunciar uma pessoa nas conversas privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
+  t.append(bl, rep);
+}
+function renderDmMsgs(force){
+  var sig = dm.current + ":" + dm.msgs.length + ":" + (dm.msgs.length ? dm.msgs[dm.msgs.length - 1].id : "");
+  if (!force && sig === dm.sig) return;
+  dm.sig = sig;
+  var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
+  dmMsgsEl.innerHTML = "";
+  if (!dm.current) {
+    var e = h("div", "empty"); e.append(h("h3", null, "Suas conversas privadas"), h("p", null, "Escolha uma conversa ao lado, ou chame alguém pelo chat tocando em “Chamar no privado”."));
+    dmMsgsEl.appendChild(e); return;
+  }
+  if (!dm.msgs.length) {
+    var e2 = h("div", "empty"); e2.append(h("h3", null, "Diga um oi"), h("p", null, "Comece a conversa. Só vocês dois leem estas mensagens."));
+    dmMsgsEl.appendChild(e2); return;
+  }
+  dm.msgs.forEach(function(m){
+    var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
+    row.appendChild(h("span", "avatar", initial(mine ? auth.name() : dmName(m.de))));
+    top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
+    bub.append(top, h("p", null, m.texto)); row.appendChild(bub); dmMsgsEl.appendChild(row);
+  });
+  if (force || nearEnd) dmMsgsEl.scrollTop = dmMsgsEl.scrollHeight;
+}
+
+function loadConvs(){
+  if (!sb || !auth.user) return Promise.resolve();
+  return Promise.all([
+    sb.from("dm_conversas").select("id,a,b,ultima_em").order("ultima_em", { ascending: false }),
+    sb.from("dm_mensagens").select("conversa_id").eq("lida", false).neq("de", me()),
+    sb.from("dm_bloqueios").select("bloqueado")
+  ]).then(function(r){
+    dm.convs = r[0].data || [];
+    dm.unread = {}; (r[1].data || []).forEach(function(x){ dm.unread[x.conversa_id] = (dm.unread[x.conversa_id] || 0) + 1; });
+    dm.blocked = {}; (r[2].data || []).forEach(function(x){ dm.blocked[x.bloqueado] = true; });
+    var ids = dm.convs.map(otherOf).filter(function(id){ return !dm.names[id]; });
+    var total = 0; Object.keys(dm.unread).forEach(function(k){ total += dm.unread[k]; }); setBadge(total);
+    if (!ids.length) return;
+    return sb.from("perfis").select("user_id,nome").in("user_id", ids).then(function(p){ (p.data || []).forEach(function(x){ dm.names[x.user_id] = x.nome; }); });
+  }).then(function(){ renderDmList(); renderDmTools(); });
+}
+function loadDmMsgs(force){
+  var id = dm.current; if (!id || !sb) return;
+  sb.from("dm_mensagens").select("id,de,texto,criado_em").eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){
+    if (id !== dm.current || !r.data) return;
+    dm.msgs = r.data.slice().reverse(); renderDmMsgs(!!force);
+    if (dm.unread[id]) sb.rpc("marcar_lidas", { p_conversa: id }).then(function(){ dm.unread[id] = 0; var t = 0; Object.keys(dm.unread).forEach(function(k){ t += dm.unread[k]; }); setBadge(t); renderDmList(); });
+  });
+}
+function openConv(id){
+  dm.current = id; dm.msgs = []; dm.sig = "";
+  var c = dm.convs.filter(function(x){ return x.id === id; })[0];
+  $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa";
+  $("dmComposer").hidden = false;
+  renderDmList(); renderDmTools(); renderDmMsgs(true); loadDmMsgs(true);
+}
+var DM_ERR = { dm_desativado: "Esta pessoa não está recebendo mensagens privadas.", indisponivel: "Não foi possível iniciar esta conversa.",
+               nao_encontrado: "Não encontramos essa pessoa.", login_necessario: "Entre com o Google para conversar no privado." };
+function openDm(userId, name){
+  if (!auth.user) { toast("Entre com o Google para conversar no privado."); return; }
+  if (!sb || !userId) return;
+  if (userId === me()) { toast("Essa mensagem é sua."); return; }
+  dm.names[userId] = name;
+  sb.rpc("abrir_conversa", { p_outro: userId }).then(function(r){
+    if (r.error) { var m = String(r.error.message || ""), k = Object.keys(DM_ERR).filter(function(x){ return m.indexOf(x) > -1; })[0]; return toast(DM_ERR[k] || "Não foi possível abrir a conversa agora."); }
+    var id = r.data;
+    go("comunidade", "privado");
+    loadConvs().then(function(){ openConv(id); });
+  });
+}
+
+$("dmComposer").addEventListener("submit", function(e){
+  e.preventDefault();
+  var texto = $("dmText").value.trim();
+  if (!texto || !dm.current || !sb) return;
+  $("dmSend").disabled = true;
+  sb.from("dm_mensagens").insert({ conversa_id: dm.current, texto: texto }).select("id,de,texto,criado_em").then(function(r){
+    $("dmSend").disabled = false;
+    if (r.error || !r.data || !r.data.length) { var m = String(r.error && r.error.message || ""); return toast(m.indexOf("muito_rapido") > -1 ? "Calma! Muitas mensagens em pouco tempo." : "Não foi possível enviar. Essa pessoa pode ter bloqueado a conversa."); }
+    $("dmText").value = ""; dm.msgs.push(r.data[0]); renderDmMsgs(true);
+  });
+});
+$("dmAccept").addEventListener("change", function(){
+  var on = $("dmAccept").checked;
+  sb.from("perfis").update({ aceita_dm: on }).eq("user_id", me()).then(function(r){ toast(r.error ? "Não foi possível salvar." : on ? "Você voltou a receber mensagens privadas." : "Mensagens privadas desligadas."); });
+});
+
+function startDm(){
+  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); });
+  sb.from("perfis").select("aceita_dm").eq("user_id", me()).maybeSingle().then(function(r){ if (r.data) $("dmAccept").checked = r.data.aceita_dm !== false; });
+  dm.timer = setInterval(function(){ if (!document.hidden) { loadConvs(); loadDmMsgs(false); } }, 6000);
+}
+function stopDm(){ if (dm.timer) { clearInterval(dm.timer); dm.timer = null; } }
+
+// Perfil criado no primeiro login e aviso de mensagens novas (a cada 45 s) mesmo fora da aba
+auth.on(function(){
+  if (!auth.user || !sb) { dm = { convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: dm.timer, badgeTimer: dm.badgeTimer, profiled: "" }; setBadge(0); return; }
+  if (dm.profiled !== me()) { dm.profiled = me(); sb.rpc("garantir_perfil").then(function(){}); }
+  if (!dm.badgeTimer) {
+    var count = function(){
+      if (!auth.user || document.hidden || (dm.timer)) return;
+      sb.from("dm_mensagens").select("id", { count: "exact", head: true }).eq("lida", false).neq("de", me()).then(function(r){ if (r.count != null) setBadge(r.count); });
+    };
+    count(); dm.badgeTimer = setInterval(count, 45000);
+  }
+});
+renderDmMsgs(true);
 
 
 // Painel do Denny (só administradores): agenda, horários da semana, inscritos e moderação.

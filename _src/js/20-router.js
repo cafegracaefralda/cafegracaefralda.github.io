@@ -76,7 +76,7 @@ if ("IntersectionObserver" in window) {
       var v = e.target.getAttribute("data-view"), was = seen[v];
       seen[v] = e.isIntersecting;
       if (e.isIntersecting && !was && viewHooks[v]) viewHooks[v](currentSub(v));
-      if (!e.isIntersecting && v === "comunidade") stopChat();
+      if (!e.isIntersecting && v === "comunidade") { stopChat(); stopDm(); }
     });
   }, { rootMargin: "250px 0px 250px 0px" });
   var spy = new IntersectionObserver(function(entries){

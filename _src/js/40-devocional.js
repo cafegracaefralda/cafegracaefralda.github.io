@@ -1,9 +1,15 @@
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
 var dlg = $("reader"), readerBody = $("readerBody");
 
+function pageUrl(a){ return new URL("devocional/" + a.slug + "/", location.href).href; }
+function devoLink(a){
+  var l = h("a", null, a.title); l.href = "devocional/" + a.slug + "/";
+  l.addEventListener("click", function(e){ if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return; e.preventDefault(); openReader(a); });
+  return l;
+}
 function shareText(a){
   return "☕ *" + a.title + "*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n“" + a.passage[0] + "”\n— " + a.passage[1] +
-         "\n\nLeia completo, com oração: " + location.origin + location.pathname + "#devocional";
+         "\n\nLeia completo, com oração: " + pageUrl(a);
 }
 function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "label", label), h("p", null, text)); return b; }
 
@@ -34,7 +40,8 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   tags.append(h("span", "badge", "Novo"), h("span", "label", FEATURED.cat + " · 5 min"));
   var btn = h("button", "btn btn-terra"); btn.type = "button"; btn.append(icon("i-book"), document.createTextNode("Ler em 5 minutos"));
   btn.addEventListener("click", function(){ openReader(FEATURED); });
-  main.append(tags, h("h3", null, FEATURED.title), h("p", null, FEATURED.lede), btn);
+  var ft = h("h3"); ft.appendChild(devoLink(FEATURED));
+  main.append(tags, ft, h("p", null, FEATURED.lede), btn);
   main.append(h("p", "df-next", SCHED.next
     ? "Próximo devocional: " + new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "numeric", month: "long" }).format(SCHED.next)
     : "Novos devocionais em breve"));
@@ -47,7 +54,7 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
   ARCHIVE.forEach(function(a, idx){
     var li = h("li", "row" + (idx >= 4 ? " extra" : "")), left = h("div"), meta = h("div", "meta");
     meta.append(h("span", "label", a.cat), h("span", "t", "5 min"));
-    left.append(meta, h("h3", null, a.title));
+    var rt = h("h3"); rt.appendChild(devoLink(a)); left.append(meta, rt);
     var go_ = h("button", "go"); go_.type = "button"; go_.setAttribute("aria-label", "Ler " + a.title); go_.appendChild(icon("i-arrow"));
     li.append(left, go_);
     li.addEventListener("click", function(){ openReader(a); });

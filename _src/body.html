@@ -77,8 +77,9 @@
       <div class="mesa-band">
         <div>
           <span class="label">Por que “mesa”?</span>
-          <h2>Na nossa casa, tudo acontece à mesa.</h2>
-          <p>O café da madrugada, a conversa difícil, a oração antes de dormir. Este espaço é essa mesa, aberta para você. Eu falo de Deus porque foi Ele quem mudou a minha casa, e você é livre para tirar as suas próprias conclusões.</p>
+          <h2>Aqui em casa, a vida rola na mesa.</h2>
+          <p>Café que esfria, birra de segunda, riso de boca cheia e oração antes de dormir. Este cantinho é essa mesa, e já tem uma cadeira reservada pra você.</p>
+          <p class="mesa-sub">Eu falo de Deus porque foi Ele quem mudou a minha casa. Mas ninguém precisa concordar com tudo para ficar. 😉</p>
         </div>
         <div>
           <p style="margin-bottom:10px"><b style="color:var(--ink)">Você não precisa ser cristão para puxar uma cadeira.</b></p>
@@ -236,6 +237,7 @@
       </div>
       <div class="seg" role="tablist" aria-label="Comunidade">
         <button type="button" role="tab" data-sub="chat" aria-selected="true">Levante a mão</button>
+        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
         <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
         <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
       </div>
@@ -262,6 +264,31 @@
                 <button class="btn btn-terra" id="msgSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
               </form>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-sub-panel="privado">
+        <div class="card" id="dmGate">
+          <div class="gate">
+            <span class="label">Conversas privadas</span>
+            <h3>Converse no privado com outros pais</h3>
+            <p>Gostou de uma resposta no chat? Chame a pessoa no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
+            <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+          </div>
+        </div>
+        <div class="chat" id="dmApp" hidden>
+          <div class="rooms" role="group" aria-label="Conversas privadas">
+            <div id="dmList"></div>
+            <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
+          </div>
+          <div class="chat-main">
+            <div class="chat-head"><b id="dmTitle">Conversas privadas</b><span class="dm-tools" id="dmTools"></span></div>
+            <div class="msgs" id="dmMsgs" aria-live="polite"></div>
+            <form class="composer two" id="dmComposer" autocomplete="off" hidden>
+              <input id="dmText" placeholder="Escreva uma mensagem privada…" maxlength="1000" aria-label="Mensagem privada">
+              <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
+            </form>
           </div>
         </div>
       </div>
@@ -374,7 +401,9 @@
           <div class="stat"><b>3</b><span>anos criando filhos</span></div>
           <div class="stat"><b>19</b><span>anos caminhando com pessoas</span></div>
         </div>
-        <p class="creds">Teologia · Liderança (Florida Christian University) · Pós em Gestão de Pessoas</p>
+        <ul class="tags creds" aria-label="Formação">
+          <li>Teologia</li><li>Gestão de RH</li><li>Liderança (Florida Christian University)</li><li>Pós em Gestão de Pessoas</li>
+        </ul>
       </div>
       <div class="about-side">
         <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>

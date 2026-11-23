@@ -14,7 +14,7 @@ function applyAuthUI(){
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
   $("menuPainel").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
-  var gates = [["bookGate", "bookApp"], ["chatGate", "chatApp"]];
+  var gates = [["bookGate", "bookApp"], ["chatGate", "chatApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
 
