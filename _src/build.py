@@ -236,7 +236,7 @@ def devo_page(i, d):
 {others}
 </ul></aside>
 </main>
-<footer>© {today.year} Café, Graça &amp; Fralda · Denny Silva · Soli Deo Gloria</footer>
+<footer>© {today.year} Café, Graça &amp; Fralda · Denny Silva</footer>
 </body>
 </html>
 """

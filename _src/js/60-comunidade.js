@@ -164,6 +164,7 @@ filterChips("fridgeFilters", renderFridge);
 renderFridge("all");
 
 viewHooks.comunidade = function(sub){
+  if (sub === "mural" && auth.user && !feed.loaded) loadFeed(true);
   if (sub === "chat" && auth.user) {
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
     startChat();

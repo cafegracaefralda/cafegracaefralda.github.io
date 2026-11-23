@@ -6,7 +6,7 @@ Site e app (PWA) de Denny Silva: fé e família na vida real. Publicado em https
 1. Edite os arquivos de `_src/` (nunca `index.html` nem `sw.js`, que são gerados):
    - `styles.css`: visual. `body.html`: estrutura das telas. `lessons.html`: "O que a gente aprendeu".
    - `js/00-core.js` (utilidades e Supabase) · `10-data.js` (devocionais e indicações) · `20-router.js` (telas) · `30-auth.js` (login Google)
-     · `40-devocional.js` · `50-cafe.js` (agendar/desmarcar) · `55-palestra.js` (convite de palestra → WhatsApp) · `60-comunidade.js` (chat, comentários, indicações) · `65-privado.js` (conversas privadas) · `70-painel.js` (painel do Denny) · `80-app.js` (instalar o app).
+     · `40-devocional.js` · `50-cafe.js` (agendar/desmarcar) · `55-palestra.js` (convite de palestra → WhatsApp) · `60-comunidade.js` (chat, comentários, indicações) · `62-mural.js` (mural das famílias) · `65-privado.js` (conversas privadas) · `70-painel.js` (painel do Denny) · `80-app.js` (instalar o app).
 2. Rode `python3 _src/build.py` (precisa de Node): gera `index.html`, `sw.js`, `sitemap.xml`, `robots.txt` e uma página por devocional em `devocional/<slug>/` (SEO).
 3. Teste antes de publicar: abra o site num navegador headless (Playwright em `/opt/pw-browsers/chromium`) em 1440px e 390px. Confira que não há erro de script e que a página não rola para o lado. O Supabase não é acessível da nuvem: teste com um mock de rede (rotas `https://ckzeechkxghhmoshgzyv.supabase.co/**`).
 4. Commit em português, curto, e `git push origin main`. O GitHub Pages publica em 1 a 2 minutos.
@@ -47,3 +47,4 @@ Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão pa
 ## Conversas privadas e SEO
 - Conversas privadas: aba "Privado" da Comunidade e botão "Chamar no privado" no chat. Só os dois participantes leem (nem o painel). Tem bloquear, denunciar (WhatsApp do Denny), desligar recebimento e limite de 20 msg/min. Esquema em `_docs/supabase-v3-privado.sql` (rodar uma vez no SQL Editor depois do v2).
 - SEO: título/descrição/JSON-LD vêm do `build.py`. Depois de publicar, enviar `https://cafegracaefralda.github.io/sitemap.xml` no Google Search Console (https://search.google.com/search-console). Novo devocional em `DEVOS` ganha página própria sozinho no build.
+- Mural das famílias (aba Mural, a primeira da Comunidade): feed com tipos (conversa, indicação, desabafo, pedido de oração, gratidão), foto, curtir, comentar, denunciar. Só para quem entrou (nada público nem indexado). Fotos num bucket privado `mural` (JPEG reduzido no navegador, sem dados de localização, link temporário). 3 denúncias escondem o post; o Denny apaga qualquer um. Esquema em `_docs/supabase-v4-mural.sql` (rodar depois do v2 e v3).
