@@ -18,6 +18,24 @@ function renderDmList(){
     box.appendChild(b);
   });
 }
+function renderPeople(list){
+  var box = $("dmPeople"); box.innerHTML = "";
+  if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
+  list.forEach(function(x){
+    var b = h("button", "room"); b.type = "button"; b.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
+    box.appendChild(b);
+  });
+}
+function loadPeople(){
+  if (!sb || !auth.user) return;
+  var term = $("dmSearch").value.trim().replace(/[^A-Za-zÀ-ÿ ]/g, "").slice(0, 40);
+  var q = sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", me()).order("criado_em", { ascending: false }).limit(30);
+  if (term) q = q.ilike("nome", "%" + term + "%");
+  q.then(function(r){ if (r.data) renderPeople(r.data); });
+}
+var peopleT = null;
+$("dmSearch").addEventListener("input", function(){ clearTimeout(peopleT); peopleT = setTimeout(loadPeople, 250); });
 function renderDmTools(){
   var t = $("dmTools"); t.innerHTML = "";
   var c = dm.convs.filter(function(x){ return x.id === dm.current; })[0];
@@ -38,7 +56,7 @@ function renderDmMsgs(force){
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
   dmMsgsEl.innerHTML = "";
   if (!dm.current) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Suas conversas privadas"), h("p", null, "Escolha uma conversa ao lado, ou chame alguém pelo chat tocando em “Chamar no privado”."));
+    var e = h("div", "empty"); e.append(h("h3", null, "Suas conversas privadas"), h("p", null, "Escolha uma conversa ao lado, ou procure uma pessoa pelo nome em “Encontrar pessoas”."));
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
@@ -117,7 +135,7 @@ $("dmAccept").addEventListener("change", function(){
 });
 
 function startDm(){
-  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); });
+  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); }); loadPeople();
   sb.from("perfis").select("aceita_dm").eq("user_id", me()).maybeSingle().then(function(r){ if (r.data) $("dmAccept").checked = r.data.aceita_dm !== false; });
   dm.timer = setInterval(function(){ if (!document.hidden) { loadConvs(); loadDmMsgs(false); } }, 6000);
 }

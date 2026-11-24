@@ -110,7 +110,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* Menu do celular */
 .menu-btn{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;place-items:center;padding:0}
 .menu-btn svg{width:18px;height:18px}
-@media (max-width:980px){
+@media (max-width:1180px){
   .menu-btn{display:grid}
   .top .wrap{gap:10px}
   .top .logo{margin-right:auto}
@@ -538,6 +538,12 @@ textarea{min-height:96px;resize:vertical}
 .note .ex.pend{background:var(--sand);color:var(--ink)}
 .about-text .stats{margin-top:6px}
 
+#v-feed{background:var(--bg)}
+.feed-view{display:block}
+
+.dm-find{display:grid;gap:8px;padding:12px;border-top:1px solid var(--line);margin-top:8px}
+.dm-find input{padding:9px 12px;font-size:14px}
+
 </style>
 </head>
 <body>
@@ -580,6 +586,7 @@ textarea{min-height:96px;resize:vertical}
       <a href="#inicio" data-tab="inicio">Início</a>
       <a href="#devocional" data-tab="devocional">5 minutos</a>
       <a href="#cafe" data-tab="cafe">Café na mesa</a>
+      <a href="#feed" data-tab="feed">Feed</a>
       <a href="#comunidade" data-tab="comunidade">Comunidade</a>
       <a href="#palestra" data-tab="palestra">Palestras</a>
       <a href="#sobre" data-tab="sobre">Sobre</a>
@@ -847,23 +854,15 @@ textarea{min-height:96px;resize:vertical}
     </div>
   </section>
 
-  <!-- COMUNIDADE -->
-  <section class="view" id="v-comunidade" data-view="comunidade">
+  <!-- FEED -->
+  <section class="view" id="v-feed" data-view="feed">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Comunidade</span>
-        <h2>Gente cuidando de gente</h2>
-        <p class="muted">Além do conteúdo, aqui é uma rede só para famílias: poste, indique, desabafe, curta e comente. Entra quem faz login, e só o primeiro nome aparece.</p>
+        <span class="label">Feed das famílias</span>
+        <h2>O que está rolando na mesa</h2>
+        <p class="muted">Aqui as famílias postam, indicam, desabafam, pedem oração e agradecem. Você curte e comenta. Só entra quem faz login, e só o primeiro nome aparece.</p>
       </div>
-      <div class="seg" role="tablist" aria-label="Comunidade">
-        <button type="button" role="tab" data-sub="mural" aria-selected="true">Mural</button>
-        <button type="button" role="tab" data-sub="chat" aria-selected="false">Chat</button>
-        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
-        <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
-        <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
-      </div>
-
-      <div data-sub-panel="mural" class="on">
+      <div class="feed-view">
         <div class="card" id="feedGate">
           <div class="gate">
             <span class="label">Mural das famílias</span>
@@ -884,6 +883,7 @@ textarea{min-height:96px;resize:vertical}
               <span class="post-tip">Não publique foto de rosto de crianças, nome completo nem escola.</span>
               <button class="btn btn-terra" id="postSend" type="submit">Publicar</button>
             </div>
+            <p class="status" id="postStatus" role="status"></p>
           </form>
           <div class="filters" id="feedTypes" role="group" aria-label="Filtrar o mural"></div>
           <div class="feed-list" id="feedList" aria-live="polite"></div>
@@ -891,7 +891,25 @@ textarea{min-height:96px;resize:vertical}
         </div>
       </div>
 
-      <div data-sub-panel="chat">
+    </div>
+  </section>
+
+  <!-- COMUNIDADE -->
+  <section class="view" id="v-comunidade" data-view="comunidade">
+    <div class="wrap">
+      <div class="view-head">
+        <span class="label">Comunidade</span>
+        <h2>Gente cuidando de gente</h2>
+        <p class="muted">Converse com outros pais no chat, no privado ou nos comentários. Entra quem faz login, e só o primeiro nome aparece.</p>
+      </div>
+      <div class="seg" role="tablist" aria-label="Comunidade">
+        <button type="button" role="tab" data-sub="chat" aria-selected="true">Chat</button>
+        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
+        <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
+        <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
+      </div>
+
+      <div data-sub-panel="chat" class="on">
         <div class="card" id="chatGate">
           <div class="gate">
             <span class="label">Chat entre pais</span>
@@ -922,13 +940,14 @@ textarea{min-height:96px;resize:vertical}
           <div class="gate">
             <span class="label">Conversas privadas</span>
             <h3>Converse no privado com outros pais</h3>
-            <p>Gostou de uma resposta no chat? Chame a pessoa no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
+            <p>Encontre uma pessoa pelo nome, ou chame quem respondeu no chat ou no feed, no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
         </div>
         <div class="chat" id="dmApp" hidden>
           <div class="rooms" role="group" aria-label="Conversas privadas">
             <div id="dmList"></div>
+            <div class="dm-find"><span class="label">Encontrar pessoas</span><input id="dmSearch" type="search" placeholder="Buscar pelo nome" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
             <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
           </div>
           <div class="chat-main">
@@ -1400,8 +1419,8 @@ var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Ge
 
 
 // Página única: as seções ficam empilhadas e o menu rola até elas. #painel abre uma página só do Denny.
-var VIEWS = ["inicio", "devocional", "cafe", "comunidade", "palestra", "sobre", "painel"];
-var ALIAS = { agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
+var VIEWS = ["inicio", "devocional", "cafe", "feed", "comunidade", "palestra", "sobre", "painel"];
+var ALIAS = { mural: "feed", postagens: "feed", agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
               contato: "sobre", palestras: "palestra", convite: "palestra", novidades: "devocional", artigos: "devocional", textos: "devocional", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[view] = function(sub): roda quando a seção aparece na tela
@@ -1470,7 +1489,7 @@ menuBtn.addEventListener("click", function(){ setMenu(!navEl.classList.contains(
 navEl.addEventListener("click", function(e){ if (e.target.closest("a")) setMenu(false); });
 
 // Carrega os dados de cada seção quando ela chega perto da tela, e marca no menu a seção atual
-var viewEls = ["inicio", "devocional", "cafe", "comunidade", "palestra", "sobre"].map(function(v){ return $("v-" + v); });
+var viewEls = ["inicio", "devocional", "cafe", "feed", "comunidade", "palestra", "sobre"].map(function(v){ return $("v-" + v); });
 if ("IntersectionObserver" in window) {
   var loader = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
@@ -2042,7 +2061,6 @@ renderFridge("all");
 
 viewHooks.comunidade = function(sub){
   if (sub === "indicacoes") loadMemberInds();
-  if (sub === "mural" && auth.user && !feed.loaded) loadFeed(true);
   if (sub === "chat" && auth.user) {
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
     startChat();
@@ -2119,20 +2137,21 @@ $("postForm").addEventListener("submit", function(e){
     up = sb.storage.from("mural").upload(path, feed.photo, { contentType: "image/jpeg", upsert: false });
   }
   up.then(function(u){
-    if (u && u.error) throw new Error("foto");
+    if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
     return sb.from("posts").insert({ tipo: feed.tipo, texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
-        throw new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post");
+        var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
       }
       return r.data[0];
     });
   }).then(function(p){
     $("postText").value = ""; clearPhoto();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado no mural.");
+    toast("Publicado no mural."); setStatus($("postStatus"), "");
   }).catch(function(err){
-    toast(err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.");
+    var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
+    setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
 });
 
@@ -2257,6 +2276,9 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; $("feedList").innerHTML = ""; } });
 
+viewHooks.feed = function(){ if (auth.user && !feed.loaded) loadFeed(true); };
+auth.on(function(){ if (auth.user && isShown("feed") && !feed.loaded) loadFeed(true); });
+
 
 // Indicar um profissional (membros logados). A indicação só aparece no site depois que o Denny aprova.
 var indWrap = $("indWrap"), indForm = $("indForm");
@@ -2307,6 +2329,24 @@ function renderDmList(){
     box.appendChild(b);
   });
 }
+function renderPeople(list){
+  var box = $("dmPeople"); box.innerHTML = "";
+  if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
+  list.forEach(function(x){
+    var b = h("button", "room"); b.type = "button"; b.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
+    box.appendChild(b);
+  });
+}
+function loadPeople(){
+  if (!sb || !auth.user) return;
+  var term = $("dmSearch").value.trim().replace(/[^A-Za-zÀ-ÿ ]/g, "").slice(0, 40);
+  var q = sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", me()).order("criado_em", { ascending: false }).limit(30);
+  if (term) q = q.ilike("nome", "%" + term + "%");
+  q.then(function(r){ if (r.data) renderPeople(r.data); });
+}
+var peopleT = null;
+$("dmSearch").addEventListener("input", function(){ clearTimeout(peopleT); peopleT = setTimeout(loadPeople, 250); });
 function renderDmTools(){
   var t = $("dmTools"); t.innerHTML = "";
   var c = dm.convs.filter(function(x){ return x.id === dm.current; })[0];
@@ -2327,7 +2367,7 @@ function renderDmMsgs(force){
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
   dmMsgsEl.innerHTML = "";
   if (!dm.current) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Suas conversas privadas"), h("p", null, "Escolha uma conversa ao lado, ou chame alguém pelo chat tocando em “Chamar no privado”."));
+    var e = h("div", "empty"); e.append(h("h3", null, "Suas conversas privadas"), h("p", null, "Escolha uma conversa ao lado, ou procure uma pessoa pelo nome em “Encontrar pessoas”."));
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
@@ -2406,7 +2446,7 @@ $("dmAccept").addEventListener("change", function(){
 });
 
 function startDm(){
-  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); });
+  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); }); loadPeople();
   sb.from("perfis").select("aceita_dm").eq("user_id", me()).maybeSingle().then(function(r){ if (r.data) $("dmAccept").checked = r.data.aceita_dm !== false; });
   dm.timer = setInterval(function(){ if (!document.hidden) { loadConvs(); loadDmMsgs(false); } }, 6000);
 }

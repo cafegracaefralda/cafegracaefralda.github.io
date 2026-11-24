@@ -1,6 +1,6 @@
 // Página única: as seções ficam empilhadas e o menu rola até elas. #painel abre uma página só do Denny.
-var VIEWS = ["inicio", "devocional", "cafe", "comunidade", "palestra", "sobre", "painel"];
-var ALIAS = { agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
+var VIEWS = ["inicio", "devocional", "cafe", "feed", "comunidade", "palestra", "sobre", "painel"];
+var ALIAS = { mural: "feed", postagens: "feed", agendar: "cafe", cadeira: "cafe", mesa: "comunidade", indicacoes: "comunidade:indicacoes", comentarios: "comunidade:comentarios",
               contato: "sobre", palestras: "palestra", convite: "palestra", novidades: "devocional", artigos: "devocional", textos: "devocional", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[view] = function(sub): roda quando a seção aparece na tela
@@ -69,7 +69,7 @@ menuBtn.addEventListener("click", function(){ setMenu(!navEl.classList.contains(
 navEl.addEventListener("click", function(e){ if (e.target.closest("a")) setMenu(false); });
 
 // Carrega os dados de cada seção quando ela chega perto da tela, e marca no menu a seção atual
-var viewEls = ["inicio", "devocional", "cafe", "comunidade", "palestra", "sobre"].map(function(v){ return $("v-" + v); });
+var viewEls = ["inicio", "devocional", "cafe", "feed", "comunidade", "palestra", "sobre"].map(function(v){ return $("v-" + v); });
 if ("IntersectionObserver" in window) {
   var loader = new IntersectionObserver(function(entries){
     entries.forEach(function(e){

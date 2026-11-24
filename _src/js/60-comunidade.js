@@ -185,7 +185,6 @@ renderFridge("all");
 
 viewHooks.comunidade = function(sub){
   if (sub === "indicacoes") loadMemberInds();
-  if (sub === "mural" && auth.user && !feed.loaded) loadFeed(true);
   if (sub === "chat" && auth.user) {
     $("chatRules").hidden = lsGet("cgf-rules") === "1";
     startChat();

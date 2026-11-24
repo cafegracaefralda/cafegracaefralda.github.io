@@ -32,6 +32,7 @@
       <a href="#inicio" data-tab="inicio">Início</a>
       <a href="#devocional" data-tab="devocional">5 minutos</a>
       <a href="#cafe" data-tab="cafe">Café na mesa</a>
+      <a href="#feed" data-tab="feed">Feed</a>
       <a href="#comunidade" data-tab="comunidade">Comunidade</a>
       <a href="#palestra" data-tab="palestra">Palestras</a>
       <a href="#sobre" data-tab="sobre">Sobre</a>
@@ -230,23 +231,15 @@
     </div>
   </section>
 
-  <!-- COMUNIDADE -->
-  <section class="view" id="v-comunidade" data-view="comunidade">
+  <!-- FEED -->
+  <section class="view" id="v-feed" data-view="feed">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Comunidade</span>
-        <h2>Gente cuidando de gente</h2>
-        <p class="muted">Além do conteúdo, aqui é uma rede só para famílias: poste, indique, desabafe, curta e comente. Entra quem faz login, e só o primeiro nome aparece.</p>
+        <span class="label">Feed das famílias</span>
+        <h2>O que está rolando na mesa</h2>
+        <p class="muted">Aqui as famílias postam, indicam, desabafam, pedem oração e agradecem. Você curte e comenta. Só entra quem faz login, e só o primeiro nome aparece.</p>
       </div>
-      <div class="seg" role="tablist" aria-label="Comunidade">
-        <button type="button" role="tab" data-sub="mural" aria-selected="true">Mural</button>
-        <button type="button" role="tab" data-sub="chat" aria-selected="false">Chat</button>
-        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
-        <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
-        <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
-      </div>
-
-      <div data-sub-panel="mural" class="on">
+      <div class="feed-view">
         <div class="card" id="feedGate">
           <div class="gate">
             <span class="label">Mural das famílias</span>
@@ -267,6 +260,7 @@
               <span class="post-tip">Não publique foto de rosto de crianças, nome completo nem escola.</span>
               <button class="btn btn-terra" id="postSend" type="submit">Publicar</button>
             </div>
+            <p class="status" id="postStatus" role="status"></p>
           </form>
           <div class="filters" id="feedTypes" role="group" aria-label="Filtrar o mural"></div>
           <div class="feed-list" id="feedList" aria-live="polite"></div>
@@ -274,7 +268,25 @@
         </div>
       </div>
 
-      <div data-sub-panel="chat">
+    </div>
+  </section>
+
+  <!-- COMUNIDADE -->
+  <section class="view" id="v-comunidade" data-view="comunidade">
+    <div class="wrap">
+      <div class="view-head">
+        <span class="label">Comunidade</span>
+        <h2>Gente cuidando de gente</h2>
+        <p class="muted">Converse com outros pais no chat, no privado ou nos comentários. Entra quem faz login, e só o primeiro nome aparece.</p>
+      </div>
+      <div class="seg" role="tablist" aria-label="Comunidade">
+        <button type="button" role="tab" data-sub="chat" aria-selected="true">Chat</button>
+        <button type="button" role="tab" data-sub="privado" aria-selected="false">Privado <span class="badge-n" id="dmBadge" hidden></span></button>
+        <button type="button" role="tab" data-sub="comentarios" aria-selected="false">Comentários</button>
+        <button type="button" role="tab" data-sub="indicacoes" aria-selected="false">Indicações</button>
+      </div>
+
+      <div data-sub-panel="chat" class="on">
         <div class="card" id="chatGate">
           <div class="gate">
             <span class="label">Chat entre pais</span>
@@ -305,13 +317,14 @@
           <div class="gate">
             <span class="label">Conversas privadas</span>
             <h3>Converse no privado com outros pais</h3>
-            <p>Gostou de uma resposta no chat? Chame a pessoa no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
+            <p>Encontre uma pessoa pelo nome, ou chame quem respondeu no chat ou no feed, no privado, só vocês dois. Entre com o Google para começar. Só o seu primeiro nome aparece, e dá para bloquear ou desligar as mensagens quando quiser.</p>
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
         </div>
         <div class="chat" id="dmApp" hidden>
           <div class="rooms" role="group" aria-label="Conversas privadas">
             <div id="dmList"></div>
+            <div class="dm-find"><span class="label">Encontrar pessoas</span><input id="dmSearch" type="search" placeholder="Buscar pelo nome" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
             <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
           </div>
           <div class="chat-main">

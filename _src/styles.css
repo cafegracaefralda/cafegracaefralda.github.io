@@ -75,7 +75,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 /* Menu do celular */
 .menu-btn{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;place-items:center;padding:0}
 .menu-btn svg{width:18px;height:18px}
-@media (max-width:980px){
+@media (max-width:1180px){
   .menu-btn{display:grid}
   .top .wrap{gap:10px}
   .top .logo{margin-right:auto}
@@ -502,3 +502,9 @@ textarea{min-height:96px;resize:vertical}
 .note-by{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .note .ex.pend{background:var(--sand);color:var(--ink)}
 .about-text .stats{margin-top:6px}
+
+#v-feed{background:var(--bg)}
+.feed-view{display:block}
+
+.dm-find{display:grid;gap:8px;padding:12px;border-top:1px solid var(--line);margin-top:8px}
+.dm-find input{padding:9px 12px;font-size:14px}

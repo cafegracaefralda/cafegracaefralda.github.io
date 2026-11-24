@@ -63,20 +63,21 @@ $("postForm").addEventListener("submit", function(e){
     up = sb.storage.from("mural").upload(path, feed.photo, { contentType: "image/jpeg", upsert: false });
   }
   up.then(function(u){
-    if (u && u.error) throw new Error("foto");
+    if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
     return sb.from("posts").insert({ tipo: feed.tipo, texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
-        throw new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post");
+        var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
       }
       return r.data[0];
     });
   }).then(function(p){
     $("postText").value = ""; clearPhoto();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado no mural.");
+    toast("Publicado no mural."); setStatus($("postStatus"), "");
   }).catch(function(err){
-    toast(err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.");
+    var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
+    setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
 });
 
@@ -200,3 +201,6 @@ function reportPost(p){
   });
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; $("feedList").innerHTML = ""; } });
+
+viewHooks.feed = function(){ if (auth.user && !feed.loaded) loadFeed(true); };
+auth.on(function(){ if (auth.user && isShown("feed") && !feed.loaded) loadFeed(true); });
