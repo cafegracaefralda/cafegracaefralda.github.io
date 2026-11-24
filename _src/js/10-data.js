@@ -131,14 +131,23 @@ var SCHED = devoSchedule(new Date());
 var FEATURED = DEVOS[SCHED.k];
 var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 
-// Da nossa mesa para a sua: profissionais que a família indica.
-// Para acrescentar alguém, copie um bloco e troque os dados. Apague os exemplos (exemplo:true).
+// Da nossa mesa para a sua: profissionais de confiança da comunidade.
+// Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
-    { cat:"Saúde dos pequenos", nome:"Dra. Nome da Pediatra", oque:"Pediatra", onde:"Recife", modo:"Presencial",
-      porque:"Atende com calma, explica tudo sem assustar e responde mensagem de pai aflito.", whatsapp:"", instagram:"", exemplo:true },
-    { cat:"Mente e emoções", nome:"Nome do Psicólogo", oque:"Psicólogo de casais e famílias", onde:"Recife", modo:"Online e presencial",
-      porque:"Ajuda o casal a conversar sem virar briga, e respeita a fé da família.", whatsapp:"", instagram:"", exemplo:true },
-    { cat:"Gestação e bebê", nome:"Nome da Consultora", oque:"Consultora de sono infantil", onde:"Atende todo o Brasil", modo:"Online",
-      porque:"Quando as madrugadas pesaram, foi quem trouxe um plano possível, sem culpa.", whatsapp:"", instagram:"", exemplo:true }
+    { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
+      porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
+    { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
+      porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://pequenosgrandes.com.br/", whatsapp:"", instagram:"", selo:true }
   ];
+// Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
+// Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
+var PROS = [
+  { id:"denny", nome:"Denny Silva", area:"fe", papel:"Aconselhamento pastoral e familiar",
+    resumo:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico, oração e conversa sobre fé. Pai de três, incluindo gêmeos, cristão há mais de 20 anos, formado em Teologia e em Liderança, com pós em Gestão de Pessoas e Liderança de Equipes.",
+    whatsapp:"5581992702353", instagram:"denny___silva" },
+  { id:"larissa", nome:"Dra. Larissa Moraes", area:"saude", papel:"Obstetra",
+    resumo:"Obstetra indicada pela comunidade Café, Graça & Fralda para o acompanhamento da gestação.", site:"https://dralarissamoraes.com.br/" },
+  { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
+    resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
+];
 var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };

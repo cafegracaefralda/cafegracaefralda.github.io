@@ -55,7 +55,6 @@
         </button>
         <div class="menu" id="acctMenu" hidden>
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
-          <a href="#cafe/meus">Meus horários</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -70,7 +69,7 @@
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
-      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Encontros</span></a>
+      <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
       <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
@@ -94,6 +93,7 @@
           <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
           <p class="lede in">Uma comunidade para famílias de todo o Brasil que querem um lar mais leve e mais firme: fé de verdade, conversa sincera, indicação de confiança e gente cuidando de gente, entre as madrugadas e o café da manhã.</p>
           <div class="ctas in">
+            <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
             <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
@@ -355,6 +355,7 @@
             <button class="chip" aria-pressed="false" data-filter="Outro">Outros</button>
           </div>
           <ul class="notes" id="fridgeNotes"></ul>
+          <div class="card more-pros"><div><b>Temos vários outros profissionais de confiança.</b><p>Psicólogos, dentistas, nutricionistas e mais. Chame a gente no WhatsApp e indicamos o ideal para o seu caso.</p></div><a class="btn btn-wa" data-wa="Oi! Vim pelas Indicações do Café, Graça &amp; Fralda e preciso de um profissional. Pode me indicar?" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir indicação</a></div>
         </div>
         <div class="fridge-foot">
           <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. A equipe confere antes de publicar.</p>
@@ -400,91 +401,45 @@
 
 
   <!-- CAFÉ NA MESA -->
-  <section class="view" id="v-cafe" data-view="cafe">
-    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
-    <div class="wrap cafe-grid">
-      <div class="cafe-info">
-        <span class="label">Um café na sua mesa</span>
-        <h2>30 minutos para conversar</h2>
-        <p class="story">A mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que a gente quer sentar com você.</p>
-        <p>A gente vai até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
-        <ul class="facts">
-          <li><b>30 min</b><span>de conversa sem pressa</span></li>
-          <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
-          <li><b>3 jeitos</b><span>WhatsApp, vídeo ou presencial</span></li>
-        </ul>
+  <section class="view" id="v-casa" data-view="casa">
+    <div class="wrap">
+      <nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa" aria-current="page">Profissionais</a><a href="#palestra">Palestras</a></nav>
+      <div class="view-head">
+        <span class="label">Profissionais da Casa</span>
+        <h2>Gente de confiança, no mesmo lugar</h2>
+        <p class="muted">Saúde e fé lado a lado. O selo <span class="selo-inline" aria-hidden="true">✓</span> marca as pessoas de confiança da comunidade.</p>
       </div>
-      <div>
-        <div class="card" id="bookGate">
-          <div class="gate">
-            <span class="label">Para agendar</span>
-            <h3>Entre com o Google para marcar o seu café</h3>
-            <p>Assim você enxerga o seu horário e pode desmarcar sozinho se precisar. Só o seu nome e o seu e-mail ficam guardados no agendamento.</p>
-            <div class="alt">
-              <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-              <a class="btn btn-wa" data-wa="Oi! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
-            </div>
-            <div class="gate-steps"><span class="label">Como funciona</span>
-            <ol class="steps">
-              <li><span><b>Entre com o Google</b> para ver e desmarcar o seu horário quando precisar.</span></li>
-              <li><span><b>Conte o que está no coração.</b> Pode ser pouco.</span></li>
-              <li><span><b>Escolha o dia e o horário</b> que cabem na sua rotina.</span></li>
-            </ol>
-            </div>
-          </div>
-        </div>
-        <div id="bookApp" hidden>
-          <div class="seg" role="tablist" aria-label="Agendamento">
-            <button type="button" role="tab" data-sub="agendar" aria-selected="true">Agendar</button>
-            <button type="button" role="tab" data-sub="meus" aria-selected="false">Meus horários <span id="mineCount"></span></button>
-          </div>
-          <div data-sub-panel="agendar" class="on">
-            <div class="card">
-              <form class="form" id="bookForm" novalidate>
-                <fieldset class="field">
-                  <span class="legend">Como prefere conversar?</span>
-                  <div class="opts">
-                    <label class="opt"><input type="radio" name="b-format" value="whatsapp" checked><span>Chamada no WhatsApp</span></label>
-                    <label class="opt"><input type="radio" name="b-format" value="video"><span>Vídeo (eu mando o link)</span></label>
-                    <label class="opt"><input type="radio" name="b-format" value="presencial"><span>Presencial</span></label>
-                  </div>
-                </fieldset>
-                <div class="field" id="placeField" hidden><label for="b-place">Bairro e cidade</label><input id="b-place" placeholder="Boa Viagem, Recife" maxlength="80"></div>
-                <fieldset class="field">
-                  <span class="legend">Sobre o que quer conversar?</span>
-                  <div class="opts">
-                    <label class="opt"><input type="radio" name="b-topic" value="Desabafar"><span>Desabafar</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Casamento"><span>Casamento</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Filhos"><span>Filhos</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Fé e dúvidas"><span>Fé e dúvidas</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Receber uma palavra"><span>Receber uma palavra</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Outro assunto"><span>Outro assunto</span></label>
-                  </div>
-                </fieldset>
-                <div class="field"><label for="b-need">O que está no seu coração?</label><textarea id="b-need" placeholder="Conte um pouco do que você está vivendo. Isso me ajuda a chegar preparado." maxlength="1500"></textarea></div>
-                <fieldset class="field"><span class="legend">Dia</span><div class="days" id="bookDays"></div></fieldset>
-                <fieldset class="field"><span class="legend">Horário <span class="hint">(de Brasília)</span></span><div class="times" id="bookTimes"></div></fieldset>
-                <div class="field"><label for="b-phone">Seu WhatsApp <span class="hint">(para eu falar com você)</span></label><input id="b-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
-                <button class="btn btn-terra btn-block" id="bookSend" type="submit"><svg><use href="#i-cup"/></svg>Reservar este horário</button>
-                <p class="status" id="bookStatus" role="status"></p>
-              </form>
-              <div class="book-done" id="bookDone" hidden>
-                <span class="label">Horário reservado</span>
-                <h3>Seu café está marcado!</h3>
-                <ul class="summary" id="bookSummary"></ul>
-                <p class="muted" id="bookDoneText"></p>
-                <div class="confirm">
-                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar no WhatsApp</a>
-                  <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div data-sub-panel="meus">
-            <div class="card"><div class="mine" id="myList"></div></div>
-          </div>
-        </div>
+      <button class="btn btn-terra btn-lg casa-cta" type="button" id="casaCta"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</button>
+      <div class="filters" id="proFilters" role="group" aria-label="Filtrar profissionais">
+        <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
+        <button class="chip" aria-pressed="false" data-filter="saude">🩺 Saúde</button>
+        <button class="chip" aria-pressed="false" data-filter="fe">🙏 Fé e família</button>
       </div>
+      <div class="pro-list" id="proList"></div>
+      <p class="pro-more">E temos vários outros profissionais de confiança. Em breve eles aparecem aqui.</p>
+      <form class="card form casa-form" id="proForm" novalidate>
+        <div><span class="label">Pedido</span><h3 style="font-size:clamp(26px,6vw,32px);margin-top:6px">Conte o que você precisa</h3><p class="muted" style="margin-top:6px;font-size:15px">A mensagem sai pronta no WhatsApp e a gente responde para combinar.</p></div>
+        <div class="row2">
+          <div class="field"><label for="p-name">Seu nome</label><input id="p-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
+          <div class="field"><label for="p-city">Cidade e estado</label><input id="p-city" placeholder="Ex.: Recife, PE" autocomplete="address-level2" maxlength="60"></div>
+        </div>
+        <div class="field"><label for="p-tema">Com quem ou sobre o quê?</label>
+          <select id="p-tema"><option>Aconselhamento familiar (Denny)</option><option>Estudo bíblico (Denny)</option><option>Oração (Denny)</option><option>Chegada do bebê (Denny)</option><option>Conversa sobre fé (Denny)</option><option>Caminhar junto (Denny)</option><option>Escuta em momentos difíceis (Denny)</option><option>Palestras e encontros (Denny)</option><option>Dra. Larissa Moraes (obstetra)</option><option>Dr. Fred Hanaoka (pediatra)</option><option>Ainda não sei, quero conversar</option></select>
+        </div>
+        <fieldset class="field">
+          <span class="legend">Como prefere?</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="p-format" value="Chamada no WhatsApp" checked><span>WhatsApp</span></label>
+            <label class="opt"><input type="radio" name="p-format" value="Vídeo"><span>Vídeo</span></label>
+            <label class="opt"><input type="radio" name="p-format" value="Presencial, se for na minha cidade"><span>Presencial</span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="p-msg">Quer contar mais? (opcional)</label><textarea id="p-msg" maxlength="600" placeholder="Pode ser pouco. A gente conversa com calma."></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="p-site">Não preencha</label><input id="p-site" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-wa btn-block" id="proSend" type="submit"><svg><use href="#i-wa"/></svg>Chamar pelo WhatsApp</button>
+        <p class="status" id="proStatus" role="status"></p>
+      </form>
+      <p class="fridge-note casa-note">Cada profissional atende por conta própria. O aconselhamento pastoral e familiar não é terapia, nem atendimento médico ou psicológico: quando o assunto pedir, indicamos um profissional de saúde.</p>
     </div>
   </section>
 
@@ -494,7 +449,7 @@
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa">Profissionais</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
@@ -587,37 +542,16 @@
       </div>
       <div id="panelApp" hidden>
         <div class="seg" role="tablist" aria-label="Painel">
-          <button type="button" role="tab" data-sub="agenda" aria-selected="true">Agenda</button>
-          <button type="button" role="tab" data-sub="horarios" aria-selected="false">Horários</button>
-          <button type="button" role="tab" data-sub="inscritos" aria-selected="false">Inscritos</button>
-          <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Moderação</button>
+          <button type="button" role="tab" data-sub="inscritos" aria-selected="true">Inscritos</button>
+          <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Indicações enviadas</button>
         </div>
-        <div data-sub-panel="agenda" class="on">
-          <div class="panel-grid">
-            <div>
-              <div class="legend-row"><span><i style="background:var(--bg);border:1px solid var(--line)"></i>Livre (toque para bloquear)</span><span><i style="background:#ddd"></i>Bloqueado (toque para liberar)</span><span><i style="background:var(--terra)"></i>Reservado (toque para ver)</span></div>
-              <div class="agenda" id="pAgenda"></div>
-            </div>
-            <div>
-              <div class="cols-title"><span class="label">Próximos cafés</span></div>
-              <div class="mine" id="pBooked"></div>
-            </div>
-          </div>
-        </div>
-        <div data-sub-panel="horarios">
-          <p class="muted" style="margin-bottom:12px">Toque nos horários para ligar ou desligar. Eles valem para todas as semanas. Horários já reservados continuam valendo.</p>
-          <div class="weekgrid" id="pWeek"></div>
-        </div>
-        <div data-sub-panel="inscritos">
+        <div data-sub-panel="inscritos" class="on">
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
         <div data-sub-panel="moderacao">
-          <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-            <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
-            <div><div class="cols-title"><span class="label">Comentários</span></div><div class="mod-list" id="pModCmts"></div></div>
-            <div style="grid-column:1/-1"><div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div><div class="mod-list" id="pModInds"></div></div>
-          </div>
+          <div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div>
+          <div class="mod-list" id="pModInds"></div>
         </div>
       </div>
     </div>

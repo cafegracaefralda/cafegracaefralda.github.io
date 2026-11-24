@@ -11,6 +11,7 @@ function filterChips(groupId, onPick){
 
 /* ---------- Indicações: da nossa mesa para a sua ---------- */
 var fridge = $("fridgeNotes");
+function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
 function fridgeItems(){ return INDICACOES.concat(fromMembers); }
 function loadMemberInds(){
@@ -39,8 +40,11 @@ function renderFridge(filter){
     var acts = h("div", "note-acts");
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
+    if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
-    li.append(tape, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, h("p", "note-meta", p.onde + " · " + p.modo));
+    var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
+    li.append(tape, top, hn, h("p", "note-what", p.oque), why);
+    var meta = [p.onde, p.modo].filter(Boolean).join(" · "); if (meta) li.appendChild(h("p", "note-meta", meta));
     if (p.plano) li.appendChild(h("p", "note-meta2", p.plano));
     if (p.como) li.appendChild(h("p", "note-meta2", "Como conheceu: " + p.como));
     if (p.por) li.appendChild(h("p", "note-by", "Indicado por " + p.por));

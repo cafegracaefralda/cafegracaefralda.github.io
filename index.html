@@ -881,6 +881,55 @@ label.hand-btn{cursor:pointer}
 .post-top .grow b{display:flex;align-items:center;flex-wrap:wrap;gap:0}
 @media (max-width:1099px){body[data-view="mesa"] .wa-float,body[data-view="mensagens"] .wa-float,body[data-view="prateleira"] .wa-float,body[data-view="indicacoes"] .wa-float{display:none}}
 
+/* ---------- Toque confortável também no tablet ---------- */
+@media (max-width:1099px){
+  input,select,textarea,.dm-find input,.lazer-bar input,.lazer-bar select{font-size:16px}
+  .seg button{min-height:44px}
+  .post-acts button,.post-acts a{min-height:46px}
+  .pmore{width:44px;height:44px}
+}
+.compose-bar .cbtn{min-width:46px;justify-content:center}
+.compose-bar .cbtn-send{min-height:46px;padding-inline:24px}
+
+/* Profissional da Casa */
+.casa-cta{width:100%;justify-content:center;min-height:56px;font-size:17px;margin-bottom:18px}
+.casa-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:22px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;display:grid;gap:8px;align-content:start}
+.svc-ic{width:46px;height:46px;border-radius:14px;background:var(--terra-soft);display:grid;place-items:center;font-size:24px}
+.svc h3{font-size:24px;line-height:1.15}
+.svc p{color:var(--muted);font-size:15px}
+.svc .btn{justify-self:start;margin-top:4px}
+.casa-form{max-width:720px;margin-inline:auto}
+.casa-note{max-width:720px;margin:14px auto 0}
+.more-pros{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-top:24px;flex-wrap:wrap}
+.more-pros p{color:var(--muted);font-size:14.5px;margin-top:4px;max-width:52ch}
+@media (min-width:761px){.casa-cta{width:auto;min-width:360px}}
+
+/* Profissionais da Casa (selo de confiança) */
+.selo{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--terra);color:#fff;font-size:11px;font-weight:700;margin-left:7px;vertical-align:2px;line-height:1;flex:none}
+.selo-inline{display:inline-grid;place-items:center;width:17px;height:17px;border-radius:50%;background:var(--terra);color:#fff;font-size:11px;font-weight:700;vertical-align:-2px}
+.note h3 .selo{width:20px;height:20px}
+.pro-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:16px;margin:14px 0}
+.pro{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:18px;display:grid;gap:12px;align-content:start}
+.pro-top{display:flex;gap:16px;align-items:center}
+.pro-ring{flex:none;width:76px;height:76px;border-radius:50%;padding:3px;background:conic-gradient(from 210deg,var(--terra),#E0A458,var(--terra-light),var(--terra));display:grid;place-items:center}
+.pro-ring span{width:100%;height:100%;border-radius:50%;background:var(--surface);border:3px solid var(--surface);display:grid;place-items:center;font-family:var(--serif);font-size:34px;font-weight:600;color:var(--terra)}
+.pro-who{display:grid;gap:4px;min-width:0;justify-items:start}
+.pro-who h3{font-size:clamp(24px,6vw,29px);line-height:1.1;display:flex;align-items:center;flex-wrap:wrap}
+.pro-role{font-weight:600;font-size:15px}
+.pro-bio{color:var(--muted);font-size:15.5px;line-height:1.55}
+.pro-sub{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.pro-help{display:grid;gap:8px}
+.pro-chip{display:grid;gap:2px;text-align:left;background:var(--bg);border:1px solid transparent;border-radius:16px;padding:12px 14px;font:inherit;cursor:pointer;min-height:48px;width:100%}
+.pro-chip:hover,.pro-chip:active{border-color:var(--terra-light);background:#fff}
+.pro-chip b{font-size:15px}
+.pro-chip small{color:var(--muted);font-size:13px;line-height:1.4}
+.pro-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.pro-acts .btn{min-height:44px}
+.pro-more{text-align:center;color:var(--muted);font-size:14px;margin:6px 0 22px}
+@media (max-width:760px){.pro-acts .btn{flex:1 1 100%;justify-content:center}.pro-ring{width:68px;height:68px}}
+@media (max-width:1099px){body[data-view="casa"] .wa-float{display:none}}
+
 </style>
 </head>
 <body>
@@ -946,7 +995,6 @@ label.hand-btn{cursor:pointer}
         </button>
         <div class="menu" id="acctMenu" hidden>
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
-          <a href="#cafe/meus">Meus horários</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -961,7 +1009,7 @@ label.hand-btn{cursor:pointer}
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
-      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Encontros</span></a>
+      <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
       <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
@@ -985,6 +1033,7 @@ label.hand-btn{cursor:pointer}
           <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
           <p class="lede in">Uma comunidade para famílias de todo o Brasil que querem um lar mais leve e mais firme: fé de verdade, conversa sincera, indicação de confiança e gente cuidando de gente, entre as madrugadas e o café da manhã.</p>
           <div class="ctas in">
+            <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
             <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
@@ -1315,6 +1364,7 @@ label.hand-btn{cursor:pointer}
             <button class="chip" aria-pressed="false" data-filter="Outro">Outros</button>
           </div>
           <ul class="notes" id="fridgeNotes"></ul>
+          <div class="card more-pros"><div><b>Temos vários outros profissionais de confiança.</b><p>Psicólogos, dentistas, nutricionistas e mais. Chame a gente no WhatsApp e indicamos o ideal para o seu caso.</p></div><a class="btn btn-wa" data-wa="Oi! Vim pelas Indicações do Café, Graça &amp; Fralda e preciso de um profissional. Pode me indicar?" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir indicação</a></div>
         </div>
         <div class="fridge-foot">
           <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. A equipe confere antes de publicar.</p>
@@ -1360,91 +1410,45 @@ label.hand-btn{cursor:pointer}
 
 
   <!-- CAFÉ NA MESA -->
-  <section class="view" id="v-cafe" data-view="cafe">
-    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
-    <div class="wrap cafe-grid">
-      <div class="cafe-info">
-        <span class="label">Um café na sua mesa</span>
-        <h2>30 minutos para conversar</h2>
-        <p class="story">A mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que a gente quer sentar com você.</p>
-        <p>A gente vai até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
-        <ul class="facts">
-          <li><b>30 min</b><span>de conversa sem pressa</span></li>
-          <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
-          <li><b>3 jeitos</b><span>WhatsApp, vídeo ou presencial</span></li>
-        </ul>
+  <section class="view" id="v-casa" data-view="casa">
+    <div class="wrap">
+      <nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa" aria-current="page">Profissionais</a><a href="#palestra">Palestras</a></nav>
+      <div class="view-head">
+        <span class="label">Profissionais da Casa</span>
+        <h2>Gente de confiança, no mesmo lugar</h2>
+        <p class="muted">Saúde e fé lado a lado. O selo <span class="selo-inline" aria-hidden="true">✓</span> marca as pessoas de confiança da comunidade.</p>
       </div>
-      <div>
-        <div class="card" id="bookGate">
-          <div class="gate">
-            <span class="label">Para agendar</span>
-            <h3>Entre com o Google para marcar o seu café</h3>
-            <p>Assim você enxerga o seu horário e pode desmarcar sozinho se precisar. Só o seu nome e o seu e-mail ficam guardados no agendamento.</p>
-            <div class="alt">
-              <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-              <a class="btn btn-wa" data-wa="Oi! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
-            </div>
-            <div class="gate-steps"><span class="label">Como funciona</span>
-            <ol class="steps">
-              <li><span><b>Entre com o Google</b> para ver e desmarcar o seu horário quando precisar.</span></li>
-              <li><span><b>Conte o que está no coração.</b> Pode ser pouco.</span></li>
-              <li><span><b>Escolha o dia e o horário</b> que cabem na sua rotina.</span></li>
-            </ol>
-            </div>
-          </div>
-        </div>
-        <div id="bookApp" hidden>
-          <div class="seg" role="tablist" aria-label="Agendamento">
-            <button type="button" role="tab" data-sub="agendar" aria-selected="true">Agendar</button>
-            <button type="button" role="tab" data-sub="meus" aria-selected="false">Meus horários <span id="mineCount"></span></button>
-          </div>
-          <div data-sub-panel="agendar" class="on">
-            <div class="card">
-              <form class="form" id="bookForm" novalidate>
-                <fieldset class="field">
-                  <span class="legend">Como prefere conversar?</span>
-                  <div class="opts">
-                    <label class="opt"><input type="radio" name="b-format" value="whatsapp" checked><span>Chamada no WhatsApp</span></label>
-                    <label class="opt"><input type="radio" name="b-format" value="video"><span>Vídeo (eu mando o link)</span></label>
-                    <label class="opt"><input type="radio" name="b-format" value="presencial"><span>Presencial</span></label>
-                  </div>
-                </fieldset>
-                <div class="field" id="placeField" hidden><label for="b-place">Bairro e cidade</label><input id="b-place" placeholder="Boa Viagem, Recife" maxlength="80"></div>
-                <fieldset class="field">
-                  <span class="legend">Sobre o que quer conversar?</span>
-                  <div class="opts">
-                    <label class="opt"><input type="radio" name="b-topic" value="Desabafar"><span>Desabafar</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Casamento"><span>Casamento</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Filhos"><span>Filhos</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Fé e dúvidas"><span>Fé e dúvidas</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Receber uma palavra"><span>Receber uma palavra</span></label>
-                    <label class="opt"><input type="radio" name="b-topic" value="Outro assunto"><span>Outro assunto</span></label>
-                  </div>
-                </fieldset>
-                <div class="field"><label for="b-need">O que está no seu coração?</label><textarea id="b-need" placeholder="Conte um pouco do que você está vivendo. Isso me ajuda a chegar preparado." maxlength="1500"></textarea></div>
-                <fieldset class="field"><span class="legend">Dia</span><div class="days" id="bookDays"></div></fieldset>
-                <fieldset class="field"><span class="legend">Horário <span class="hint">(de Brasília)</span></span><div class="times" id="bookTimes"></div></fieldset>
-                <div class="field"><label for="b-phone">Seu WhatsApp <span class="hint">(para eu falar com você)</span></label><input id="b-phone" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
-                <button class="btn btn-terra btn-block" id="bookSend" type="submit"><svg><use href="#i-cup"/></svg>Reservar este horário</button>
-                <p class="status" id="bookStatus" role="status"></p>
-              </form>
-              <div class="book-done" id="bookDone" hidden>
-                <span class="label">Horário reservado</span>
-                <h3>Seu café está marcado!</h3>
-                <ul class="summary" id="bookSummary"></ul>
-                <p class="muted" id="bookDoneText"></p>
-                <div class="confirm">
-                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar no WhatsApp</a>
-                  <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div data-sub-panel="meus">
-            <div class="card"><div class="mine" id="myList"></div></div>
-          </div>
-        </div>
+      <button class="btn btn-terra btn-lg casa-cta" type="button" id="casaCta"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</button>
+      <div class="filters" id="proFilters" role="group" aria-label="Filtrar profissionais">
+        <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
+        <button class="chip" aria-pressed="false" data-filter="saude">🩺 Saúde</button>
+        <button class="chip" aria-pressed="false" data-filter="fe">🙏 Fé e família</button>
       </div>
+      <div class="pro-list" id="proList"></div>
+      <p class="pro-more">E temos vários outros profissionais de confiança. Em breve eles aparecem aqui.</p>
+      <form class="card form casa-form" id="proForm" novalidate>
+        <div><span class="label">Pedido</span><h3 style="font-size:clamp(26px,6vw,32px);margin-top:6px">Conte o que você precisa</h3><p class="muted" style="margin-top:6px;font-size:15px">A mensagem sai pronta no WhatsApp e a gente responde para combinar.</p></div>
+        <div class="row2">
+          <div class="field"><label for="p-name">Seu nome</label><input id="p-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
+          <div class="field"><label for="p-city">Cidade e estado</label><input id="p-city" placeholder="Ex.: Recife, PE" autocomplete="address-level2" maxlength="60"></div>
+        </div>
+        <div class="field"><label for="p-tema">Com quem ou sobre o quê?</label>
+          <select id="p-tema"><option>Aconselhamento familiar (Denny)</option><option>Estudo bíblico (Denny)</option><option>Oração (Denny)</option><option>Chegada do bebê (Denny)</option><option>Conversa sobre fé (Denny)</option><option>Caminhar junto (Denny)</option><option>Escuta em momentos difíceis (Denny)</option><option>Palestras e encontros (Denny)</option><option>Dra. Larissa Moraes (obstetra)</option><option>Dr. Fred Hanaoka (pediatra)</option><option>Ainda não sei, quero conversar</option></select>
+        </div>
+        <fieldset class="field">
+          <span class="legend">Como prefere?</span>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="p-format" value="Chamada no WhatsApp" checked><span>WhatsApp</span></label>
+            <label class="opt"><input type="radio" name="p-format" value="Vídeo"><span>Vídeo</span></label>
+            <label class="opt"><input type="radio" name="p-format" value="Presencial, se for na minha cidade"><span>Presencial</span></label>
+          </div>
+        </fieldset>
+        <div class="field"><label for="p-msg">Quer contar mais? (opcional)</label><textarea id="p-msg" maxlength="600" placeholder="Pode ser pouco. A gente conversa com calma."></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="p-site">Não preencha</label><input id="p-site" tabindex="-1" autocomplete="off"></div>
+        <button class="btn btn-wa btn-block" id="proSend" type="submit"><svg><use href="#i-wa"/></svg>Chamar pelo WhatsApp</button>
+        <p class="status" id="proStatus" role="status"></p>
+      </form>
+      <p class="fridge-note casa-note">Cada profissional atende por conta própria. O aconselhamento pastoral e familiar não é terapia, nem atendimento médico ou psicológico: quando o assunto pedir, indicamos um profissional de saúde.</p>
     </div>
   </section>
 
@@ -1454,7 +1458,7 @@ label.hand-btn{cursor:pointer}
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa">Profissionais</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
@@ -1547,37 +1551,16 @@ label.hand-btn{cursor:pointer}
       </div>
       <div id="panelApp" hidden>
         <div class="seg" role="tablist" aria-label="Painel">
-          <button type="button" role="tab" data-sub="agenda" aria-selected="true">Agenda</button>
-          <button type="button" role="tab" data-sub="horarios" aria-selected="false">Horários</button>
-          <button type="button" role="tab" data-sub="inscritos" aria-selected="false">Inscritos</button>
-          <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Moderação</button>
+          <button type="button" role="tab" data-sub="inscritos" aria-selected="true">Inscritos</button>
+          <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Indicações enviadas</button>
         </div>
-        <div data-sub-panel="agenda" class="on">
-          <div class="panel-grid">
-            <div>
-              <div class="legend-row"><span><i style="background:var(--bg);border:1px solid var(--line)"></i>Livre (toque para bloquear)</span><span><i style="background:#ddd"></i>Bloqueado (toque para liberar)</span><span><i style="background:var(--terra)"></i>Reservado (toque para ver)</span></div>
-              <div class="agenda" id="pAgenda"></div>
-            </div>
-            <div>
-              <div class="cols-title"><span class="label">Próximos cafés</span></div>
-              <div class="mine" id="pBooked"></div>
-            </div>
-          </div>
-        </div>
-        <div data-sub-panel="horarios">
-          <p class="muted" style="margin-bottom:12px">Toque nos horários para ligar ou desligar. Eles valem para todas as semanas. Horários já reservados continuam valendo.</p>
-          <div class="weekgrid" id="pWeek"></div>
-        </div>
-        <div data-sub-panel="inscritos">
+        <div data-sub-panel="inscritos" class="on">
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
         <div data-sub-panel="moderacao">
-          <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-            <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
-            <div><div class="cols-title"><span class="label">Comentários</span></div><div class="mod-list" id="pModCmts"></div></div>
-            <div style="grid-column:1/-1"><div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div><div class="mod-list" id="pModInds"></div></div>
-          </div>
+          <div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div>
+          <div class="mod-list" id="pModInds"></div>
         </div>
       </div>
     </div>
@@ -1830,27 +1813,36 @@ var SCHED = devoSchedule(new Date());
 var FEATURED = DEVOS[SCHED.k];
 var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 
-// Da nossa mesa para a sua: profissionais que a família indica.
-// Para acrescentar alguém, copie um bloco e troque os dados. Apague os exemplos (exemplo:true).
+// Da nossa mesa para a sua: profissionais de confiança da comunidade.
+// Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
-    { cat:"Saúde dos pequenos", nome:"Dra. Nome da Pediatra", oque:"Pediatra", onde:"Recife", modo:"Presencial",
-      porque:"Atende com calma, explica tudo sem assustar e responde mensagem de pai aflito.", whatsapp:"", instagram:"", exemplo:true },
-    { cat:"Mente e emoções", nome:"Nome do Psicólogo", oque:"Psicólogo de casais e famílias", onde:"Recife", modo:"Online e presencial",
-      porque:"Ajuda o casal a conversar sem virar briga, e respeita a fé da família.", whatsapp:"", instagram:"", exemplo:true },
-    { cat:"Gestação e bebê", nome:"Nome da Consultora", oque:"Consultora de sono infantil", onde:"Atende todo o Brasil", modo:"Online",
-      porque:"Quando as madrugadas pesaram, foi quem trouxe um plano possível, sem culpa.", whatsapp:"", instagram:"", exemplo:true }
+    { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
+      porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
+    { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
+      porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://pequenosgrandes.com.br/", whatsapp:"", instagram:"", selo:true }
   ];
+// Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
+// Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
+var PROS = [
+  { id:"denny", nome:"Denny Silva", area:"fe", papel:"Aconselhamento pastoral e familiar",
+    resumo:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico, oração e conversa sobre fé. Pai de três, incluindo gêmeos, cristão há mais de 20 anos, formado em Teologia e em Liderança, com pós em Gestão de Pessoas e Liderança de Equipes.",
+    whatsapp:"5581992702353", instagram:"denny___silva" },
+  { id:"larissa", nome:"Dra. Larissa Moraes", area:"saude", papel:"Obstetra",
+    resumo:"Obstetra indicada pela comunidade Café, Graça & Fralda para o acompanhamento da gestação.", site:"https://dralarissamoraes.com.br/" },
+  { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
+    resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
+];
 var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "cafe", "palestra", "sobre", "painel"];
+var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "casa", "palestra", "sobre", "painel"];
 var ALIAS = { dacasa: "prateleira", devocional: "prateleira:devocional", novidades: "prateleira:devocional", artigos: "prateleira:devocional", textos: "prateleira:devocional", lazer: "mesa:lazer", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
-              agendar: "cafe", cadeira: "cafe", contato: "sobre", palestras: "palestra", convite: "palestra", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
+              cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "sobre", palestras: "palestra", convite: "palestra", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[tela] = function(aba): roda quando a tela abre
-var NAV_OF = { palestra: "cafe" };  // telas que acendem outro item do menu
+var NAV_OF = { palestra: "casa" };  // telas que acendem outro item do menu
 
 function parseHash(){
   var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";
@@ -1935,7 +1927,7 @@ function applyAuthUI(){
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
   $("menuPainel").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
-  var gates = [["bookGate", "bookApp"], ["feedGate", "feedApp"], ["dmGate", "dmApp"]];
+  var gates = [["feedGate", "feedApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
 
@@ -2074,188 +2066,6 @@ newsForm.addEventListener("submit", function(e){
 });
 
 
-// Um café na sua mesa: agendar, ver e desmarcar. Seg a sex, das 20h às 22h (horário de Brasília), 30 minutos.
-var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (a gente manda o link)", presencial: "Presencial" };
-var DEFAULT_TEMPLATE = [];
-[1, 2, 3, 4, 5].forEach(function(d){ ["20:00", "20:30", "21:00", "21:30"].forEach(function(t){ DEFAULT_TEMPLATE.push({ dia_semana: d, hora: t }); }); });
-var MIN_NOTICE_MIN = 60, BOOK_DAYS = 10;
-var cafe = { template: DEFAULT_TEMPLATE, taken: {}, days: [], day: null, time: null, mine: [], loaded: false };
-
-function slotKey(day, time){ return day + "_" + time; }
-function hoursFor(d){
-  return cafe.template.filter(function(t){ return t.dia_semana === isoWeekday(d); }).map(function(t){ return t.hora; }).sort();
-}
-function slotOpen(day, time){
-  if (cafe.taken[slotKey(day, time)]) return false;
-  var d = parseDay(day), t = time.split(":");
-  d.setHours(+t[0], +t[1], 0, 0);
-  return d - nowBR() > MIN_NOTICE_MIN * 60000;
-}
-function buildDays(){
-  var out = [], d = nowBR(); d.setHours(0, 0, 0, 0);
-  for (var i = 0; i < 45 && out.length < BOOK_DAYS; i++, d.setDate(d.getDate() + 1)) {
-    var key = isoDay(d);
-    if (hoursFor(d).some(function(t){ return slotOpen(key, t); })) out.push(new Date(d));
-  }
-  cafe.days = out;
-}
-
-var bDays = $("bookDays"), bTimes = $("bookTimes"), bForm = $("bookForm"), bStatus = $("bookStatus"), bSend = $("bookSend"), bDone = $("bookDone");
-function opt(name, value, html, checked, disabled){
-  var l = h("label", "opt"), i = h("input"), s = h("span");
-  i.type = "radio"; i.name = name; i.value = value; i.checked = !!checked; i.disabled = !!disabled;
-  s.innerHTML = html; l.append(i, s); return { label: l, input: i };
-}
-function renderDays(){
-  bDays.innerHTML = "";
-  if (!cafe.days.length) { bDays.appendChild(h("p", "hint", "Não há horários livres nos próximos dias. Chame no WhatsApp que a gente encaixa.")); return; }
-  if (cafe.day && cafe.days.every(function(d){ return isoDay(d) !== cafe.day; })) { cafe.day = null; cafe.time = null; }
-  cafe.days.forEach(function(d){
-    var key = isoDay(d), wd = WEEKDAYS[isoWeekday(d)];
-    var o = opt("b-day", key, "<small>" + wd + "</small><b>" + String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "</b>", cafe.day === key);
-    o.input.addEventListener("change", function(){ cafe.day = key; cafe.time = null; renderTimes(); });
-    bDays.appendChild(o.label);
-  });
-}
-function renderTimes(){
-  bTimes.innerHTML = "";
-  if (!cafe.day) { bTimes.appendChild(h("p", "hint", "Escolha um dia para ver os horários.")); return; }
-  if (cafe.time && !slotOpen(cafe.day, cafe.time)) cafe.time = null;
-  var hours = hoursFor(parseDay(cafe.day)), any = false;
-  hours.forEach(function(t){
-    var open = slotOpen(cafe.day, t); any = any || open;
-    var o = opt("b-time", t, t, cafe.time === t, !open);
-    o.input.addEventListener("change", function(){ cafe.time = t; });
-    bTimes.appendChild(o.label);
-  });
-  if (!any) bTimes.appendChild(h("p", "hint", "Esse dia já está cheio. Escolha outro."));
-}
-
-function loadAvailability(){
-  if (!sb) { buildDays(); renderDays(); renderTimes(); return; }
-  Promise.all([
-    sb.from("horarios_semana").select("dia_semana,hora"),
-    sb.from("horarios_ocupados").select("data,hora").gte("data", isoDay(nowBR()))
-  ]).then(function(r){
-    if (r[0].data && r[0].data.length) cafe.template = r[0].data;
-    if (r[1].data) { cafe.taken = {}; r[1].data.forEach(function(x){ cafe.taken[slotKey(x.data, x.hora)] = true; }); }
-    cafe.loaded = true;
-    buildDays(); renderDays(); renderTimes();
-  }).catch(function(){ buildDays(); renderDays(); renderTimes(); });
-}
-
-$$('input[name="b-format"]').forEach(function(r){
-  r.addEventListener("change", function(){ $("placeField").hidden = checkedVal("b-format") !== "presencial"; });
-});
-function checkedVal(name){ var el = bForm.querySelector('input[name="' + name + '"]:checked'); return el ? el.value : ""; }
-$("b-phone").addEventListener("input", maskPhone);
-
-var BOOK_ERR = {
-  horario_ocupado: "Alguém acabou de reservar esse horário. Escolha outro, por favor.",
-  horario_indisponivel: "Esse horário não está mais disponível. Escolha outro.",
-  horario_passado: "Esse horário já passou. Escolha outro.",
-  limite_agendamentos: "Você já tem 2 cafés marcados. Desmarque um para marcar outro.",
-  login_necessario: "Entre com o Google para agendar.",
-  dados_invalidos: "Confira os campos e tente de novo."
-};
-
-bForm.addEventListener("submit", function(e){
-  e.preventDefault();
-  var b = { p_data: cafe.day, p_hora: cafe.time, p_formato: checkedVal("b-format"), p_local: val("b-place"), p_tema: checkedVal("b-topic"),
-            p_mensagem: val("b-need"), p_whatsapp: val("b-phone").replace(/\D/g, "") };
-  if (b.p_formato === "presencial" && b.p_local.length < 3) return setStatus(bStatus, "Informe o bairro e a cidade para o encontro presencial.", "err");
-  if (!b.p_tema) return setStatus(bStatus, "Escolha sobre o que quer conversar.", "err");
-  if (b.p_mensagem.length < 5) return setStatus(bStatus, "Conte um pouco do que está no seu coração.", "err");
-  if (!b.p_data || !b.p_hora) return setStatus(bStatus, "Escolha o dia e o horário.", "err");
-  if (b.p_whatsapp.length < 10) return setStatus(bStatus, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
-  if (b.p_formato !== "presencial") b.p_local = "";
-  b.p_whatsapp = "+55" + b.p_whatsapp;
-  if (!sb || !auth.user) return setStatus(bStatus, BOOK_ERR.login_necessario, "err");
-  bSend.disabled = true; setStatus(bStatus, "Reservando seu horário…");
-  sb.rpc("agendar", b).then(function(r){
-    bSend.disabled = false;
-    if (r.error) {
-      var c = errCode(r.error);
-      if (c === "horario_ocupado" || c === "horario_indisponivel") { cafe.taken[slotKey(b.p_data, b.p_hora)] = true; cafe.time = null; buildDays(); renderDays(); renderTimes(); }
-      return setStatus(bStatus, BOOK_ERR[c] || "Não foi possível agendar agora. Tente de novo ou chame no WhatsApp.", "err");
-    }
-    lsSet("cgf-zap", val("b-phone"));
-    cafe.taken[slotKey(b.p_data, b.p_hora)] = true;
-    finishBooking(b); loadMine();
-  });
-});
-
-function whenText(day, time){ return fmtLong.format(parseDay(day)) + ", às " + time; }
-function finishBooking(b){
-  var sum = $("bookSummary"); sum.innerHTML = "";
-  [["Quando", whenText(b.p_data, b.p_hora)], ["Como", FORMATS[b.p_formato] + (b.p_local ? " · " + b.p_local : "")], ["Assunto", b.p_tema]].forEach(function(r){
-    var li = h("li"); li.append(h("b", null, r[0] + ": "), document.createTextNode(r[1])); sum.appendChild(li);
-  });
-  $("bookDoneText").textContent = b.p_formato === "whatsapp"
-    ? "Na hora marcada, a gente te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
-    : b.p_formato === "video" ? "A gente manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
-    : "A gente confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
-  $("bookWa").href = waLink("Oi! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
-    (b.p_local ? " (" + b.p_local + ")" : "") + "\nAssunto: " + b.p_tema);
-  bForm.hidden = true; bDone.hidden = false;
-}
-$("bookAgain").addEventListener("click", function(){
-  cafe.time = null; $("b-need").value = ""; setStatus(bStatus, ""); renderTimes(); bDone.hidden = true; bForm.hidden = false;
-});
-
-// Meus horários
-function loadMine(){
-  if (!sb || !auth.user) return;
-  sb.from("agendamentos").select("id,data,hora,formato,local,tema,status").eq("user_id", auth.user.id)
-    .order("data", { ascending: true }).order("hora", { ascending: true }).then(function(r){
-      cafe.mine = r.data || []; renderMine();
-    });
-}
-function renderMine(){
-  var box = $("myList"), today = isoDay(nowBR());
-  box.innerHTML = "";
-  var up = cafe.mine.filter(function(x){ return x.status === "confirmado" && x.data >= today; });
-  var rest = cafe.mine.filter(function(x){ return up.indexOf(x) < 0; }).reverse();
-  $("mineCount").textContent = up.length ? "(" + up.length + ")" : "";
-  if (!cafe.mine.length) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Nenhum café marcado"), h("p", null, "Quando você agendar, o seu horário aparece aqui e dá para desmarcar."));
-    box.appendChild(e); return;
-  }
-  up.concat(rest).forEach(function(x){
-    var past = up.indexOf(x) < 0, row = h("div", "booking" + (past ? " off" : ""));
-    var info = h("div"), b = h("b", null, whenText(x.data, x.hora));
-    info.append(b, h("small", null, FORMATS[x.formato] + (x.local ? " · " + x.local : "") + " · " + x.tema));
-    row.appendChild(info);
-    if (!past) {
-      var act = h("div", "confirm"), btn = h("button", "btn btn-ghost btn-sm", "Desmarcar"); btn.type = "button";
-      btn.addEventListener("click", function(){
-        act.innerHTML = "";
-        var yes = h("button", "btn btn-dark btn-sm", "Sim, desmarcar"), no = h("button", "btn btn-ghost btn-sm", "Manter"); yes.type = no.type = "button";
-        no.addEventListener("click", renderMine);
-        yes.addEventListener("click", function(){
-          yes.disabled = true;
-          sb.rpc("cancelar_agendamento", { p_id: x.id }).then(function(r){
-            if (r.error) { toast("Não foi possível desmarcar agora. Chame a gente no WhatsApp."); renderMine(); return; }
-            delete cafe.taken[slotKey(x.data, x.hora)];
-            toast("Horário desmarcado."); loadMine(); loadAvailability();
-          });
-        });
-        act.append(h("span", "hint", "Desmarcar este horário?"), yes, no);
-      });
-      act.appendChild(btn); row.appendChild(act);
-    } else row.appendChild(h("span", "pill-s cancel", x.status === "cancelado" ? "Desmarcado" : "Realizado"));
-    box.appendChild(row);
-  });
-}
-
-viewHooks.cafe = function(sub){
-  loadAvailability();
-  if (auth.user) { loadMine(); if (!val("b-phone") && lsGet("cgf-zap")) $("b-phone").value = lsGet("cgf-zap"); }
-};
-auth.on(function(){ if (isShown("cafe")) viewHooks.cafe(currentSub("cafe")); });
-setInterval(function(){ if (!document.hidden && isShown("cafe") && !bForm.hidden) loadAvailability(); }, 60000);
-
-
 // Convite para palestra: a pessoa preenche os dados e a mensagem sai pronta no WhatsApp da equipe.
 $("t-phone").addEventListener("input", maskPhone);
 var talkForm = $("talkForm"), talkStatus = $("talkStatus");
@@ -2283,6 +2093,59 @@ talkForm.addEventListener("submit", function(e){
 });
 
 
+// Profissionais da Casa: perfis com selo ✓ (saúde e fé). A pessoa pede e a mensagem sai pronta no WhatsApp.
+var proFilter = "all";
+function proLink(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(icon(ic), document.createTextNode(label)); return a; }
+function goForm(tema){ if (tema) $("p-tema").value = tema; $("proForm").scrollIntoView({ behavior: "smooth", block: "start" }); setTimeout(function(){ $("p-name").focus(); }, 400); }
+function renderPros(){
+  var box = $("proList"); box.innerHTML = "";
+  PROS.forEach(function(p){
+    if (proFilter !== "all" && p.area !== proFilter) return;
+    var el = h("article", "pro"), top = h("div", "pro-top"), ring = h("span", "pro-ring"), who = h("div", "pro-who");
+    ring.appendChild(h("span", null, initial(p.nome.replace(/^(Dra?\.) /, ""))));
+    var nm = h("h3", null, p.nome); var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); nm.appendChild(s);
+    who.append(nm, h("p", "pro-role", p.papel), h("span", "post-tag", p.area === "saude" ? "🩺 Saúde" : "🙏 Fé e família"));
+    top.append(ring, who); el.appendChild(top);
+    if (p.resumo) el.appendChild(h("p", "pro-bio", p.resumo));
+    if (p.ajuda) {
+      el.appendChild(h("span", "pro-sub", "Posso ajudar com"));
+      var list = h("div", "pro-help");
+      p.ajuda.forEach(function(a){
+        var chip = h("button", "pro-chip"); chip.type = "button"; chip.append(h("b", null, a[0]), h("small", null, a[1]));
+        chip.addEventListener("click", function(){ goForm(a[0] + " (" + p.nome.split(" ")[0] + ")"); });
+        list.appendChild(chip);
+      });
+      el.appendChild(list);
+    }
+    var acts = h("div", "pro-acts");
+    if (p.whatsapp) acts.appendChild(proLink("btn-wa", waLink("Oi, " + p.nome.split(" ")[0] + "! Vim pela área Profissionais da Casa do Café, Graça & Fralda e gostaria de conversar.", p.whatsapp), "i-wa", "Chamar no WhatsApp"));
+    if (p.site) acts.appendChild(proLink("btn-terra", p.site, "i-arrow", "Conhecer o site"));
+    if (p.instagram) acts.appendChild(proLink("btn-ghost", "https://instagram.com/" + p.instagram, "i-ig", "@" + p.instagram));
+    var need = h("button", "btn btn-ghost btn-sm"); need.type = "button"; need.append(icon("i-cup"), document.createTextNode("Preciso deste profissional"));
+    need.addEventListener("click", function(){ goForm(p.area === "saude" ? p.nome + " (" + p.papel.toLowerCase() + ")" : "Aconselhamento familiar (" + p.nome.split(" ")[0] + ")"); });
+    acts.appendChild(need); el.appendChild(acts);
+    box.appendChild(el);
+  });
+}
+filterChips("proFilters", function(f){ proFilter = f; renderPros(); });
+renderPros();
+$("casaCta").addEventListener("click", function(){ goForm(); });
+
+var proForm = $("proForm"), proStatus = $("proStatus");
+proForm.addEventListener("submit", function(e){
+  e.preventDefault();
+  if ($("p-site").value) return setStatus(proStatus, "Pronto! Obrigado.", "ok");  // isca contra robôs
+  var d = { nome: val("p-name"), cidade: val("p-city"), tema: $("p-tema").value, formato: (proForm.querySelector('input[name="p-format"]:checked') || {}).value || "Chamada no WhatsApp", msg: val("p-msg") };
+  if (!d.nome) return setStatus(proStatus, "Digite seu nome.", "err");
+  if (!d.cidade) return setStatus(proStatus, "Informe a sua cidade e estado.", "err");
+  var texto = "Oi! Preciso de um profissional da Casa.\n\nNome: " + d.nome + "\nCidade: " + d.cidade + "\nCom quem ou sobre o quê: " + d.tema + "\nComo prefiro: " + d.formato + (d.msg ? "\n\nMensagem: " + d.msg : "");
+  var url = waLink(texto), a = h("a", "link", "toque aqui"); a.href = url; a.target = "_blank"; a.rel = "noopener";
+  setStatus(proStatus, "", ""); proStatus.className = "status ok";
+  proStatus.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
+  window.open(url, "_blank", "noopener");
+});
+
+
 // Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
   var chips = $$("#" + groupId + " .chip");
@@ -2296,6 +2159,7 @@ function filterChips(groupId, onPick){
 
 /* ---------- Indicações: da nossa mesa para a sua ---------- */
 var fridge = $("fridgeNotes");
+function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
 function fridgeItems(){ return INDICACOES.concat(fromMembers); }
 function loadMemberInds(){
@@ -2324,8 +2188,11 @@ function renderFridge(filter){
     var acts = h("div", "note-acts");
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
+    if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
-    li.append(tape, top, h("h3", null, p.nome), h("p", "note-what", p.oque), why, h("p", "note-meta", p.onde + " · " + p.modo));
+    var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
+    li.append(tape, top, hn, h("p", "note-what", p.oque), why);
+    var meta = [p.onde, p.modo].filter(Boolean).join(" · "); if (meta) li.appendChild(h("p", "note-meta", meta));
     if (p.plano) li.appendChild(h("p", "note-meta2", p.plano));
     if (p.como) li.appendChild(h("p", "note-meta2", "Como conheceu: " + p.como));
     if (p.por) li.appendChild(h("p", "note-by", "Indicado por " + p.por));
@@ -3245,126 +3112,9 @@ auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("pratelei
 pubSync();
 
 
-// Painel (só administradores): agenda, horários da semana, inscritos e moderação.
-var panel = { bookings: [], blocks: [], template: [], subs: [], open: null };
-var WEEK_HOURS = [];
-for (var hh = 18; hh <= 23; hh++) ["00", "30"].forEach(function(mm){ WEEK_HOURS.push(String(hh).padStart(2, "0") + ":" + mm); });
+// Painel (só administradores): inscritos nos devocionais e indicações enviadas para aprovar.
+var panel = { subs: [] };
 
-function panelDays(){
-  var out = [], d = nowBR(); d.setHours(0, 0, 0, 0);
-  for (var i = 0; i < 28; i++, d.setDate(d.getDate() + 1)) {
-    var key = isoDay(d);
-    var hasTpl = panel.template.some(function(t){ return t.dia_semana === isoWeekday(d); });
-    var hasAny = panel.bookings.some(function(b){ return b.data === key; }) || panel.blocks.some(function(b){ return b.data === key; });
-    if (hasTpl || hasAny) out.push(new Date(d));
-  }
-  return out.slice(0, 21);
-}
-function findBooking(day, hour){ return panel.bookings.filter(function(b){ return b.data === day && b.hora === hour && b.status === "confirmado"; })[0]; }
-function isBlocked(day, hour){ return panel.blocks.some(function(b){ return b.data === day && b.hora === hour; }); }
-
-function renderAgenda(){
-  var box = $("pAgenda"); box.innerHTML = "";
-  panelDays().forEach(function(d){
-    var key = isoDay(d), row = h("div", "dayrow"), lab = h("div");
-    lab.append(h("b", null, WEEKDAYS[isoWeekday(d)] + " " + String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0")));
-    var hours = {};
-    panel.template.filter(function(t){ return t.dia_semana === isoWeekday(d); }).forEach(function(t){ hours[t.hora] = 1; });
-    panel.bookings.filter(function(b){ return b.data === key && b.status === "confirmado"; }).forEach(function(b){ hours[b.hora] = 1; });
-    panel.blocks.filter(function(b){ return b.data === key; }).forEach(function(b){ hours[b.hora] = 1; });
-    var slots = h("div", "slots"), nFree = 0, nBlocked = 0;
-    Object.keys(hours).sort().forEach(function(t){
-      var bk = findBooking(key, t), bl = isBlocked(key, t);
-      var s = h("button", "slot " + (bk ? "booked" : bl ? "blocked" : "free"), t); s.type = "button";
-      s.title = bk ? bk.nome : bl ? "Bloqueado: toque para liberar" : "Livre: toque para bloquear";
-      if (bk) s.addEventListener("click", function(){ openBookingDialog(bk); });
-      else if (bl) { nBlocked++; s.addEventListener("click", function(){ sb.from("bloqueios").delete().eq("data", key).eq("hora", t).then(loadPanel); }); }
-      else { nFree++; s.addEventListener("click", function(){ sb.from("bloqueios").insert({ data: key, hora: t }).then(loadPanel); }); }
-      slots.appendChild(s);
-    });
-    row.append(lab, slots);
-    if (nFree || nBlocked) {
-      var day = h("button", "btn btn-ghost btn-sm", nFree ? "Bloquear dia" : "Liberar dia"); day.type = "button";
-      day.addEventListener("click", function(){
-        if (nFree) {
-          var rows = Object.keys(hours).filter(function(t){ return !findBooking(key, t) && !isBlocked(key, t); }).map(function(t){ return { data: key, hora: t }; });
-          sb.from("bloqueios").insert(rows).then(loadPanel);
-        } else sb.from("bloqueios").delete().eq("data", key).then(loadPanel);
-      });
-      row.appendChild(day);
-    }
-    box.appendChild(row);
-  });
-}
-
-function cancelAs(b, done){
-  sb.rpc("cancelar_agendamento", { p_id: b.id }).then(function(r){
-    if (r.error) toast("Não foi possível desmarcar agora."); else toast("Horário desmarcado.");
-    if (done) done(); loadPanel();
-  });
-}
-function bookingCard(b){
-  var card = h("div", "booking"), info = h("div");
-  info.append(h("b", null, whenText(b.data, b.hora)), h("small", null, b.nome + " · " + (FORMATS[b.formato] || b.formato) + (b.local ? " · " + b.local : "") + " · " + b.tema));
-  var msg = h("small", null, "“" + b.mensagem + "”"); msg.style.cssText = "margin-top:4px;color:var(--ink);white-space:pre-wrap";
-  info.appendChild(msg);
-  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é da equipe do Café, Graça & Fralda, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
-  wa.target = "_blank"; wa.rel = "noopener"; wa.append(icon("i-wa"), document.createTextNode("WhatsApp"));
-  var can = h("button", "btn btn-ghost btn-sm", "Desmarcar"); can.type = "button";
-  can.addEventListener("click", function(){
-    act.innerHTML = "";
-    var yes = h("button", "btn btn-dark btn-sm", "Sim, desmarcar"), no = h("button", "btn btn-ghost btn-sm", "Manter"); yes.type = no.type = "button";
-    no.addEventListener("click", function(){ renderBooked(); });
-    yes.addEventListener("click", function(){ yes.disabled = true; cancelAs(b); });
-    act.append(yes, no);
-  });
-  act.append(wa, can);
-  card.append(info, act);
-  return card;
-}
-function renderBooked(){
-  var box = $("pBooked"), today = isoDay(nowBR()); box.innerHTML = "";
-  var up = panel.bookings.filter(function(b){ return b.status === "confirmado" && b.data >= today; });
-  if (!up.length) { var e = h("div", "empty"); e.append(h("h3", null, "Nenhum café marcado"), h("p", null, "Quando alguém agendar, aparece aqui.")); box.appendChild(e); return; }
-  up.forEach(function(b){ box.appendChild(bookingCard(b)); });
-}
-function openBookingDialog(b){
-  readerBody.innerHTML = "";
-  var t = h("h3", null, "Café com " + b.nome); t.id = "readerTitle";
-  readerBody.append(h("span", "label", "Um café na sua mesa"), t, bookingCard(b));
-  dlg.showModal();
-}
-
-function renderWeek(){
-  var box = $("pWeek"); box.innerHTML = "";
-  for (var d = 1; d <= 7; d++) (function(d){
-    var row = h("div", "weekrow"), slots = h("div", "slots");
-    row.appendChild(h("b", null, WEEKDAYS[d]));
-    WEEK_HOURS.forEach(function(t){
-      var on = panel.template.some(function(x){ return x.dia_semana === d && x.hora === t; });
-      var s = h("button", "slot" + (on ? " on" : ""), t); s.type = "button"; s.setAttribute("aria-pressed", on);
-      s.addEventListener("click", function(){
-        var q = on ? sb.from("horarios_semana").delete().eq("dia_semana", d).eq("hora", t) : sb.from("horarios_semana").insert({ dia_semana: d, hora: t });
-        q.then(loadPanel);
-      });
-      slots.appendChild(s);
-    });
-    row.appendChild(slots); box.appendChild(row);
-  })(d);
-}
-
-function loadPanel(){
-  if (!sb || !auth.admin) return;
-  var today = isoDay(nowBR());
-  Promise.all([
-    sb.from("horarios_semana").select("dia_semana,hora"),
-    sb.from("agendamentos").select("*").gte("data", today).order("data", { ascending: true }).order("hora", { ascending: true }),
-    sb.from("bloqueios").select("data,hora").gte("data", today)
-  ]).then(function(r){
-    panel.template = r[0].data || []; panel.bookings = r[1].data || []; panel.blocks = r[2].data || [];
-    renderAgenda(); renderBooked(); renderWeek();
-  });
-}
 function loadSubs(){
   sb.from("inscritos").select("nome,email,whatsapp,criado_em").order("criado_em", { ascending: false }).limit(500).then(function(r){
     panel.subs = r.data || [];
@@ -3385,22 +3135,13 @@ function modItem(table, it, extra){
   act.append(hide, del); el.append(body, act); return el;
 }
 function loadMod(){
-  Promise.all([
-    sb.from("mensagens").select("id,sala,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
-    sb.from("comentarios").select("id,sobre,nome,texto,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40),
-    sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40)
-  ]).then(function(r){
+  sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40).then(function(r){
     var c3 = $("pModInds"); c3.innerHTML = "";
-    (r[2].data || []).forEach(function(x){
+    (r.data || []).forEach(function(x){
       c3.appendChild(modItem("indicacoes_membros", { id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
         texto: x.especialidade + " · " + x.onde + " · " + (x.plano === "plano" ? "Plano: " + x.planos : "Particular") + " · Conheceu: " + x.como_conheceu + " — " + x.porque + (x.contato ? " · Contato: " + x.contato : "") }, x.aprovado ? "publicada" : "AGUARDANDO"));
     });
     if (!c3.childNodes.length) c3.appendChild(h("p", "muted", "Nenhuma indicação enviada ainda."));
-    var a = $("pModMsgs"), b = $("pModCmts"); a.innerHTML = ""; b.innerHTML = "";
-    (r[0].data || []).forEach(function(m){ a.appendChild(modItem("mensagens", m, "sala " + m.sala)); });
-    (r[1].data || []).forEach(function(c){ b.appendChild(modItem("comentarios", c, c.sobre)); });
-    if (!a.childNodes.length) a.appendChild(h("p", "muted", "Nenhuma mensagem ainda."));
-    if (!b.childNodes.length) b.appendChild(h("p", "muted", "Nenhum comentário ainda."));
   });
 }
 $("copyMails").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.email; }).join(", "), "E-mails copiados"); });
@@ -3411,11 +3152,9 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Agenda, horários, inscritos e moderação.";
+  note.textContent = "Inscritos nos devocionais e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
   $("panelApp").hidden = false;
-  loadPanel();
-  if (sub === "inscritos") loadSubs();
-  if (sub === "moderacao") loadMod();
+  if (sub === "moderacao") loadMod(); else loadSubs();
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
 
