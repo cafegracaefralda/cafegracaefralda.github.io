@@ -1,4 +1,4 @@
-// Painel do Denny (só administradores): agenda, horários da semana, inscritos e moderação.
+// Painel (só administradores): agenda, horários da semana, inscritos e moderação.
 var panel = { bookings: [], blocks: [], template: [], subs: [], open: null };
 var WEEK_HOURS = [];
 for (var hh = 18; hh <= 23; hh++) ["00", "30"].forEach(function(mm){ WEEK_HOURS.push(String(hh).padStart(2, "0") + ":" + mm); });
@@ -61,7 +61,7 @@ function bookingCard(b){
   info.append(h("b", null, whenText(b.data, b.hora)), h("small", null, b.nome + " · " + (FORMATS[b.formato] || b.formato) + (b.local ? " · " + b.local : "") + " · " + b.tema));
   var msg = h("small", null, "“" + b.mensagem + "”"); msg.style.cssText = "margin-top:4px;color:var(--ink);white-space:pre-wrap";
   info.appendChild(msg);
-  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é o Denny, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
+  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é da equipe do Café, Graça & Fralda, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
   wa.target = "_blank"; wa.rel = "noopener"; wa.append(icon("i-wa"), document.createTextNode("WhatsApp"));
   var can = h("button", "btn btn-ghost btn-sm", "Desmarcar"); can.type = "button";
   can.addEventListener("click", function(){
@@ -163,8 +163,8 @@ viewHooks.painel = function(sub){
   if (!auth.ready) return;
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
-  if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para o Denny." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Agenda, horários, inscritos, moderação e publicações da Da Casa.";
+  if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
+  note.textContent = "Agenda, horários, inscritos e moderação.";
   $("panelApp").hidden = false;
   loadPanel();
   if (sub === "inscritos") loadSubs();

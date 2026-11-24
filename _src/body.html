@@ -17,6 +17,9 @@
   <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c0-3.600 2.900-6 6.500-6s6.500 2.400 6.500 6"/><circle cx="17.500" cy="9" r="2.600"/><path d="M17.500 14c2.800 0 4.500 1.900 4.500 5"/></g></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.500 2.600 5.300 5.900.9-4.300 4.100 1 5.800-5.200-2.800-5.200 2.800 1-5.800L3.500 9.700l5.900-.9L12 3.500Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></g></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10.500 5-3v9l-5-3"/></g></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6V3Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></g></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1"/><path d="M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1"/></g></symbol>
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
@@ -36,7 +39,7 @@
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     
     <div class="top-actions">
-      <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
       <div class="bell-wrap" data-auth="in" hidden>
         <button class="bell" type="button" id="bellBtn" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg><use href="#i-bell"/></svg><span class="bell-n" id="bellN" hidden>0</span></button>
         <div class="bell-panel" id="bellPanel" hidden>
@@ -53,7 +56,7 @@
         <div class="menu" id="acctMenu" hidden>
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#cafe/meus">Meus horários</a>
-          <a href="#painel" id="menuPainel" hidden>Painel do Denny</a>
+          <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
       </div>
@@ -63,17 +66,17 @@
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
-      <a href="#dacasa" data-tab="dacasa"><svg><use href="#i-megaphone"/></svg><span>Da Casa</span></a>
+      <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
-      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Com o Denny</span></a>
+      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Encontros</span></a>
       <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
   <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
-  <a href="#dacasa" data-tab="dacasa"><svg><use href="#i-megaphone"/></svg><span>Da Casa</span></a>
+  <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
   <button type="button" id="tabMore" aria-label="Mais opções"><svg><use href="#i-menu"/></svg><span>Mais</span></button>
@@ -87,16 +90,16 @@
     <div class="wrap">
       <div class="hero hero-grid">
         <div>
-          <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
+          <span class="pill in">Café, Graça &amp; Fralda · comunidade de famílias</span>
           <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
-          <p class="lede in">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
+          <p class="lede in">Uma comunidade para famílias de todo o Brasil que querem um lar mais leve e mais firme: fé de verdade, conversa sincera, indicação de confiança e gente cuidando de gente, entre as madrugadas e o café da manhã.</p>
           <div class="ctas in">
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
-            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
         </div>
         <div class="arch in">
-          <div class="arch-img"><img src="img/familia-1.jpg" alt="Denny, Gabi, os gêmeos e o bebê recém-nascido sorrindo juntos" width="1280" height="853"></div>
+          <div class="arch-img"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta: pai, mãe, dois meninos e um bebê recém-nascido" width="1280" height="853"></div>
           <div class="float-quote"><p>“Filhos são herança do Senhor.”</p><span class="ref">Salmos 127:3</span></div>
         </div>
       </div>
@@ -117,9 +120,9 @@
       </div>
 
       <div class="learn">
-        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Denny segurando os gêmeos no colo, com o bebê recém-nascido entre eles" width="853" height="1280" loading="lazy"></div>
+        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Pai segurando os filhos pequenos no colo" width="853" height="1280" loading="lazy"></div>
         <div>
-          <span class="label">10 anos construindo uma família</span>
+          <span class="label">Aprendizados de casa</span>
           <h2>O que a gente aprendeu até aqui</h2>
           <p class="muted">Nada de fórmula. Só o que a vida em casa ensinou. Toque para abrir.</p>
           {{LESSONS}}
@@ -128,21 +131,42 @@
     </div>
   </section>
 
-  <section class="view" id="v-dacasa" data-view="dacasa">
+  <!-- PRATELEIRA -->
+  <section class="view" id="v-prateleira" data-view="prateleira">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Da Casa</span>
-        <h2>Notícias da casa</h2>
-        <p class="muted">Devocionais, avisos, convites e indicações de parceiros, publicados pelo Denny.</p>
+        <span class="label">Prateleira</span>
+        <h2>Prateleira da comunidade</h2>
+        <p class="muted">Vídeos, PDFs, fotos, links e devocionais compartilhados por todo mundo.</p>
       </div>
-      <div class="seg" role="tablist" aria-label="Da Casa">
-        <button type="button" role="tab" data-sub="novidades" aria-selected="true">Novidades</button>
+      <div class="seg" role="tablist" aria-label="Prateleira">
+        <button type="button" role="tab" data-sub="publicacoes" aria-selected="true">Publicações</button>
         <button type="button" role="tab" data-sub="devocional" aria-selected="false">5 minutos</button>
       </div>
-      <div data-sub-panel="novidades" class="on">
-        <div class="oficial-wrap">
+      <div data-sub-panel="publicacoes" class="on">
+        <div class="prat-wrap">
+          <div class="card compose" id="pubGate"><span class="avatar">?</span><div class="compose-fake"><p>Entre com o Google para compartilhar com a comunidade.</p></div><button class="btn btn-google btn-sm js-login" type="button"><svg><use href="#i-google"/></svg>Entrar</button></div>
+          <form class="card compose" id="pubForm" autocomplete="off" hidden>
+            <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um vídeo, PDF, foto, link ou uma ideia…" aria-label="Publicação"></textarea></div>
+            <div class="admin-only" id="pubAdmin" hidden>
+              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="">Publicação comum</option><option value="aviso">Oficial: aviso</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
+              <input id="pubTitulo" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
+              <label class="hint" for="pubFixar" style="display:flex;gap:8px;align-items:center;cursor:pointer"><input id="pubFixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo</label>
+            </div>
+            <div class="pub-extra" id="pubLinkRow" hidden><input id="pubLink" maxlength="300" placeholder="Cole um link do YouTube ou de qualquer site" aria-label="Link"><button class="link" type="button" id="pubLinkDel">Remover</button></div>
+            <div class="pub-attach" id="pubAttach" hidden><span id="pubAttachName"></span><button class="link" type="button" id="pubAttachDel">Remover</button></div>
+            <div class="compose-bar">
+              <label class="cbtn" for="pubFoto" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="pubFoto" accept="image/*" hidden>
+              <label class="cbtn" for="pubVideo" title="Vídeo"><svg><use href="#i-video"/></svg><span>Vídeo</span></label><input type="file" id="pubVideo" accept="video/mp4,video/webm,video/quicktime" hidden>
+              <label class="cbtn" for="pubPdf" title="PDF"><svg><use href="#i-file"/></svg><span>PDF</span></label><input type="file" id="pubPdf" accept="application/pdf" hidden>
+              <button class="cbtn" type="button" id="pubLinkBtn" title="Link ou YouTube"><svg><use href="#i-link"/></svg><span>Link</span></button>
+              <button class="btn btn-terra btn-sm cbtn-send" id="pubSend" type="submit">Publicar</button>
+            </div>
+            <p class="status" id="pubStatus" role="status"></p>
+          </form>
           <article class="post oficial destaque" id="destaqueDevo"></article>
-          <div class="oficial-list" id="oficialList"></div>
+          <div class="feed-list" id="pubList" aria-live="polite"></div>
+          <button class="btn btn-ghost feed-more" type="button" id="pubMore" hidden>Ver mais</button>
         </div>
       </div>
       <div data-sub-panel="devocional">
@@ -184,51 +208,86 @@
   </section>
 
   <!-- MESA GRANDE -->
+  <!-- MESA GRANDE -->
   <section class="view" id="v-mesa" data-view="mesa">
     <div class="wrap">
       <div class="view-head">
         <span class="label">Mesa Grande</span>
-        <h2>Puxe uma cadeira na Mesa Grande</h2>
-        <p class="muted">O cantinho onde as famílias conversam: contam o dia, desabafam, indicam, pedem oração e agradecem. Só entra quem faz login, e só o primeiro nome aparece.</p>
+        <h2>Mesa Grande</h2>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
           <span class="label">Mesa Grande</span>
           <h3>A Mesa Grande é só para quem senta à mesa</h3>
-          <p>Compartilhe uma foto, uma indicação, um desabafo ou um pedido de oração. Os outros pais curtem e comentam. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
+          <p>Conte o dia, poste fotos e stories, indique lugares para ir com as crianças, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
       </div>
-      <div class="mesa-layout" id="feedApp" hidden>
-        <div class="mesa-main">
-          <div class="people-row" id="peopleRow" aria-label="Quem está na mesa"></div>
-          <form class="card post-form" id="postForm" autocomplete="off">
-            <div class="post-types" id="postTypes" role="group" aria-label="Tipo de publicação"></div>
-            <label class="sr" for="postText">O que você quer compartilhar?</label>
-            <textarea id="postText" maxlength="1500" rows="3" placeholder="O que está na sua mesa hoje?"></textarea>
-            <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
-            <div class="post-bar">
-              <label class="btn btn-ghost btn-sm" for="postFile"><svg><use href="#i-photo"/></svg>Foto</label>
-              <input type="file" id="postFile" accept="image/*" hidden>
-              <span class="post-tip">Não publique foto de rosto de crianças, nome completo nem escola.</span>
-              <button class="btn btn-terra" id="postSend" type="submit">Publicar</button>
-            </div>
-            <p class="status" id="postStatus" role="status"></p>
-          </form>
-          <div class="filters" id="feedTypes" role="group" aria-label="Filtrar a Mesa Grande"></div>
-          <div class="feed-list" id="feedList" aria-live="polite"></div>
-          <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
+      <div id="feedApp" hidden>
+        <div class="seg" role="tablist" aria-label="Mesa Grande">
+          <button type="button" role="tab" data-sub="conversas" aria-selected="true">Conversas</button>
+          <button type="button" role="tab" data-sub="lazer" aria-selected="false">Lazer em família</button>
         </div>
-        <aside class="mesa-side" aria-label="Lateral">
-          <div class="card side-card"><span class="label">Quem está na mesa</span><div id="sidePeople"></div></div>
-          <div class="card side-card"><span class="label">Combinados da mesa</span>
-            <ul class="rules">
-              <li>Fale com respeito. Aqui ninguém é julgado por ainda não crer.</li>
-              <li>Não publique nome completo, foto de rosto de crianças nem escola.</li>
-              <li>Conselho de pai não substitui médico ou psicólogo.</li>
-            </ul>
+        <div data-sub-panel="conversas" class="on">
+          <div class="mesa-layout">
+            <div class="mesa-main">
+              <div class="stories" id="storiesRow" aria-label="Stories"></div>
+              <form class="card compose" id="postForm" autocomplete="off">
+                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="No que você está pensando?" aria-label="Publicação"></textarea></div>
+                <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
+                <div class="compose-bar">
+                  <label class="cbtn" for="postFile" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="postFile" accept="image/*" hidden>
+                  <select id="postTipo" aria-label="Tipo (opcional)"><option value="conversa">☕ Papo de mesa</option><option value="indicacao">💡 Indicação</option><option value="desabafo">🫶 Desabafo</option><option value="oracao">🙏 Oração</option><option value="gratidao">✨ Gratidão</option></select>
+                  <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                </div>
+                <p class="status" id="postStatus" role="status"></p>
+              </form>
+              <div class="filters" id="feedTypes" role="group" aria-label="Filtrar a Mesa Grande"></div>
+              <div class="feed-list" id="feedList" aria-live="polite"></div>
+              <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
+            </div>
+            <aside class="mesa-side" aria-label="Lateral">
+              <div class="card side-card"><span class="label">Quem está na mesa</span><div id="sidePeople"></div></div>
+              <div class="card side-card"><span class="label">Combinados da mesa</span>
+                <ul class="rules">
+                  <li>Fale com respeito. Aqui ninguém é julgado por ainda não crer.</li>
+                  <li>Não publique nome completo, foto de rosto de crianças nem escola.</li>
+                  <li>Conselho de pai não substitui médico ou psicólogo.</li>
+                </ul>
+              </div>
+            </aside>
           </div>
-        </aside>
+        </div>
+        <div data-sub-panel="lazer">
+          <div class="lazer-bar">
+            <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
+            <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
+            <button class="btn btn-terra" type="button" id="lzOpen"><svg><use href="#i-plus"/></svg>Indicar um lugar</button>
+          </div>
+          <div class="filters" id="lzCats" role="group" aria-label="Filtrar lazer"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Parque e natureza">Parque e natureza</button><button class="chip" aria-pressed="false" data-filter="Restaurante e café">Restaurante e café</button><button class="chip" aria-pressed="false" data-filter="Espaço kids">Espaço kids</button><button class="chip" aria-pressed="false" data-filter="Passeio e cultura">Passeio e cultura</button><button class="chip" aria-pressed="false" data-filter="Esporte">Esporte</button><button class="chip" aria-pressed="false" data-filter="Evento">Evento</button><button class="chip" aria-pressed="false" data-filter="Outro">Outro</button></div>
+          <form class="card form lz-form" id="lzForm" novalidate hidden>
+            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar para ir com as crianças</h3></div>
+            <div class="row2">
+              <div class="field"><label for="lz-nome">Nome do lugar</label><input id="lz-nome" maxlength="100" placeholder="Ex.: Parque da Jaqueira"></div>
+              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option>Parque e natureza</option><option>Restaurante e café</option><option>Espaço kids</option><option>Passeio e cultura</option><option>Esporte</option><option>Evento</option><option>Outro</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-cidade">Cidade</label><input id="lz-cidade" maxlength="60" placeholder="Em qual cidade fica?"></div>
+              <div class="field"><label for="lz-uf">Estado</label><select id="lz-uf"><option value="">Escolha</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-idades">Idades</label><select id="lz-idades"><option>Todas as idades</option><option>Bebês</option><option>1 a 3 anos</option><option>4 a 7 anos</option><option>8 anos ou mais</option></select></div>
+              <div class="field"><label for="lz-custo">Custo</label><select id="lz-custo"><option>Grátis</option><option>Barato</option><option>Médio</option><option>Caro</option></select></div>
+            </div>
+            <div class="field"><label for="lz-end">Endereço ou bairro (opcional)</label><input id="lz-end" maxlength="140" placeholder="Ajuda a encontrar o lugar"></div>
+            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Tem sombra, banheiro limpo, brinquedos, comida boa…"></textarea></div>
+            <div class="post-bar"><label class="cbtn" for="lz-foto"><svg><use href="#i-photo"/></svg><span>Anexar foto</span></label><input type="file" id="lz-foto" accept="image/*" hidden><span id="lz-foto-nome" class="post-tip"></span></div>
+            <button class="btn btn-terra btn-block" id="lzSend" type="submit">Publicar indicação</button>
+            <p class="status" id="lzStatus" role="status"></p>
+          </form>
+          <div class="feed-list" id="lzList" aria-live="polite"></div>
+          <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
+        </div>
       </div>
     </div>
   </section>
@@ -298,14 +357,14 @@
           <ul class="notes" id="fridgeNotes"></ul>
         </div>
         <div class="fridge-foot">
-          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. O Denny confere antes de publicar.</p>
+          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. A equipe confere antes de publicar.</p>
           <button class="btn btn-dark" type="button" id="indOpen"><svg><use href="#i-arrow"/></svg>Indicar um profissional</button>
         </div>
         <div class="card ind-form-wrap" id="indWrap" hidden>
           <div class="gate" id="indGate">
             <span class="label">Indicar um profissional</span>
             <h3>Entre para indicar</h3>
-            <p>Para evitar spam, só quem entrou com o Google indica. Só o seu primeiro nome aparece, e o Denny confere cada indicação antes de publicar.</p>
+            <p>Para evitar spam, só quem entrou com o Google indica. Só o seu primeiro nome aparece, e a equipe confere cada indicação antes de publicar.</p>
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
           <form class="form" id="indForm" novalidate hidden>
@@ -342,13 +401,13 @@
 
   <!-- CAFÉ NA MESA -->
   <section class="view" id="v-cafe" data-view="cafe">
-    <div class="wrap"><nav class="subnav" aria-label="Com o Denny"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Um café na sua mesa</span>
         <h2>30 minutos para conversar</h2>
-        <p class="story">Aqui em casa, a mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que eu quero sentar com você.</p>
-        <p>Eu vou até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
+        <p class="story">A mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que a gente quer sentar com você.</p>
+        <p>A gente vai até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
         <ul class="facts">
           <li><b>30 min</b><span>de conversa sem pressa</span></li>
           <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
@@ -363,7 +422,7 @@
             <p>Assim você enxerga o seu horário e pode desmarcar sozinho se precisar. Só o seu nome e o seu e-mail ficam guardados no agendamento.</p>
             <div class="alt">
               <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-              <a class="btn btn-wa" data-wa="Oi, Denny! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
+              <a class="btn btn-wa" data-wa="Oi! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
             </div>
             <div class="gate-steps"><span class="label">Como funciona</span>
             <ol class="steps">
@@ -415,7 +474,7 @@
                 <ul class="summary" id="bookSummary"></ul>
                 <p class="muted" id="bookDoneText"></p>
                 <div class="confirm">
-                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar o Denny no WhatsApp</a>
+                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar no WhatsApp</a>
                   <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro</button>
                 </div>
               </div>
@@ -435,12 +494,12 @@
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Com o Denny"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
         <h2>Leve o Café, Graça &amp; Fralda para o seu encontro</h2>
-        <p>Conversas simples e profundas sobre família, casamento e fé em casa, para igrejas, escolas, grupos e empresas. Preencha os dados e me chame no WhatsApp. Eu respondo para combinarmos data, tema e formato.</p>
+        <p>Conversas simples e profundas sobre família, casamento e fé em casa, para igrejas, escolas, grupos e empresas. Preencha os dados e chame a gente no WhatsApp. Respondemos para combinar data, tema e formato.</p>
         <ul class="facts">
           <li><b>Igrejas</b><span>cultos, encontros de casais e de pais</span></li>
           <li><b>Escolas e grupos</b><span>reuniões e eventos de família</span></li>
@@ -449,7 +508,7 @@
         <ol class="steps">
           <li><span><b>Preencha os dados</b> do seu evento.</span></li>
           <li><span><b>Toque em “Convidar pelo WhatsApp”.</b> A mensagem já sai pronta.</span></li>
-          <li><span><b>Eu respondo</b> para combinar os detalhes.</span></li>
+          <li><span><b>Nós respondemos</b> para combinar os detalhes.</span></li>
         </ol>
       </div>
       <form class="card form" id="talkForm" novalidate>
@@ -489,30 +548,24 @@
   <section class="view" id="v-sobre" data-view="sobre">
     <div class="wrap about-grid">
       <div class="about-text">
-        <span class="label">Quem escreve</span>
-        <h2>Prazer, eu sou o Denny.</h2>
-        <p>Sou pai de três, incluindo gêmeos, e casado há 7 anos com uma mulher linda e incrível, a Gabi. Sou cristão há mais de 20 anos, formado em Teologia e em Liderança, e também em Gestão de RH, com pós-graduação em Gestão de Pessoas e Liderança de Equipes. Trabalho na área comercial, sirvo na igreja local e, desde os 15 anos, caminho perto de pessoas.</p>
-        <p>Não sou especialista em família perfeita. Sou um pai aprendendo todo dia, com a Bíblia aberta e muito café. O que escrevo aqui é o que a gente vive em casa.</p>
-        <p class="blockq">“Não escrevo para pais perfeitos. Escrevo para pais reais, que amam, cansam, erram e querem enxergar Deus nas madrugadas.”</p>
-        <div class="stats">
-          <div class="stat"><b>10</b><span>anos construindo família</span></div>
-          <div class="stat"><b>3</b><span>anos criando filhos</span></div>
-          <div class="stat"><b>19</b><span>anos caminhando com pessoas</span></div>
-        </div>
-        <ul class="tags creds" aria-label="Formação">
-          <li>Cristão há mais de 20 anos</li><li>Teologia</li><li>Liderança (Florida Christian University)</li><li>Gestão de RH</li><li>Pós em Gestão de Pessoas e Liderança de Equipes</li>
+        <span class="label">Sobre a comunidade</span>
+        <h2>Entre o café e a fralda, tem graça.</h2>
+        <p>O Café, Graça &amp; Fralda é uma comunidade para famílias de todo o Brasil: gente que ama, cansa, erra e recomeça. Aqui a fé não é negociada, mas ninguém precisa concordar com tudo para ter um lugar à mesa.</p>
+        <p>É um espaço para trocar experiência, pedir oração, indicar lugares e profissionais de confiança e se sentir menos sozinho nas madrugadas.</p>
+        <p class="blockq">“Não somos famílias perfeitas. Somos famílias reais, cuidando umas das outras.”</p>
+        <ul class="tags creds" aria-label="Combinados">
+          <li>Fé sem negociar</li><li>Todos são bem-vindos</li><li>Só o primeiro nome aparece</li><li>Fotos só para membros</li><li>Propaganda sempre identificada</li>
         </ul>
       </div>
       <div class="about-side">
-        <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>
+        <div class="photo"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta" width="1280" height="853" loading="lazy"></div>
         <div class="contact">
-          <span class="label">Fale comigo</span>
+          <span class="label">Fale com a equipe</span>
           <h3>Vamos conversar?</h3>
-          <p>Uma dúvida, um convite para falar na sua igreja ou só vontade de trocar uma ideia.</p>
+          <p>Uma dúvida, uma sugestão, um convite para a sua igreja ou só vontade de trocar uma ideia.</p>
           <span class="wa-num">(81) 99270-2353</span>
           <div class="row-btns">
-            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
-            <a class="btn btn-ghost" href="https://instagram.com/denny___silva" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@denny___silva</a>
+            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
         </div>
         <div class="app-band" id="app" hidden>
@@ -524,11 +577,11 @@
     </div>
   </section>
 
-  <!-- PAINEL (só o Denny) -->
+  <!-- PAINEL (só administração) -->
   <section class="view" id="v-painel" data-view="painel">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Só para o Denny</span>
+        <span class="label">Só para a administração</span>
         <h2>Painel</h2>
         <p id="panelNote">Verificando o seu acesso…</p>
       </div>
@@ -538,7 +591,6 @@
           <button type="button" role="tab" data-sub="horarios" aria-selected="false">Horários</button>
           <button type="button" role="tab" data-sub="inscritos" aria-selected="false">Inscritos</button>
           <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Moderação</button>
-          <button type="button" role="tab" data-sub="publicar" aria-selected="false">Publicar</button>
         </div>
         <div data-sub-panel="agenda" class="on">
           <div class="panel-grid">
@@ -560,27 +612,6 @@
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
-        <div data-sub-panel="publicar">
-          <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-            <form class="card form" id="ofForm" novalidate>
-              <div><span class="label">Postagem oficial</span><h3 style="font-size:28px;margin-top:6px">Publicar na Da Casa</h3></div>
-              <div class="row2">
-                <div class="field"><label for="of-tipo">Tipo</label><select id="of-tipo"><option value="aviso">Aviso</option><option value="devocional">Devocional extra</option><option value="evento">Evento ou convite</option><option value="parceiro">Parceiro (propaganda)</option></select></div>
-                <div class="field"><label for="of-titulo">Título</label><input id="of-titulo" maxlength="120" placeholder="Ex.: Encontro de casais"></div>
-              </div>
-              <div class="field"><label for="of-texto">Texto</label><textarea id="of-texto" maxlength="2000" placeholder="Escreva com carinho, em frases curtas."></textarea></div>
-              <div class="row2">
-                <div class="field"><label for="of-link">Link (opcional)</label><input id="of-link" type="url" maxlength="300" placeholder="https://..."></div>
-                <div class="field"><label for="of-linkt">Texto do botão</label><input id="of-linkt" maxlength="40" placeholder="Saiba mais"></div>
-              </div>
-              <div class="field"><span class="legend">Imagem (opcional)</span><div class="post-bar"><label class="btn btn-ghost btn-sm" for="of-file"><svg><use href="#i-photo"/></svg>Escolher imagem</label><input type="file" id="of-file" accept="image/*" hidden><span id="of-file-name" class="post-tip"></span></div></div>
-              <label class="hint" for="of-fixar" style="display:flex;gap:10px;align-items:center;cursor:pointer"><input id="of-fixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo da Da Casa</label>
-              <button class="btn btn-terra btn-block" id="ofSend" type="submit">Publicar</button>
-              <p class="status" id="ofStatus" role="status"></p>
-            </form>
-            <div><div class="cols-title"><span class="label">Já publicadas</span></div><div class="mod-list" id="ofAdminList"></div></div>
-          </div>
-        </div>
         <div data-sub-panel="moderacao">
           <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
             <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
@@ -592,11 +623,27 @@
     </div>
   </section>
 
-  <footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda · Denny Silva</span></div></footer>
+  
+<dialog class="story-dlg" id="storyNew" aria-label="Novo story"><div class="story-box">
+  <button class="story-x" type="button" id="storyNewClose" aria-label="Fechar">×</button>
+  <h3>Novo story</h3>
+  <img alt="Prévia do story" id="storyNewImg" class="story-prev">
+  <input id="storyCap" maxlength="140" placeholder="Escreva uma legenda (opcional)" aria-label="Legenda">
+  <button class="btn btn-terra btn-block" type="button" id="storyPost">Publicar story</button>
+  <p class="hint" style="text-align:center">Some sozinho em 24 horas. Só membros veem.</p>
+</div></dialog>
+<dialog class="story-dlg" id="storyView" aria-label="Story"><div class="story-box story-view">
+  <div class="story-bars" id="storyBars"></div>
+  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
+  <div class="story-img-wrap"><img alt="Story" id="storyImg"><button class="story-nav prev" type="button" id="storyPrev" aria-label="Anterior"></button><button class="story-nav next" type="button" id="storyNext" aria-label="Próximo"></button></div>
+  <p class="story-cap" id="storyCapView"></p>
+  <div class="story-acts" id="storyActs"></div>
+</div></dialog>
+<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
 </main>
 
-<a class="wa-float" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
-  <svg><use href="#i-wa"/></svg><span class="tip">Chamar o Denny</span>
+<a class="wa-float" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg><use href="#i-wa"/></svg><span class="tip">Chamar no WhatsApp</span>
 </a>
 
 <dialog id="reader" aria-labelledby="readerTitle">

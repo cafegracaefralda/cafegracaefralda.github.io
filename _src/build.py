@@ -18,9 +18,9 @@ SRC = ROOT / "_src"
 BASE_URL = "https://cafegracaefralda.github.io/"
 TITLE = "Café, Graça & Fralda"
 HOME_TITLE = "Café, Graça & Fralda | Devocional de 5 minutos para pais e famílias"
-DESCRIPTION = ("Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, "
-               "um café com o Denny Silva e palestras sobre família e fé na vida real.")
-KEYWORDS = "devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, Denny Silva"
+DESCRIPTION = ("Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, "
+               "Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.")
+KEYWORDS = "devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, comunidade de famílias, lazer em família"
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500'
          '&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">')
@@ -74,10 +74,9 @@ graph = {
     "@context": "https://schema.org",
     "@graph": [
         {"@type": "WebSite", "@id": BASE_URL + "#site", "url": BASE_URL, "name": TITLE, "inLanguage": "pt-BR",
-         "description": DESCRIPTION, "publisher": {"@id": BASE_URL + "#denny"}},
-        {"@type": "Person", "@id": BASE_URL + "#denny", "name": "Denny Silva", "url": BASE_URL,
-         "description": "Pai, marido e discipulador. Escreve sobre fé e família na vida real.",
-         "sameAs": ["https://instagram.com/denny___silva"]},
+         "description": DESCRIPTION, "publisher": {"@id": BASE_URL + "#org"}},
+        {"@type": "Organization", "@id": BASE_URL + "#org", "name": TITLE, "url": BASE_URL,
+         "description": "Comunidade de famílias de todo o Brasil: fé e família na vida real."},
     ],
 }
 
@@ -89,7 +88,7 @@ home = f"""<!doctype html>
 <title>{esc(HOME_TITLE)}</title>
 <meta name="description" content="{esc(DESCRIPTION)}">
 <meta name="keywords" content="{esc(KEYWORDS)}">
-<meta name="author" content="Denny Silva">
+<meta name="author" content="Café, Graça &amp; Fralda">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="{BASE_URL}">
 <meta name="theme-color" content="#F8F5F0">
@@ -109,7 +108,7 @@ home = f"""<!doctype html>
 <meta property="og:image" content="{BASE_URL}icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Denny, Gabi e os três filhos sorrindo, com a frase: Entre o café e a fralda, tem graça.">
+<meta property="og:image:alt" content="Uma família sorrindo, com a frase: Entre o café e a fralda, tem graça.">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{json.dumps(graph, ensure_ascii=False)}</script>
 {FONTS}
@@ -170,7 +169,7 @@ def devo_page(i, d):
         "@context": "https://schema.org", "@type": "Article", "headline": d["title"], "description": d["lede"],
         "inLanguage": "pt-BR", "datePublished": iso, "dateModified": iso, "mainEntityOfPage": url,
         "image": BASE_URL + "icons/og-image.jpg", "articleSection": d["cat"],
-        "author": {"@type": "Person", "name": "Denny Silva", "url": BASE_URL},
+        "author": {"@type": "Organization", "name": TITLE, "url": BASE_URL},
         "publisher": {"@type": "Organization", "name": TITLE, "url": BASE_URL, "logo": {"@type": "ImageObject", "url": BASE_URL + "icons/icon-512.png"}},
     }
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -187,7 +186,7 @@ def devo_page(i, d):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(d['lede'])}">
-<meta name="author" content="Denny Silva">
+<meta name="author" content="Café, Graça &amp; Fralda">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{url}">
 <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
@@ -200,7 +199,7 @@ def devo_page(i, d):
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{BASE_URL}icons/og-image.jpg">
 <meta property="article:published_time" content="{iso}">
-<meta property="article:author" content="Denny Silva">
+<meta property="article:author" content="Café, Graça &amp; Fralda">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">{json.dumps(article, ensure_ascii=False)}</script>
 <script type="application/ld+json">{json.dumps(crumbs, ensure_ascii=False)}</script>
@@ -227,16 +226,16 @@ def devo_page(i, d):
   <p class="pray">{esc(d['prayer'])}</p>
   <div class="actions">
     <a class="btn wa" href="https://wa.me/?text={urlquote(share)}" rel="noopener">Compartilhar no WhatsApp</a>
-    <a class="btn" href="https://wa.me/{WA}?text={urlquote('Oi, Denny! Li o devocional ' + chr(34) + d['title'] + chr(34) + ' e queria conversar: ')}" rel="noopener">Conversar com o Denny</a>
+    <a class="btn" href="https://wa.me/{WA}?text={urlquote('Oi! Li o devocional ' + chr(34) + d['title'] + chr(34) + ' e queria conversar: ')}" rel="noopener">Conversar com a equipe</a>
     <a class="btn dark" href="/#mesa">Conversar na Mesa Grande</a>
   </div>
-  <p class="sig">Denny Silva</p>
+  <p class="sig">Café, Graça &amp; Fralda</p>
 </article>
 <aside class="more"><p class="label">Outros devocionais</p><ul>
 {others}
 </ul></aside>
 </main>
-<footer>© {today.year} Café, Graça &amp; Fralda · Denny Silva</footer>
+<footer>© {today.year} Café, Graça &amp; Fralda</footer>
 </body>
 </html>
 """

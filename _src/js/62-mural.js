@@ -9,14 +9,9 @@ var PAGE = 15;
 
 function uid(){ return auth.user ? auth.user.id : ""; }
 
-// Escolha do tipo ao publicar e filtro da Mesa
+// Filtro da Mesa por tipo de publicação
 (function buildChips(){
-  var box = $("postTypes"), fil = $("feedTypes");
-  TIPOS.forEach(function(t){
-    var b = h("button", "chip", t.em + " " + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === feed.tipo);
-    b.addEventListener("click", function(){ feed.tipo = t.id; $$(".chip", box).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); });
-    box.appendChild(b);
-  });
+  var fil = $("feedTypes");
   [{ id: "all", nome: "Tudo", em: "" }].concat(TIPOS).forEach(function(t){
     var b = h("button", "chip", (t.em ? t.em + " " : "") + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === "all");
     b.addEventListener("click", function(){ feed.filtro = t.id; $$(".chip", fil).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); loadFeed(true); });
@@ -65,7 +60,7 @@ $("postForm").addEventListener("submit", function(e){
   }
   up.then(function(u){
     if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("posts").insert({ tipo: feed.tipo, texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
+    return sb.from("posts").insert({ tipo: $("postTipo").value || "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
         var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
@@ -125,19 +120,12 @@ function loadMembers(){
   });
 }
 function renderMembers(){
-  var row = $("peopleRow"), side = $("sidePeople"); row.innerHTML = ""; side.innerHTML = "";
-  var me = h("button", "person me"); me.type = "button"; var rg = h("span", "ring"); rg.appendChild(h("span", null, initial(auth.name()))); me.append(rg, h("small", null, "Você"));
-  me.addEventListener("click", function(){ $("postText").focus(); });
-  row.appendChild(me);
-  feed.members.forEach(function(m){
-    var b = h("button", "person"); b.type = "button"; var r2 = h("span", "ring"); r2.appendChild(h("span", null, initial(m.nome))); b.append(r2, h("small", null, m.nome || "Alguém"));
-    b.title = "Chamar " + (m.nome || "") + " no privado"; b.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
-    row.appendChild(b);
-    if (side.childNodes.length < 6) {
-      var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, m.nome || "Alguém"), h("small", null, "Chamar no privado"));
-      s.append(h("span", "avatar", initial(m.nome)), tx); s.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
-      side.appendChild(s);
-    }
+  var side = $("sidePeople"); side.innerHTML = "";
+  feed.members.forEach(function(p){
+    if (side.childNodes.length >= 6) return;
+    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Chamar no privado"));
+    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ openDm(p.user_id, p.nome || "Alguém"); });
+    side.appendChild(s);
   });
   if (!feed.members.length) side.appendChild(h("p", "hint", "Você é a primeira pessoa por aqui. Convide alguém para a mesa!"));
 }
@@ -230,7 +218,7 @@ function deletePost(p){
   });
 }
 function reportPost(p){
-  if (!confirm("Denunciar esta publicação? Ela some da Mesa se outras pessoas também denunciarem, e o Denny revisa.")) return;
+  if (!confirm("Denunciar esta publicação? Ela some da Mesa se outras pessoas também denunciarem, e a equipe revisa.")) return;
   sb.from("post_denuncias").insert({ post_id: p.id }).then(function(r){
     if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
     toast("Obrigado. Vamos olhar com cuidado.");
@@ -238,5 +226,12 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-viewHooks.mesa = function(){ if (auth.user) { if (!feed.loaded) loadFeed(true); loadMembers(); } };
-auth.on(function(){ if (auth.user && isShown("mesa")) { if (!feed.loaded) loadFeed(true); loadMembers(); } });
+function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?"; }
+viewHooks.mesa = function(sub){
+  if (!auth.user) return;
+  mesaSync();
+  if (sub === "lazer") { if (typeof loadLazer === "function") loadLazer(true); return; }
+  if (!feed.loaded) loadFeed(true);
+  loadMembers(); if (typeof loadStories === "function") loadStories();
+};
+auth.on(function(){ if (auth.user && isShown("mesa")) viewHooks.mesa(currentSub("mesa")); });

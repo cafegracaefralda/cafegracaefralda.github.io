@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Café, Graça &amp; Fralda | Devocional de 5 minutos para pais e famílias</title>
-<meta name="description" content="Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.">
-<meta name="keywords" content="devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, Denny Silva">
-<meta name="author" content="Denny Silva">
+<meta name="description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
+<meta name="keywords" content="devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, comunidade de famílias, lazer em família">
+<meta name="author" content="Café, Graça &amp; Fralda">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://cafegracaefralda.github.io/">
 <meta name="theme-color" content="#F8F5F0">
@@ -21,14 +21,14 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Café, Graça &amp; Fralda">
 <meta property="og:title" content="Café, Graça &amp; Fralda · Entre o café e a fralda, tem graça.">
-<meta property="og:description" content="Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.">
+<meta property="og:description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
 <meta property="og:url" content="https://cafegracaefralda.github.io/">
 <meta property="og:image" content="https://cafegracaefralda.github.io/icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Denny, Gabi e os três filhos sorrindo, com a frase: Entre o café e a fralda, tem graça.">
+<meta property="og:image:alt" content="Uma família sorrindo, com a frase: Entre o café e a fralda, tem graça.">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://cafegracaefralda.github.io/#site", "url": "https://cafegracaefralda.github.io/", "name": "Café, Graça & Fralda", "inLanguage": "pt-BR", "description": "Devocional de 5 minutos toda quarta-feira para pais e mães, chat e conversas privadas entre pais, um café com o Denny Silva e palestras sobre família e fé na vida real.", "publisher": {"@id": "https://cafegracaefralda.github.io/#denny"}}, {"@type": "Person", "@id": "https://cafegracaefralda.github.io/#denny", "name": "Denny Silva", "url": "https://cafegracaefralda.github.io/", "description": "Pai, marido e discipulador. Escreve sobre fé e família na vida real.", "sameAs": ["https://instagram.com/denny___silva"]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://cafegracaefralda.github.io/#site", "url": "https://cafegracaefralda.github.io/", "name": "Café, Graça & Fralda", "inLanguage": "pt-BR", "description": "Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.", "publisher": {"@id": "https://cafegracaefralda.github.io/#org"}}, {"@type": "Organization", "@id": "https://cafegracaefralda.github.io/#org", "name": "Café, Graça & Fralda", "url": "https://cafegracaefralda.github.io/", "description": "Comunidade de famílias de todo o Brasil: fé e família na vida real."}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
@@ -755,6 +755,132 @@ label.hand-btn{cursor:pointer}
 
 @media (max-width:1099px){body[data-view="mesa"] .wa-float,body[data-view="mensagens"] .wa-float{display:none}}
 
+/* =====================================================================
+   PUBLICAR ESTILO REDE SOCIAL, STORIES, PRATELEIRA E LAZER (pensado para o celular)
+   ===================================================================== */
+.compose{padding:14px 16px;display:grid;gap:10px;border-radius:22px}
+.compose#pubGate{display:flex;align-items:center;gap:12px}
+.compose-top{display:flex;gap:12px;align-items:flex-start}
+.compose-top .avatar{width:42px;height:42px;font-size:20px;flex:none}
+.compose-top textarea,.compose-fake{flex:1;min-width:0;border:0;background:var(--bg);border-radius:22px;padding:12px 16px;font:inherit;font-size:16px;min-height:48px;resize:none;color:var(--ink)}
+.compose-top textarea:focus{outline:2px solid var(--terra-light);background:#fff}
+.compose-fake{display:flex;align-items:center;color:var(--muted);font-size:14.5px}
+.compose-fake p{margin:0}
+.compose-bar{display:flex;flex-wrap:wrap;align-items:center;gap:6px;border-top:1px solid var(--line);padding-top:10px}
+.cbtn{display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 12px;border-radius:14px;background:none;border:0;font:inherit;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:0}
+.cbtn:hover,.cbtn:active{background:var(--bg);color:var(--ink)}
+.cbtn svg{width:22px;height:22px;color:var(--terra)}
+.cbtn-send{margin-left:auto;min-height:44px;padding-inline:22px}
+.compose-bar select{width:auto;max-width:48%;min-height:44px;border-radius:14px;font-size:14px;padding:0 10px;background:var(--bg);border-color:transparent}
+.admin-only{display:grid;gap:8px;padding:10px;background:var(--terra-soft);border-radius:16px}
+.admin-only select,.admin-only input[type=text],.admin-only input:not([type]){border-radius:12px}
+.pub-extra{display:flex;gap:10px;align-items:center}
+.pub-extra input{flex:1;min-width:0;border-radius:14px;min-height:44px}
+.pub-attach{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--terra-soft);border-radius:14px;font-size:14px}
+.pub-attach span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prat-wrap{display:grid;gap:16px;max-width:700px}
+.pub-title{padding:2px 16px 0;font-size:clamp(23px,5.5vw,30px);line-height:1.18}
+.pub-video{display:block;width:100%;max-height:70dvh;background:#000}
+.yt{position:relative;aspect-ratio:16/9;background:#14110f}
+.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-play{position:absolute;inset:0;width:100%;border:0;background:radial-gradient(circle at 30% 20%,#3a2e27,#14110f);color:#fff;display:grid;place-content:center;justify-items:center;gap:10px;cursor:pointer;font:inherit}
+.yt-ic{width:68px;height:68px;border-radius:50%;background:#FF0033;display:grid;place-items:center;font-size:26px;padding-left:4px}
+.yt-tx{font-size:14px;opacity:.9}
+.pub-file{margin:4px 16px 12px;min-height:52px}
+.post.oficial .selo{margin-left:6px}
+.post.focus{box-shadow:0 0 0 3px var(--terra-light)}
+
+/* Stories */
+.stories{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.stories::-webkit-scrollbar{display:none}
+.stories .person{width:72px;min-height:44px}
+.person .ring{position:relative;width:66px;height:66px}
+.person .ring .plus{position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:var(--terra);color:#fff;font-style:normal;font-weight:700;font-size:17px;line-height:22px;text-align:center;border:2px solid var(--bg)}
+.stories-hint{align-self:center;font-size:13px;color:var(--muted);min-width:200px;margin:0}
+.story-dlg{border:0;padding:0;background:#000;color:#fff;width:100%;max-width:100%;height:100dvh;max-height:100dvh;margin:0;overflow:hidden}
+.story-dlg::backdrop{background:rgba(0,0,0,.85)}
+.story-box{position:relative;display:flex;flex-direction:column;height:100%;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.story-view{padding-top:calc(10px + env(safe-area-inset-top,0))}
+.story-bars{display:flex;gap:4px;padding:0 10px}
+.story-bars .bar{flex:1;height:3px;border-radius:3px;background:rgba(255,255,255,.35);overflow:hidden}
+.story-bars .bar i{display:block;height:100%;width:0;background:#fff}
+.story-bars .bar.done i{width:100%}
+.story-bars .bar.run i{width:100%;animation:sbar 5s linear}
+@keyframes sbar{from{width:0}to{width:100%}}
+.story-head{display:flex;align-items:center;gap:10px;padding:12px 14px}
+.story-head .avatar{width:36px;height:36px;font-size:18px}
+.story-head time{font-family:var(--mono);font-size:11px;opacity:.7}
+.story-x{margin-left:auto;background:none;border:0;color:#fff;font-size:34px;line-height:1;width:44px;height:44px;cursor:pointer}
+.story-img-wrap{position:relative;flex:1;min-height:0;display:grid;place-items:center}
+.story-img-wrap img{max-width:100%;max-height:100%;object-fit:contain}
+.story-nav{position:absolute;top:0;bottom:0;width:38%;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.story-nav.prev{left:0}.story-nav.next{right:0}
+.story-cap{padding:10px 18px;text-align:center;font-size:17px;margin:0}
+.story-acts{display:flex;gap:10px;justify-content:center;padding:6px 14px 18px}
+.story-acts .btn-ghost{color:#fff;border-color:rgba(255,255,255,.5)}
+.story-box:not(.story-view){padding:18px;gap:12px;background:var(--surface);color:var(--ink);height:auto;max-height:100dvh;overflow-y:auto}
+#storyNew{background:var(--surface);color:var(--ink);height:auto;max-height:92dvh;border-radius:24px 24px 0 0;margin-top:auto}
+.story-prev{width:100%;max-height:52dvh;object-fit:contain;border-radius:16px;background:var(--bg)}
+#storyNew .story-x{color:var(--ink);position:absolute;right:6px;top:6px}
+#storyNew input{border-radius:14px;min-height:46px}
+@media (min-width:700px){
+  .story-dlg#storyView{width:min(440px,92vw);height:min(86dvh,820px);margin:auto;border-radius:24px}
+  #storyNew{width:min(440px,92vw);margin:auto;border-radius:24px}
+}
+
+/* Lazer em família */
+.lazer-bar{display:grid;grid-template-columns:minmax(0,1fr) 150px auto;gap:10px;margin-bottom:12px}
+.lazer-bar input,.lazer-bar select{min-height:48px;border-radius:16px;font-size:16px}
+.lazer-bar .btn{min-height:48px}
+.lz-form{max-width:700px;margin:14px 0}
+.lz-tags{display:flex;flex-wrap:wrap;gap:6px;padding:4px 16px 0}
+.lz-end{padding:0 16px 8px;font-size:13.5px;color:var(--muted)}
+.lz-card .post-text{padding-top:8px}
+#lzList,#lzCats{max-width:700px}
+#lzCats{margin-bottom:12px}
+
+/* ---------- Celular: dedos primeiro ---------- */
+@media (max-width:760px){
+  input,select,textarea{font-size:16px}
+  .view{padding-block:14px 22px}
+  .view-head{margin-bottom:12px}
+  .view-head h2{font-size:30px}
+  .view-head p,.view-head .muted{font-size:14.5px}
+  .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;width:100%}
+  .seg button{min-height:44px;padding-inline:8px;font-size:14px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-inline:-16px;padding-inline:16px;-webkit-overflow-scrolling:touch}
+  .filters::-webkit-scrollbar{display:none}
+  .filters .chip{flex:none;min-height:40px}
+  .lazer-bar{grid-template-columns:1fr 110px}
+  .lazer-bar .btn{grid-column:1/-1}
+  .compose{margin-inline:-4px;padding:12px}
+  .compose-bar .cbtn span{display:none}
+  .compose-bar .cbtn{padding:0 10px}
+  .compose-bar select{max-width:none;flex:1;min-width:0}
+  .post{border-radius:18px}
+  .post-acts{grid-template-columns:repeat(3,1fr)}
+  .post-acts button,.post-acts a{min-height:46px;font-size:13px;padding:8px 2px;gap:5px}
+  .post-acts svg{width:20px;height:20px}
+  .pmore{width:44px;height:44px}
+  .post .post-text{font-size:16.5px}
+  .post-cmt-form input{min-height:46px}
+  .composer .btn-terra,.hand-btn{width:48px;height:48px}
+  .bell,.menu-btn{width:46px;height:46px}
+  .btn{min-height:46px}
+  .btn-sm{min-height:42px}
+  .mesa-main{gap:14px}
+  .oficial-list,.feed-list,.prat-wrap{gap:14px}
+  .chat.dm{border-radius:20px}
+  .msg{max-width:92%}
+  .bubble p{font-size:16px}
+  .wrap{padding-inline:16px}
+}
+@media (hover:none){.nav a:hover,.cbtn:hover{background:none}}
+
+.compose .status:empty{display:none}
+.post-top .grow b{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+@media (max-width:1099px){body[data-view="mesa"] .wa-float,body[data-view="mensagens"] .wa-float,body[data-view="prateleira"] .wa-float,body[data-view="indicacoes"] .wa-float{display:none}}
+
 </style>
 </head>
 <body>
@@ -782,6 +908,9 @@ label.hand-btn{cursor:pointer}
   <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20c0-3.600 2.900-6 6.500-6s6.500 2.400 6.500 6"/><circle cx="17.500" cy="9" r="2.600"/><path d="M17.500 14c2.800 0 4.500 1.900 4.500 5"/></g></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3.500 2.600 5.300 5.900.9-4.300 4.100 1 5.800-5.200-2.800-5.200 2.800 1-5.800L3.500 9.700l5.900-.9L12 3.500Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></g></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="3"/><path d="m16 10.500 5-3v9l-5-3"/></g></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l5 5v13H6V3Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></g></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 0 0 5.700 0l3-3a4 4 0 0 0-5.700-5.700l-1 1"/><path d="M14 10a4 4 0 0 0-5.700 0l-3 3a4 4 0 0 0 5.700 5.700l1-1"/></g></symbol>
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
@@ -801,7 +930,7 @@ label.hand-btn{cursor:pointer}
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     
     <div class="top-actions">
-      <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
       <div class="bell-wrap" data-auth="in" hidden>
         <button class="bell" type="button" id="bellBtn" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg><use href="#i-bell"/></svg><span class="bell-n" id="bellN" hidden>0</span></button>
         <div class="bell-panel" id="bellPanel" hidden>
@@ -818,7 +947,7 @@ label.hand-btn{cursor:pointer}
         <div class="menu" id="acctMenu" hidden>
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#cafe/meus">Meus horários</a>
-          <a href="#painel" id="menuPainel" hidden>Painel do Denny</a>
+          <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
       </div>
@@ -828,17 +957,17 @@ label.hand-btn{cursor:pointer}
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
-      <a href="#dacasa" data-tab="dacasa"><svg><use href="#i-megaphone"/></svg><span>Da Casa</span></a>
+      <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
-      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Com o Denny</span></a>
+      <a href="#cafe" data-tab="cafe"><svg><use href="#i-cup"/></svg><span>Encontros</span></a>
       <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
   <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
-  <a href="#dacasa" data-tab="dacasa"><svg><use href="#i-megaphone"/></svg><span>Da Casa</span></a>
+  <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
   <button type="button" id="tabMore" aria-label="Mais opções"><svg><use href="#i-menu"/></svg><span>Mais</span></button>
@@ -852,16 +981,16 @@ label.hand-btn{cursor:pointer}
     <div class="wrap">
       <div class="hero hero-grid">
         <div>
-          <span class="pill in">Café, Graça &amp; Fralda · com Denny Silva</span>
+          <span class="pill in">Café, Graça &amp; Fralda · comunidade de famílias</span>
           <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
-          <p class="lede in">Há 10 anos eu e a Gabi estamos construindo uma família: três filhos, muitas madrugadas e uma fé que a gente não negocia. Aqui eu divido o que vou aprendendo, de um jeito simples, para qualquer pessoa que quer um lar mais leve e mais firme.</p>
+          <p class="lede in">Uma comunidade para famílias de todo o Brasil que querem um lar mais leve e mais firme: fé de verdade, conversa sincera, indicação de confiança e gente cuidando de gente, entre as madrugadas e o café da manhã.</p>
           <div class="ctas in">
             <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
-            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
         </div>
         <div class="arch in">
-          <div class="arch-img"><img src="img/familia-1.jpg" alt="Denny, Gabi, os gêmeos e o bebê recém-nascido sorrindo juntos" width="1280" height="853"></div>
+          <div class="arch-img"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta: pai, mãe, dois meninos e um bebê recém-nascido" width="1280" height="853"></div>
           <div class="float-quote"><p>“Filhos são herança do Senhor.”</p><span class="ref">Salmos 127:3</span></div>
         </div>
       </div>
@@ -882,9 +1011,9 @@ label.hand-btn{cursor:pointer}
       </div>
 
       <div class="learn">
-        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Denny segurando os gêmeos no colo, com o bebê recém-nascido entre eles" width="853" height="1280" loading="lazy"></div>
+        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Pai segurando os filhos pequenos no colo" width="853" height="1280" loading="lazy"></div>
         <div>
-          <span class="label">10 anos construindo uma família</span>
+          <span class="label">Aprendizados de casa</span>
           <h2>O que a gente aprendeu até aqui</h2>
           <p class="muted">Nada de fórmula. Só o que a vida em casa ensinou. Toque para abrir.</p>
           <div class="lessons">
@@ -962,21 +1091,42 @@ label.hand-btn{cursor:pointer}
     </div>
   </section>
 
-  <section class="view" id="v-dacasa" data-view="dacasa">
+  <!-- PRATELEIRA -->
+  <section class="view" id="v-prateleira" data-view="prateleira">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Da Casa</span>
-        <h2>Notícias da casa</h2>
-        <p class="muted">Devocionais, avisos, convites e indicações de parceiros, publicados pelo Denny.</p>
+        <span class="label">Prateleira</span>
+        <h2>Prateleira da comunidade</h2>
+        <p class="muted">Vídeos, PDFs, fotos, links e devocionais compartilhados por todo mundo.</p>
       </div>
-      <div class="seg" role="tablist" aria-label="Da Casa">
-        <button type="button" role="tab" data-sub="novidades" aria-selected="true">Novidades</button>
+      <div class="seg" role="tablist" aria-label="Prateleira">
+        <button type="button" role="tab" data-sub="publicacoes" aria-selected="true">Publicações</button>
         <button type="button" role="tab" data-sub="devocional" aria-selected="false">5 minutos</button>
       </div>
-      <div data-sub-panel="novidades" class="on">
-        <div class="oficial-wrap">
+      <div data-sub-panel="publicacoes" class="on">
+        <div class="prat-wrap">
+          <div class="card compose" id="pubGate"><span class="avatar">?</span><div class="compose-fake"><p>Entre com o Google para compartilhar com a comunidade.</p></div><button class="btn btn-google btn-sm js-login" type="button"><svg><use href="#i-google"/></svg>Entrar</button></div>
+          <form class="card compose" id="pubForm" autocomplete="off" hidden>
+            <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um vídeo, PDF, foto, link ou uma ideia…" aria-label="Publicação"></textarea></div>
+            <div class="admin-only" id="pubAdmin" hidden>
+              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="">Publicação comum</option><option value="aviso">Oficial: aviso</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
+              <input id="pubTitulo" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
+              <label class="hint" for="pubFixar" style="display:flex;gap:8px;align-items:center;cursor:pointer"><input id="pubFixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo</label>
+            </div>
+            <div class="pub-extra" id="pubLinkRow" hidden><input id="pubLink" maxlength="300" placeholder="Cole um link do YouTube ou de qualquer site" aria-label="Link"><button class="link" type="button" id="pubLinkDel">Remover</button></div>
+            <div class="pub-attach" id="pubAttach" hidden><span id="pubAttachName"></span><button class="link" type="button" id="pubAttachDel">Remover</button></div>
+            <div class="compose-bar">
+              <label class="cbtn" for="pubFoto" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="pubFoto" accept="image/*" hidden>
+              <label class="cbtn" for="pubVideo" title="Vídeo"><svg><use href="#i-video"/></svg><span>Vídeo</span></label><input type="file" id="pubVideo" accept="video/mp4,video/webm,video/quicktime" hidden>
+              <label class="cbtn" for="pubPdf" title="PDF"><svg><use href="#i-file"/></svg><span>PDF</span></label><input type="file" id="pubPdf" accept="application/pdf" hidden>
+              <button class="cbtn" type="button" id="pubLinkBtn" title="Link ou YouTube"><svg><use href="#i-link"/></svg><span>Link</span></button>
+              <button class="btn btn-terra btn-sm cbtn-send" id="pubSend" type="submit">Publicar</button>
+            </div>
+            <p class="status" id="pubStatus" role="status"></p>
+          </form>
           <article class="post oficial destaque" id="destaqueDevo"></article>
-          <div class="oficial-list" id="oficialList"></div>
+          <div class="feed-list" id="pubList" aria-live="polite"></div>
+          <button class="btn btn-ghost feed-more" type="button" id="pubMore" hidden>Ver mais</button>
         </div>
       </div>
       <div data-sub-panel="devocional">
@@ -1018,51 +1168,86 @@ label.hand-btn{cursor:pointer}
   </section>
 
   <!-- MESA GRANDE -->
+  <!-- MESA GRANDE -->
   <section class="view" id="v-mesa" data-view="mesa">
     <div class="wrap">
       <div class="view-head">
         <span class="label">Mesa Grande</span>
-        <h2>Puxe uma cadeira na Mesa Grande</h2>
-        <p class="muted">O cantinho onde as famílias conversam: contam o dia, desabafam, indicam, pedem oração e agradecem. Só entra quem faz login, e só o primeiro nome aparece.</p>
+        <h2>Mesa Grande</h2>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
           <span class="label">Mesa Grande</span>
           <h3>A Mesa Grande é só para quem senta à mesa</h3>
-          <p>Compartilhe uma foto, uma indicação, um desabafo ou um pedido de oração. Os outros pais curtem e comentam. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
+          <p>Conte o dia, poste fotos e stories, indique lugares para ir com as crianças, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
       </div>
-      <div class="mesa-layout" id="feedApp" hidden>
-        <div class="mesa-main">
-          <div class="people-row" id="peopleRow" aria-label="Quem está na mesa"></div>
-          <form class="card post-form" id="postForm" autocomplete="off">
-            <div class="post-types" id="postTypes" role="group" aria-label="Tipo de publicação"></div>
-            <label class="sr" for="postText">O que você quer compartilhar?</label>
-            <textarea id="postText" maxlength="1500" rows="3" placeholder="O que está na sua mesa hoje?"></textarea>
-            <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
-            <div class="post-bar">
-              <label class="btn btn-ghost btn-sm" for="postFile"><svg><use href="#i-photo"/></svg>Foto</label>
-              <input type="file" id="postFile" accept="image/*" hidden>
-              <span class="post-tip">Não publique foto de rosto de crianças, nome completo nem escola.</span>
-              <button class="btn btn-terra" id="postSend" type="submit">Publicar</button>
-            </div>
-            <p class="status" id="postStatus" role="status"></p>
-          </form>
-          <div class="filters" id="feedTypes" role="group" aria-label="Filtrar a Mesa Grande"></div>
-          <div class="feed-list" id="feedList" aria-live="polite"></div>
-          <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
+      <div id="feedApp" hidden>
+        <div class="seg" role="tablist" aria-label="Mesa Grande">
+          <button type="button" role="tab" data-sub="conversas" aria-selected="true">Conversas</button>
+          <button type="button" role="tab" data-sub="lazer" aria-selected="false">Lazer em família</button>
         </div>
-        <aside class="mesa-side" aria-label="Lateral">
-          <div class="card side-card"><span class="label">Quem está na mesa</span><div id="sidePeople"></div></div>
-          <div class="card side-card"><span class="label">Combinados da mesa</span>
-            <ul class="rules">
-              <li>Fale com respeito. Aqui ninguém é julgado por ainda não crer.</li>
-              <li>Não publique nome completo, foto de rosto de crianças nem escola.</li>
-              <li>Conselho de pai não substitui médico ou psicólogo.</li>
-            </ul>
+        <div data-sub-panel="conversas" class="on">
+          <div class="mesa-layout">
+            <div class="mesa-main">
+              <div class="stories" id="storiesRow" aria-label="Stories"></div>
+              <form class="card compose" id="postForm" autocomplete="off">
+                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="No que você está pensando?" aria-label="Publicação"></textarea></div>
+                <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
+                <div class="compose-bar">
+                  <label class="cbtn" for="postFile" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="postFile" accept="image/*" hidden>
+                  <select id="postTipo" aria-label="Tipo (opcional)"><option value="conversa">☕ Papo de mesa</option><option value="indicacao">💡 Indicação</option><option value="desabafo">🫶 Desabafo</option><option value="oracao">🙏 Oração</option><option value="gratidao">✨ Gratidão</option></select>
+                  <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                </div>
+                <p class="status" id="postStatus" role="status"></p>
+              </form>
+              <div class="filters" id="feedTypes" role="group" aria-label="Filtrar a Mesa Grande"></div>
+              <div class="feed-list" id="feedList" aria-live="polite"></div>
+              <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
+            </div>
+            <aside class="mesa-side" aria-label="Lateral">
+              <div class="card side-card"><span class="label">Quem está na mesa</span><div id="sidePeople"></div></div>
+              <div class="card side-card"><span class="label">Combinados da mesa</span>
+                <ul class="rules">
+                  <li>Fale com respeito. Aqui ninguém é julgado por ainda não crer.</li>
+                  <li>Não publique nome completo, foto de rosto de crianças nem escola.</li>
+                  <li>Conselho de pai não substitui médico ou psicólogo.</li>
+                </ul>
+              </div>
+            </aside>
           </div>
-        </aside>
+        </div>
+        <div data-sub-panel="lazer">
+          <div class="lazer-bar">
+            <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
+            <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
+            <button class="btn btn-terra" type="button" id="lzOpen"><svg><use href="#i-plus"/></svg>Indicar um lugar</button>
+          </div>
+          <div class="filters" id="lzCats" role="group" aria-label="Filtrar lazer"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Parque e natureza">Parque e natureza</button><button class="chip" aria-pressed="false" data-filter="Restaurante e café">Restaurante e café</button><button class="chip" aria-pressed="false" data-filter="Espaço kids">Espaço kids</button><button class="chip" aria-pressed="false" data-filter="Passeio e cultura">Passeio e cultura</button><button class="chip" aria-pressed="false" data-filter="Esporte">Esporte</button><button class="chip" aria-pressed="false" data-filter="Evento">Evento</button><button class="chip" aria-pressed="false" data-filter="Outro">Outro</button></div>
+          <form class="card form lz-form" id="lzForm" novalidate hidden>
+            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar para ir com as crianças</h3></div>
+            <div class="row2">
+              <div class="field"><label for="lz-nome">Nome do lugar</label><input id="lz-nome" maxlength="100" placeholder="Ex.: Parque da Jaqueira"></div>
+              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option>Parque e natureza</option><option>Restaurante e café</option><option>Espaço kids</option><option>Passeio e cultura</option><option>Esporte</option><option>Evento</option><option>Outro</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-cidade">Cidade</label><input id="lz-cidade" maxlength="60" placeholder="Em qual cidade fica?"></div>
+              <div class="field"><label for="lz-uf">Estado</label><select id="lz-uf"><option value="">Escolha</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-idades">Idades</label><select id="lz-idades"><option>Todas as idades</option><option>Bebês</option><option>1 a 3 anos</option><option>4 a 7 anos</option><option>8 anos ou mais</option></select></div>
+              <div class="field"><label for="lz-custo">Custo</label><select id="lz-custo"><option>Grátis</option><option>Barato</option><option>Médio</option><option>Caro</option></select></div>
+            </div>
+            <div class="field"><label for="lz-end">Endereço ou bairro (opcional)</label><input id="lz-end" maxlength="140" placeholder="Ajuda a encontrar o lugar"></div>
+            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Tem sombra, banheiro limpo, brinquedos, comida boa…"></textarea></div>
+            <div class="post-bar"><label class="cbtn" for="lz-foto"><svg><use href="#i-photo"/></svg><span>Anexar foto</span></label><input type="file" id="lz-foto" accept="image/*" hidden><span id="lz-foto-nome" class="post-tip"></span></div>
+            <button class="btn btn-terra btn-block" id="lzSend" type="submit">Publicar indicação</button>
+            <p class="status" id="lzStatus" role="status"></p>
+          </form>
+          <div class="feed-list" id="lzList" aria-live="polite"></div>
+          <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
+        </div>
       </div>
     </div>
   </section>
@@ -1132,14 +1317,14 @@ label.hand-btn{cursor:pointer}
           <ul class="notes" id="fridgeNotes"></ul>
         </div>
         <div class="fridge-foot">
-          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. O Denny confere antes de publicar.</p>
+          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. A equipe confere antes de publicar.</p>
           <button class="btn btn-dark" type="button" id="indOpen"><svg><use href="#i-arrow"/></svg>Indicar um profissional</button>
         </div>
         <div class="card ind-form-wrap" id="indWrap" hidden>
           <div class="gate" id="indGate">
             <span class="label">Indicar um profissional</span>
             <h3>Entre para indicar</h3>
-            <p>Para evitar spam, só quem entrou com o Google indica. Só o seu primeiro nome aparece, e o Denny confere cada indicação antes de publicar.</p>
+            <p>Para evitar spam, só quem entrou com o Google indica. Só o seu primeiro nome aparece, e a equipe confere cada indicação antes de publicar.</p>
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
           <form class="form" id="indForm" novalidate hidden>
@@ -1176,13 +1361,13 @@ label.hand-btn{cursor:pointer}
 
   <!-- CAFÉ NA MESA -->
   <section class="view" id="v-cafe" data-view="cafe">
-    <div class="wrap"><nav class="subnav" aria-label="Com o Denny"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe" aria-current="page">Um café na sua mesa</a><a href="#palestra">Convite para palestra</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Um café na sua mesa</span>
         <h2>30 minutos para conversar</h2>
-        <p class="story">Aqui em casa, a mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que eu quero sentar com você.</p>
-        <p>Eu vou até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
+        <p class="story">A mesa é onde a vida acontece: o café da madrugada, a bronca, a oração. É lá que a gente quer sentar com você.</p>
+        <p>A gente vai até a sua mesa, pela tela ou pessoalmente, com um café e tempo de verdade. Para você se abrir, desabafar, sorrir ou receber uma palavra pensada para o seu momento.</p>
         <ul class="facts">
           <li><b>30 min</b><span>de conversa sem pressa</span></li>
           <li><b>Seg a sex</b><span>das 20h às 22h</span></li>
@@ -1197,7 +1382,7 @@ label.hand-btn{cursor:pointer}
             <p>Assim você enxerga o seu horário e pode desmarcar sozinho se precisar. Só o seu nome e o seu e-mail ficam guardados no agendamento.</p>
             <div class="alt">
               <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-              <a class="btn btn-wa" data-wa="Oi, Denny! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
+              <a class="btn btn-wa" data-wa="Oi! Quero conversar sobre um café na mesa." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Prefiro chamar no WhatsApp</a>
             </div>
             <div class="gate-steps"><span class="label">Como funciona</span>
             <ol class="steps">
@@ -1249,7 +1434,7 @@ label.hand-btn{cursor:pointer}
                 <ul class="summary" id="bookSummary"></ul>
                 <p class="muted" id="bookDoneText"></p>
                 <div class="confirm">
-                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar o Denny no WhatsApp</a>
+                  <a class="btn btn-wa" id="bookWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Avisar no WhatsApp</a>
                   <button class="btn btn-ghost" type="button" id="bookAgain">Marcar outro</button>
                 </div>
               </div>
@@ -1269,12 +1454,12 @@ label.hand-btn{cursor:pointer}
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Com o Denny"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Encontros"><a href="#cafe">Um café na sua mesa</a><a href="#palestra" aria-current="page">Convite para palestra</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
         <h2>Leve o Café, Graça &amp; Fralda para o seu encontro</h2>
-        <p>Conversas simples e profundas sobre família, casamento e fé em casa, para igrejas, escolas, grupos e empresas. Preencha os dados e me chame no WhatsApp. Eu respondo para combinarmos data, tema e formato.</p>
+        <p>Conversas simples e profundas sobre família, casamento e fé em casa, para igrejas, escolas, grupos e empresas. Preencha os dados e chame a gente no WhatsApp. Respondemos para combinar data, tema e formato.</p>
         <ul class="facts">
           <li><b>Igrejas</b><span>cultos, encontros de casais e de pais</span></li>
           <li><b>Escolas e grupos</b><span>reuniões e eventos de família</span></li>
@@ -1283,7 +1468,7 @@ label.hand-btn{cursor:pointer}
         <ol class="steps">
           <li><span><b>Preencha os dados</b> do seu evento.</span></li>
           <li><span><b>Toque em “Convidar pelo WhatsApp”.</b> A mensagem já sai pronta.</span></li>
-          <li><span><b>Eu respondo</b> para combinar os detalhes.</span></li>
+          <li><span><b>Nós respondemos</b> para combinar os detalhes.</span></li>
         </ol>
       </div>
       <form class="card form" id="talkForm" novalidate>
@@ -1323,30 +1508,24 @@ label.hand-btn{cursor:pointer}
   <section class="view" id="v-sobre" data-view="sobre">
     <div class="wrap about-grid">
       <div class="about-text">
-        <span class="label">Quem escreve</span>
-        <h2>Prazer, eu sou o Denny.</h2>
-        <p>Sou pai de três, incluindo gêmeos, e casado há 7 anos com uma mulher linda e incrível, a Gabi. Sou cristão há mais de 20 anos, formado em Teologia e em Liderança, e também em Gestão de RH, com pós-graduação em Gestão de Pessoas e Liderança de Equipes. Trabalho na área comercial, sirvo na igreja local e, desde os 15 anos, caminho perto de pessoas.</p>
-        <p>Não sou especialista em família perfeita. Sou um pai aprendendo todo dia, com a Bíblia aberta e muito café. O que escrevo aqui é o que a gente vive em casa.</p>
-        <p class="blockq">“Não escrevo para pais perfeitos. Escrevo para pais reais, que amam, cansam, erram e querem enxergar Deus nas madrugadas.”</p>
-        <div class="stats">
-          <div class="stat"><b>10</b><span>anos construindo família</span></div>
-          <div class="stat"><b>3</b><span>anos criando filhos</span></div>
-          <div class="stat"><b>19</b><span>anos caminhando com pessoas</span></div>
-        </div>
-        <ul class="tags creds" aria-label="Formação">
-          <li>Cristão há mais de 20 anos</li><li>Teologia</li><li>Liderança (Florida Christian University)</li><li>Gestão de RH</li><li>Pós em Gestão de Pessoas e Liderança de Equipes</li>
+        <span class="label">Sobre a comunidade</span>
+        <h2>Entre o café e a fralda, tem graça.</h2>
+        <p>O Café, Graça &amp; Fralda é uma comunidade para famílias de todo o Brasil: gente que ama, cansa, erra e recomeça. Aqui a fé não é negociada, mas ninguém precisa concordar com tudo para ter um lugar à mesa.</p>
+        <p>É um espaço para trocar experiência, pedir oração, indicar lugares e profissionais de confiança e se sentir menos sozinho nas madrugadas.</p>
+        <p class="blockq">“Não somos famílias perfeitas. Somos famílias reais, cuidando umas das outras.”</p>
+        <ul class="tags creds" aria-label="Combinados">
+          <li>Fé sem negociar</li><li>Todos são bem-vindos</li><li>Só o primeiro nome aparece</li><li>Fotos só para membros</li><li>Propaganda sempre identificada</li>
         </ul>
       </div>
       <div class="about-side">
-        <div class="photo"><img src="img/familia-1.jpg" alt="Denny e Gabi com os três filhos" width="1280" height="853" loading="lazy"></div>
+        <div class="photo"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta" width="1280" height="853" loading="lazy"></div>
         <div class="contact">
-          <span class="label">Fale comigo</span>
+          <span class="label">Fale com a equipe</span>
           <h3>Vamos conversar?</h3>
-          <p>Uma dúvida, um convite para falar na sua igreja ou só vontade de trocar uma ideia.</p>
+          <p>Uma dúvida, uma sugestão, um convite para a sua igreja ou só vontade de trocar uma ideia.</p>
           <span class="wa-num">(81) 99270-2353</span>
           <div class="row-btns">
-            <a class="btn btn-wa" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
-            <a class="btn btn-ghost" href="https://instagram.com/denny___silva" target="_blank" rel="noopener"><svg><use href="#i-ig"/></svg>@denny___silva</a>
+            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
           </div>
         </div>
         <div class="app-band" id="app" hidden>
@@ -1358,11 +1537,11 @@ label.hand-btn{cursor:pointer}
     </div>
   </section>
 
-  <!-- PAINEL (só o Denny) -->
+  <!-- PAINEL (só administração) -->
   <section class="view" id="v-painel" data-view="painel">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Só para o Denny</span>
+        <span class="label">Só para a administração</span>
         <h2>Painel</h2>
         <p id="panelNote">Verificando o seu acesso…</p>
       </div>
@@ -1372,7 +1551,6 @@ label.hand-btn{cursor:pointer}
           <button type="button" role="tab" data-sub="horarios" aria-selected="false">Horários</button>
           <button type="button" role="tab" data-sub="inscritos" aria-selected="false">Inscritos</button>
           <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Moderação</button>
-          <button type="button" role="tab" data-sub="publicar" aria-selected="false">Publicar</button>
         </div>
         <div data-sub-panel="agenda" class="on">
           <div class="panel-grid">
@@ -1394,27 +1572,6 @@ label.hand-btn{cursor:pointer}
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
-        <div data-sub-panel="publicar">
-          <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
-            <form class="card form" id="ofForm" novalidate>
-              <div><span class="label">Postagem oficial</span><h3 style="font-size:28px;margin-top:6px">Publicar na Da Casa</h3></div>
-              <div class="row2">
-                <div class="field"><label for="of-tipo">Tipo</label><select id="of-tipo"><option value="aviso">Aviso</option><option value="devocional">Devocional extra</option><option value="evento">Evento ou convite</option><option value="parceiro">Parceiro (propaganda)</option></select></div>
-                <div class="field"><label for="of-titulo">Título</label><input id="of-titulo" maxlength="120" placeholder="Ex.: Encontro de casais"></div>
-              </div>
-              <div class="field"><label for="of-texto">Texto</label><textarea id="of-texto" maxlength="2000" placeholder="Escreva com carinho, em frases curtas."></textarea></div>
-              <div class="row2">
-                <div class="field"><label for="of-link">Link (opcional)</label><input id="of-link" type="url" maxlength="300" placeholder="https://..."></div>
-                <div class="field"><label for="of-linkt">Texto do botão</label><input id="of-linkt" maxlength="40" placeholder="Saiba mais"></div>
-              </div>
-              <div class="field"><span class="legend">Imagem (opcional)</span><div class="post-bar"><label class="btn btn-ghost btn-sm" for="of-file"><svg><use href="#i-photo"/></svg>Escolher imagem</label><input type="file" id="of-file" accept="image/*" hidden><span id="of-file-name" class="post-tip"></span></div></div>
-              <label class="hint" for="of-fixar" style="display:flex;gap:10px;align-items:center;cursor:pointer"><input id="of-fixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo da Da Casa</label>
-              <button class="btn btn-terra btn-block" id="ofSend" type="submit">Publicar</button>
-              <p class="status" id="ofStatus" role="status"></p>
-            </form>
-            <div><div class="cols-title"><span class="label">Já publicadas</span></div><div class="mod-list" id="ofAdminList"></div></div>
-          </div>
-        </div>
         <div data-sub-panel="moderacao">
           <div class="panel-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))">
             <div><div class="cols-title"><span class="label">Chat</span></div><div class="mod-list" id="pModMsgs"></div></div>
@@ -1426,11 +1583,27 @@ label.hand-btn{cursor:pointer}
     </div>
   </section>
 
-  <footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda · Denny Silva</span></div></footer>
+  
+<dialog class="story-dlg" id="storyNew" aria-label="Novo story"><div class="story-box">
+  <button class="story-x" type="button" id="storyNewClose" aria-label="Fechar">×</button>
+  <h3>Novo story</h3>
+  <img alt="Prévia do story" id="storyNewImg" class="story-prev">
+  <input id="storyCap" maxlength="140" placeholder="Escreva uma legenda (opcional)" aria-label="Legenda">
+  <button class="btn btn-terra btn-block" type="button" id="storyPost">Publicar story</button>
+  <p class="hint" style="text-align:center">Some sozinho em 24 horas. Só membros veem.</p>
+</div></dialog>
+<dialog class="story-dlg" id="storyView" aria-label="Story"><div class="story-box story-view">
+  <div class="story-bars" id="storyBars"></div>
+  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
+  <div class="story-img-wrap"><img alt="Story" id="storyImg"><button class="story-nav prev" type="button" id="storyPrev" aria-label="Anterior"></button><button class="story-nav next" type="button" id="storyNext" aria-label="Próximo"></button></div>
+  <p class="story-cap" id="storyCapView"></p>
+  <div class="story-acts" id="storyActs"></div>
+</div></dialog>
+<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
 </main>
 
-<a class="wa-float" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
-  <svg><use href="#i-wa"/></svg><span class="tip">Chamar o Denny</span>
+<a class="wa-float" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg><use href="#i-wa"/></svg><span class="tip">Chamar no WhatsApp</span>
 </a>
 
 <dialog id="reader" aria-labelledby="readerTitle">
@@ -1671,8 +1844,8 @@ var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Ge
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "dacasa", "mesa", "mensagens", "indicacoes", "cafe", "palestra", "sobre", "painel"];
-var ALIAS = { devocional: "dacasa:devocional", novidades: "dacasa:devocional", artigos: "dacasa:devocional", textos: "dacasa:devocional",
+var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "cafe", "palestra", "sobre", "painel"];
+var ALIAS = { dacasa: "prateleira", devocional: "prateleira:devocional", novidades: "prateleira:devocional", artigos: "prateleira:devocional", textos: "prateleira:devocional", lazer: "mesa:lazer", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               agendar: "cafe", cadeira: "cafe", contato: "sobre", palestras: "palestra", convite: "palestra", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
@@ -1833,11 +2006,11 @@ function openReader(a){
   readerBody.append(h("span", "label", "5 minutos para a sua casa · " + a.cat), title, h("span", "label", "O que a Bíblia diz sobre isso"), v);
   a.body.forEach(function(t){ readerBody.appendChild(h("p", null, t)); });
   readerBody.append(box("Para pensar", a.think), box("Para hoje", a.today), h("span", "label", "Se quiser, ore assim"), h("p", "devo-pray", a.prayer));
-  var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Denny Silva"));
+  var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Café, Graça & Fralda"));
   function act(cls, href, ic, label){ var x = h("a", "btn btn-sm " + cls); x.href = href; x.target = "_blank"; x.rel = "noopener"; x.append(icon(ic), document.createTextNode(label)); return x; }
   foot.append(
     act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
-    act("btn-ghost", waLink('Oi, Denny! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com o Denny")
+    act("btn-ghost", waLink('Oi! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com a equipe")
   );
   var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa Grande"));
   cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
@@ -1885,7 +2058,7 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
 $("n-phone").addEventListener("input", maskPhone);
 var newsForm = $("newsForm"), newsStatus = $("newsStatus");
 function finishNews(){
-  $("newsWa").href = waLink("Oi, Denny! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
+  $("newsWa").href = waLink("Oi! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
   newsForm.hidden = true; $("newsDone").hidden = false;
 }
 newsForm.addEventListener("submit", function(e){
@@ -1902,7 +2075,7 @@ newsForm.addEventListener("submit", function(e){
 
 
 // Um café na sua mesa: agendar, ver e desmarcar. Seg a sex, das 20h às 22h (horário de Brasília), 30 minutos.
-var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (o Denny manda o link)", presencial: "Presencial" };
+var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (a gente manda o link)", presencial: "Presencial" };
 var DEFAULT_TEMPLATE = [];
 [1, 2, 3, 4, 5].forEach(function(d){ ["20:00", "20:30", "21:00", "21:30"].forEach(function(t){ DEFAULT_TEMPLATE.push({ dia_semana: d, hora: t }); }); });
 var MIN_NOTICE_MIN = 60, BOOK_DAYS = 10;
@@ -2019,10 +2192,10 @@ function finishBooking(b){
     var li = h("li"); li.append(h("b", null, r[0] + ": "), document.createTextNode(r[1])); sum.appendChild(li);
   });
   $("bookDoneText").textContent = b.p_formato === "whatsapp"
-    ? "Na hora marcada, o Denny te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
-    : b.p_formato === "video" ? "O Denny manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
-    : "O Denny confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
-  $("bookWa").href = waLink("Oi, Denny! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
+    ? "Na hora marcada, a gente te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
+    : b.p_formato === "video" ? "A gente manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
+    : "A gente confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
+  $("bookWa").href = waLink("Oi! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
     (b.p_local ? " (" + b.p_local + ")" : "") + "\nAssunto: " + b.p_tema);
   bForm.hidden = true; bDone.hidden = false;
 }
@@ -2062,7 +2235,7 @@ function renderMine(){
         yes.addEventListener("click", function(){
           yes.disabled = true;
           sb.rpc("cancelar_agendamento", { p_id: x.id }).then(function(r){
-            if (r.error) { toast("Não foi possível desmarcar agora. Chame o Denny no WhatsApp."); renderMine(); return; }
+            if (r.error) { toast("Não foi possível desmarcar agora. Chame a gente no WhatsApp."); renderMine(); return; }
             delete cafe.taken[slotKey(x.data, x.hora)];
             toast("Horário desmarcado."); loadMine(); loadAvailability();
           });
@@ -2083,7 +2256,7 @@ auth.on(function(){ if (isShown("cafe")) viewHooks.cafe(currentSub("cafe")); });
 setInterval(function(){ if (!document.hidden && isShown("cafe") && !bForm.hidden) loadAvailability(); }, 60000);
 
 
-// Convite para palestra: a pessoa preenche os dados e a mensagem sai pronta no WhatsApp do Denny.
+// Convite para palestra: a pessoa preenche os dados e a mensagem sai pronta no WhatsApp da equipe.
 $("t-phone").addEventListener("input", maskPhone);
 var talkForm = $("talkForm"), talkStatus = $("talkStatus");
 talkForm.addEventListener("submit", function(e){
@@ -2097,7 +2270,7 @@ talkForm.addEventListener("submit", function(e){
   if (d.zap.replace(/\D/g, "").length < 10) return setStatus(talkStatus, "Informe o seu WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
   if (!d.org) return setStatus(talkStatus, "Informe o nome da igreja ou organização.", "err");
   if (!d.cidade) return setStatus(talkStatus, "Informe a cidade do evento.", "err");
-  var texto = "Oi, Denny! Gostaria de convidar você para uma palestra.\n\n" +
+  var texto = "Oi! Gostaria de convidar você para uma palestra.\n\n" +
     "Nome: " + d.nome + "\nWhatsApp: " + d.zap + "\nIgreja/organização: " + d.org + "\nCidade: " + d.cidade +
     "\nData ou período: " + (d.data || "ainda a combinar") + "\nPúblico estimado: " + (d.publico || "ainda não sei") +
     "\nFormato: " + d.formato + "\nTema: " + d.tema + (d.msg ? "\n\nMensagem: " + d.msg : "");
@@ -2110,7 +2283,7 @@ talkForm.addEventListener("submit", function(e){
 });
 
 
-// Indicações: da nossa mesa para a sua (curadas pelo Denny + enviadas pelos membros).
+// Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
   var chips = $$("#" + groupId + " .chip");
   chips.forEach(function(c){
@@ -2178,14 +2351,9 @@ var PAGE = 15;
 
 function uid(){ return auth.user ? auth.user.id : ""; }
 
-// Escolha do tipo ao publicar e filtro da Mesa
+// Filtro da Mesa por tipo de publicação
 (function buildChips(){
-  var box = $("postTypes"), fil = $("feedTypes");
-  TIPOS.forEach(function(t){
-    var b = h("button", "chip", t.em + " " + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === feed.tipo);
-    b.addEventListener("click", function(){ feed.tipo = t.id; $$(".chip", box).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); });
-    box.appendChild(b);
-  });
+  var fil = $("feedTypes");
   [{ id: "all", nome: "Tudo", em: "" }].concat(TIPOS).forEach(function(t){
     var b = h("button", "chip", (t.em ? t.em + " " : "") + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === "all");
     b.addEventListener("click", function(){ feed.filtro = t.id; $$(".chip", fil).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); loadFeed(true); });
@@ -2234,7 +2402,7 @@ $("postForm").addEventListener("submit", function(e){
   }
   up.then(function(u){
     if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("posts").insert({ tipo: feed.tipo, texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
+    return sb.from("posts").insert({ tipo: $("postTipo").value || "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
         var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
@@ -2294,19 +2462,12 @@ function loadMembers(){
   });
 }
 function renderMembers(){
-  var row = $("peopleRow"), side = $("sidePeople"); row.innerHTML = ""; side.innerHTML = "";
-  var me = h("button", "person me"); me.type = "button"; var rg = h("span", "ring"); rg.appendChild(h("span", null, initial(auth.name()))); me.append(rg, h("small", null, "Você"));
-  me.addEventListener("click", function(){ $("postText").focus(); });
-  row.appendChild(me);
-  feed.members.forEach(function(m){
-    var b = h("button", "person"); b.type = "button"; var r2 = h("span", "ring"); r2.appendChild(h("span", null, initial(m.nome))); b.append(r2, h("small", null, m.nome || "Alguém"));
-    b.title = "Chamar " + (m.nome || "") + " no privado"; b.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
-    row.appendChild(b);
-    if (side.childNodes.length < 6) {
-      var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, m.nome || "Alguém"), h("small", null, "Chamar no privado"));
-      s.append(h("span", "avatar", initial(m.nome)), tx); s.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
-      side.appendChild(s);
-    }
+  var side = $("sidePeople"); side.innerHTML = "";
+  feed.members.forEach(function(p){
+    if (side.childNodes.length >= 6) return;
+    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Chamar no privado"));
+    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ openDm(p.user_id, p.nome || "Alguém"); });
+    side.appendChild(s);
   });
   if (!feed.members.length) side.appendChild(h("p", "hint", "Você é a primeira pessoa por aqui. Convide alguém para a mesa!"));
 }
@@ -2399,7 +2560,7 @@ function deletePost(p){
   });
 }
 function reportPost(p){
-  if (!confirm("Denunciar esta publicação? Ela some da Mesa se outras pessoas também denunciarem, e o Denny revisa.")) return;
+  if (!confirm("Denunciar esta publicação? Ela some da Mesa se outras pessoas também denunciarem, e a equipe revisa.")) return;
   sb.from("post_denuncias").insert({ post_id: p.id }).then(function(r){
     if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
     toast("Obrigado. Vamos olhar com cuidado.");
@@ -2407,11 +2568,18 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-viewHooks.mesa = function(){ if (auth.user) { if (!feed.loaded) loadFeed(true); loadMembers(); } };
-auth.on(function(){ if (auth.user && isShown("mesa")) { if (!feed.loaded) loadFeed(true); loadMembers(); } });
+function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?"; }
+viewHooks.mesa = function(sub){
+  if (!auth.user) return;
+  mesaSync();
+  if (sub === "lazer") { if (typeof loadLazer === "function") loadLazer(true); return; }
+  if (!feed.loaded) loadFeed(true);
+  loadMembers(); if (typeof loadStories === "function") loadStories();
+};
+auth.on(function(){ if (auth.user && isShown("mesa")) viewHooks.mesa(currentSub("mesa")); });
 
 
-// Indicar um profissional (membros logados). A indicação só aparece no site depois que o Denny aprova.
+// Indicar um profissional (membros logados). A indicação só aparece no site depois que a equipe aprova.
 var indWrap = $("indWrap"), indForm = $("indForm");
 function indSync(){ indForm.hidden = !auth.user; $("indGate").hidden = !!auth.user; }
 auth.on(indSync); indSync();
@@ -2434,7 +2602,7 @@ indForm.addEventListener("submit", function(e){
     $("indSend").disabled = false;
     if (r.error) return setStatus(st, String(r.error.message || "").indexOf("muito_rapido") > -1 ? "Você já enviou várias indicações hoje. Volte amanhã." : "Não foi possível enviar agora. Tente de novo.", "err");
     indForm.reset(); $("i-planos").hidden = true;
-    setStatus(st, "Recebi! O Denny confere e publica em breve. Obrigado por indicar.", "ok");
+    setStatus(st, "Recebi! A equipe confere e publica em breve. Obrigado por indicar.", "ok");
     loadMemberInds();
   });
 });
@@ -2492,7 +2660,7 @@ function renderDmTools(){
     var q = blocked ? sb.from("dm_bloqueios").delete().eq("bloqueado", o) : sb.from("dm_bloqueios").insert({ quem: me(), bloqueado: o });
     q.then(function(r){ if (r.error) return toast("Não foi possível fazer isso agora."); dm.blocked[o] = !blocked; toast(blocked ? "Pessoa desbloqueada." : "Pessoa bloqueada. Ela não consegue mais te escrever."); renderDmTools(); });
   });
-  var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi, Denny! Quero denunciar uma pessoa nas mensagens privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
+  var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi! Quero denunciar uma pessoa nas mensagens privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
   t.append(bl, rep);
 }
 
@@ -2746,6 +2914,8 @@ var bellBtn = $("bellBtn"), bellPanel = $("bellPanel");
 function notifText(n){
   if (n.tipo === "comentario") return [n.de_nome + " comentou", n.resumo ? "“" + n.resumo + "”" : "no seu post"];
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
+  if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
+  if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
   return [n.de_nome + " te mandou uma mensagem", n.resumo ? "“" + n.resumo + "”" : ""];
 }
 function setBell(){
@@ -2765,7 +2935,7 @@ function renderBell(){
 }
 function loadNotifs(){
   if (!sb || !auth.user) return;
-  sb.from("notificacoes").select("id,tipo,de_nome,post_id,conversa_id,resumo,lida,criado_em").order("criado_em", { ascending: false }).limit(30).then(function(r){
+  sb.from("notificacoes").select("id,tipo,de_nome,post_id,pub_id,conversa_id,resumo,lida,criado_em").order("criado_em", { ascending: false }).limit(30).then(function(r){
     if (!r.data) return;
     var fresh = r.data.filter(function(n){ return !n.lida && !notif.seenIds[n.id]; });
     r.data.forEach(function(n){ notif.seenIds[n.id] = true; });
@@ -2797,6 +2967,9 @@ function openNotif(n){
   if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");
     loadConvs().then(function(){ openConv(n.conversa_id); });
+  } else if (n.pub_id) {
+    pub.focus = n.pub_id; if (n.tipo === "pub_comentario") pub.open[n.pub_id] = true;
+    go("prateleira", "publicacoes"); loadPubs(true);
   } else if (n.post_id) {
     feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
     go("mesa"); loadFeed(true);
@@ -2824,20 +2997,31 @@ auth.on(function(){
 });
 
 
-// Da Casa: postagens oficiais (devocional da semana, avisos, convites e parceiros), publicadas pelo Denny. Qualquer pessoa lê.
-var oficial = { items: [], loaded: false };
+// Prateleira: publicações da comunidade (texto, foto, vídeo, PDF, YouTube, link) e as oficiais (com selo). Qualquer pessoa lê; publicar, curtir e comentar exige login.
+var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
+var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.github.io/#prateleira";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
-function ofImgUrl(path){ try { return sb.storage.from("oficial").getPublicUrl(path).data.publicUrl; } catch(e){ return ""; } }
-function ofShareText(it){
-  return "📣 *" + it.titulo + "*\n\n" + it.texto + (it.link ? "\n\n" + it.link : "") + "\n\nCafé, Graça & Fralda: https://cafegracaefralda.github.io/#dacasa";
+var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
+
+function pubFileUrl(path){ try { return sb.storage.from("prateleira").getPublicUrl(path).data.publicUrl; } catch(e){ return ""; } }
+function ytId(url){
+  var m = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/|live\/))([A-Za-z0-9_-]{11})/.exec(String(url || ""));
+  return m ? m[1] : "";
 }
-function casaHead(sub, tag){
+function pubShareText(p){
+  var head = p.titulo || (p.texto || "").split("\n")[0].slice(0, 70) || "Publicação da comunidade";
+  var extra = p.youtube ? "\n\n▶ https://youtu.be/" + p.youtube : p.link ? "\n\n" + p.link : p.arquivo ? "\n\n" + pubFileUrl(p.arquivo) : "";
+  return (p.oficial ? "📣 *" : "☕ *") + head + "*" + (p.texto && p.titulo ? "\n\n" + p.texto.slice(0, 300) : p.texto && p.texto.length > 70 ? "\n\n" + p.texto.slice(0, 300) : "") + extra + "\n\nVeja na Prateleira do Café, Graça & Fralda: " + PUB_URL;
+}
+function needLogin(msg){ toast(msg || "Entre com o Google para participar."); }
+
+/* ---------- Destaque: devocional da semana ---------- */
+function casaHead(sub){
   var top = h("div", "post-top"), who = h("div", "grow"), av = h("span", "avatar casa");
   av.innerHTML = '<svg><use href="#logo"/></svg>';
-  var b = h("b", null, "Café, Graça & Fralda"); b.appendChild(h("span", "selo", "✓")); b.lastChild.setAttribute("title", "Postagem oficial");
+  var b = h("b", null, "Café, Graça & Fralda"); b.appendChild(h("span", "selo", "✓"));
   who.append(b, h("small", null, sub));
   top.append(av, who);
-  if (tag) top.appendChild(h("span", "post-tag", tag));
   return top;
 }
 function linkBtn(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(icon(ic), document.createTextNode(label)); return a; }
@@ -2845,48 +3029,223 @@ function renderDestaque(){
   var el = $("destaqueDevo"); if (!el || typeof FEATURED === "undefined") return;
   el.innerHTML = "";
   var a = FEATURED;
-  el.appendChild(casaHead("Devocional desta semana · 5 minutos", "📖 Devocional"));
+  el.appendChild(casaHead("📖 Devocional da semana · 5 minutos"));
   el.appendChild(h("h3", null, a.title));
   el.appendChild(h("p", "of-verse", "“" + a.passage[0] + "” — " + a.passage[1]));
-  el.appendChild(h("p", "post-text", (a.body && a.body[0]) || ""));
   var acts = h("div", "post-acts");
   var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
   acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"));
-  var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("dacasa", "devocional"); });
+  var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
   acts.appendChild(more);
   el.appendChild(acts);
 }
-function renderOficial(){
-  var box = $("oficialList"); if (!box) return;
-  box.innerHTML = "";
-  if (!oficial.items.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, "Em breve, mais novidades da casa"), h("p", null, "Avisos, convites e indicações de parceiros aparecem aqui.")); box.appendChild(e); return;
+
+/* ---------- Publicar ---------- */
+function pubSync(){
+  var inn = !!auth.user;
+  $("pubForm").hidden = !inn; $("pubGate").hidden = inn;
+  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin;
+  if (inn) $("pubText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?";
+}
+function pubClearAttach(){ pub.file = null; $("pubAttach").hidden = true; $("pubAttachName").textContent = ""; }
+function pubClearLink(){ $("pubLink").value = ""; $("pubLinkRow").hidden = true; }
+function pubSetFile(f){ pub.file = f; pubClearLink(); $("pubAttachName").textContent = f.label; $("pubAttach").hidden = false; }
+function sizeTxt(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+$("pubFoto").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(){ toast("Não consegui usar essa foto."); });
+});
+$("pubVideo").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  if (f.size > 30 * 1024 * 1024) return toast("O vídeo tem mais de 30 MB. Escolha um mais curto ou cole o link do YouTube.");
+  var webm = f.type === "video/webm";
+  pubSetFile({ blob: f, kind: "video", ext: webm ? "webm" : "mp4", type: webm ? "video/webm" : "video/mp4", name: f.name || "video", label: "🎬 " + (f.name || "Vídeo") + " · " + sizeTxt(f.size) });
+});
+$("pubPdf").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  if (f.type !== "application/pdf") return toast("Escolha um arquivo PDF.");
+  if (f.size > 30 * 1024 * 1024) return toast("O PDF tem mais de 30 MB.");
+  pubSetFile({ blob: f, kind: "pdf", ext: "pdf", type: "application/pdf", name: f.name || "documento.pdf", label: "📄 " + (f.name || "PDF") + " · " + sizeTxt(f.size) });
+});
+$("pubLinkBtn").addEventListener("click", function(){ pubClearAttach(); $("pubLinkRow").hidden = false; $("pubLink").focus(); });
+$("pubLinkDel").addEventListener("click", pubClearLink);
+$("pubAttachDel").addEventListener("click", pubClearAttach);
+
+$("pubForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  if (!sb || !auth.user || pub.busy) return;
+  var st = $("pubStatus"), texto = $("pubText").value.trim(), link = $("pubLink").value.trim(), file = pub.file;
+  var yt = link ? ytId(link) : "";
+  if (link && !yt && !/^https?:\/\/[^\s]+$/i.test(link)) return setStatus(st, "O link precisa começar com https://", "err");
+  var titulo = auth.admin ? val("pubTitulo") : "";
+  if (!texto && !file && !link && !titulo) return setStatus(st, "Escreva algo ou anexe uma foto, vídeo, PDF ou link.", "err");
+  var oficialTipo = auth.admin ? $("pubTipo").value : "";
+  var row = { tipo: oficialTipo || (file ? file.kind : yt ? "youtube" : link ? "link" : "texto"), titulo: titulo || null, texto: texto, arquivo: null, arquivo_nome: null,
+              youtube: yt || null, link: link && !yt ? link : null, link_texto: link && !yt ? "Abrir link" : null };
+  if (oficialTipo) { row.oficial = true; row.fixado = $("pubFixar").checked; }
+  pub.busy = true; $("pubSend").disabled = true; setStatus(st, file ? "Enviando o arquivo…" : "Publicando…");
+  var path = null, up = Promise.resolve();
+  if (file) { path = uid() + "/" + newUuid() + "." + file.ext; row.arquivo = path; row.arquivo_nome = String(file.name).slice(0, 120); up = sb.storage.from("prateleira").upload(path, file.blob, { contentType: file.type, upsert: false }); }
+  up.then(function(u){
+    if (u && u.error) { var ef = new Error("arquivo"); ef.detail = u.error.message || ""; throw ef; }
+    return sb.from("pubs").insert(row).select("id,user_id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em");
+  }).then(function(r){
+    if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("prateleira").remove([path]); var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er; }
+    var p = r.data[0]; pub.items.unshift(p); pub.likes[p.id] = []; pub.cmts[p.id] = []; renderPubs();
+    $("pubText").value = ""; $("pubTitulo").value = ""; $("pubFixar").checked = false; pubClearAttach(); pubClearLink(); setStatus(st, ""); toast("Publicado na Prateleira.");
+  }).catch(function(err){
+    var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "arquivo" ? "Não foi possível enviar o arquivo (máximo 30 MB)." : "Não foi possível publicar agora. Tente de novo.";
+    setStatus(st, msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
+  }).then(function(){ pub.busy = false; $("pubSend").disabled = false; });
+});
+
+/* ---------- Carregar e mostrar ---------- */
+function loadPubs(reset){
+  if (!sb) { renderPubs(); return; }
+  var tok = ++pub.tok, base = reset ? [] : pub.items;
+  if (reset) { pub.items = []; pub.loaded = false; }
+  var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em" + (auth.user ? ",user_id" : "");
+  sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1).then(function(r){
+    if (!r.data || tok !== pub.tok) return;
+    var fresh = r.data, ids = fresh.map(function(p){ return p.id; });
+    pub.more = fresh.length === PUB_PAGE;
+    if (!ids.length) { pub.loaded = true; renderPubs(); return; }
+    return Promise.all([
+      sb.from("pub_curtidas").select(auth.user ? "pub_id,user_id" : "pub_id").in("pub_id", ids),
+      sb.from("pub_comentarios").select(auth.user ? "id,pub_id,user_id,nome,texto,criado_em" : "id,pub_id,nome,texto,criado_em").in("pub_id", ids).order("criado_em", { ascending: true })
+    ]).then(function(x){
+      if (tok !== pub.tok) return;
+      fresh.forEach(function(p){ pub.likes[p.id] = []; pub.cmts[p.id] = []; });
+      (x[0].data || []).forEach(function(l){ (pub.likes[l.pub_id] = pub.likes[l.pub_id] || []).push(l.user_id || "x"); });
+      (x[1].data || []).forEach(function(c){ (pub.cmts[c.pub_id] = pub.cmts[c.pub_id] || []).push(c); });
+      pub.items = base.concat(fresh); pub.loaded = true; renderPubs();
+    });
+  });
+}
+$("pubMore").addEventListener("click", function(){ loadPubs(false); });
+
+function ytBlock(p){
+  var box = h("div", "yt"), b = h("button", "yt-play"); b.type = "button"; b.setAttribute("aria-label", "Assistir no YouTube");
+  b.innerHTML = '<span class="yt-ic">▶</span><span class="yt-tx">Toque para assistir</span>';
+  b.addEventListener("click", function(){
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + p.youtube + "?autoplay=1&rel=0"; f.title = p.titulo || "Vídeo do YouTube";
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true; f.loading = "lazy"; f.referrerPolicy = "strict-origin-when-cross-origin";
+    box.innerHTML = ""; box.appendChild(f);
+  });
+  box.appendChild(b); return box;
+}
+function mediaOf(p){
+  var url = p.arquivo ? pubFileUrl(p.arquivo) : "";
+  if (p.youtube) return ytBlock(p);
+  if (p.arquivo && /\.jpg$/.test(p.arquivo)) { var im = h("img", "post-img"); im.src = url; im.alt = p.titulo || "Foto de " + p.autor; im.loading = "lazy"; return im; }
+  if (p.arquivo && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
+  if (p.arquivo && /\.pdf$/.test(p.arquivo)) {
+    var a = h("a", "file-chip pub-file"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.append(h("span", "file-ic", "📄"), h("span", "file-nm", p.arquivo_nome || "documento.pdf"), h("small", null, "Abrir")); return a;
   }
-  oficial.items.forEach(function(it){
-    var el = h("article", "post oficial");
-    el.appendChild(casaHead(ago(it.criado_em) + (it.fixado ? " · 📌 fixado" : ""), TIPO_OF[it.tipo] || "📣 Aviso"));
-    el.appendChild(h("h3", null, it.titulo));
-    el.appendChild(h("p", "post-text", it.texto));
-    if (it.imagem) { var im = h("img", "post-img"); im.src = ofImgUrl(it.imagem); im.alt = it.titulo; im.loading = "lazy"; el.appendChild(im); }
-    if (it.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
-    var acts = h("div", "post-acts");
-    if (it.link) acts.appendChild(linkBtn("", it.link, "i-arrow", it.link_texto || "Saiba mais"));
-    acts.appendChild(linkBtn("", "https://wa.me/?text=" + encodeURIComponent(ofShareText(it)), "i-share", "Compartilhar"));
-    el.appendChild(acts);
-    box.appendChild(el);
+  if (p.link) {
+    var host = ""; try { host = new URL(p.link).hostname.replace(/^www\./, ""); } catch(e){}
+    var l = h("a", "file-chip pub-file"); l.href = p.link; l.target = "_blank"; l.rel = "noopener noreferrer nofollow ugc";
+    l.append(h("span", "file-ic", "🔗"), h("span", "file-nm", host || p.link), h("small", null, p.link_texto || "Abrir")); return l;
+  }
+  return null;
+}
+function renderPubs(){
+  var box = $("pubList"); box.innerHTML = "";
+  $("pubMore").hidden = !pub.more;
+  if (!pub.items.length) {
+    var e = h("div", "empty card"); e.append(h("h3", null, pub.loaded ? "A Prateleira está vazia" : "Carregando…"), h("p", null, pub.loaded ? "Seja a primeira pessoa a compartilhar um vídeo, PDF, foto ou link." : "")); box.appendChild(e); return;
+  }
+  pub.items.forEach(function(p){ box.appendChild(renderPub(p)); });
+  if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
+}
+function renderPub(p){
+  var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = "pub-" + p.id;
+  var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
+  var top;
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(h("b", null, mine ? "Você" : p.autor), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
+  // menu ⋯
+  var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
+  var menu = h("div", "pmenu"); menu.hidden = true;
+  function mi(label, fn){ var b = h("button", null, label); b.type = "button"; b.addEventListener("click", function(){ menu.hidden = true; fn(); }); menu.appendChild(b); }
+  if (mine || auth.admin) mi("Apagar", function(){ if (confirm("Apagar esta publicação?")) deletePub(p); });
+  if (auth.admin) { mi(p.fixado ? "Desafixar" : "Fixar no topo", function(){ sb.from("pubs").update({ fixado: !p.fixado }).eq("id", p.id).then(function(){ loadPubs(true); }); }); if (p.aprovado === false) mi("Mostrar de novo", function(){ sb.from("pubs").update({ aprovado: true }).eq("id", p.id).then(function(){ loadPubs(true); }); }); }
+  if (!mine && auth.user) mi("Denunciar", function(){ reportPub(p); });
+  if (menu.childNodes.length) { mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; }); mw.append(mb, menu); top.appendChild(mw); }
+  el.appendChild(top);
+  if (p.titulo) el.appendChild(h("h3", "pub-title", p.titulo));
+  if (p.texto) el.appendChild(h("p", "post-text", p.texto));
+  if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
+  var m = mediaOf(p); if (m) el.appendChild(m);
+  var likes = pub.likes[p.id] || [], liked = auth.user && likes.indexOf(uid()) > -1, cm = pub.cmts[p.id] || [];
+  if (likes.length || cm.length) {
+    var cnt = h("div", "post-count"); cnt.append(h("span", null, likes.length ? "♥ " + likes.length + (likes.length === 1 ? " curtida" : " curtidas") : ""));
+    var cb = h("button", null, cm.length ? cm.length + (cm.length === 1 ? " comentário" : " comentários") : ""); cb.type = "button"; cb.addEventListener("click", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }); cnt.appendChild(cb); el.appendChild(cnt);
+  }
+  var acts = h("div", "post-acts");
+  var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ togglePubLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", !!liked);
+  acts.append(lk, actBtn("Comentar", "i-chat", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(pubShareText(p)), "i-share", "WhatsApp"));
+  el.appendChild(acts);
+  if (pub.open[p.id] || cm.length) el.appendChild(renderPubCmts(p, cm, !!pub.open[p.id]));
+  return el;
+}
+function renderPubCmts(p, cm, open){
+  var box = h("div", "post-cmts"), list = open ? cm : cm.slice(-1);
+  if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
+  list.forEach(function(c){
+    var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
+    if (open && auth.user && (c.user_id === uid() || auth.admin)) {
+      var d = h("button", "link", "Apagar"); d.type = "button";
+      d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
+      pp.appendChild(d);
+    }
+    body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
+  });
+  if (open) {
+    if (!auth.user) { var lg = h("p", "hint", "Entre com o Google para comentar."); box.appendChild(lg); return box; }
+    var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
+    var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
+    f.addEventListener("submit", function(e){
+      e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
+      sb.from("pub_comentarios").insert({ pub_id: p.id, texto: t }).select("id,pub_id,user_id,nome,texto,criado_em").then(function(r){
+        if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
+        pub.cmts[p.id].push(r.data[0]); renderPubs();
+      });
+    });
+    box.appendChild(f);
+  }
+  return box;
+}
+function togglePubLike(p){
+  if (!auth.user) return needLogin("Entre com o Google para curtir.");
+  var l = pub.likes[p.id] = pub.likes[p.id] || [], i = l.indexOf(uid());
+  if (i > -1) { l.splice(i, 1); renderPubs(); sb.from("pub_curtidas").delete().eq("pub_id", p.id).eq("user_id", uid()).then(function(r){ if (r.error) { l.push(uid()); renderPubs(); } }); }
+  else { l.push(uid()); renderPubs(); sb.from("pub_curtidas").insert({ pub_id: p.id }).then(function(r){ if (r.error) { var j = l.indexOf(uid()); if (j > -1) l.splice(j, 1); renderPubs(); } }); }
+}
+function deletePub(p){
+  var rm = p.arquivo ? sb.storage.from("prateleira").remove([p.arquivo]) : Promise.resolve();
+  Promise.resolve(rm).then(function(){ return sb.from("pubs").delete().eq("id", p.id); }).then(function(r){
+    if (r && r.error) return toast("Não foi possível apagar.");
+    pub.items = pub.items.filter(function(x){ return x.id !== p.id; }); renderPubs(); toast("Publicação apagada.");
   });
 }
-function loadOficial(){
-  if (!sb) { renderOficial(); return; }
-  sb.from("oficiais").select("id,tipo,titulo,texto,imagem,link,link_texto,fixado,criado_em").eq("publicado", true).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).limit(30).then(function(r){
-    if (r.data) { oficial.items = r.data; oficial.loaded = true; }
-    renderOficial();
+function reportPub(p){
+  if (!confirm("Denunciar esta publicação? Ela some se outras pessoas também denunciarem, e a equipe revisa.")) return;
+  sb.from("pub_denuncias").insert({ pub_id: p.id }).then(function(r){
+    if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
+    toast("Obrigado. Vamos olhar com cuidado.");
   });
 }
-viewHooks.dacasa = function(sub){ if (sub !== "devocional") { renderDestaque(); loadOficial(); } };
+document.addEventListener("click", function(){ $$(".pmenu").forEach(function(m){ m.hidden = true; }); });
+
+viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque(); if (!pub.loaded) loadPubs(true); } };
+auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); });
+pubSync();
 
 
-// Painel do Denny (só administradores): agenda, horários da semana, inscritos e moderação.
+// Painel (só administradores): agenda, horários da semana, inscritos e moderação.
 var panel = { bookings: [], blocks: [], template: [], subs: [], open: null };
 var WEEK_HOURS = [];
 for (var hh = 18; hh <= 23; hh++) ["00", "30"].forEach(function(mm){ WEEK_HOURS.push(String(hh).padStart(2, "0") + ":" + mm); });
@@ -2949,7 +3308,7 @@ function bookingCard(b){
   info.append(h("b", null, whenText(b.data, b.hora)), h("small", null, b.nome + " · " + (FORMATS[b.formato] || b.formato) + (b.local ? " · " + b.local : "") + " · " + b.tema));
   var msg = h("small", null, "“" + b.mensagem + "”"); msg.style.cssText = "margin-top:4px;color:var(--ink);white-space:pre-wrap";
   info.appendChild(msg);
-  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é o Denny, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
+  var act = h("div", "confirm"), wa = h("a", "btn btn-wa btn-sm"); wa.href = waLink("Oi " + firstName(b.nome) + "! Aqui é da equipe do Café, Graça & Fralda, sobre o nosso café de " + whenText(b.data, b.hora) + ". ", b.whatsapp.replace(/\D/g, ""));
   wa.target = "_blank"; wa.rel = "noopener"; wa.append(icon("i-wa"), document.createTextNode("WhatsApp"));
   var can = h("button", "btn btn-ghost btn-sm", "Desmarcar"); can.type = "button";
   can.addEventListener("click", function(){
@@ -3051,8 +3410,8 @@ viewHooks.painel = function(sub){
   if (!auth.ready) return;
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
-  if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para o Denny." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Agenda, horários, inscritos, moderação e publicações da Da Casa.";
+  if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
+  note.textContent = "Agenda, horários, inscritos e moderação.";
   $("panelApp").hidden = false;
   loadPanel();
   if (sub === "inscritos") loadSubs();
@@ -3061,51 +3420,219 @@ viewHooks.painel = function(sub){
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
 
 
-// Painel do Denny > Publicar: cria postagens oficiais da Da Casa (aviso, devocional extra, convite, parceiro).
-var ofFile = null;
-function ofStatus(msg, kind){ setStatus($("ofStatus"), msg, kind); }
-$("of-file").addEventListener("change", function(){
-  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ ofFile = blob; $("of-file-name").textContent = "Imagem pronta (" + Math.max(1, Math.round(blob.size / 1024)) + " KB)"; }, function(){ ofFile = null; $("of-file-name").textContent = ""; ofStatus("Não consegui usar essa imagem.", "err"); });
-});
-$("ofForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var row = { tipo: $("of-tipo").value, titulo: val("of-titulo"), texto: val("of-texto"), link: val("of-link") || null, link_texto: val("of-linkt") || null, fixado: $("of-fixar").checked };
-  if (row.titulo.length < 2 || row.texto.length < 2) return ofStatus("Preencha o título e o texto.", "err");
-  if (row.link && !/^https?:\/\//.test(row.link)) return ofStatus("O link precisa começar com https://", "err");
-  if (!sb || !auth.admin) return ofStatus("Só o Denny publica aqui.", "err");
-  $("ofSend").disabled = true; ofStatus("Publicando…");
-  var path = null, up = Promise.resolve();
-  if (ofFile) { path = newUuid() + ".jpg"; up = sb.storage.from("oficial").upload(path, ofFile, { contentType: "image/jpeg", upsert: false }); row.imagem = path; }
-  up.then(function(u){
-    if (u && u.error) throw new Error("imagem");
-    return sb.from("oficiais").insert(row).select("id");
-  }).then(function(r){
-    if (r.error) { if (path) sb.storage.from("oficial").remove([path]); throw new Error("post"); }
-    ofStatus("Publicado na Da Casa. Use “Copiar para o WhatsApp” abaixo para avisar o grupo e o Canal.", "ok");
-    $("ofForm").reset(); ofFile = null; $("of-file-name").textContent = ""; loadAdminOficiais();
-  }).catch(function(err){ ofStatus(err.message === "imagem" ? "Não foi possível enviar a imagem." : "Não foi possível publicar agora.", "err"); }).then(function(){ $("ofSend").disabled = false; });
-});
-function loadAdminOficiais(){
-  if (!sb || !auth.admin) return;
-  sb.from("oficiais").select("id,tipo,titulo,texto,imagem,link,link_texto,fixado,publicado,criado_em").order("criado_em", { ascending: false }).limit(40).then(function(r){
-    var box = $("ofAdminList"); box.innerHTML = "";
-    (r.data || []).forEach(function(it){
-      var el = h("div", "mod-item" + (it.publicado ? "" : " off")), body = h("div");
-      body.append(h("small", null, (TIPO_OF[it.tipo] || it.tipo) + " · " + ago(it.criado_em) + (it.fixado ? " · fixado" : "") + (it.publicado ? "" : " · oculto")), h("p", null, it.titulo));
-      var act = h("div", "confirm");
-      function btn(label, fn){ var b = h("button", "btn btn-ghost btn-sm", label); b.type = "button"; b.addEventListener("click", fn); act.appendChild(b); return b; }
-      btn("Copiar para o WhatsApp", function(){ copyText(ofShareText(it), "Texto para o WhatsApp copiado"); });
-      btn(it.fixado ? "Desafixar" : "Fixar", function(){ sb.from("oficiais").update({ fixado: !it.fixado }).eq("id", it.id).then(loadAdminOficiais); });
-      btn(it.publicado ? "Ocultar" : "Mostrar", function(){ sb.from("oficiais").update({ publicado: !it.publicado }).eq("id", it.id).then(loadAdminOficiais); });
-      var del = btn("Excluir", function(){ del.textContent = "Confirmar?"; del.onclick = function(){ (it.imagem ? sb.storage.from("oficial").remove([it.imagem]) : Promise.resolve()).then(function(){ return sb.from("oficiais").delete().eq("id", it.id); }).then(loadAdminOficiais); }; });
-      el.append(body, act); box.appendChild(el);
-    });
-    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Nenhuma postagem ainda."));
+// Stories: fotos que somem em 24 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.
+var stories = { groups: [], urls: {}, cur: null, idx: 0, timer: null, file: null };
+var storyInput = document.createElement("input"); storyInput.type = "file"; storyInput.accept = "image/*"; storyInput.hidden = true; document.body.appendChild(storyInput);
+var STORY_MS = 5000;
+
+function groupStories(rows){
+  var by = {}, order = [];
+  rows.forEach(function(s){ if (!by[s.user_id]) { by[s.user_id] = { user_id: s.user_id, nome: s.nome, items: [] }; order.push(by[s.user_id]); } by[s.user_id].items.push(s); });
+  order.forEach(function(g){ g.last = g.items[g.items.length - 1].criado_em; });
+  order.sort(function(a, b){ return a.user_id === uid() ? -1 : b.user_id === uid() ? 1 : (a.last < b.last ? 1 : -1); });
+  return order;
+}
+function signStories(rows){
+  var paths = rows.map(function(s){ return s.foto; }).filter(function(f){ return f && !stories.urls[f]; });
+  if (!paths.length || !sb) return Promise.resolve();
+  return sb.storage.from("mural").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) stories.urls[x.path] = x.signedUrl; }); }, function(){});
+}
+function loadStories(){
+  if (!sb || !auth.user) return;
+  sb.from("stories").select("id,user_id,nome,foto,legenda,criado_em").order("criado_em", { ascending: true }).limit(120).then(function(r){
+    if (!r.data) return;
+    signStories(r.data).then(function(){ stories.groups = groupStories(r.data); renderStories(); });
   });
 }
-var _painelHook = viewHooks.painel;
-viewHooks.painel = function(sub){ _painelHook(sub); if (auth.admin && sub === "publicar") loadAdminOficiais(); };
+function tile(label, letter, cls, onClick, badge){
+  var b = h("button", "person" + (cls ? " " + cls : "")); b.type = "button";
+  var ring = h("span", "ring"); ring.appendChild(h("span", null, letter));
+  if (badge) ring.appendChild(h("i", "plus", "+"));
+  b.append(ring, h("small", null, label)); b.addEventListener("click", onClick); return b;
+}
+function renderStories(){
+  var row = $("storiesRow"); if (!row) return; row.innerHTML = "";
+  var mine = stories.groups.filter(function(g){ return g.user_id === uid(); })[0];
+  row.appendChild(tile("Seu story", initial(auth.name()), mine ? "" : "me", function(){ if (mine) openStory(mine); else storyInput.click(); }, true));
+  stories.groups.forEach(function(g){
+    if (g.user_id === uid()) return;
+    row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }));
+  });
+  if (!stories.groups.some(function(g){ return g.user_id !== uid(); })) row.appendChild(h("p", "stories-hint", "Os stories das outras famílias aparecem aqui por 24 horas."));
+}
+
+/* ---------- Novo story ---------- */
+storyInput.addEventListener("change", function(){
+  var f = storyInput.files && storyInput.files[0]; storyInput.value = ""; if (!f) return;
+  shrinkPhoto(f).then(function(blob){
+    stories.file = blob; $("storyNewImg").src = URL.createObjectURL(blob); $("storyCap").value = ""; $("storyNew").showModal();
+  }, function(){ toast("Não consegui usar essa foto."); });
+});
+$("storyNewClose").addEventListener("click", function(){ $("storyNew").close(); stories.file = null; });
+$("storyPost").addEventListener("click", function(){
+  if (!stories.file || !sb || !auth.user) return;
+  var btn = $("storyPost"); btn.disabled = true;
+  var path = uid() + "/" + newUuid() + ".jpg";
+  sb.storage.from("mural").upload(path, stories.file, { contentType: "image/jpeg", upsert: false }).then(function(u){
+    if (u && u.error) throw new Error("foto");
+    return sb.from("stories").insert({ foto: path, legenda: $("storyCap").value.trim() || null }).select("id");
+  }).then(function(r){
+    if (r.error) { sb.storage.from("mural").remove([path]); throw new Error(String(r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "story"); }
+    $("storyNew").close(); stories.file = null; toast("Story publicado. Some em 24 horas."); loadStories();
+  }).catch(function(err){ toast(err.message === "rapido" ? "Calma! Muitos stories hoje." : "Não foi possível publicar o story."); }).then(function(){ btn.disabled = false; });
+});
+
+/* ---------- Ver story (tela cheia no celular) ---------- */
+function showStory(){
+  var g = stories.cur, s = g.items[stories.idx], dlg = $("storyView");
+  clearTimeout(stories.timer);
+  var bars = $("storyBars"); bars.innerHTML = "";
+  g.items.forEach(function(x, i){ var bar = h("span", "bar" + (i < stories.idx ? " done" : i === stories.idx ? " run" : "")); bar.appendChild(h("i")); bars.appendChild(bar); });
+  $("storyAv").textContent = initial(g.nome); $("storyNm").textContent = g.user_id === uid() ? "Você" : g.nome; $("storyTm").textContent = ago(s.criado_em);
+  $("storyImg").src = stories.urls[s.foto] || ""; $("storyCapView").textContent = s.legenda || ""; $("storyCapView").hidden = !s.legenda;
+  var acts = $("storyActs"); acts.innerHTML = "";
+  if (g.user_id === uid()) {
+    var add = h("button", "btn btn-ghost btn-sm", "Adicionar outro"); add.type = "button"; add.addEventListener("click", function(){ closeStory(); storyInput.click(); });
+    var del = h("button", "btn btn-ghost btn-sm", "Apagar"); del.type = "button";
+    del.addEventListener("click", function(){ if (!confirm("Apagar este story?")) return; sb.storage.from("mural").remove([s.foto]); sb.from("stories").delete().eq("id", s.id).then(function(){ closeStory(); loadStories(); toast("Story apagado."); }); });
+    acts.append(add, del);
+  } else {
+    var dmb = h("button", "btn btn-terra btn-sm", "Responder no privado"); dmb.type = "button"; dmb.addEventListener("click", function(){ closeStory(); openDm(g.user_id, g.nome); });
+    acts.appendChild(dmb);
+  }
+  if (!dlg.open) dlg.showModal();
+  stories.timer = setTimeout(nextStory, STORY_MS);
+}
+function openStory(g){ stories.cur = g; stories.idx = 0; showStory(); }
+function nextStory(){
+  var g = stories.cur; if (!g) return;
+  if (stories.idx < g.items.length - 1) { stories.idx++; showStory(); return; }
+  var i = stories.groups.indexOf(g), nx = stories.groups[i + 1];
+  if (nx && nx.user_id !== uid()) { openStory(nx); } else closeStory();
+}
+function prevStory(){ if (stories.idx > 0) { stories.idx--; showStory(); } else showStory(); }
+function closeStory(){ clearTimeout(stories.timer); stories.cur = null; var d = $("storyView"); if (d.open) d.close(); }
+$("storyNext").addEventListener("click", nextStory);
+$("storyPrev").addEventListener("click", prevStory);
+$("storyViewClose").addEventListener("click", closeStory);
+$("storyView").addEventListener("close", function(){ clearTimeout(stories.timer); });
+$("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
+document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
+auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
+
+
+// Lazer em família: lugares para levar as crianças, indicados pelas famílias, sempre com a cidade (o site é do Brasil inteiro).
+var lz = { items: [], likes: {}, urls: {}, loaded: false, more: false, tok: 0, cat: "all", file: null, busy: false };
+var LZ_PAGE = 12;
+filterChips("lzCats", function(c){ lz.cat = c; loadLazer(true); });
+
+function lzFilters(){ return { cidade: $("lzCidade").value.trim().replace(/[^A-Za-zÀ-ÿ' -]/g, "").slice(0, 60), uf: $("lzUf").value }; }
+function signLazer(rows){
+  var paths = rows.map(function(x){ return x.foto; }).filter(function(f){ return f && !lz.urls[f]; });
+  if (!paths.length) return Promise.resolve();
+  return sb.storage.from("mural").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) lz.urls[x.path] = x.signedUrl; }); }, function(){});
+}
+function loadLazer(reset){
+  if (!sb || !auth.user) return;
+  var tok = ++lz.tok, base = reset ? [] : lz.items, f = lzFilters();
+  if (reset) { lz.items = []; lz.loaded = false; }
+  var q = sb.from("lazer").select("id,user_id,autor,nome_local,cidade,uf,categoria,idades,custo,endereco,porque,foto,aprovado,criado_em").order("criado_em", { ascending: false }).range(base.length, base.length + LZ_PAGE - 1);
+  if (f.uf) q = q.eq("uf", f.uf);
+  if (f.cidade) q = q.ilike("cidade", "%" + f.cidade + "%");
+  if (lz.cat !== "all") q = q.eq("categoria", lz.cat);
+  q.then(function(r){
+    if (!r.data || tok !== lz.tok) return;
+    var fresh = r.data, ids = fresh.map(function(x){ return x.id; });
+    lz.more = fresh.length === LZ_PAGE;
+    if (!ids.length) { lz.loaded = true; renderLazer(); return; }
+    return Promise.all([ sb.from("lazer_curtidas").select("lazer_id,user_id").in("lazer_id", ids), signLazer(fresh) ]).then(function(x){
+      if (tok !== lz.tok) return;
+      fresh.forEach(function(p){ lz.likes[p.id] = []; });
+      (x[0].data || []).forEach(function(l){ (lz.likes[l.lazer_id] = lz.likes[l.lazer_id] || []).push(l.user_id); });
+      lz.items = base.concat(fresh); lz.loaded = true; renderLazer();
+    });
+  });
+}
+var lzT = null;
+$("lzCidade").addEventListener("input", function(){ clearTimeout(lzT); lzT = setTimeout(function(){ lsSet("cgf-cidade", $("lzCidade").value.trim()); loadLazer(true); }, 350); });
+$("lzUf").addEventListener("change", function(){ lsSet("cgf-uf", $("lzUf").value); loadLazer(true); });
+$("lzMore").addEventListener("click", function(){ loadLazer(false); });
+$("lzOpen").addEventListener("click", function(){
+  var f = $("lzForm"); f.hidden = !f.hidden;
+  if (!f.hidden) { if (!$("lz-cidade").value) $("lz-cidade").value = lsGet("cgf-cidade") || ""; if (!$("lz-uf").value) $("lz-uf").value = lsGet("cgf-uf") || ""; f.scrollIntoView({ behavior: "smooth", block: "start" }); }
+});
+
+function mapsUrl(p){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome_local + (p.endereco ? ", " + p.endereco : "") + ", " + p.cidade + " - " + p.uf); }
+function lzShare(p){
+  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir com as crianças na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
+}
+function renderLazer(){
+  var box = $("lzList"); box.innerHTML = "";
+  $("lzMore").hidden = !lz.more;
+  if (!lz.items.length) {
+    var e = h("div", "empty card"); var f = lzFilters();
+    e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "Conhece um bom lugar para ir com as crianças? Toque em “Indicar um lugar”." : "")); box.appendChild(e); return;
+  }
+  lz.items.forEach(function(p){ box.appendChild(renderLz(p)); });
+}
+function renderLz(p){
+  var mine = p.user_id === uid(), el = h("article", "post lz-card"); el.id = "lz-" + p.id;
+  var top = h("div", "post-top"), who = h("div", "grow");
+  who.append(h("b", null, p.nome_local), h("small", null, "📍 " + p.cidade + ", " + p.uf + " · indicado por " + (mine ? "você" : p.autor) + " · " + ago(p.criado_em)));
+  top.append(h("span", "avatar", "📍"), who);
+  var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções");
+  var menu = h("div", "pmenu"); menu.hidden = true;
+  function mi(label, fn){ var b = h("button", null, label); b.type = "button"; b.addEventListener("click", function(){ menu.hidden = true; fn(); }); menu.appendChild(b); }
+  if (mine || auth.admin) mi("Apagar", function(){ if (!confirm("Apagar esta indicação?")) return; (p.foto ? sb.storage.from("mural").remove([p.foto]) : Promise.resolve()).then(function(){ return sb.from("lazer").delete().eq("id", p.id); }).then(function(){ lz.items = lz.items.filter(function(x){ return x.id !== p.id; }); renderLazer(); toast("Indicação apagada."); }); });
+  if (!mine) mi("Denunciar", function(){ if (!confirm("Denunciar esta indicação?")) return; sb.from("lazer_denuncias").insert({ lazer_id: p.id }).then(function(r){ toast(r.error && String(r.error.message || "").indexOf("duplicate") < 0 ? "Não foi possível denunciar agora." : "Obrigado. Vamos olhar com cuidado."); }); });
+  mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
+  mw.append(mb, menu); top.appendChild(mw); el.appendChild(top);
+  var tags = h("div", "lz-tags"); [p.categoria, p.idades, p.custo].forEach(function(t){ tags.appendChild(h("span", "post-tag", t)); }); el.appendChild(tags);
+  el.appendChild(h("p", "post-text", p.porque));
+  if (p.endereco) el.appendChild(h("p", "lz-end", "🧭 " + p.endereco));
+  if (p.foto && lz.urls[p.foto]) { var im = h("img", "post-img"); im.src = lz.urls[p.foto]; im.alt = "Foto de " + p.nome_local; im.loading = "lazy"; el.appendChild(im); }
+  var likes = lz.likes[p.id] || [], liked = likes.indexOf(uid()) > -1;
+  var acts = h("div", "post-acts");
+  var lk = actBtn(likes.length ? (liked ? "Útil · " : "Útil · ") + likes.length : "Útil", "i-heart", function(){ toggleLzLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked);
+  acts.append(lk, linkBtn("", mapsUrl(p), "i-arrow", "Ver no mapa"), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(lzShare(p)), "i-share", "WhatsApp"));
+  el.appendChild(acts); return el;
+}
+function toggleLzLike(p){
+  var l = lz.likes[p.id] = lz.likes[p.id] || [], i = l.indexOf(uid());
+  if (i > -1) { l.splice(i, 1); renderLazer(); sb.from("lazer_curtidas").delete().eq("lazer_id", p.id).eq("user_id", uid()).then(function(r){ if (r.error) { l.push(uid()); renderLazer(); } }); }
+  else { l.push(uid()); renderLazer(); sb.from("lazer_curtidas").insert({ lazer_id: p.id }).then(function(r){ if (r.error) { var j = l.indexOf(uid()); if (j > -1) l.splice(j, 1); renderLazer(); } }); }
+}
+
+/* ---------- Indicar um lugar ---------- */
+$("lz-foto").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  shrinkPhoto(f).then(function(b){ lz.file = b; $("lz-foto-nome").textContent = "📷 Foto pronta"; }, function(){ lz.file = null; $("lz-foto-nome").textContent = ""; toast("Não consegui usar essa foto."); });
+});
+$("lzForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var st = $("lzStatus");
+  var row = { nome_local: val("lz-nome"), cidade: val("lz-cidade"), uf: $("lz-uf").value, categoria: $("lz-cat").value, idades: $("lz-idades").value, custo: $("lz-custo").value, endereco: val("lz-end") || null, porque: val("lz-porque"), foto: null };
+  if (row.nome_local.length < 2) return setStatus(st, "Qual é o nome do lugar?", "err");
+  if (row.cidade.length < 2 || !row.uf) return setStatus(st, "Diga a cidade e o estado onde o lugar fica.", "err");
+  if (row.porque.length < 2) return setStatus(st, "Conte por que vale a pena ir.", "err");
+  if (!sb || !auth.user || lz.busy) return;
+  lz.busy = true; $("lzSend").disabled = true; setStatus(st, "Publicando…");
+  var path = null, up = Promise.resolve();
+  if (lz.file) { path = uid() + "/" + newUuid() + ".jpg"; row.foto = path; up = sb.storage.from("mural").upload(path, lz.file, { contentType: "image/jpeg", upsert: false }); }
+  up.then(function(u){
+    if (u && u.error) throw new Error("foto");
+    return sb.from("lazer").insert(row).select("id,user_id,autor,nome_local,cidade,uf,categoria,idades,custo,endereco,porque,foto,aprovado,criado_em");
+  }).then(function(r){
+    if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("mural").remove([path]); throw new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "lazer"); }
+    var p = r.data[0]; lsSet("cgf-cidade", row.cidade); lsSet("cgf-uf", row.uf);
+    lz.items.unshift(p); lz.likes[p.id] = []; if (path) lz.urls[path] = "";
+    return signLazer([p]).then(function(){ renderLazer(); });
+  }).then(function(){
+    $("lzForm").reset(); lz.file = null; $("lz-foto-nome").textContent = ""; $("lzForm").hidden = true; setStatus(st, ""); toast("Obrigado por indicar! Outras famílias vão gostar.");
+  }).catch(function(err){ setStatus(st, err.message === "rapido" ? "Você já indicou muitos lugares hoje. Volte amanhã." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.", "err"); }).then(function(){ lz.busy = false; $("lzSend").disabled = false; });
+});
+auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}; lz.loaded = false; } });
+(function prefill(){ var c = lsGet("cgf-cidade"), u = lsGet("cgf-uf"); if (c) $("lzCidade").value = c; if (u) $("lzUf").value = u; })();
 
 
 // Instalar o app (PWA) e inicialização.

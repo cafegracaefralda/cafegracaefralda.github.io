@@ -1,4 +1,4 @@
-// Convite para palestra: a pessoa preenche os dados e a mensagem sai pronta no WhatsApp do Denny.
+// Convite para palestra: a pessoa preenche os dados e a mensagem sai pronta no WhatsApp da equipe.
 $("t-phone").addEventListener("input", maskPhone);
 var talkForm = $("talkForm"), talkStatus = $("talkStatus");
 talkForm.addEventListener("submit", function(e){
@@ -12,7 +12,7 @@ talkForm.addEventListener("submit", function(e){
   if (d.zap.replace(/\D/g, "").length < 10) return setStatus(talkStatus, "Informe o seu WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
   if (!d.org) return setStatus(talkStatus, "Informe o nome da igreja ou organização.", "err");
   if (!d.cidade) return setStatus(talkStatus, "Informe a cidade do evento.", "err");
-  var texto = "Oi, Denny! Gostaria de convidar você para uma palestra.\n\n" +
+  var texto = "Oi! Gostaria de convidar você para uma palestra.\n\n" +
     "Nome: " + d.nome + "\nWhatsApp: " + d.zap + "\nIgreja/organização: " + d.org + "\nCidade: " + d.cidade +
     "\nData ou período: " + (d.data || "ainda a combinar") + "\nPúblico estimado: " + (d.publico || "ainda não sei") +
     "\nFormato: " + d.formato + "\nTema: " + d.tema + (d.msg ? "\n\nMensagem: " + d.msg : "");

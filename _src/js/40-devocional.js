@@ -20,11 +20,11 @@ function openReader(a){
   readerBody.append(h("span", "label", "5 minutos para a sua casa · " + a.cat), title, h("span", "label", "O que a Bíblia diz sobre isso"), v);
   a.body.forEach(function(t){ readerBody.appendChild(h("p", null, t)); });
   readerBody.append(box("Para pensar", a.think), box("Para hoje", a.today), h("span", "label", "Se quiser, ore assim"), h("p", "devo-pray", a.prayer));
-  var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Denny Silva"));
+  var foot = h("div", "reader-foot"); foot.appendChild(h("span", "sig", "Café, Graça & Fralda"));
   function act(cls, href, ic, label){ var x = h("a", "btn btn-sm " + cls); x.href = href; x.target = "_blank"; x.rel = "noopener"; x.append(icon(ic), document.createTextNode(label)); return x; }
   foot.append(
     act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
-    act("btn-ghost", waLink('Oi, Denny! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com o Denny")
+    act("btn-ghost", waLink('Oi! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com a equipe")
   );
   var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa Grande"));
   cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
@@ -72,7 +72,7 @@ dlg.addEventListener("click", function(e){ if (e.target === dlg) dlg.close(); })
 $("n-phone").addEventListener("input", maskPhone);
 var newsForm = $("newsForm"), newsStatus = $("newsStatus");
 function finishNews(){
-  $("newsWa").href = waLink("Oi, Denny! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
+  $("newsWa").href = waLink("Oi! Quero receber os devocionais do Café, Graça & Fralda por e-mail e WhatsApp.\nNome: " + val("n-name") + "\nE-mail: " + val("n-email"));
   newsForm.hidden = true; $("newsDone").hidden = false;
 }
 newsForm.addEventListener("submit", function(e){

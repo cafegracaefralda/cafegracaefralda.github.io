@@ -1,5 +1,5 @@
 // Um café na sua mesa: agendar, ver e desmarcar. Seg a sex, das 20h às 22h (horário de Brasília), 30 minutos.
-var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (o Denny manda o link)", presencial: "Presencial" };
+var FORMATS = { whatsapp: "Chamada no WhatsApp", video: "Vídeo (a gente manda o link)", presencial: "Presencial" };
 var DEFAULT_TEMPLATE = [];
 [1, 2, 3, 4, 5].forEach(function(d){ ["20:00", "20:30", "21:00", "21:30"].forEach(function(t){ DEFAULT_TEMPLATE.push({ dia_semana: d, hora: t }); }); });
 var MIN_NOTICE_MIN = 60, BOOK_DAYS = 10;
@@ -116,10 +116,10 @@ function finishBooking(b){
     var li = h("li"); li.append(h("b", null, r[0] + ": "), document.createTextNode(r[1])); sum.appendChild(li);
   });
   $("bookDoneText").textContent = b.p_formato === "whatsapp"
-    ? "Na hora marcada, o Denny te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
-    : b.p_formato === "video" ? "O Denny manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
-    : "O Denny confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
-  $("bookWa").href = waLink("Oi, Denny! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
+    ? "Na hora marcada, a gente te chama por chamada no WhatsApp. Se precisar mudar, desmarque em “Meus horários”."
+    : b.p_formato === "video" ? "A gente manda o link da chamada pelo WhatsApp antes do horário. Se precisar mudar, desmarque em “Meus horários”."
+    : "A gente confirma o endereço pelo WhatsApp. Se precisar mudar, desmarque em “Meus horários”.";
+  $("bookWa").href = waLink("Oi! Acabei de marcar Um café na sua mesa.\nQuando: " + whenText(b.p_data, b.p_hora) + "\nComo: " + FORMATS[b.p_formato] +
     (b.p_local ? " (" + b.p_local + ")" : "") + "\nAssunto: " + b.p_tema);
   bForm.hidden = true; bDone.hidden = false;
 }
@@ -159,7 +159,7 @@ function renderMine(){
         yes.addEventListener("click", function(){
           yes.disabled = true;
           sb.rpc("cancelar_agendamento", { p_id: x.id }).then(function(r){
-            if (r.error) { toast("Não foi possível desmarcar agora. Chame o Denny no WhatsApp."); renderMine(); return; }
+            if (r.error) { toast("Não foi possível desmarcar agora. Chame a gente no WhatsApp."); renderMine(); return; }
             delete cafe.taken[slotKey(x.data, x.hora)];
             toast("Horário desmarcado."); loadMine(); loadAvailability();
           });

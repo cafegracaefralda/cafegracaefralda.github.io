@@ -50,7 +50,7 @@ function renderDmTools(){
     var q = blocked ? sb.from("dm_bloqueios").delete().eq("bloqueado", o) : sb.from("dm_bloqueios").insert({ quem: me(), bloqueado: o });
     q.then(function(r){ if (r.error) return toast("Não foi possível fazer isso agora."); dm.blocked[o] = !blocked; toast(blocked ? "Pessoa desbloqueada." : "Pessoa bloqueada. Ela não consegue mais te escrever."); renderDmTools(); });
   });
-  var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi, Denny! Quero denunciar uma pessoa nas mensagens privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
+  var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi! Quero denunciar uma pessoa nas mensagens privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
   t.append(bl, rep);
 }
 

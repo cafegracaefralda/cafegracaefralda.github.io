@@ -1,4 +1,4 @@
-// Indicar um profissional (membros logados). A indicação só aparece no site depois que o Denny aprova.
+// Indicar um profissional (membros logados). A indicação só aparece no site depois que a equipe aprova.
 var indWrap = $("indWrap"), indForm = $("indForm");
 function indSync(){ indForm.hidden = !auth.user; $("indGate").hidden = !!auth.user; }
 auth.on(indSync); indSync();
@@ -21,7 +21,7 @@ indForm.addEventListener("submit", function(e){
     $("indSend").disabled = false;
     if (r.error) return setStatus(st, String(r.error.message || "").indexOf("muito_rapido") > -1 ? "Você já enviou várias indicações hoje. Volte amanhã." : "Não foi possível enviar agora. Tente de novo.", "err");
     indForm.reset(); $("i-planos").hidden = true;
-    setStatus(st, "Recebi! O Denny confere e publica em breve. Obrigado por indicar.", "ok");
+    setStatus(st, "Recebi! A equipe confere e publica em breve. Obrigado por indicar.", "ok");
     loadMemberInds();
   });
 });

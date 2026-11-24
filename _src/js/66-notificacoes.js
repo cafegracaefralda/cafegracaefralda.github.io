@@ -5,6 +5,8 @@ var bellBtn = $("bellBtn"), bellPanel = $("bellPanel");
 function notifText(n){
   if (n.tipo === "comentario") return [n.de_nome + " comentou", n.resumo ? "“" + n.resumo + "”" : "no seu post"];
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
+  if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
+  if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
   return [n.de_nome + " te mandou uma mensagem", n.resumo ? "“" + n.resumo + "”" : ""];
 }
 function setBell(){
@@ -24,7 +26,7 @@ function renderBell(){
 }
 function loadNotifs(){
   if (!sb || !auth.user) return;
-  sb.from("notificacoes").select("id,tipo,de_nome,post_id,conversa_id,resumo,lida,criado_em").order("criado_em", { ascending: false }).limit(30).then(function(r){
+  sb.from("notificacoes").select("id,tipo,de_nome,post_id,pub_id,conversa_id,resumo,lida,criado_em").order("criado_em", { ascending: false }).limit(30).then(function(r){
     if (!r.data) return;
     var fresh = r.data.filter(function(n){ return !n.lida && !notif.seenIds[n.id]; });
     r.data.forEach(function(n){ notif.seenIds[n.id] = true; });
@@ -56,6 +58,9 @@ function openNotif(n){
   if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");
     loadConvs().then(function(){ openConv(n.conversa_id); });
+  } else if (n.pub_id) {
+    pub.focus = n.pub_id; if (n.tipo === "pub_comentario") pub.open[n.pub_id] = true;
+    go("prateleira", "publicacoes"); loadPubs(true);
   } else if (n.post_id) {
     feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
     go("mesa"); loadFeed(true);

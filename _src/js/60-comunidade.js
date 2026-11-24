@@ -1,4 +1,4 @@
-// Indicações: da nossa mesa para a sua (curadas pelo Denny + enviadas pelos membros).
+// Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
   var chips = $$("#" + groupId + " .chip");
   chips.forEach(function(c){
