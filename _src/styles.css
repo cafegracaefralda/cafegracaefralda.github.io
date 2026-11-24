@@ -894,3 +894,5 @@ label.hand-btn{cursor:pointer}
 .pro-more{text-align:center;color:var(--muted);font-size:14px;margin:6px 0 22px}
 @media (max-width:760px){.pro-acts .btn{flex:1 1 100%;justify-content:center}.pro-ring{width:68px;height:68px}}
 @media (max-width:1099px){body[data-view="casa"] .wa-float{display:none}}
+
+#v-inicio .app-band{margin-top:28px;max-width:720px}

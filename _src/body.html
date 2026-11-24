@@ -70,7 +70,6 @@
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
-      <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
@@ -127,6 +126,11 @@
           <p class="muted">Nada de fórmula. Só o que a vida em casa ensinou. Toque para abrir.</p>
           {{LESSONS}}
         </div>
+      </div>
+      <div class="app-band" id="app" hidden>
+        <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
+        <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
+        <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
       </div>
     </div>
   </section>
@@ -500,37 +504,7 @@
   </section>
 
   <!-- SOBRE -->
-  <section class="view" id="v-sobre" data-view="sobre">
-    <div class="wrap about-grid">
-      <div class="about-text">
-        <span class="label">Sobre a comunidade</span>
-        <h2>Entre o café e a fralda, tem graça.</h2>
-        <p>O Café, Graça &amp; Fralda é uma comunidade para famílias de todo o Brasil: gente que ama, cansa, erra e recomeça. Aqui a fé não é negociada, mas ninguém precisa concordar com tudo para ter um lugar à mesa.</p>
-        <p>É um espaço para trocar experiência, pedir oração, indicar lugares e profissionais de confiança e se sentir menos sozinho nas madrugadas.</p>
-        <p class="blockq">“Não somos famílias perfeitas. Somos famílias reais, cuidando umas das outras.”</p>
-        <ul class="tags creds" aria-label="Combinados">
-          <li>Fé sem negociar</li><li>Todos são bem-vindos</li><li>Só o primeiro nome aparece</li><li>Fotos só para membros</li><li>Propaganda sempre identificada</li>
-        </ul>
-      </div>
-      <div class="about-side">
-        <div class="photo"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta" width="1280" height="853" loading="lazy"></div>
-        <div class="contact">
-          <span class="label">Fale com a equipe</span>
-          <h3>Vamos conversar?</h3>
-          <p>Uma dúvida, uma sugestão, um convite para a sua igreja ou só vontade de trocar uma ideia.</p>
-          <span class="wa-num">(81) 99270-2353</span>
-          <div class="row-btns">
-            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
-          </div>
-        </div>
-        <div class="app-band" id="app" hidden>
-          <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
-          <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
-          <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- PAINEL (só administração) -->
   <section class="view" id="v-painel" data-view="painel">

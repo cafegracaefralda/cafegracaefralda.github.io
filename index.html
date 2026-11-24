@@ -930,6 +930,8 @@ label.hand-btn{cursor:pointer}
 @media (max-width:760px){.pro-acts .btn{flex:1 1 100%;justify-content:center}.pro-ring{width:68px;height:68px}}
 @media (max-width:1099px){body[data-view="casa"] .wa-float{display:none}}
 
+#v-inicio .app-band{margin-top:28px;max-width:720px}
+
 </style>
 </head>
 <body>
@@ -1010,7 +1012,6 @@ label.hand-btn{cursor:pointer}
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
-      <a href="#sobre" data-tab="sobre"><svg><use href="#i-user"/></svg><span>Sobre</span></a>
     </nav>
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
@@ -1136,6 +1137,11 @@ label.hand-btn{cursor:pointer}
           </details>
 </div>
         </div>
+      </div>
+      <div class="app-band" id="app" hidden>
+        <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
+        <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
+        <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
       </div>
     </div>
   </section>
@@ -1509,37 +1515,7 @@ label.hand-btn{cursor:pointer}
   </section>
 
   <!-- SOBRE -->
-  <section class="view" id="v-sobre" data-view="sobre">
-    <div class="wrap about-grid">
-      <div class="about-text">
-        <span class="label">Sobre a comunidade</span>
-        <h2>Entre o café e a fralda, tem graça.</h2>
-        <p>O Café, Graça &amp; Fralda é uma comunidade para famílias de todo o Brasil: gente que ama, cansa, erra e recomeça. Aqui a fé não é negociada, mas ninguém precisa concordar com tudo para ter um lugar à mesa.</p>
-        <p>É um espaço para trocar experiência, pedir oração, indicar lugares e profissionais de confiança e se sentir menos sozinho nas madrugadas.</p>
-        <p class="blockq">“Não somos famílias perfeitas. Somos famílias reais, cuidando umas das outras.”</p>
-        <ul class="tags creds" aria-label="Combinados">
-          <li>Fé sem negociar</li><li>Todos são bem-vindos</li><li>Só o primeiro nome aparece</li><li>Fotos só para membros</li><li>Propaganda sempre identificada</li>
-        </ul>
-      </div>
-      <div class="about-side">
-        <div class="photo"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta" width="1280" height="853" loading="lazy"></div>
-        <div class="contact">
-          <span class="label">Fale com a equipe</span>
-          <h3>Vamos conversar?</h3>
-          <p>Uma dúvida, uma sugestão, um convite para a sua igreja ou só vontade de trocar uma ideia.</p>
-          <span class="wa-num">(81) 99270-2353</span>
-          <div class="row-btns">
-            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
-          </div>
-        </div>
-        <div class="app-band" id="app" hidden>
-          <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
-          <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
-          <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
-        </div>
-      </div>
-    </div>
-  </section>
+
 
   <!-- PAINEL (só administração) -->
   <section class="view" id="v-painel" data-view="painel">
@@ -1836,10 +1812,10 @@ var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Ge
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "casa", "palestra", "sobre", "painel"];
+var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "casa", "palestra", "painel"];
 var ALIAS = { dacasa: "prateleira", devocional: "prateleira:devocional", novidades: "prateleira:devocional", artigos: "prateleira:devocional", textos: "prateleira:devocional", lazer: "mesa:lazer", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
-              cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "sobre", palestras: "palestra", convite: "palestra", app: "sobre", aprendemos: "inicio", manifesto: "inicio" };
+              cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[tela] = function(aba): roda quando a tela abre
 var NAV_OF = { palestra: "casa" };  // telas que acendem outro item do menu
