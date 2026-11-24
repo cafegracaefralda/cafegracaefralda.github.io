@@ -1,15 +1,15 @@
-// Mural das famílias: publicações com foto, curtidas e comentários. Só para quem entrou com o Google.
+// Feed das famílias: publicações com foto, curtidas e comentários. Só para quem entrou com o Google.
 var TIPOS = [
   { id: "conversa", nome: "Conversa" }, { id: "indicacao", nome: "Indicação" }, { id: "desabafo", nome: "Desabafo" },
   { id: "oracao", nome: "Pedido de oração" }, { id: "gratidao", nome: "Gratidão" }
 ];
 var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.nome; });
-var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0 };
+var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "" };
 var PAGE = 15;
 
 function uid(){ return auth.user ? auth.user.id : ""; }
 
-// Escolha do tipo ao publicar e filtro do mural
+// Escolha do tipo ao publicar e filtro do Feed
 (function buildChips(){
   var box = $("postTypes"), fil = $("feedTypes");
   TIPOS.forEach(function(t){
@@ -74,14 +74,14 @@ $("postForm").addEventListener("submit", function(e){
   }).then(function(p){
     $("postText").value = ""; clearPhoto();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado no mural."); setStatus($("postStatus"), "");
+    toast("Publicado no Feed."); setStatus($("postStatus"), "");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
     setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
 });
 
-// Carregar o mural
+// Carregar o Feed
 function signPhotos(posts){
   var paths = posts.map(function(p){ return p.foto; }).filter(function(f){ return f && !feed.urls[f]; });
   if (!paths.length) return Promise.resolve();
@@ -120,16 +120,17 @@ function renderFeed(){
   var box = $("feedList"); box.innerHTML = "";
   $("feedMore").hidden = !feed.more;
   if (!feed.posts.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "O mural está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
+    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "O Feed está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
     box.appendChild(e); return;
   }
   feed.posts.forEach(function(p){ box.appendChild(renderPost(p)); });
+  if (feed.focus) { var fe = $("post-" + feed.focus); if (fe) { feed.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function actBtn(label, ic, fn, cls){
   var b = h("button", cls || null); b.type = "button"; b.append(icon(ic), document.createTextNode(label)); b.addEventListener("click", fn); return b;
 }
 function renderPost(p){
-  var mine = p.user_id === uid(), el = h("article", "post"), top = h("div", "post-top"), who = h("div", "grow");
+  var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id; var _x = null, top = h("div", "post-top"), who = h("div", "grow");
   who.append(h("b", null, mine ? "Você" : p.nome), h("time", null, ago(p.criado_em)));
   top.append(h("span", "avatar", initial(p.nome)), who);
   if (p.aprovado === false) top.append(h("span", "post-tag", "Em análise"));
@@ -194,7 +195,7 @@ function deletePost(p){
   });
 }
 function reportPost(p){
-  if (!confirm("Denunciar esta publicação? Ela some do mural se outras pessoas também denunciarem, e o Denny revisa.")) return;
+  if (!confirm("Denunciar esta publicação? Ela some do Feed se outras pessoas também denunciarem, e o Denny revisa.")) return;
   sb.from("post_denuncias").insert({ post_id: p.id }).then(function(r){
     if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
     toast("Obrigado. Vamos olhar com cuidado.");

@@ -1,5 +1,5 @@
 // Conversas privadas entre pais (só os dois participantes leem). Precisa de login.
-var dm = { convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: null, badgeTimer: null, profiled: "" };
+var dm = { urls: {}, convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: null, badgeTimer: null, profiled: "" };
 var dmMsgsEl = $("dmMsgs");
 function me(){ return auth.user ? auth.user.id : ""; }
 function otherOf(c){ return c.a === me() ? c.b : c.a; }
@@ -13,7 +13,8 @@ function renderDmList(){
     var o = otherOf(c), b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", dm.current === c.id);
     var n = dm.unread[c.id] || 0;
     if (n) b.appendChild(h("span", "nb", String(n)));
-    b.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
+    var tx = h("span", "rtx"); tx.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
+    b.append(h("span", "avatar", initial(dmName(o))), tx);
     b.addEventListener("click", function(){ openConv(c.id); });
     box.appendChild(b);
   });
@@ -22,7 +23,8 @@ function renderPeople(list){
   var box = $("dmPeople"); box.innerHTML = "";
   if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
   list.forEach(function(x){
-    var b = h("button", "room"); b.type = "button"; b.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    var b = h("button", "room"); b.type = "button"; var tx = h("span", "rtx"); tx.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    b.append(h("span", "avatar", initial(x.nome)), tx);
     b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
     box.appendChild(b);
   });
@@ -49,6 +51,19 @@ function renderDmTools(){
   var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi, Denny! Quero denunciar uma pessoa nas conversas privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
   t.append(bl, rep);
 }
+function fileView(m){
+  var url = dm.urls[m.arquivo];
+  if (!url) return h("p", "file-off", "Arquivo indisponível");
+  var a = h("a", "file-a"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+  if (m.arquivo_tipo === "image") { var im = h("img", "file-img"); im.src = url; im.alt = "Foto enviada"; im.loading = "lazy"; a.appendChild(im); }
+  else { a.className = "file-chip"; a.append(h("span", "file-ic", "📄"), h("span", "file-nm", m.arquivo_nome || "arquivo.pdf"), h("small", null, "Abrir")); }
+  return a;
+}
+function signDm(msgs){
+  var paths = msgs.map(function(m){ return m.arquivo; }).filter(function(x){ return x && !dm.urls[x]; });
+  if (!paths.length || !sb) return Promise.resolve();
+  return sb.storage.from("privado").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) dm.urls[x.path] = x.signedUrl; }); }, function(){});
+}
 function renderDmMsgs(force){
   var sig = dm.current + ":" + dm.msgs.length + ":" + (dm.msgs.length ? dm.msgs[dm.msgs.length - 1].id : "");
   if (!force && sig === dm.sig) return;
@@ -67,7 +82,10 @@ function renderDmMsgs(force){
     var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
     row.appendChild(h("span", "avatar", initial(mine ? auth.name() : dmName(m.de))));
     top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
-    bub.append(top, h("p", null, m.texto)); row.appendChild(bub); dmMsgsEl.appendChild(row);
+    bub.appendChild(top);
+    if (m.arquivo) bub.appendChild(fileView(m));
+    if (m.texto) bub.appendChild(h("p", null, m.texto));
+    row.appendChild(bub); dmMsgsEl.appendChild(row);
   });
   if (force || nearEnd) dmMsgsEl.scrollTop = dmMsgsEl.scrollHeight;
 }
@@ -90,9 +108,10 @@ function loadConvs(){
 }
 function loadDmMsgs(force){
   var id = dm.current; if (!id || !sb) return;
-  sb.from("dm_mensagens").select("id,de,texto,criado_em").eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){
+  sb.from("dm_mensagens").select("id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo").eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){
     if (id !== dm.current || !r.data) return;
-    dm.msgs = r.data.slice().reverse(); renderDmMsgs(!!force);
+    dm.msgs = r.data.slice().reverse();
+    signDm(dm.msgs).then(function(){ if (id === dm.current) renderDmMsgs(!!force); });
     if (dm.unread[id]) sb.rpc("marcar_lidas", { p_conversa: id }).then(function(){ dm.unread[id] = 0; var t = 0; Object.keys(dm.unread).forEach(function(k){ t += dm.unread[k]; }); setBadge(t); renderDmList(); });
   });
 }
@@ -100,7 +119,8 @@ function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";
   var c = dm.convs.filter(function(x){ return x.id === id; })[0];
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa";
-  $("dmComposer").hidden = false;
+  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c; $("dmSub").hidden = false;
+  $("dmCompose").hidden = false; dmClearFile();
   renderDmList(); renderDmTools(); renderDmMsgs(true); loadDmMsgs(true);
 }
 var DM_ERR = { dm_desativado: "Esta pessoa não está recebendo mensagens privadas.", indisponivel: "Não foi possível iniciar esta conversa.",
@@ -118,16 +138,47 @@ function openDm(userId, name){
   });
 }
 
+var dmFile = null;
+function dmClearFile(){ dmFile = null; $("dmAttach").hidden = true; $("dmAttachName").textContent = ""; }
+function niceSize(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+$("dmFile").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if (!f) return;
+  var pdf = f.type === "application/pdf";
+  if (pdf) {
+    if (f.size > 5 * 1024 * 1024) return toast("O PDF tem mais de 5 MB.");
+    dmFile = { blob: f, kind: "pdf", ext: "pdf", type: "application/pdf", name: f.name };
+    $("dmAttachName").textContent = f.name + " · " + niceSize(f.size); $("dmAttach").hidden = false;
+  } else {
+    shrinkPhoto(f).then(function(blob){
+      dmFile = { blob: blob, kind: "image", ext: "jpg", type: "image/jpeg", name: (f.name || "foto").replace(/\.[^.]+$/, "") + ".jpg" };
+      $("dmAttachName").textContent = "Foto · " + niceSize(blob.size); $("dmAttach").hidden = false;
+    }, function(){ toast("Envie uma foto (JPEG, PNG) ou um PDF de até 5 MB."); });
+  }
+});
+$("dmAttachDel").addEventListener("click", dmClearFile);
+function newId(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
 $("dmComposer").addEventListener("submit", function(e){
   e.preventDefault();
-  var texto = $("dmText").value.trim();
-  if (!texto || !dm.current || !sb) return;
+  var texto = $("dmText").value.trim(), file = dmFile;
+  if ((!texto && !file) || !dm.current || !sb) return;
   $("dmSend").disabled = true;
-  sb.from("dm_mensagens").insert({ conversa_id: dm.current, texto: texto }).select("id,de,texto,criado_em").then(function(r){
-    $("dmSend").disabled = false;
-    if (r.error || !r.data || !r.data.length) { var m = String(r.error && r.error.message || ""); return toast(m.indexOf("muito_rapido") > -1 ? "Calma! Muitas mensagens em pouco tempo." : "Não foi possível enviar. Essa pessoa pode ter bloqueado a conversa."); }
-    $("dmText").value = ""; dm.msgs.push(r.data[0]); renderDmMsgs(true);
-  });
+  var conv = dm.current, path = null, up = Promise.resolve();
+  if (file) { path = conv + "/" + newId() + "." + file.ext; up = sb.storage.from("privado").upload(path, file.blob, { contentType: file.type, upsert: false }); }
+  up.then(function(u){
+    if (u && u.error) throw new Error("arquivo");
+    var row = { conversa_id: conv, texto: texto };
+    if (file) { row.arquivo = path; row.arquivo_nome = String(file.name).slice(0, 120); row.arquivo_tipo = file.kind; }
+    return sb.from("dm_mensagens").insert(row).select("id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo").then(function(r){
+      if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("privado").remove([path]); throw new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "msg"); }
+      return r.data[0];
+    });
+  }).then(function(m){
+    $("dmText").value = ""; dmClearFile();
+    if (conv === dm.current) { dm.msgs.push(m); return signDm([m]).then(function(){ renderDmMsgs(true); }); }
+  }).catch(function(err){
+    toast(err.message === "rapido" ? "Calma! Muitas mensagens em pouco tempo." : err.message === "arquivo" ? "Não foi possível enviar o arquivo." : "Não foi possível enviar. Essa pessoa pode ter bloqueado a conversa.");
+  }).then(function(){ $("dmSend").disabled = false; });
 });
 $("dmAccept").addEventListener("change", function(){
   var on = $("dmAccept").checked;

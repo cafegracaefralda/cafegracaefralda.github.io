@@ -544,6 +544,80 @@ textarea{min-height:96px;resize:vertical}
 .dm-find{display:grid;gap:8px;padding:12px;border-top:1px solid var(--line);margin-top:8px}
 .dm-find input{padding:9px 12px;font-size:14px}
 
+/* ===== Chat e privado mais modernos ===== */
+.chat{border-radius:28px;border:1px solid rgba(29,26,23,.07);box-shadow:0 18px 50px -24px rgba(29,26,23,.28);grid-template-columns:280px minmax(0,1fr)}
+.rooms{background:linear-gradient(180deg,#fff,var(--bg));border-right:1px solid var(--line);padding:14px;gap:6px}
+.room{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:16px;transition:background .2s,transform .2s;position:relative}
+.room:hover{background:var(--sand);transform:translateX(2px)}
+.room[aria-pressed="true"]{background:linear-gradient(135deg,var(--ink),#3a322c);color:#fff;box-shadow:0 8px 20px -10px rgba(29,26,23,.6)}
+.room .avatar{width:38px;height:38px;font-size:18px;flex:none}
+.room[aria-pressed="true"] .avatar{background:rgba(255,255,255,.16);color:#fff}
+.room .rtx{display:grid;min-width:0}
+.room .rtx small{opacity:.65}
+.room .nb{position:absolute;right:12px;top:50%;transform:translateY(-50%);float:none}
+.chat-head{padding:14px 20px;background:rgba(255,255,255,.85);backdrop-filter:blur(8px)}
+.chat-head .who{display:flex;align-items:center;gap:12px;min-width:0}
+.chat-head .who .avatar{width:42px;height:42px;font-size:20px}
+.chat-head .who small{display:block;font-size:12px;color:var(--muted);margin-top:1px}
+.msgs{padding:22px clamp(14px,3vw,28px);gap:14px;background:radial-gradient(1200px 400px at 100% 0,rgba(182,91,58,.06),transparent 60%),var(--bg)}
+.msg{max-width:min(600px,88%);gap:8px}
+.msg .avatar{width:30px;height:30px;font-size:16px}
+.msg.me .avatar{display:none}
+.bubble{border:0;border-radius:6px 20px 20px 20px;padding:11px 15px;box-shadow:0 2px 10px -4px rgba(29,26,23,.18)}
+.msg.me .bubble{background:linear-gradient(135deg,var(--terra),#C9754F);color:#fff;border-radius:20px 6px 20px 20px;box-shadow:0 8px 20px -10px rgba(182,91,58,.7)}
+.msg.me .bubble-top b{display:none}
+.msg.me .bubble-top time{color:rgba(255,255,255,.75)}
+.msg.me .bubble-act button,.msg.me .bubble-act a{color:rgba(255,255,255,.8)}
+.bubble p{font-size:15.5px;line-height:1.5}
+.bubble-top{justify-content:space-between}
+.composer{padding:12px 16px;background:rgba(255,255,255,.9);gap:10px}
+.composer input#dmText,.composer input#msgText{background:var(--bg);border-color:transparent;padding:13px 18px}
+.composer input:focus{border-color:var(--terra)}
+.composer .btn-terra{width:46px;height:46px;padding:0;border-radius:50%;display:grid;place-items:center}
+.composer .btn-terra svg{width:19px;height:19px}
+.hand-btn{width:46px;height:46px;transition:transform .15s,background .15s}
+.hand-btn:hover{transform:scale(1.06)}
+label.hand-btn{cursor:pointer}
+.dm-find{margin-top:10px;border-top:1px dashed var(--line);padding:14px 4px 4px}
+.dm-find input{border-radius:999px;background:#fff}
+.empty h3{font-size:30px}
+.dm-compose{background:rgba(255,255,255,.9)}
+.dm-attach{display:flex;align-items:center;gap:10px;margin:10px 16px 0;padding:9px 14px;background:var(--terra-soft);border-radius:14px;font-size:14px}
+.dm-attach #dmAttachName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dm-safe{font-size:11.5px;color:var(--muted);padding:0 20px 10px;text-align:center}
+.file-img{display:block;max-width:260px;width:100%;border-radius:14px;margin:4px 0 6px}
+.file-a{display:block;text-decoration:none;color:inherit}
+.file-chip{display:flex;align-items:center;gap:10px;background:rgba(29,26,23,.06);border-radius:14px;padding:10px 14px;margin:4px 0 6px;text-decoration:none;color:inherit;font-size:14px}
+.msg.me .file-chip{background:rgba(255,255,255,.2)}
+.file-chip .file-nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.file-chip small{font-size:12px;text-decoration:underline}
+.file-off{font-size:13px;opacity:.7}
+@media (max-width:760px){.chat{grid-template-columns:1fr;height:auto;max-height:none}.rooms{border-right:0;border-bottom:1px solid var(--line);max-height:230px}.chat-main{height:70dvh}}
+
+/* ===== Sininho ===== */
+.bell-wrap{position:relative}
+.bell{position:relative;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.bell:hover{background:var(--sand)}
+.bell svg{width:20px;height:20px}
+.bell.on svg{color:var(--terra)}
+.bell-n{position:absolute;top:-4px;right:-4px;min-width:19px;height:19px;border-radius:999px;background:var(--terra);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 5px;box-shadow:0 0 0 2px var(--bg)}
+.bell-panel{position:absolute;right:0;top:calc(100% + 10px);width:min(380px,calc(100vw - 32px));background:var(--surface);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px -20px rgba(29,26,23,.35);z-index:60;overflow:hidden}
+.bell-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}
+.bell-head .link{font-size:12.5px}
+.bell-list{max-height:min(440px,60dvh);overflow-y:auto}
+.bell-item{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--line);padding:13px 18px;font:inherit;cursor:pointer}
+.bell-item:hover{background:var(--bg)}
+.bell-item.new{background:#FBF1EB}
+.bell-item.new .bi-tx b::after{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--terra);margin-left:8px;vertical-align:1px}
+.bi-tx{display:grid;gap:2px;min-width:0}
+.bi-tx b{font-size:14px}
+.bi-tx small{font-size:13px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.bi-tx time{font-family:var(--mono);font-size:10.5px;color:var(--muted)}
+.bell-empty{padding:28px 22px;text-align:center;color:var(--muted);font-size:14px}
+.bell-foot{padding:10px 18px;text-align:center}
+.bell-foot:empty{display:none}
+.post.focus{box-shadow:0 0 0 3px var(--terra-light);transition:box-shadow .4s}
+
 </style>
 </head>
 <body>
@@ -565,6 +639,8 @@ textarea{min-height:96px;resize:vertical}
   <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-photo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 8"/></g></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 1 12 0c0 6 2.500 7.500 2.500 7.500h-17S6 15 6 9Z"/><path d="M10 20a2 2 0 0 0 4 0"/></g></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="m21 11-8.500 8.500a5 5 0 0 1-7-7L14 4a3.500 3.500 0 0 1 5 5l-8.500 8.500a2 2 0 0 1-3-3L15 6.500" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-hand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v2"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-6-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></g></symbol>
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
@@ -593,6 +669,14 @@ textarea{min-height:96px;resize:vertical}
     </nav>
     <div class="top-actions">
       <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi, Denny! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <div class="bell-wrap" data-auth="in" hidden>
+        <button class="bell" type="button" id="bellBtn" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg><use href="#i-bell"/></svg><span class="bell-n" id="bellN" hidden>0</span></button>
+        <div class="bell-panel" id="bellPanel" hidden>
+          <div class="bell-head"><b>Notificações</b><button class="link" type="button" id="bellAll">Marcar todas como lidas</button></div>
+          <div class="bell-list" id="bellList"></div>
+          <div class="bell-foot" id="bellFoot"><button class="link" type="button" id="bellPush" hidden>Ativar avisos no navegador</button></div>
+        </div>
+      </div>
       <div class="acct">
         <button class="btn btn-google btn-sm" type="button" id="loginBtn" data-auth="out"><svg><use href="#i-google"/></svg>Entrar</button>
         <button class="acct-btn" type="button" id="acctBtn" data-auth="in" aria-haspopup="true" aria-expanded="false" hidden>
@@ -858,16 +942,16 @@ textarea{min-height:96px;resize:vertical}
   <section class="view" id="v-feed" data-view="feed">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Feed das famílias</span>
-        <h2>O que está rolando na mesa</h2>
+        <span class="label">Postagens · indicações · desabafos</span>
+        <h2>Feed</h2>
         <p class="muted">Aqui as famílias postam, indicam, desabafam, pedem oração e agradecem. Você curte e comenta. Só entra quem faz login, e só o primeiro nome aparece.</p>
       </div>
       <div class="feed-view">
         <div class="card" id="feedGate">
           <div class="gate">
-            <span class="label">Mural das famílias</span>
-            <h3>O mural é só para quem senta à mesa</h3>
-            <p>Compartilhe uma foto, uma indicação, um desabafo ou um pedido de oração. Os outros pais curtem e comentam. Para proteger as famílias, o mural fica fechado a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
+            <span class="label">Feed</span>
+            <h3>O Feed é só para quem senta à mesa</h3>
+            <p>Compartilhe uma foto, uma indicação, um desabafo ou um pedido de oração. Os outros pais curtem e comentam. Para proteger as famílias, o Feed fica fechado a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
         </div>
@@ -885,7 +969,7 @@ textarea{min-height:96px;resize:vertical}
             </div>
             <p class="status" id="postStatus" role="status"></p>
           </form>
-          <div class="filters" id="feedTypes" role="group" aria-label="Filtrar o mural"></div>
+          <div class="filters" id="feedTypes" role="group" aria-label="Filtrar o Feed"></div>
           <div class="feed-list" id="feedList" aria-live="polite"></div>
           <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
         </div>
@@ -951,12 +1035,18 @@ textarea{min-height:96px;resize:vertical}
             <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
           </div>
           <div class="chat-main">
-            <div class="chat-head"><b id="dmTitle">Conversas privadas</b><span class="dm-tools" id="dmTools"></span></div>
+            <div class="chat-head"><div class="who"><span class="avatar" id="dmAv" hidden></span><div><b id="dmTitle">Conversas privadas</b><small id="dmSub">Só vocês dois leem</small></div></div><span class="dm-tools" id="dmTools"></span></div>
             <div class="msgs" id="dmMsgs" aria-live="polite"></div>
-            <form class="composer two" id="dmComposer" autocomplete="off" hidden>
-              <input id="dmText" placeholder="Escreva uma mensagem privada…" maxlength="1000" aria-label="Mensagem privada">
-              <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
-            </form>
+            <div class="dm-compose" id="dmCompose" hidden>
+              <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
+              <form class="composer" id="dmComposer" autocomplete="off">
+                <label class="hand-btn" for="dmFile" title="Enviar foto ou PDF" aria-label="Enviar foto ou PDF"><svg><use href="#i-clip"/></svg></label>
+                <input type="file" id="dmFile" accept="image/jpeg,image/png,image/webp,application/pdf" hidden>
+                <input id="dmText" placeholder="Escreva uma mensagem privada…" maxlength="1000" aria-label="Mensagem privada">
+                <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
+              </form>
+              <p class="dm-safe">Fotos (JPEG) e PDF até 5 MB. Abra arquivos só de quem você conhece.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2072,18 +2162,18 @@ auth.on(function(){ if (isShown("comunidade")) viewHooks.comunidade(currentSub("
 document.addEventListener("visibilitychange", function(){ if (!document.hidden && chat.timer) loadMsgs(false); });
 
 
-// Mural das famílias: publicações com foto, curtidas e comentários. Só para quem entrou com o Google.
+// Feed das famílias: publicações com foto, curtidas e comentários. Só para quem entrou com o Google.
 var TIPOS = [
   { id: "conversa", nome: "Conversa" }, { id: "indicacao", nome: "Indicação" }, { id: "desabafo", nome: "Desabafo" },
   { id: "oracao", nome: "Pedido de oração" }, { id: "gratidao", nome: "Gratidão" }
 ];
 var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.nome; });
-var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0 };
+var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "" };
 var PAGE = 15;
 
 function uid(){ return auth.user ? auth.user.id : ""; }
 
-// Escolha do tipo ao publicar e filtro do mural
+// Escolha do tipo ao publicar e filtro do Feed
 (function buildChips(){
   var box = $("postTypes"), fil = $("feedTypes");
   TIPOS.forEach(function(t){
@@ -2148,14 +2238,14 @@ $("postForm").addEventListener("submit", function(e){
   }).then(function(p){
     $("postText").value = ""; clearPhoto();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado no mural."); setStatus($("postStatus"), "");
+    toast("Publicado no Feed."); setStatus($("postStatus"), "");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
     setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
 });
 
-// Carregar o mural
+// Carregar o Feed
 function signPhotos(posts){
   var paths = posts.map(function(p){ return p.foto; }).filter(function(f){ return f && !feed.urls[f]; });
   if (!paths.length) return Promise.resolve();
@@ -2194,16 +2284,17 @@ function renderFeed(){
   var box = $("feedList"); box.innerHTML = "";
   $("feedMore").hidden = !feed.more;
   if (!feed.posts.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "O mural está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
+    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "O Feed está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
     box.appendChild(e); return;
   }
   feed.posts.forEach(function(p){ box.appendChild(renderPost(p)); });
+  if (feed.focus) { var fe = $("post-" + feed.focus); if (fe) { feed.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function actBtn(label, ic, fn, cls){
   var b = h("button", cls || null); b.type = "button"; b.append(icon(ic), document.createTextNode(label)); b.addEventListener("click", fn); return b;
 }
 function renderPost(p){
-  var mine = p.user_id === uid(), el = h("article", "post"), top = h("div", "post-top"), who = h("div", "grow");
+  var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id; var _x = null, top = h("div", "post-top"), who = h("div", "grow");
   who.append(h("b", null, mine ? "Você" : p.nome), h("time", null, ago(p.criado_em)));
   top.append(h("span", "avatar", initial(p.nome)), who);
   if (p.aprovado === false) top.append(h("span", "post-tag", "Em análise"));
@@ -2268,7 +2359,7 @@ function deletePost(p){
   });
 }
 function reportPost(p){
-  if (!confirm("Denunciar esta publicação? Ela some do mural se outras pessoas também denunciarem, e o Denny revisa.")) return;
+  if (!confirm("Denunciar esta publicação? Ela some do Feed se outras pessoas também denunciarem, e o Denny revisa.")) return;
   sb.from("post_denuncias").insert({ post_id: p.id }).then(function(r){
     if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
     toast("Obrigado. Vamos olhar com cuidado.");
@@ -2310,7 +2401,7 @@ indForm.addEventListener("submit", function(e){
 
 
 // Conversas privadas entre pais (só os dois participantes leem). Precisa de login.
-var dm = { convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: null, badgeTimer: null, profiled: "" };
+var dm = { urls: {}, convs: [], names: {}, unread: {}, blocked: {}, current: null, msgs: [], sig: "", timer: null, badgeTimer: null, profiled: "" };
 var dmMsgsEl = $("dmMsgs");
 function me(){ return auth.user ? auth.user.id : ""; }
 function otherOf(c){ return c.a === me() ? c.b : c.a; }
@@ -2324,7 +2415,8 @@ function renderDmList(){
     var o = otherOf(c), b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", dm.current === c.id);
     var n = dm.unread[c.id] || 0;
     if (n) b.appendChild(h("span", "nb", String(n)));
-    b.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
+    var tx = h("span", "rtx"); tx.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
+    b.append(h("span", "avatar", initial(dmName(o))), tx);
     b.addEventListener("click", function(){ openConv(c.id); });
     box.appendChild(b);
   });
@@ -2333,7 +2425,8 @@ function renderPeople(list){
   var box = $("dmPeople"); box.innerHTML = "";
   if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
   list.forEach(function(x){
-    var b = h("button", "room"); b.type = "button"; b.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    var b = h("button", "room"); b.type = "button"; var tx = h("span", "rtx"); tx.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
+    b.append(h("span", "avatar", initial(x.nome)), tx);
     b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
     box.appendChild(b);
   });
@@ -2360,6 +2453,19 @@ function renderDmTools(){
   var rep = h("a", null, "Denunciar"); rep.href = waLink("Oi, Denny! Quero denunciar uma pessoa nas conversas privadas: " + dmName(o) + ". Motivo: "); rep.target = "_blank"; rep.rel = "noopener";
   t.append(bl, rep);
 }
+function fileView(m){
+  var url = dm.urls[m.arquivo];
+  if (!url) return h("p", "file-off", "Arquivo indisponível");
+  var a = h("a", "file-a"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+  if (m.arquivo_tipo === "image") { var im = h("img", "file-img"); im.src = url; im.alt = "Foto enviada"; im.loading = "lazy"; a.appendChild(im); }
+  else { a.className = "file-chip"; a.append(h("span", "file-ic", "📄"), h("span", "file-nm", m.arquivo_nome || "arquivo.pdf"), h("small", null, "Abrir")); }
+  return a;
+}
+function signDm(msgs){
+  var paths = msgs.map(function(m){ return m.arquivo; }).filter(function(x){ return x && !dm.urls[x]; });
+  if (!paths.length || !sb) return Promise.resolve();
+  return sb.storage.from("privado").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) dm.urls[x.path] = x.signedUrl; }); }, function(){});
+}
 function renderDmMsgs(force){
   var sig = dm.current + ":" + dm.msgs.length + ":" + (dm.msgs.length ? dm.msgs[dm.msgs.length - 1].id : "");
   if (!force && sig === dm.sig) return;
@@ -2378,7 +2484,10 @@ function renderDmMsgs(force){
     var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
     row.appendChild(h("span", "avatar", initial(mine ? auth.name() : dmName(m.de))));
     top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
-    bub.append(top, h("p", null, m.texto)); row.appendChild(bub); dmMsgsEl.appendChild(row);
+    bub.appendChild(top);
+    if (m.arquivo) bub.appendChild(fileView(m));
+    if (m.texto) bub.appendChild(h("p", null, m.texto));
+    row.appendChild(bub); dmMsgsEl.appendChild(row);
   });
   if (force || nearEnd) dmMsgsEl.scrollTop = dmMsgsEl.scrollHeight;
 }
@@ -2401,9 +2510,10 @@ function loadConvs(){
 }
 function loadDmMsgs(force){
   var id = dm.current; if (!id || !sb) return;
-  sb.from("dm_mensagens").select("id,de,texto,criado_em").eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){
+  sb.from("dm_mensagens").select("id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo").eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){
     if (id !== dm.current || !r.data) return;
-    dm.msgs = r.data.slice().reverse(); renderDmMsgs(!!force);
+    dm.msgs = r.data.slice().reverse();
+    signDm(dm.msgs).then(function(){ if (id === dm.current) renderDmMsgs(!!force); });
     if (dm.unread[id]) sb.rpc("marcar_lidas", { p_conversa: id }).then(function(){ dm.unread[id] = 0; var t = 0; Object.keys(dm.unread).forEach(function(k){ t += dm.unread[k]; }); setBadge(t); renderDmList(); });
   });
 }
@@ -2411,7 +2521,8 @@ function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";
   var c = dm.convs.filter(function(x){ return x.id === id; })[0];
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa";
-  $("dmComposer").hidden = false;
+  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c; $("dmSub").hidden = false;
+  $("dmCompose").hidden = false; dmClearFile();
   renderDmList(); renderDmTools(); renderDmMsgs(true); loadDmMsgs(true);
 }
 var DM_ERR = { dm_desativado: "Esta pessoa não está recebendo mensagens privadas.", indisponivel: "Não foi possível iniciar esta conversa.",
@@ -2429,16 +2540,47 @@ function openDm(userId, name){
   });
 }
 
+var dmFile = null;
+function dmClearFile(){ dmFile = null; $("dmAttach").hidden = true; $("dmAttachName").textContent = ""; }
+function niceSize(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+$("dmFile").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if (!f) return;
+  var pdf = f.type === "application/pdf";
+  if (pdf) {
+    if (f.size > 5 * 1024 * 1024) return toast("O PDF tem mais de 5 MB.");
+    dmFile = { blob: f, kind: "pdf", ext: "pdf", type: "application/pdf", name: f.name };
+    $("dmAttachName").textContent = f.name + " · " + niceSize(f.size); $("dmAttach").hidden = false;
+  } else {
+    shrinkPhoto(f).then(function(blob){
+      dmFile = { blob: blob, kind: "image", ext: "jpg", type: "image/jpeg", name: (f.name || "foto").replace(/\.[^.]+$/, "") + ".jpg" };
+      $("dmAttachName").textContent = "Foto · " + niceSize(blob.size); $("dmAttach").hidden = false;
+    }, function(){ toast("Envie uma foto (JPEG, PNG) ou um PDF de até 5 MB."); });
+  }
+});
+$("dmAttachDel").addEventListener("click", dmClearFile);
+function newId(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
 $("dmComposer").addEventListener("submit", function(e){
   e.preventDefault();
-  var texto = $("dmText").value.trim();
-  if (!texto || !dm.current || !sb) return;
+  var texto = $("dmText").value.trim(), file = dmFile;
+  if ((!texto && !file) || !dm.current || !sb) return;
   $("dmSend").disabled = true;
-  sb.from("dm_mensagens").insert({ conversa_id: dm.current, texto: texto }).select("id,de,texto,criado_em").then(function(r){
-    $("dmSend").disabled = false;
-    if (r.error || !r.data || !r.data.length) { var m = String(r.error && r.error.message || ""); return toast(m.indexOf("muito_rapido") > -1 ? "Calma! Muitas mensagens em pouco tempo." : "Não foi possível enviar. Essa pessoa pode ter bloqueado a conversa."); }
-    $("dmText").value = ""; dm.msgs.push(r.data[0]); renderDmMsgs(true);
-  });
+  var conv = dm.current, path = null, up = Promise.resolve();
+  if (file) { path = conv + "/" + newId() + "." + file.ext; up = sb.storage.from("privado").upload(path, file.blob, { contentType: file.type, upsert: false }); }
+  up.then(function(u){
+    if (u && u.error) throw new Error("arquivo");
+    var row = { conversa_id: conv, texto: texto };
+    if (file) { row.arquivo = path; row.arquivo_nome = String(file.name).slice(0, 120); row.arquivo_tipo = file.kind; }
+    return sb.from("dm_mensagens").insert(row).select("id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo").then(function(r){
+      if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("privado").remove([path]); throw new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "msg"); }
+      return r.data[0];
+    });
+  }).then(function(m){
+    $("dmText").value = ""; dmClearFile();
+    if (conv === dm.current) { dm.msgs.push(m); return signDm([m]).then(function(){ renderDmMsgs(true); }); }
+  }).catch(function(err){
+    toast(err.message === "rapido" ? "Calma! Muitas mensagens em pouco tempo." : err.message === "arquivo" ? "Não foi possível enviar o arquivo." : "Não foi possível enviar. Essa pessoa pode ter bloqueado a conversa.");
+  }).then(function(){ $("dmSend").disabled = false; });
 });
 $("dmAccept").addEventListener("change", function(){
   var on = $("dmAccept").checked;
@@ -2465,6 +2607,85 @@ auth.on(function(){
   }
 });
 renderDmMsgs(true);
+
+
+// Sininho: avisa quando alguém comenta, curte um post seu ou manda mensagem privada.
+var notif = { items: [], unread: 0, seenIds: {}, first: true, timer: null };
+var bellBtn = $("bellBtn"), bellPanel = $("bellPanel");
+
+function notifText(n){
+  if (n.tipo === "comentario") return [n.de_nome + " comentou", n.resumo ? "“" + n.resumo + "”" : "no seu post"];
+  if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
+  return [n.de_nome + " te mandou uma mensagem", n.resumo ? "“" + n.resumo + "”" : ""];
+}
+function setBell(){
+  var el = $("bellN"); el.textContent = notif.unread > 9 ? "9+" : String(notif.unread); el.hidden = !notif.unread;
+  bellBtn.classList.toggle("on", !!notif.unread);
+}
+function renderBell(){
+  var box = $("bellList"); box.innerHTML = "";
+  if (!notif.items.length) { var e = h("p", "bell-empty", "Nada por aqui ainda. Quando alguém comentar, curtir ou te chamar no privado, aparece aqui."); box.appendChild(e); return; }
+  notif.items.forEach(function(n){
+    var t = notifText(n), b = h("button", "bell-item" + (n.lida ? "" : " new")); b.type = "button";
+    var tx = h("span", "bi-tx"); tx.append(h("b", null, t[0]), t[1] ? h("small", null, t[1]) : document.createTextNode(""), h("time", null, ago(n.criado_em)));
+    b.append(h("span", "avatar", initial(n.de_nome)), tx);
+    b.addEventListener("click", function(){ openNotif(n); });
+    box.appendChild(b);
+  });
+}
+function loadNotifs(){
+  if (!sb || !auth.user) return;
+  sb.from("notificacoes").select("id,tipo,de_nome,post_id,conversa_id,resumo,lida,criado_em").order("criado_em", { ascending: false }).limit(30).then(function(r){
+    if (!r.data) return;
+    var fresh = r.data.filter(function(n){ return !n.lida && !notif.seenIds[n.id]; });
+    r.data.forEach(function(n){ notif.seenIds[n.id] = true; });
+    notif.items = r.data; notif.unread = r.data.filter(function(n){ return !n.lida; }).length;
+    setBell(); renderBell();
+    if (!notif.first && fresh.length) browserNotify(fresh[0], fresh.length);
+    notif.first = false;
+  });
+}
+function browserNotify(n, count){
+  try {
+    if (!("Notification" in window) || Notification.permission !== "granted" || !document.hidden) return;
+    var t = notifText(n);
+    new Notification("Café, Graça & Fralda", { body: count > 1 ? count + " novidades na mesa" : t[0] + (t[1] ? ": " + t[1] : ""), icon: "icons/icon-192.png", tag: "cgf" });
+  } catch(e){}
+}
+function markRead(ids){
+  if (!ids.length || !sb) return Promise.resolve();
+  return sb.from("notificacoes").update({ lida: true }).in("id", ids).then(function(){
+    notif.items.forEach(function(n){ if (ids.indexOf(n.id) > -1) n.lida = true; });
+    notif.unread = notif.items.filter(function(n){ return !n.lida; }).length; setBell(); renderBell();
+  });
+}
+function setPanel(open){ bellPanel.hidden = !open; bellBtn.setAttribute("aria-expanded", open); if (open) { renderBell(); loadNotifs(); pushBtn(); } }
+function pushBtn(){ $("bellPush").hidden = !("Notification" in window) || Notification.permission !== "default"; }
+function openNotif(n){
+  setPanel(false);
+  markRead([n.id]);
+  if (n.tipo === "dm" && n.conversa_id) {
+    go("comunidade", "privado");
+    loadConvs().then(function(){ openConv(n.conversa_id); });
+  } else if (n.post_id) {
+    feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
+    go("feed"); loadFeed(true);
+  }
+}
+bellBtn.addEventListener("click", function(e){ e.stopPropagation(); setPanel(bellPanel.hidden); });
+document.addEventListener("click", function(e){ if (!bellPanel.hidden && !bellPanel.contains(e.target) && e.target !== bellBtn) setPanel(false); });
+$("bellAll").addEventListener("click", function(){ markRead(notif.items.filter(function(n){ return !n.lida; }).map(function(n){ return n.id; })); });
+$("bellPush").addEventListener("click", function(){
+  try { Notification.requestPermission().then(function(p){ pushBtn(); toast(p === "granted" ? "Avisos ligados. Vou te avisar quando o site estiver aberto em segundo plano." : "Sem problema. Os avisos continuam no sininho."); }); } catch(e){}
+});
+
+auth.on(function(){
+  if (!auth.user || !sb) { notif = { items: [], unread: 0, seenIds: {}, first: true, timer: notif.timer }; setBell(); return; }
+  if (!notif.timer) {
+    loadNotifs();
+    notif.timer = setInterval(function(){ if (!document.hidden || ("Notification" in window && Notification.permission === "granted")) loadNotifs(); }, 30000);
+  }
+});
 
 
 // Painel do Denny (só administradores): agenda, horários da semana, inscritos e moderação.
