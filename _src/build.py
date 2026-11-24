@@ -228,7 +228,7 @@ def devo_page(i, d):
   <div class="actions">
     <a class="btn wa" href="https://wa.me/?text={urlquote(share)}" rel="noopener">Compartilhar no WhatsApp</a>
     <a class="btn" href="https://wa.me/{WA}?text={urlquote('Oi, Denny! Li o devocional ' + chr(34) + d['title'] + chr(34) + ' e queria conversar: ')}" rel="noopener">Conversar com o Denny</a>
-    <a class="btn dark" href="/#comunidade/comentarios">Comentar</a>
+    <a class="btn dark" href="/#mesa">Conversar na Mesa Grande</a>
   </div>
   <p class="sig">Denny Silva</p>
 </article>

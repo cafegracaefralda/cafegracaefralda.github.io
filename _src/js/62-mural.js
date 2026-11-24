@@ -1,24 +1,24 @@
-// Feed das famílias: publicações com foto, curtidas e comentários. Só para quem entrou com o Google.
+// Mesa Grande: o cantinho das famílias (posts com foto, curtidas e comentários). Só para quem entrou com o Google.
 var TIPOS = [
-  { id: "conversa", nome: "Conversa" }, { id: "indicacao", nome: "Indicação" }, { id: "desabafo", nome: "Desabafo" },
-  { id: "oracao", nome: "Pedido de oração" }, { id: "gratidao", nome: "Gratidão" }
+  { id: "conversa", nome: "Papo de mesa", em: "☕" }, { id: "indicacao", nome: "Indicação", em: "💡" }, { id: "desabafo", nome: "Desabafo", em: "🫶" },
+  { id: "oracao", nome: "Oração", em: "🙏" }, { id: "gratidao", nome: "Gratidão", em: "✨" }
 ];
-var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.nome; });
-var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "" };
+var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.em + " " + t.nome; });
+var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
 var PAGE = 15;
 
 function uid(){ return auth.user ? auth.user.id : ""; }
 
-// Escolha do tipo ao publicar e filtro do Feed
+// Escolha do tipo ao publicar e filtro da Mesa
 (function buildChips(){
   var box = $("postTypes"), fil = $("feedTypes");
   TIPOS.forEach(function(t){
-    var b = h("button", "chip", t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === feed.tipo);
+    var b = h("button", "chip", t.em + " " + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === feed.tipo);
     b.addEventListener("click", function(){ feed.tipo = t.id; $$(".chip", box).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); });
     box.appendChild(b);
   });
-  [{ id: "all", nome: "Tudo" }].concat(TIPOS).forEach(function(t){
-    var b = h("button", "chip", t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === "all");
+  [{ id: "all", nome: "Tudo", em: "" }].concat(TIPOS).forEach(function(t){
+    var b = h("button", "chip", (t.em ? t.em + " " : "") + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === "all");
     b.addEventListener("click", function(){ feed.filtro = t.id; $$(".chip", fil).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); loadFeed(true); });
     fil.appendChild(b);
   });
@@ -40,6 +40,7 @@ function shrinkPhoto(file){
     img.src = url;
   });
 }
+function newUuid(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
 $("postFile").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
   if (!f) return;
@@ -59,7 +60,7 @@ $("postForm").addEventListener("submit", function(e){
   feed.busy = true; $("postSend").disabled = true;
   var path = null, up = Promise.resolve();
   if (feed.photo) {
-    path = uid() + "/" + (window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); })) + ".jpg";
+    path = uid() + "/" + newUuid() + ".jpg";
     up = sb.storage.from("mural").upload(path, feed.photo, { contentType: "image/jpeg", upsert: false });
   }
   up.then(function(u){
@@ -74,14 +75,14 @@ $("postForm").addEventListener("submit", function(e){
   }).then(function(p){
     $("postText").value = ""; clearPhoto();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado no Feed."); setStatus($("postStatus"), "");
+    toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
     setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
 });
 
-// Carregar o Feed
+// Carregar a Mesa
 function signPhotos(posts){
   var paths = posts.map(function(p){ return p.foto; }).filter(function(f){ return f && !feed.urls[f]; });
   if (!paths.length) return Promise.resolve();
@@ -115,12 +116,38 @@ function loadFeed(reset){
 }
 $("feedMore").addEventListener("click", function(){ loadFeed(false); });
 
+// Quem está na mesa (como os "stories": toque para chamar no privado)
+function loadMembers(){
+  if (!sb || !auth.user) return;
+  sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", uid()).order("criado_em", { ascending: false }).limit(30).then(function(r){
+    if (!r.data) return;
+    feed.members = r.data; renderMembers();
+  });
+}
+function renderMembers(){
+  var row = $("peopleRow"), side = $("sidePeople"); row.innerHTML = ""; side.innerHTML = "";
+  var me = h("button", "person me"); me.type = "button"; var rg = h("span", "ring"); rg.appendChild(h("span", null, initial(auth.name()))); me.append(rg, h("small", null, "Você"));
+  me.addEventListener("click", function(){ $("postText").focus(); });
+  row.appendChild(me);
+  feed.members.forEach(function(m){
+    var b = h("button", "person"); b.type = "button"; var r2 = h("span", "ring"); r2.appendChild(h("span", null, initial(m.nome))); b.append(r2, h("small", null, m.nome || "Alguém"));
+    b.title = "Chamar " + (m.nome || "") + " no privado"; b.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
+    row.appendChild(b);
+    if (side.childNodes.length < 6) {
+      var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, m.nome || "Alguém"), h("small", null, "Chamar no privado"));
+      s.append(h("span", "avatar", initial(m.nome)), tx); s.addEventListener("click", function(){ openDm(m.user_id, m.nome || "Alguém"); });
+      side.appendChild(s);
+    }
+  });
+  if (!feed.members.length) side.appendChild(h("p", "hint", "Você é a primeira pessoa por aqui. Convide alguém para a mesa!"));
+}
+
 // Desenhar
 function renderFeed(){
   var box = $("feedList"); box.innerHTML = "";
   $("feedMore").hidden = !feed.more;
   if (!feed.posts.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "O Feed está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
+    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "A Mesa está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
     box.appendChild(e); return;
   }
   feed.posts.forEach(function(p){ box.appendChild(renderPost(p)); });
@@ -130,11 +157,17 @@ function actBtn(label, ic, fn, cls){
   var b = h("button", cls || null); b.type = "button"; b.append(icon(ic), document.createTextNode(label)); b.addEventListener("click", fn); return b;
 }
 function renderPost(p){
-  var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id; var _x = null, top = h("div", "post-top"), who = h("div", "grow");
-  who.append(h("b", null, mine ? "Você" : p.nome), h("time", null, ago(p.criado_em)));
+  var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
+  var top = h("div", "post-top"), who = h("div", "grow");
+  who.append(h("b", null, mine ? "Você" : p.nome), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
   top.append(h("span", "avatar", initial(p.nome)), who);
-  if (p.aprovado === false) top.append(h("span", "post-tag", "Em análise"));
-  top.append(h("span", "post-tag", TIPO_NOME[p.tipo] || "Conversa"));
+  // menu ⋯ (apagar / denunciar)
+  var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
+  var menu = h("div", "pmenu"); menu.hidden = true;
+  if (mine || auth.admin) { var del = h("button", null, "Apagar"); del.type = "button"; del.addEventListener("click", function(){ menu.hidden = true; if (confirm("Apagar esta publicação?")) deletePost(p); }); menu.appendChild(del); }
+  if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
+  mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
+  mw.append(mb, menu); top.appendChild(mw);
   el.append(top, h("p", "post-text", p.texto));
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
@@ -142,45 +175,47 @@ function renderPost(p){
     el.appendChild(im);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
+  var cnt = h("div", "post-count");
+  cnt.append(h("span", null, likes.length ? "♥ " + likes.length + (likes.length === 1 ? " curtida" : " curtidas") : ""));
+  var cb = h("button", null, cm.length ? cm.length + (cm.length === 1 ? " comentário" : " comentários") : ""); cb.type = "button"; cb.addEventListener("click", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); });
+  cnt.appendChild(cb);
+  if (likes.length || cm.length) el.appendChild(cnt);
   var acts = h("div", "post-acts");
-  var lk = actBtn(String(likes.length || "Curtir"), "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
-  acts.append(lk, actBtn(cm.length ? String(cm.length) : "Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
-  acts.appendChild(h("span", "sp"));
-  if (mine || auth.admin) {
-    var del = h("button", null, "Apagar"); del.type = "button"; del.addEventListener("click", function(){ if (confirm("Apagar esta publicação?")) deletePost(p); }); acts.appendChild(del);
-  }
-  if (!mine) {
-    var dm1 = h("button", null, "Chamar no privado"); dm1.type = "button"; dm1.addEventListener("click", function(){ openDm(p.user_id, p.nome); }); acts.appendChild(dm1);
-    var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ reportPost(p); }); acts.appendChild(rep);
-  }
+  var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
+  acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
+  if (!mine) acts.appendChild(actBtn("Chamar no privado", "i-send", function(){ openDm(p.user_id, p.nome); }));
   el.appendChild(acts);
-  if (feed.open[p.id]) el.appendChild(renderCmts(p, cm));
+  if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
 }
-function renderCmts(p, cm){
-  var box = h("div", "post-cmts");
-  cm.forEach(function(c){
+function renderCmts(p, cm, open){
+  var box = h("div", "post-cmts"), list = open ? cm : cm.slice(-1);
+  if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
+  list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
     pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
-    if (c.user_id === uid() || auth.admin) {
+    if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
       pp.appendChild(d);
     }
     body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
   });
-  var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
-  var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
-  f.addEventListener("submit", function(e){
-    e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
-    sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em").then(function(r){
-      if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
-      feed.cmts[p.id].push(r.data[0]); renderFeed();
+  if (open) {
+    var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
+    var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
+    f.addEventListener("submit", function(e){
+      e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
+      sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em").then(function(r){
+        if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
+        feed.cmts[p.id].push(r.data[0]); renderFeed();
+      });
     });
-  });
-  box.appendChild(f);
+    box.appendChild(f);
+  }
   return box;
 }
+document.addEventListener("click", function(){ $$(".pmenu").forEach(function(m){ m.hidden = true; }); });
 function toggleLike(p){
   if (!sb || !auth.user) return;
   var l = feed.likes[p.id] = feed.likes[p.id] || [], i = l.indexOf(uid());
@@ -195,13 +230,13 @@ function deletePost(p){
   });
 }
 function reportPost(p){
-  if (!confirm("Denunciar esta publicação? Ela some do Feed se outras pessoas também denunciarem, e o Denny revisa.")) return;
+  if (!confirm("Denunciar esta publicação? Ela some da Mesa se outras pessoas também denunciarem, e o Denny revisa.")) return;
   sb.from("post_denuncias").insert({ post_id: p.id }).then(function(r){
     if (r.error && String(r.error.message || "").indexOf("duplicate") < 0) return toast("Não foi possível denunciar agora.");
     toast("Obrigado. Vamos olhar com cuidado.");
   });
 }
-auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; $("feedList").innerHTML = ""; } });
+auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-viewHooks.feed = function(){ if (auth.user && !feed.loaded) loadFeed(true); };
-auth.on(function(){ if (auth.user && isShown("feed") && !feed.loaded) loadFeed(true); });
+viewHooks.mesa = function(){ if (auth.user) { if (!feed.loaded) loadFeed(true); loadMembers(); } };
+auth.on(function(){ if (auth.user && isShown("mesa")) { if (!feed.loaded) loadFeed(true); loadMembers(); } });

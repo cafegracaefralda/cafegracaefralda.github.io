@@ -26,8 +26,8 @@ function openReader(a){
     act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
     act("btn-ghost", waLink('Oi, Denny! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com o Denny")
   );
-  var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-chat"), document.createTextNode("Comentar"));
-  cm.addEventListener("click", function(){ dlg.close(); $("c-sobre").value = a.title; go("comunidade", "comentarios"); });
+  var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa Grande"));
+  cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
   foot.appendChild(cm);
   readerBody.appendChild(foot);
   dlg.showModal(); dlg.scrollTop = 0;

@@ -83,9 +83,9 @@ grant select on public.notificacoes to authenticated;
 grant update (lida) on public.notificacoes to authenticated;
 grant delete on public.notificacoes to authenticated;
 
--- ===== Arquivos nas conversas privadas (fotos JPEG e PDF, até 5 MB) =====
+-- ===== Mensagens privadas: fotos (JPEG) e áudios, até 5 MB, com tempo real =====
 -- Segurança: bucket PRIVADO; só os dois participantes da conversa enviam e abrem (link temporário);
--- quem foi bloqueado não consegue enviar; só JPEG e PDF; o caminho do arquivo precisa ser da própria conversa.
+-- quem foi bloqueado não consegue enviar; só foto JPEG e áudio (sem vídeo); o caminho do arquivo precisa ser da própria conversa.
 alter table public.dm_mensagens add column if not exists arquivo text;
 alter table public.dm_mensagens add column if not exists arquivo_nome text;
 alter table public.dm_mensagens add column if not exists arquivo_tipo text;
@@ -95,7 +95,7 @@ alter table public.dm_mensagens add constraint dm_texto_ok check (char_length(te
 alter table public.dm_mensagens drop constraint if exists dm_arquivo_ok;
 alter table public.dm_mensagens add constraint dm_arquivo_ok check (
   (arquivo is null and arquivo_nome is null and arquivo_tipo is null)
-  or (arquivo ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}\.(jpg|pdf)$' and arquivo_tipo in ('image', 'pdf') and char_length(coalesce(arquivo_nome, '')) between 1 and 120));
+  or (arquivo ~ '^[0-9a-f-]{36}/[0-9a-f-]{36}\.(jpg|webm|ogg|m4a|mp3)$' and arquivo_tipo in ('image', 'audio') and char_length(coalesce(arquivo_nome, '')) between 1 and 120));
 
 -- A pessoa participa da conversa? (security definer para valer também dentro das regras do armazenamento)
 create or replace function public.dm_participante(p_conversa uuid)
@@ -120,15 +120,15 @@ begin
   if outro is null then return new; end if;
   if not exists (select 1 from public.notificacoes where user_id = outro and conversa_id = new.conversa_id and tipo = 'dm' and not lida) then
     insert into public.notificacoes (user_id, tipo, de_nome, conversa_id, resumo)
-    values (outro, 'dm', public.primeiro_nome(new.de), new.conversa_id, case when new.texto = '' then 'Enviou um arquivo' else left(new.texto, 120) end);
+    values (outro, 'dm', public.primeiro_nome(new.de), new.conversa_id, case when new.texto = '' then (case when new.arquivo_tipo = 'audio' then 'Enviou um áudio' else 'Enviou uma foto' end) else left(new.texto, 120) end);
   end if;
   return new;
 end $$;
 
 -- Bucket privado e regras de acesso aos arquivos
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('privado', 'privado', false, 5242880, array['image/jpeg', 'application/pdf'])
-on conflict (id) do update set public = false, file_size_limit = 5242880, allowed_mime_types = array['image/jpeg', 'application/pdf'];
+values ('privado', 'privado', false, 5242880, array['image/jpeg', 'audio/webm', 'audio/ogg', 'audio/mp4', 'audio/mpeg'])
+on conflict (id) do update set public = false, file_size_limit = 5242880, allowed_mime_types = array['image/jpeg', 'audio/webm', 'audio/ogg', 'audio/mp4', 'audio/mpeg'];
 
 drop policy if exists "privado arquivos: ver" on storage.objects;
 drop policy if exists "privado arquivos: enviar" on storage.objects;
@@ -136,3 +136,11 @@ create policy "privado arquivos: ver" on storage.objects for select to authentic
   using (bucket_id = 'privado' and (storage.foldername(name))[1] ~ '^[0-9a-f-]{36}$' and public.dm_participante(((storage.foldername(name))[1])::uuid));
 create policy "privado arquivos: enviar" on storage.objects for insert to authenticated
   with check (bucket_id = 'privado' and (storage.foldername(name))[1] ~ '^[0-9a-f-]{36}$' and public.dm_pode_enviar(((storage.foldername(name))[1])::uuid));
+
+-- Tempo real: o site recebe mensagens e avisos na hora (o Realtime respeita as regras de acesso acima)
+do $$ begin
+  if exists (select 1 from pg_publication where pubname = 'supabase_realtime') then
+    begin alter publication supabase_realtime add table public.dm_mensagens; exception when duplicate_object then null; end;
+    begin alter publication supabase_realtime add table public.notificacoes; exception when duplicate_object then null; end;
+  end if;
+end $$;

@@ -54,11 +54,11 @@ function openNotif(n){
   setPanel(false);
   markRead([n.id]);
   if (n.tipo === "dm" && n.conversa_id) {
-    go("comunidade", "privado");
+    go("mensagens");
     loadConvs().then(function(){ openConv(n.conversa_id); });
   } else if (n.post_id) {
     feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
-    go("feed"); loadFeed(true);
+    go("mesa"); loadFeed(true);
   }
 }
 bellBtn.addEventListener("click", function(e){ e.stopPropagation(); setPanel(bellPanel.hidden); });
@@ -68,8 +68,14 @@ $("bellPush").addEventListener("click", function(){
   try { Notification.requestPermission().then(function(p){ pushBtn(); toast(p === "granted" ? "Avisos ligados. Vou te avisar quando o site estiver aberto em segundo plano." : "Sem problema. Os avisos continuam no sininho."); }); } catch(e){}
 });
 
+var nChannel = null;
+function subNotifRealtime(){
+  if (nChannel || !sb || !auth.user || !sb.channel) return;
+  try { nChannel = sb.channel("notif-" + auth.user.id).on("postgres_changes", { event: "INSERT", schema: "public", table: "notificacoes" }, function(){ loadNotifs(); }).subscribe(); } catch(e){ nChannel = null; }
+}
 auth.on(function(){
-  if (!auth.user || !sb) { notif = { items: [], unread: 0, seenIds: {}, first: true, timer: notif.timer }; setBell(); return; }
+  if (!auth.user || !sb) { try { if (nChannel && sb) sb.removeChannel(nChannel); } catch(e){} nChannel = null; notif = { items: [], unread: 0, seenIds: {}, first: true, timer: notif.timer }; setBell(); return; }
+  subNotifRealtime();
   if (!notif.timer) {
     loadNotifs();
     notif.timer = setInterval(function(){ if (!document.hidden || ("Notification" in window && Notification.permission === "granted")) loadNotifs(); }, 30000);

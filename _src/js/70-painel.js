@@ -164,7 +164,7 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para o Denny." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Agenda, horários, inscritos e moderação.";
+  note.textContent = "Agenda, horários, inscritos, moderação e publicações da Da Casa.";
   $("panelApp").hidden = false;
   loadPanel();
   if (sub === "inscritos") loadSubs();
