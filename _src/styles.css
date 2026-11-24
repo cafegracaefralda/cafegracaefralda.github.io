@@ -1021,3 +1021,20 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
   .msg.me .bubble *{color:#fff!important}
   .composer .btn-terra{background:var(--blue)}
 }
+
+/* A Casa abre direto nas postagens: capa compacta */
+.home-intro{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;padding:14px 18px;border-radius:22px;max-width:none;margin-bottom:14px}
+.home-intro h1{font-size:clamp(22px,5.6vw,30px);line-height:1.1;flex:1 1 260px;margin:0}
+.home-intro h1 br{display:none}
+.home-intro h1 .swoosh::after{display:none}
+.home-intro .lede{display:none}
+.home-intro .ctas{display:flex;gap:8px;flex:0 0 auto;flex-wrap:wrap}
+.home-intro .ctas .btn{padding:9px 16px;font-size:14px;min-height:44px}
+.home-head{margin-top:4px}
+.home-head .label,.home-head h2:after{display:none}
+.home-head h2{font-size:24px}
+@media (max-width:760px){.home-intro .ctas{width:100%}.home-intro .ctas .btn{flex:1 1 0;white-space:nowrap;padding:9px 10px;font-size:13.5px}}
+
+/* Selo = logo do Café, Graça & Fralda (no lugar do ✓) */
+.selo,.post.oficial .selo,.selo-inline{font-size:0!important;color:transparent!important;background:#1D1A17 url("icons/icon-192.png") center/cover no-repeat!important;width:22px!important;height:22px!important;border-radius:50%!important;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line);vertical-align:-5px!important}
+.note h3 .selo{width:24px!important;height:24px!important}
