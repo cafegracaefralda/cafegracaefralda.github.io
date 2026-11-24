@@ -1,4 +1,5 @@
 // Prateleira: publicações da comunidade (texto, foto, vídeo, PDF, YouTube, link) e as oficiais (com selo). Qualquer pessoa lê; publicar, curtir e comentar exige login.
+var home = { items: [], more: false, loaded: false, tok: 0 };
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
 var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.github.io/#prateleira";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
@@ -27,18 +28,20 @@ function casaHead(sub){
 }
 function linkBtn(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(icon(ic), document.createTextNode(label)); return a; }
 function renderDestaque(){
-  var el = $("destaqueDevo"); if (!el || typeof FEATURED === "undefined") return;
-  el.innerHTML = "";
-  var a = FEATURED;
-  el.appendChild(casaHead("📖 Devocional da semana · 5 minutos"));
-  el.appendChild(h("h3", null, a.title));
-  el.appendChild(h("p", "of-verse", "“" + a.passage[0] + "” — " + a.passage[1]));
-  var acts = h("div", "post-acts");
-  var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
-  acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"));
-  var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
-  acts.appendChild(more);
-  el.appendChild(acts);
+  if (typeof FEATURED === "undefined") return;
+  ["destaqueDevo", "homeDevo"].forEach(function(id){
+    var el = $(id); if (!el) return; el.innerHTML = "";
+    var a = FEATURED;
+    el.appendChild(casaHead("📖 Devocional da semana · 5 minutos"));
+    el.appendChild(h("h3", null, a.title));
+    el.appendChild(h("p", "of-verse", quoteVerse(a.passage[0]) + " — " + a.passage[1]));
+    var acts = h("div", "post-acts");
+    var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
+    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"));
+    var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
+    acts.appendChild(more);
+    el.appendChild(acts);
+  });
 }
 
 /* ---------- Publicar ---------- */
@@ -92,7 +95,7 @@ $("pubForm").addEventListener("submit", function(e){
     return sb.from("pubs").insert(row).select("id,user_id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em");
   }).then(function(r){
     if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("prateleira").remove([path]); var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er; }
-    var p = r.data[0]; pub.items.unshift(p); pub.likes[p.id] = []; pub.cmts[p.id] = []; renderPubs();
+    var p = r.data[0]; pub.items.unshift(p); if (p.oficial) home.items.unshift(p); pub.likes[p.id] = []; pub.cmts[p.id] = []; renderPubs();
     $("pubText").value = ""; $("pubTitulo").value = ""; $("pubFixar").checked = false; pubClearAttach(); pubClearLink(); setStatus(st, ""); toast("Publicado na Prateleira.");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "arquivo" ? "Não foi possível enviar o arquivo (máximo 30 MB)." : "Não foi possível publicar agora. Tente de novo.";
@@ -101,29 +104,35 @@ $("pubForm").addEventListener("submit", function(e){
 });
 
 /* ---------- Carregar e mostrar ---------- */
-function loadPubs(reset){
+function fetchPubs(st, reset, soOficial){
   if (!sb) { renderPubs(); return; }
-  var tok = ++pub.tok, base = reset ? [] : pub.items;
-  if (reset) { pub.items = []; pub.loaded = false; }
+  var tok = ++st.tok, base = reset ? [] : st.items;
+  if (reset) { st.items = []; st.loaded = false; }
   var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em" + (auth.user ? ",user_id" : "");
-  sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1).then(function(r){
-    if (!r.data || tok !== pub.tok) return;
-    var fresh = r.data, ids = fresh.map(function(p){ return p.id; });
-    pub.more = fresh.length === PUB_PAGE;
-    if (!ids.length) { pub.loaded = true; renderPubs(); return; }
+  var q = sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
+  if (soOficial) q = q.eq("oficial", true);
+  q.then(function(r){
+    if (!r.data || tok !== st.tok) return;
+    var fresh = r.data, ids = fresh.map(function(x){ return x.id; });
+    st.more = fresh.length === PUB_PAGE;
+    if (!ids.length) { st.loaded = true; renderPubs(); return; }
     return Promise.all([
       sb.from("pub_curtidas").select(auth.user ? "pub_id,user_id" : "pub_id").in("pub_id", ids),
       sb.from("pub_comentarios").select(auth.user ? "id,pub_id,user_id,nome,texto,criado_em" : "id,pub_id,nome,texto,criado_em").in("pub_id", ids).order("criado_em", { ascending: true })
     ]).then(function(x){
-      if (tok !== pub.tok) return;
-      fresh.forEach(function(p){ pub.likes[p.id] = []; pub.cmts[p.id] = []; });
+      if (tok !== st.tok) return;
+      fresh.forEach(function(q2){ pub.likes[q2.id] = []; pub.cmts[q2.id] = []; });
       (x[0].data || []).forEach(function(l){ (pub.likes[l.pub_id] = pub.likes[l.pub_id] || []).push(l.user_id || "x"); });
       (x[1].data || []).forEach(function(c){ (pub.cmts[c.pub_id] = pub.cmts[c.pub_id] || []).push(c); });
-      pub.items = base.concat(fresh); pub.loaded = true; renderPubs();
+      st.items = base.concat(fresh); st.loaded = true; renderPubs();
     });
   });
 }
+function loadPubs(reset){ fetchPubs(pub, reset, false); }
+function loadHome(reset){ fetchPubs(home, reset, true); }
+function reloadPubs(){ loadPubs(true); loadHome(true); }
 $("pubMore").addEventListener("click", function(){ loadPubs(false); });
+$("homeMore").addEventListener("click", function(){ loadHome(false); });
 
 function ytBlock(p){
   var box = h("div", "yt"), b = h("button", "yt-play"); b.type = "button"; b.setAttribute("aria-label", "Assistir no YouTube");
@@ -152,17 +161,22 @@ function mediaOf(p){
   }
   return null;
 }
-function renderPubs(){
-  var box = $("pubList"); box.innerHTML = "";
-  $("pubMore").hidden = !pub.more;
-  if (!pub.items.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, pub.loaded ? "A Prateleira está vazia" : "Carregando…"), h("p", null, pub.loaded ? "Seja a primeira pessoa a compartilhar um vídeo, PDF, foto ou link." : "")); box.appendChild(e); return;
+function renderList(box, st, prefix, vazio){
+  if (!box) return;
+  box.innerHTML = "";
+  if (!st.items.length) {
+    var e = h("div", "empty card"); e.append(h("h3", null, st.loaded ? vazio[0] : "Carregando…"), h("p", null, st.loaded ? vazio[1] : "")); box.appendChild(e); return;
   }
-  pub.items.forEach(function(p){ box.appendChild(renderPub(p)); });
+  st.items.forEach(function(p){ box.appendChild(renderPub(p, prefix)); });
+}
+function renderPubs(){
+  $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
+  renderList($("pubList"), pub, "", ["A Prateleira está vazia", "Seja a primeira pessoa a compartilhar um vídeo, PDF, foto ou link."]);
+  renderList($("homeList"), home, "home-", ["Em breve, mais novidades da Casa", "Avisos, convites, vídeos e indicações de parceiros aparecem aqui."]);
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
-function renderPub(p){
-  var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = "pub-" + p.id;
+function renderPub(p, prefix){
+  var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
   if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(h("b", null, mine ? "Você" : p.autor), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
@@ -171,7 +185,7 @@ function renderPub(p){
   var menu = h("div", "pmenu"); menu.hidden = true;
   function mi(label, fn){ var b = h("button", null, label); b.type = "button"; b.addEventListener("click", function(){ menu.hidden = true; fn(); }); menu.appendChild(b); }
   if (mine || auth.admin) mi("Apagar", function(){ if (confirm("Apagar esta publicação?")) deletePub(p); });
-  if (auth.admin) { mi(p.fixado ? "Desafixar" : "Fixar no topo", function(){ sb.from("pubs").update({ fixado: !p.fixado }).eq("id", p.id).then(function(){ loadPubs(true); }); }); if (p.aprovado === false) mi("Mostrar de novo", function(){ sb.from("pubs").update({ aprovado: true }).eq("id", p.id).then(function(){ loadPubs(true); }); }); }
+  if (auth.admin) { mi(p.fixado ? "Desafixar" : "Fixar no topo", function(){ sb.from("pubs").update({ fixado: !p.fixado }).eq("id", p.id).then(reloadPubs); }); if (p.aprovado === false) mi("Mostrar de novo", function(){ sb.from("pubs").update({ aprovado: true }).eq("id", p.id).then(reloadPubs); }); }
   if (!mine && auth.user) mi("Denunciar", function(){ reportPub(p); });
   if (menu.childNodes.length) { mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; }); mw.append(mb, menu); top.appendChild(mw); }
   el.appendChild(top);
@@ -229,7 +243,7 @@ function deletePub(p){
   var rm = p.arquivo ? sb.storage.from("prateleira").remove([p.arquivo]) : Promise.resolve();
   Promise.resolve(rm).then(function(){ return sb.from("pubs").delete().eq("id", p.id); }).then(function(r){
     if (r && r.error) return toast("Não foi possível apagar.");
-    pub.items = pub.items.filter(function(x){ return x.id !== p.id; }); renderPubs(); toast("Publicação apagada.");
+    pub.items = pub.items.filter(function(x){ return x.id !== p.id; }); home.items = home.items.filter(function(x){ return x.id !== p.id; }); renderPubs(); toast("Publicação apagada.");
   });
 }
 function reportPub(p){
@@ -242,5 +256,6 @@ function reportPub(p){
 document.addEventListener("click", function(){ $$(".pmenu").forEach(function(m){ m.hidden = true; }); });
 
 viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque(); if (!pub.loaded) loadPubs(true); } };
-auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); });
+viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); };
+auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); if (isShown("inicio")) loadHome(true); });
 pubSync();

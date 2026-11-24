@@ -133,6 +133,7 @@ function openConv(id){
   var c = dm.convs.filter(function(x){ return x.id === id; })[0];
   setHeader(c);
   $("dmCompose").hidden = false; dmClearFile(); $("emojiPop").hidden = true;
+  $("dmApp").classList.add("thread"); document.body.classList.add("dm-thread");
   renderDmList(); renderDmTools(); renderDmMsgs(true); loadDmMsgs(true);
 }
 var DM_ERR = { dm_desativado: "Esta pessoa não está recebendo mensagens privadas.", indisponivel: "Não foi possível iniciar esta conversa.",
@@ -278,6 +279,11 @@ function startDm(){
   dm.timer = setInterval(function(){ if (!document.hidden) { loadConvs(); loadDmMsgs(false); } }, 6000);
 }
 function stopDm(){ if (dm.timer) { clearInterval(dm.timer); dm.timer = null; } }
+$("dmBack").addEventListener("click", function(){
+  $("dmApp").classList.remove("thread"); document.body.classList.remove("dm-thread");
+  dm.current = null; dm.msgs = []; dm.sig = ""; setHeader(null); $("dmCompose").hidden = true; $("dmSub").hidden = true; $("dmTools").innerHTML = "";
+  renderDmList(); renderDmMsgs(true); loadConvs();
+});
 viewHooks.mensagens = function(){ if (auth.user) startDm(); };
 
 // Perfil criado no primeiro login, tempo real ligado e selo de mensagens novas

@@ -171,7 +171,7 @@ function renderPost(p){
   var acts = h("div", "post-acts");
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
-  if (!mine) acts.appendChild(actBtn("Chamar no privado", "i-send", function(){ openDm(p.user_id, p.nome); }));
+  if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;

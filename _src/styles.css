@@ -896,3 +896,41 @@ label.hand-btn{cursor:pointer}
 @media (max-width:1099px){body[data-view="casa"] .wa-float{display:none}}
 
 #v-inicio .app-band{margin-top:28px;max-width:720px}
+
+/* Início: postagens da Casa */
+.home-intro{display:grid;gap:14px;max-width:760px;margin-bottom:22px}
+.home-intro h1{font-size:clamp(40px,11vw,76px);line-height:.98}
+.home-intro .lede{font-size:clamp(16.5px,4.4vw,19px);color:var(--muted);max-width:52ch}
+.home-intro .ctas{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),max-content))}
+.home-head{margin-bottom:10px}
+.home-head h2{font-size:clamp(26px,7vw,34px)}
+.home-feed{max-width:700px}
+@media (max-width:760px){.home-intro .ctas .btn{width:100%;justify-content:center}}
+
+/* ---------- Mensagens no celular: lista de conversas e depois a conversa em tela cheia ---------- */
+.dm-back{display:none}
+.dm-tools{white-space:nowrap}
+@media (max-width:760px){
+  .chat.dm{display:block;height:auto;max-height:none;border-radius:20px;overflow:visible}
+  .chat.dm .rooms{border:0;padding:10px;max-height:none;overflow:visible;background:none}
+  .chat.dm .rooms .room{min-height:60px}
+  .chat.dm .chat-main{display:none}
+  .chat.dm.thread .rooms{display:none}
+  .chat.dm.thread .chat-main{display:grid;height:100%}
+  .chat.dm.thread{position:fixed;left:0;right:0;top:72px;bottom:0;height:auto;border-radius:0;border:0;z-index:45;background:var(--bg);display:block}
+  body.dm-thread .tabbar{display:none}
+  body.dm-thread #v-mensagens .view-head{display:none}
+  body.dm-thread .page{padding-bottom:0}
+  .dm-back{display:grid;place-items:center;width:44px;height:44px;border:0;background:none;font-size:34px;line-height:1;color:var(--ink);margin-left:-8px;cursor:pointer;flex:none}
+  .chat.dm.thread .chat-head{gap:4px;padding:8px 12px}
+  .chat.dm.thread .chat-head .who{flex:1;min-width:0}
+  .chat.dm.thread .msgs{padding:14px 12px}
+  .dm-compose{padding-bottom:calc(6px + env(safe-area-inset-bottom,0px))}
+  .dm-safe{display:none}
+  .bell-panel{position:fixed;left:12px;right:12px;top:76px;width:auto}
+}
+@media (max-width:1099px){.wa-float{display:none}}
+@media (max-width:760px){
+  .dm .composer{gap:6px;padding:8px 10px}
+  .dm .composer .hand-btn,.dm .composer .btn-terra{width:44px;height:44px}
+}

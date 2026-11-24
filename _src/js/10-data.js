@@ -141,6 +141,11 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
   ];
 // Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
 // Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
+// Versículo entre aspas: aspas de dentro viram simples, e o ponto final fica dentro da citação.
+function quoteVerse(t){
+  var s = String(t).replace(/“/g, "‘").replace(/”\.?$/, ".’").replace(/”/g, "’");
+  return "“" + s + "”";
+}
 var PROS = [
   { id:"denny", nome:"Denny Silva", area:"fe", papel:"Aconselhamento pastoral e familiar",
     resumo:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico, oração e conversa sobre fé. Pai de três, incluindo gêmeos, cristão há mais de 20 anos, formado em Teologia e em Liderança, com pós em Gestão de Pessoas e Liderança de Equipes.",

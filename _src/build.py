@@ -32,6 +32,14 @@ def read(path):
     return (SRC / path).read_text(encoding="utf-8")
 
 
+def quote_verse(t):
+    import re
+    s = t.replace("“", "‘")
+    s = re.sub(r"”\.?$", ".’", s)
+    s = s.replace("”", "’")
+    return "“" + s + "”"
+
+
 def esc(t):
     return html.escape(str(t), quote=True)
 
@@ -164,7 +172,7 @@ footer{border-top:1px solid var(--line);padding:18px 20px;text-align:center;font
 def devo_page(i, d):
     url = f"{BASE_URL}devocional/{d['slug']}/"
     iso = d["date"].isoformat()
-    share = (f"☕ *{d['title']}*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n“{d['passage'][0]}”\n— {d['passage'][1]}\n\nLeia completo, com oração: {url}")
+    share = (f"☕ *{d['title']}*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n{quote_verse(d['passage'][0])}\n— {d['passage'][1]}\n\nLeia completo, com oração: {url}")
     article = {
         "@context": "https://schema.org", "@type": "Article", "headline": d["title"], "description": d["lede"],
         "inLanguage": "pt-BR", "datePublished": iso, "dateModified": iso, "mainEntityOfPage": url,
@@ -218,7 +226,7 @@ def devo_page(i, d):
   <h1>{esc(d['title'])}</h1>
   <p class="lede">{esc(d['lede'])}</p>
   <p class="label">O que a Bíblia diz sobre isso</p>
-  <blockquote class="verse">“{esc(d['passage'][0])}”<cite>{esc(d['passage'][1])}</cite></blockquote>
+  <blockquote class="verse">{esc(quote_verse(d['passage'][0]))}<cite>{esc(d['passage'][1])}</cite></blockquote>
   {paras}
   <div class="box"><p class="label">Para pensar</p><p>{esc(d['think'])}</p></div>
   <div class="box"><p class="label">Para hoje</p><p>{esc(d['today'])}</p></div>

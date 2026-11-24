@@ -86,46 +86,19 @@
   <!-- INÍCIO -->
   <section class="view" id="v-inicio" data-view="inicio">
     <div class="wrap">
-      <div class="hero hero-grid">
-        <div>
-          <span class="pill in">Café, Graça &amp; Fralda · comunidade de famílias</span>
-          <h1 class="in">Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
-          <p class="lede in">Uma comunidade para famílias de todo o Brasil que querem um lar mais leve e mais firme: fé de verdade, conversa sincera, indicação de confiança e gente cuidando de gente, entre as madrugadas e o café da manhã.</p>
-          <div class="ctas in">
-            <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
-            <button class="btn btn-dark" type="button" id="readToday"><svg><use href="#i-book"/></svg>Ler os 5 minutos de hoje</button>
-            <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
-          </div>
-        </div>
-        <div class="arch in">
-          <div class="arch-img"><img src="img/familia-1.jpg" alt="Uma família sorrindo junta: pai, mãe, dois meninos e um bebê recém-nascido" width="1280" height="853"></div>
-          <div class="float-quote"><p>“Filhos são herança do Senhor.”</p><span class="ref">Salmos 127:3</span></div>
+      <div class="home-intro">
+        <h1>Entre o café<br>e a fralda<span class="comma">,</span><br><em class="swoosh">tem graça.</em></h1>
+        <p class="lede">Uma comunidade para todas as famílias, com valores cristãos e portas abertas. Aqui cabe todo mundo.</p>
+        <div class="ctas">
+          <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
+          <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
         </div>
       </div>
-
-      <div class="mesa-band">
-        <div>
-          <span class="label">Por que “mesa”?</span>
-          <h2>Na mesa, a vida fica de verdade.</h2>
-          <p>É na mesa que a gente conta o dia, ri de boca cheia, desabafa, perdoa e, às vezes, ora. Ninguém precisa fingir quando tem um café na frente. Este cantinho é essa mesa, e já tem uma cadeira reservada pra você.</p>
-          <p class="mesa-sub">Eu falo de Deus porque foi Ele quem mudou a minha casa. Mas ninguém precisa concordar com tudo para ficar. 😉</p>
-        </div>
-        <div>
-          <p style="margin-bottom:10px"><b style="color:var(--ink)">Você não precisa ser cristão para puxar uma cadeira.</b></p>
-          <ul class="tags" aria-label="Quem senta nesta mesa">
-            <li>Cristão de longa data</li><li>Afastado da igreja</li><li>Só curioso</li><li>Nunca abri uma Bíblia</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="learn">
-        <div class="photo"><img src="img/pai-e-filhos.jpg" alt="Pai segurando os filhos pequenos no colo" width="853" height="1280" loading="lazy"></div>
-        <div>
-          <span class="label">Aprendizados de casa</span>
-          <h2>O que a gente aprendeu até aqui</h2>
-          <p class="muted">Nada de fórmula. Só o que a vida em casa ensinou. Toque para abrir.</p>
-          {{LESSONS}}
-        </div>
+      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2></div>
+      <div class="prat-wrap home-feed">
+        <article class="post oficial destaque" id="homeDevo"></article>
+        <div class="feed-list" id="homeList" aria-live="polite"></div>
+        <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
       </div>
       <div class="app-band" id="app" hidden>
         <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
@@ -168,7 +141,6 @@
             </div>
             <p class="status" id="pubStatus" role="status"></p>
           </form>
-          <article class="post oficial destaque" id="destaqueDevo"></article>
           <div class="feed-list" id="pubList" aria-live="polite"></div>
           <button class="btn btn-ghost feed-more" type="button" id="pubMore" hidden>Ver mais</button>
         </div>
@@ -319,7 +291,7 @@
           <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
         </div>
         <div class="chat-main">
-          <div class="chat-head"><div class="who"><span class="avatar" id="dmAv" hidden></span><div><b id="dmTitle">Mensagens</b><small id="dmSub">Só vocês dois leem</small></div></div><span class="dm-tools" id="dmTools"></span></div>
+          <div class="chat-head"><button class="dm-back" type="button" id="dmBack" aria-label="Voltar para as conversas">‹</button><div class="who"><span class="avatar" id="dmAv" hidden></span><div><b id="dmTitle">Mensagens</b><small id="dmSub">Só vocês dois leem</small></div></div><span class="dm-tools" id="dmTools"></span></div>
           <div class="msgs" id="dmMsgs" aria-live="polite"></div>
           <div class="dm-compose" id="dmCompose" hidden>
             <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
@@ -329,7 +301,7 @@
               <label class="hand-btn" for="dmFile" title="Enviar foto" aria-label="Enviar foto"><svg><use href="#i-photo"/></svg></label>
               <input type="file" id="dmFile" accept="image/*" hidden>
               <button class="hand-btn" type="button" id="dmEmoji" title="Emojis" aria-label="Emojis">🙂</button>
-              <input id="dmText" placeholder="Escreva uma mensagem…" maxlength="1000" aria-label="Mensagem privada">
+              <input id="dmText" placeholder="Mensagem…" maxlength="1000" aria-label="Mensagem privada">
               <button class="hand-btn" type="button" id="dmMic" title="Gravar áudio" aria-label="Gravar áudio"><svg><use href="#i-mic"/></svg></button>
               <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
             </form>

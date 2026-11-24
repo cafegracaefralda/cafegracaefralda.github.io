@@ -8,7 +8,7 @@ function devoLink(a){
   return l;
 }
 function shareText(a){
-  return "☕ *" + a.title + "*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n“" + a.passage[0] + "”\n— " + a.passage[1] +
+  return "☕ *" + a.title + "*\n_Devocional de 5 minutos · Café, Graça & Fralda_\n\n" + quoteVerse(a.passage[0]) + "\n— " + a.passage[1] +
          "\n\nLeia completo, com oração: " + pageUrl(a);
 }
 function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "label", label), h("p", null, text)); return b; }
@@ -16,7 +16,7 @@ function box(label, text){ var b = h("div", "devo-box"); b.append(h("span", "lab
 function openReader(a){
   readerBody.innerHTML = "";
   var title = h("h3", null, a.title); title.id = "readerTitle";
-  var v = h("div", "verse", "“" + a.passage[0] + "”"); v.appendChild(h("span", "ref", a.passage[1]));
+  var v = h("div", "verse", quoteVerse(a.passage[0])); v.appendChild(h("span", "ref", a.passage[1]));
   readerBody.append(h("span", "label", "5 minutos para a sua casa · " + a.cat), title, h("span", "label", "O que a Bíblia diz sobre isso"), v);
   a.body.forEach(function(t){ readerBody.appendChild(h("p", null, t)); });
   readerBody.append(box("Para pensar", a.think), box("Para hoje", a.today), h("span", "label", "Se quiser, ore assim"), h("p", "devo-pray", a.prayer));

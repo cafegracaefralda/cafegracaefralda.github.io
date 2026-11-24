@@ -38,7 +38,7 @@ function renderRoute(){
   route = r;
   document.body.setAttribute("data-view", r.view);
   setCurrentNav(r.view);
-  if (prev !== r.view) { if (prev === "mensagens" && typeof stopDm === "function") stopDm(); window.scrollTo({ top: 0, behavior: "auto" }); }
+  if (prev !== r.view) { if (prev === "mensagens") { if (typeof stopDm === "function") stopDm(); document.body.classList.remove("dm-thread"); } window.scrollTo({ top: 0, behavior: "auto" }); }
   if (viewHooks[r.view]) viewHooks[r.view](r.sub);
 }
 function go(view, sub){ history.pushState(null, "", "#" + view + (sub ? "/" + sub : "")); renderRoute(); }
@@ -71,4 +71,3 @@ $("tabMore").addEventListener("click", function(){ setMenu(!navEl.classList.cont
 navEl.addEventListener("click", function(e){ if (e.target.closest("a")) setMenu(false); });
 document.addEventListener("click", function(e){ if (navEl.classList.contains("open") && !navEl.contains(e.target) && !e.target.closest("#menuBtn, #tabMore")) setMenu(false); });
 
-$("readToday").addEventListener("click", function(){ openReader(FEATURED); });
