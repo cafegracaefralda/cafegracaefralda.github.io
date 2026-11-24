@@ -1,5 +1,5 @@
 // Painel (só administradores): inscritos nos devocionais e indicações enviadas para aprovar.
-var panel = { subs: [] };
+var panel = { subs: [], members: [] };
 
 function loadSubs(){
   sb.from("inscritos").select("nome,email,whatsapp,criado_em").order("criado_em", { ascending: false }).limit(500).then(function(r){
@@ -12,6 +12,22 @@ function loadSubs(){
     });
   });
 }
+function loadMembros(){
+  sb.rpc("membros_contatos").then(function(r){
+    panel.members = r.data || [];
+    var comZap = panel.members.filter(function(m){ return m.whatsapp; }).length;
+    $("pMemCount").textContent = panel.members.length + (panel.members.length === 1 ? " membro" : " membros") + " · " + comZap + " com WhatsApp";
+    var tb = $("pMembers"); tb.innerHTML = "";
+    panel.members.forEach(function(m){
+      var tr = h("tr"), z = h("td");
+      if (m.whatsapp) { var a = h("a", "link", m.whatsapp); a.href = "https://wa.me/" + m.whatsapp; a.target = "_blank"; a.rel = "noopener"; z.appendChild(a); } else z.textContent = "—";
+      tr.append(h("td", null, m.nome), h("td", null, m.email || ""), z, h("td", null, fmtDate.format(new Date(m.desde)).replace(".", "")));
+      tb.appendChild(tr);
+    });
+  });
+}
+$("copyMemMails").addEventListener("click", function(){ copyText(panel.members.map(function(m){ return m.email; }).filter(Boolean).join(", "), "E-mails copiados"); });
+$("copyMemPhones").addEventListener("click", function(){ copyText(panel.members.map(function(m){ return m.whatsapp; }).filter(Boolean).join("\n"), "WhatsApps copiados"); });
 function modItem(table, it, extra){
   var el = h("div", "mod-item" + (it.aprovado ? "" : " off")), body = h("div");
   body.append(h("small", null, it.nome + (extra ? " · " + extra : "") + " · " + ago(it.criado_em) + (it.aprovado ? "" : " · oculto")), h("p", null, it.texto));
@@ -38,8 +54,8 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Inscritos nos devocionais e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
+  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
   $("panelApp").hidden = false;
-  if (sub === "moderacao") loadMod(); else loadSubs();
+  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else loadSubs();
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });

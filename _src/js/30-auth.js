@@ -14,6 +14,8 @@ function applyAuthUI(){
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
   $("menuPainel").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
+  var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
+  document.body.classList.toggle("wall-on", !wall.hidden);
   var gates = [["feedGate", "feedApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
@@ -26,6 +28,18 @@ auth.signIn = function(){
     options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } }
   }).then(function(r){ if (r && r.error) toast("Não foi possível entrar com o Google agora."); });
 };
+$("lwGoogle").addEventListener("click", auth.signIn);
+$("lwForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var st = $("lwStatus"), m = val("lw-mail");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) return setStatus(st, "Digite um e-mail válido.", "err");
+  $("lwSend").disabled = true; setStatus(st, "Enviando…");
+  sb.auth.signInWithOtp({ email: m, options: { emailRedirectTo: location.origin + location.pathname } }).then(function(r){
+    $("lwSend").disabled = false;
+    if (r && r.error) return setStatus(st, "Não foi possível enviar agora. Tente de novo ou entre com o Google.", "err");
+    setStatus(st, "Pronto! Abra o e-mail que enviamos e toque no link para entrar.", "ok");
+  });
+});
 auth.signOut = function(){ if (sb) sb.auth.signOut(); };
 
 function setSession(session){

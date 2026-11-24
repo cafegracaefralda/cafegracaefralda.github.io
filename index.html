@@ -970,6 +970,39 @@ label.hand-btn{cursor:pointer}
   .dm .composer .hand-btn,.dm .composer .btn-terra{width:44px;height:44px}
 }
 
+/* Cadastro (WhatsApp) e Parcerias */
+.sheet-dlg{border:0;padding:0;background:transparent;width:min(520px,100%);max-width:100%;max-height:100dvh;margin:auto}
+.sheet-dlg::backdrop{background:rgba(29,26,23,.55)}
+.sheet-box{position:relative;background:var(--surface,#fff);border-radius:26px;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;max-height:92dvh;overflow-y:auto}
+.sheet-box h3{font-size:clamp(28px,7vw,34px);line-height:1.1}
+.sheet-box p{color:var(--muted);font-size:15.5px}
+.sheet-x{position:absolute;right:8px;top:8px;color:var(--ink)}
+.hint.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-family:var(--sans);letter-spacing:0;text-transform:none;line-height:1.4;color:var(--muted);font-size:13.5px}
+.hint.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--terra);flex:none;padding:0}
+.pt-opts{display:grid;gap:10px}
+.pt-opt{background:var(--bg);border-radius:18px;padding:14px 16px}
+.pt-opt b{font-size:15.5px}
+.pt-opt p{margin-top:4px;font-size:14.5px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
+.foot-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.casa-partner{text-align:center;margin:6px 0 0}
+.casa-partner .link{min-height:44px}
+@media (max-width:760px){.sheet-dlg{width:100%;margin-bottom:0;align-self:end}.sheet-box{border-radius:26px 26px 0 0}}
+
+/* Tela de entrada obrigatória */
+.login-wall{position:fixed;inset:0;z-index:1000;background:var(--bg);display:grid;place-items:center;padding:20px;overflow-y:auto}
+.login-wall[hidden]{display:none}
+.login-wall.boot .lw-actions,.login-wall.boot .lw-box>p{visibility:hidden}
+.lw-box{width:min(440px,100%);display:grid;gap:14px;text-align:center}
+.lw-box h2{font-size:clamp(32px,9vw,42px);line-height:1.08}
+.lw-box p{color:var(--muted)}
+.lw-actions{display:grid;gap:14px;text-align:left}
+.lw-or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+.lw-or:before,.lw-or:after{content:"";flex:1;height:1px;background:var(--line)}
+body.wall-on{overflow:hidden}
+.sheet-box input,.sheet-box select,.sheet-box textarea,.lw-box input{font-size:16px}
+.sheet-box .btn,.lw-box .btn{min-height:46px}
+
 </style>
 </head>
 <body>
@@ -1344,7 +1377,7 @@ label.hand-btn{cursor:pointer}
               <input id="i-planos" maxlength="120" placeholder="Qual(is) plano(s)? Ex.: Unimed, Bradesco" hidden>
             </fieldset>
             <div class="field"><label for="i-porque">Por que você indica</label><textarea id="i-porque" maxlength="500" placeholder="Conte em poucas palavras como foi o cuidado."></textarea></div>
-            <div class="field"><label for="i-contato">WhatsApp ou Instagram do profissional (opcional)</label><input id="i-contato" maxlength="60" placeholder="(81) 90000-0000 ou @perfil"></div>
+            <div class="field"><label for="i-contato">WhatsApp ou Instagram do profissional (opcional)</label><input id="i-contato" maxlength="60" placeholder="(81) 90000-0000 ou @perfil"><small class="hint">Ajuda a equipe a confirmar o perfil mais rápido. Usamos só para isso.</small></div>
             <div class="hp" aria-hidden="true"><label for="i-site">Não preencha</label><input id="i-site" tabindex="-1" autocomplete="off"></div>
             <button class="btn btn-terra btn-block" id="indSend" type="submit">Enviar indicação</button>
             <p class="status" id="indStatus" role="status"></p>
@@ -1395,6 +1428,7 @@ label.hand-btn{cursor:pointer}
         <button class="btn btn-wa btn-block" id="proSend" type="submit"><svg><use href="#i-wa"/></svg>Chamar pelo WhatsApp</button>
         <p class="status" id="proStatus" role="status"></p>
       </form>
+      <p class="casa-partner"><button class="link" type="button" id="partnerOpen2">Quer ser um Profissional da Casa? Saiba como.</button></p>
       <p class="fridge-note casa-note">Cada profissional atende por conta própria. O aconselhamento pastoral e familiar não é terapia, nem atendimento médico ou psicológico: quando o assunto pedir, indicamos um profissional de saúde.</p>
     </div>
   </section>
@@ -1469,11 +1503,16 @@ label.hand-btn{cursor:pointer}
       <div id="panelApp" hidden>
         <div class="seg" role="tablist" aria-label="Painel">
           <button type="button" role="tab" data-sub="inscritos" aria-selected="true">Inscritos</button>
+          <button type="button" role="tab" data-sub="membros" aria-selected="false">Membros</button>
           <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Indicações enviadas</button>
         </div>
         <div data-sub-panel="inscritos" class="on">
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
+        </div>
+        <div data-sub-panel="membros">
+          <div class="cols-title"><span class="label" id="pMemCount">Membros</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMemMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyMemPhones">Copiar WhatsApps</button></span></div>
+          <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pMembers"></tbody></table></div>
         </div>
         <div data-sub-panel="moderacao">
           <div class="cols-title"><span class="label">Indicações enviadas (toque em Mostrar para publicar)</span></div>
@@ -1499,7 +1538,58 @@ label.hand-btn{cursor:pointer}
   <p class="story-cap" id="storyCapView"></p>
   <div class="story-acts" id="storyActs"></div>
 </div></dialog>
-<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
+<div class="login-wall boot" id="loginWall" role="dialog" aria-modal="true" aria-labelledby="lwTitle">
+  <div class="lw-box">
+    <span class="label">Boas-vindas</span>
+    <h2 id="lwTitle">Que bom ter você na comunidade Café, Graça &amp; Fralda</h2>
+    <p>Aqui tem mesa posta para todas as famílias, com valores cristãos e portas abertas. Tem café, conversa, indicação de quem cuida bem da gente e muita graça no meio da correria.</p>
+    <p><b>Para acessar, faça o seu login.</b></p>
+    <div class="lw-actions">
+      <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+      <div class="lw-or"><span>ou com o e-mail</span></div>
+      <form class="form" id="lwForm" novalidate>
+        <div class="field"><label for="lw-mail">Seu e-mail</label><input id="lw-mail" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com" maxlength="120"></div>
+        <button class="btn btn-terra btn-block" type="submit" id="lwSend">Receber link de acesso</button>
+      </form>
+      <p class="status" id="lwStatus" role="status"></p>
+    </div>
+    <small class="hint">Mostramos só o seu primeiro nome. Telefone é opcional.</small>
+  </div>
+</div>
+<dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
+  <span class="label">Bem-vindo à mesa</span>
+  <h3 id="ctTitle">Falta só um passo</h3>
+  <p>Se quiser, deixe o seu WhatsApp para a equipe falar com você quando precisar. É opcional e <b>não aparece</b> para os outros membros.</p>
+  <div class="field"><label for="ct-zap">Seu WhatsApp (opcional)</label><input id="ct-zap" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
+  <label class="hint check" for="ct-ok"><input id="ct-ok" type="checkbox" checked>Aceito ser contatado pela equipe do Café, Graça &amp; Fralda neste número.</label>
+  <button class="btn btn-terra btn-block" type="button" id="ctSave">Salvar e continuar</button>
+  <p class="status" id="ctStatus" role="status"></p>
+  <button class="link" type="button" id="ctSkip" style="justify-self:center">Agora não</button>
+</div></dialog>
+<dialog class="sheet-dlg" id="partnerDlg" aria-labelledby="ptTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="partnerClose" aria-label="Fechar">×</button>
+  <span class="label">Parcerias</span>
+  <h3 id="ptTitle">Anuncie ou seja um Profissional da Casa</h3>
+  <p>Clínicas, escolas, profissionais e marcas que cuidam de famílias podem fazer parte da comunidade de duas formas.</p>
+  <div class="pt-opts">
+    <div class="pt-opt"><b>✓ Selo de Profissional da Casa</b><p>Perfil em Profissionais da Casa e destaque nas Indicações, com o selo ✓ que marca pessoas e lugares de confiança da comunidade. A equipe analisa cada pedido antes de dar o selo.</p></div>
+    <div class="pt-opt"><b>Patrocinar a Prateleira</b><p>Publicação de parceiro na Prateleira e no Início, sempre identificada como publicidade, com link, imagem e botão de WhatsApp.</p></div>
+  </div>
+  <form class="form" id="ptForm" novalidate>
+    <div class="row2">
+      <div class="field"><label for="pt-name">Seu nome</label><input id="pt-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
+      <div class="field"><label for="pt-org">Clínica, escola ou marca</label><input id="pt-org" placeholder="Nome do negócio" maxlength="80"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="pt-city">Cidade e estado</label><input id="pt-city" placeholder="Ex.: Recife, PE" maxlength="60"></div>
+      <div class="field"><label for="pt-int">Tenho interesse em</label><select id="pt-int"><option>Selo de Profissional da Casa</option><option>Patrocinar a Prateleira</option><option>Os dois</option></select></div>
+    </div>
+    <div class="field"><label for="pt-msg">O que você oferece? (opcional)</label><textarea id="pt-msg" maxlength="500" placeholder="Conte em poucas palavras."></textarea></div>
+    <button class="btn btn-wa btn-block" type="submit"><svg><use href="#i-wa"/></svg>Falar com a equipe pelo WhatsApp</button>
+    <p class="status" id="ptStatus" role="status"></p>
+  </form>
+</div></dialog>
+<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span><a class="foot-link" href="#" id="partnerOpen">Anuncie / Seja um Profissional da Casa</a></div></footer>
 </main>
 
 <a class="wa-float" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
@@ -1848,6 +1938,8 @@ function applyAuthUI(){
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
   $("menuPainel").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
+  var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
+  document.body.classList.toggle("wall-on", !wall.hidden);
   var gates = [["feedGate", "feedApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
@@ -1860,6 +1952,18 @@ auth.signIn = function(){
     options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } }
   }).then(function(r){ if (r && r.error) toast("Não foi possível entrar com o Google agora."); });
 };
+$("lwGoogle").addEventListener("click", auth.signIn);
+$("lwForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var st = $("lwStatus"), m = val("lw-mail");
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)) return setStatus(st, "Digite um e-mail válido.", "err");
+  $("lwSend").disabled = true; setStatus(st, "Enviando…");
+  sb.auth.signInWithOtp({ email: m, options: { emailRedirectTo: location.origin + location.pathname } }).then(function(r){
+    $("lwSend").disabled = false;
+    if (r && r.error) return setStatus(st, "Não foi possível enviar agora. Tente de novo ou entre com o Google.", "err");
+    setStatus(st, "Pronto! Abra o e-mail que enviamos e toque no link para entrar.", "ok");
+  });
+});
 auth.signOut = function(){ if (sb) sb.auth.signOut(); };
 
 function setSession(session){
@@ -1895,6 +1999,43 @@ if (sb) {
   auth.ready = true;
   emitAuth();
 }
+
+
+// WhatsApp de quem entra: pedido no primeiro login, com aceite. Só a própria pessoa e a administração veem.
+var ct = { checked: "" };
+var ctDlg = $("contatoDlg");
+$("ct-zap").addEventListener("input", maskPhone);
+function normZap(v){
+  var d = String(v || "").replace(/\D/g, "");
+  if (d.length === 10 || d.length === 11) d = "55" + d;
+  return /^55[0-9]{10,11}$/.test(d) ? d : "";
+}
+auth.on(function(){
+  if (!auth.user || !sb) { ct.checked = ""; if (ctDlg.open) ctDlg.close(); return; }
+  if (ct.checked === auth.user.id) return;
+  ct.checked = auth.user.id;
+  sb.from("contatos").select("whatsapp").eq("user_id", auth.user.id).maybeSingle().then(function(r){
+    if (r.error) { ct.checked = ""; return; }
+    if (!r.data && !ctDlg.open) { $("ct-zap").value = ""; setStatus($("ctStatus"), ""); ctDlg.showModal(); }
+  });
+});
+$("ctSave").addEventListener("click", function(){
+  var st = $("ctStatus"), raw = $("ct-zap").value.trim(), zap = normZap(raw);
+  if (!raw) return saveContato(null);
+  if (!zap) return setStatus(st, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999, ou toque em Agora não.", "err");
+  if (!$("ct-ok").checked) return setStatus(st, "Para salvar o número, aceite o contato da equipe.", "err");
+  saveContato(zap);
+});
+function saveContato(zap){
+  var st = $("ctStatus");
+  $("ctSave").disabled = true; setStatus(st, "Salvando…");
+  sb.from("contatos").upsert({ whatsapp: zap, consentimento: true }, { onConflict: "user_id" }).then(function(r){
+    $("ctSave").disabled = false;
+    if (r.error) return setStatus(st, "Não foi possível salvar agora. Tente de novo.", "err");
+    setStatus(st, ""); ctDlg.close(); toast("Pronto! Bem-vindo à mesa.");
+  });
+}
+$("ctSkip").addEventListener("click", function(){ saveContato(null); });
 
 
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
@@ -2063,6 +2204,27 @@ proForm.addEventListener("submit", function(e){
   var url = waLink(texto), a = h("a", "link", "toque aqui"); a.href = url; a.target = "_blank"; a.rel = "noopener";
   setStatus(proStatus, "", ""); proStatus.className = "status ok";
   proStatus.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
+  window.open(url, "_blank", "noopener");
+});
+
+
+// Parcerias: clínicas, escolas e marcas pedem o selo ✓ ou patrocínio da Prateleira; a mensagem sai pronta no WhatsApp da equipe.
+var ptDlg = $("partnerDlg");
+function openPartner(e){ if (e) e.preventDefault(); setStatus($("ptStatus"), ""); ptDlg.showModal(); ptDlg.scrollTop = 0; }
+$("partnerOpen").addEventListener("click", openPartner);
+$("partnerOpen2").addEventListener("click", openPartner);
+$("partnerClose").addEventListener("click", function(){ ptDlg.close(); });
+ptDlg.addEventListener("click", function(e){ if (e.target === ptDlg) ptDlg.close(); });
+$("ptForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var d = { nome: val("pt-name"), org: val("pt-org"), cidade: val("pt-city"), tema: $("pt-int").value, msg: val("pt-msg") }, st = $("ptStatus");
+  if (!d.nome) return setStatus(st, "Digite seu nome.", "err");
+  if (!d.org) return setStatus(st, "Informe o nome da clínica, escola ou marca.", "err");
+  if (!d.cidade) return setStatus(st, "Informe a cidade e o estado.", "err");
+  var texto = "Oi! Quero ser parceiro do Café, Graça & Fralda.\n\nNome: " + d.nome + "\nClínica, escola ou marca: " + d.org + "\nCidade: " + d.cidade + "\nInteresse: " + d.tema + (d.msg ? "\n\nO que ofereço: " + d.msg : "");
+  var url = waLink(texto), a = h("a", "link", "toque aqui"); a.href = url; a.target = "_blank"; a.rel = "noopener";
+  setStatus(st, "", "ok");
+  st.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
   window.open(url, "_blank", "noopener");
 });
 
@@ -3055,7 +3217,7 @@ pubSync();
 
 
 // Painel (só administradores): inscritos nos devocionais e indicações enviadas para aprovar.
-var panel = { subs: [] };
+var panel = { subs: [], members: [] };
 
 function loadSubs(){
   sb.from("inscritos").select("nome,email,whatsapp,criado_em").order("criado_em", { ascending: false }).limit(500).then(function(r){
@@ -3068,6 +3230,22 @@ function loadSubs(){
     });
   });
 }
+function loadMembros(){
+  sb.rpc("membros_contatos").then(function(r){
+    panel.members = r.data || [];
+    var comZap = panel.members.filter(function(m){ return m.whatsapp; }).length;
+    $("pMemCount").textContent = panel.members.length + (panel.members.length === 1 ? " membro" : " membros") + " · " + comZap + " com WhatsApp";
+    var tb = $("pMembers"); tb.innerHTML = "";
+    panel.members.forEach(function(m){
+      var tr = h("tr"), z = h("td");
+      if (m.whatsapp) { var a = h("a", "link", m.whatsapp); a.href = "https://wa.me/" + m.whatsapp; a.target = "_blank"; a.rel = "noopener"; z.appendChild(a); } else z.textContent = "—";
+      tr.append(h("td", null, m.nome), h("td", null, m.email || ""), z, h("td", null, fmtDate.format(new Date(m.desde)).replace(".", "")));
+      tb.appendChild(tr);
+    });
+  });
+}
+$("copyMemMails").addEventListener("click", function(){ copyText(panel.members.map(function(m){ return m.email; }).filter(Boolean).join(", "), "E-mails copiados"); });
+$("copyMemPhones").addEventListener("click", function(){ copyText(panel.members.map(function(m){ return m.whatsapp; }).filter(Boolean).join("\n"), "WhatsApps copiados"); });
 function modItem(table, it, extra){
   var el = h("div", "mod-item" + (it.aprovado ? "" : " off")), body = h("div");
   body.append(h("small", null, it.nome + (extra ? " · " + extra : "") + " · " + ago(it.criado_em) + (it.aprovado ? "" : " · oculto")), h("p", null, it.texto));
@@ -3094,9 +3272,9 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Inscritos nos devocionais e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
+  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
   $("panelApp").hidden = false;
-  if (sub === "moderacao") loadMod(); else loadSubs();
+  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else loadSubs();
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
 

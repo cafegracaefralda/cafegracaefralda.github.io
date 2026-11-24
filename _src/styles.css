@@ -934,3 +934,36 @@ label.hand-btn{cursor:pointer}
   .dm .composer{gap:6px;padding:8px 10px}
   .dm .composer .hand-btn,.dm .composer .btn-terra{width:44px;height:44px}
 }
+
+/* Cadastro (WhatsApp) e Parcerias */
+.sheet-dlg{border:0;padding:0;background:transparent;width:min(520px,100%);max-width:100%;max-height:100dvh;margin:auto}
+.sheet-dlg::backdrop{background:rgba(29,26,23,.55)}
+.sheet-box{position:relative;background:var(--surface,#fff);border-radius:26px;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;max-height:92dvh;overflow-y:auto}
+.sheet-box h3{font-size:clamp(28px,7vw,34px);line-height:1.1}
+.sheet-box p{color:var(--muted);font-size:15.5px}
+.sheet-x{position:absolute;right:8px;top:8px;color:var(--ink)}
+.hint.check{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-family:var(--sans);letter-spacing:0;text-transform:none;line-height:1.4;color:var(--muted);font-size:13.5px}
+.hint.check input{width:20px;height:20px;margin-top:1px;accent-color:var(--terra);flex:none;padding:0}
+.pt-opts{display:grid;gap:10px}
+.pt-opt{background:var(--bg);border-radius:18px;padding:14px 16px}
+.pt-opt b{font-size:15.5px}
+.pt-opt p{margin-top:4px;font-size:14.5px}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
+.foot-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.casa-partner{text-align:center;margin:6px 0 0}
+.casa-partner .link{min-height:44px}
+@media (max-width:760px){.sheet-dlg{width:100%;margin-bottom:0;align-self:end}.sheet-box{border-radius:26px 26px 0 0}}
+
+/* Tela de entrada obrigatória */
+.login-wall{position:fixed;inset:0;z-index:1000;background:var(--bg);display:grid;place-items:center;padding:20px;overflow-y:auto}
+.login-wall[hidden]{display:none}
+.login-wall.boot .lw-actions,.login-wall.boot .lw-box>p{visibility:hidden}
+.lw-box{width:min(440px,100%);display:grid;gap:14px;text-align:center}
+.lw-box h2{font-size:clamp(32px,9vw,42px);line-height:1.08}
+.lw-box p{color:var(--muted)}
+.lw-actions{display:grid;gap:14px;text-align:left}
+.lw-or{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+.lw-or:before,.lw-or:after{content:"";flex:1;height:1px;background:var(--line)}
+body.wall-on{overflow:hidden}
+.sheet-box input,.sheet-box select,.sheet-box textarea,.lw-box input{font-size:16px}
+.sheet-box .btn,.lw-box .btn{min-height:46px}
