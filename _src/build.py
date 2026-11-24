@@ -182,7 +182,7 @@ def devo_page(i, d):
     }
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": TITLE, "item": BASE_URL},
-        {"@type": "ListItem", "position": 2, "name": "Devocional de 5 minutos", "item": BASE_URL + "#devocional"},
+        {"@type": "ListItem", "position": 2, "name": "Devocional de 5 minutos", "item": BASE_URL + "#inicio"},
         {"@type": "ListItem", "position": 3, "name": d["title"], "item": url}]}
     paras = "\n".join(f"<p>{esc(t)}</p>" for t in d["body"])
     others = "\n".join(f'<li><a href="/devocional/{o["slug"]}/">{esc(o["title"])}</a></li>' for j, o in enumerate(devos) if j != i)
@@ -218,7 +218,7 @@ def devo_page(i, d):
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">{symbol}</svg>
 <header class="top"><div class="in">
   <a class="logo" href="/" aria-label="Café, Graça &amp; Fralda, início"><span class="mark"><svg><use href="#logo"/></svg></span><span>Café, Graça <span style="color:var(--terra)">&amp;</span> Fralda</span></a>
-  <a class="back" href="/#devocional">← Todos os devocionais</a>
+  <a class="back" href="/#inicio">← Voltar para A Casa</a>
 </div></header>
 <main>
 <article>

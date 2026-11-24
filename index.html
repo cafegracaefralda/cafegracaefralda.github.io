@@ -1003,6 +1003,60 @@ body.wall-on{overflow:hidden}
 .sheet-box input,.sheet-box select,.sheet-box textarea,.lw-box input{font-size:16px}
 .sheet-box .btn,.lw-box .btn{min-height:46px}
 
+.pub-audio{width:100%;margin-top:8px}
+
+/* Personalidade: cada área tem a sua cor (terracota, verde-sálvia, mostarda, azul-café, ameixa) */
+:root{--sage:#5E7F5B;--sage-soft:#E4ECDF;--mustard:#C98F1E;--mustard-soft:#F8EBCB;--blue:#44688A;--blue-soft:#DEE8F1;--plum:#8E4A6E;--plum-soft:#F1DFE9;--acc:var(--terra);--acc-soft:var(--terra-soft,#F3DDD2)}
+body[data-view="prateleira"]{--acc:var(--mustard);--acc-soft:var(--mustard-soft)}
+body[data-view="mesa"]{--acc:var(--terra);--acc-soft:#F3DDD2}
+body[data-view="lazer"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
+body[data-view="mensagens"]{--acc:var(--blue);--acc-soft:var(--blue-soft)}
+body[data-view="indicacoes"]{--acc:var(--plum);--acc-soft:var(--plum-soft)}
+body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
+.view-head .label,.view .label{color:var(--acc)}
+.view-head h2{position:relative}
+.view-head h2:after{content:"";display:block;width:54px;height:5px;border-radius:5px;background:var(--acc);margin-top:12px}
+.seg button[aria-selected="true"]{background:var(--acc)}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc)}
+.nav a[data-tab="inicio"] svg{color:var(--terra)}.nav a[data-tab="prateleira"] svg{color:var(--mustard)}.nav a[data-tab="mesa"] svg{color:var(--terra)}.nav a[data-tab="lazer"] svg{color:var(--sage)}.nav a[data-tab="mensagens"] svg{color:var(--blue)}.nav a[data-tab="indicacoes"] svg{color:var(--plum)}.nav a[data-tab="casa"] svg{color:var(--sage)}
+.nav a[data-tab="prateleira"][aria-current="page"]{background:var(--mustard-soft);color:#7A5410}.nav a[data-tab="lazer"][aria-current="page"]{background:var(--sage-soft);color:#3F5C3D}.nav a[data-tab="mensagens"][aria-current="page"]{background:var(--blue-soft);color:#2F4C69}.nav a[data-tab="indicacoes"][aria-current="page"]{background:var(--plum-soft);color:#6A3350}.nav a[data-tab="casa"][aria-current="page"]{background:var(--sage-soft);color:#3F5C3D}.nav a[data-tab="mesa"][aria-current="page"],.nav a[data-tab="inicio"][aria-current="page"]{background:#F3DDD2;color:#8C3F22}
+.home-intro{background:linear-gradient(135deg,#F7E3D3 0%,#F8EBCB 55%,#E4ECDF 100%);border-radius:28px;padding:clamp(22px,5vw,40px);margin-bottom:8px}
+.compose,.card.compose{border-top:4px solid var(--acc)}
+.avatar{background:var(--acc-soft);color:var(--acc)}
+.post.oficial{border-left:4px solid var(--terra)}
+.btn-terra{background:var(--acc)}
+.btn-terra:hover{filter:brightness(.92)}
+@media (max-width:1099px){.tabbar [aria-current="page"]{color:var(--acc)}}
+
+/* Cochicho (chat) no celular */
+@media (max-width:760px){
+  #v-mensagens .view-head{margin-bottom:10px}
+  #v-mensagens .view-head .label,#v-mensagens .view-head h2:after{display:none}
+  #v-mensagens .view-head h2{font-size:34px}
+  .chat.dm{background:none;border:0;box-shadow:none}
+  .chat.dm .rooms{display:flex;flex-direction:column;gap:6px;padding:0;overflow:visible;max-height:none}
+  .chat.dm .rooms .dm-find{order:-1;border:0;margin:0;padding:0 0 6px;display:grid;gap:8px}
+  .chat.dm .rooms .dm-find>.label{display:none}
+  .chat.dm .rooms .dm-find input{background:var(--surface);border:1px solid var(--line);padding:12px 18px}
+  .chat.dm .rooms .room{background:var(--surface);border-radius:18px;padding:12px 14px;min-height:64px;gap:14px;box-shadow:0 1px 0 rgba(29,26,23,.04)}
+  .chat.dm .rooms .room:hover{transform:none}
+  .chat.dm .rooms .room .avatar{width:46px;height:46px;font-size:20px;background:var(--blue-soft);color:var(--blue)}
+  .chat.dm .rooms .room b{font-size:16px}
+  .chat.dm .rooms .room .nb{background:var(--blue)}
+  .chat.dm .dm-opt{border:0;font-size:12.5px;padding:10px 4px;margin:6px 0 0}
+  .chat.dm .rooms>#dmList>.hint{text-align:center;padding:28px 0!important;color:var(--muted)}
+  .chat.dm.thread .chat-head .who small,.chat-head #dmSub{display:none}
+  .msgs{background:linear-gradient(180deg,#EEF3F8,#F8F5F0)}
+  .msg.mine,.msgs .mine .bubble{background:linear-gradient(135deg,var(--blue),#5C84A8)!important}
+}
+@media (max-width:760px){
+  #dmPeople{display:grid;gap:6px}
+  #dmPeople>*{width:100%}
+  .msg.me .bubble{background:linear-gradient(135deg,var(--blue),#5C84A8)!important;color:#fff;border-color:transparent}
+  .msg.me .bubble *{color:#fff!important}
+  .composer .btn-terra{background:var(--blue)}
+}
+
 </style>
 </head>
 <body>
@@ -1077,16 +1131,17 @@ body.wall-on{overflow:hidden}
 </header>
 
 <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
+      <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
       <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
+      <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Lazer</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Indicações</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
     </nav>
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
-  <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>Início</span></a>
+  <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
   <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
@@ -1104,7 +1159,7 @@ body.wall-on{overflow:hidden}
         <p class="lede">Uma comunidade para todas as famílias, com valores cristãos e portas abertas. Aqui cabe todo mundo.</p>
         <div class="ctas">
           <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
-          <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Chamar no WhatsApp</a>
+          <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e preciso de ajuda." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preciso de ajuda</a>
         </div>
       </div>
       <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2></div>
@@ -1126,18 +1181,15 @@ body.wall-on{overflow:hidden}
     <div class="wrap">
       <div class="view-head">
         <span class="label">Prateleira</span>
-        <h2>Prateleira da comunidade</h2>
-        <p class="muted">Vídeos, PDFs, fotos, links e devocionais compartilhados por todo mundo.</p>
-      </div>
-      <div class="seg" role="tablist" aria-label="Prateleira">
-        <button type="button" role="tab" data-sub="publicacoes" aria-selected="true">Publicações</button>
-        <button type="button" role="tab" data-sub="devocional" aria-selected="false">5 minutos</button>
+        <h2>Prateleira</h2>
+        <p class="muted">Materiais para guardar e consultar: PDFs, áudios, vídeos, links e fotos.</p>
       </div>
       <div data-sub-panel="publicacoes" class="on">
         <div class="prat-wrap">
+          <div class="filters" id="pubFilters" role="group" aria-label="Filtrar a prateleira"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="pdf">PDFs</button><button class="chip" aria-pressed="false" data-filter="audio">Áudios</button><button class="chip" aria-pressed="false" data-filter="video">Vídeos</button><button class="chip" aria-pressed="false" data-filter="link">Links</button><button class="chip" aria-pressed="false" data-filter="foto">Fotos</button></div>
           <div class="card compose" id="pubGate"><span class="avatar">?</span><div class="compose-fake"><p>Entre com o Google para compartilhar com a comunidade.</p></div><button class="btn btn-google btn-sm js-login" type="button"><svg><use href="#i-google"/></svg>Entrar</button></div>
           <form class="card compose" id="pubForm" autocomplete="off" hidden>
-            <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um vídeo, PDF, foto, link ou uma ideia…" aria-label="Publicação"></textarea></div>
+            <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um material: PDF, áudio, link…" aria-label="Publicação"></textarea></div>
             <div class="admin-only" id="pubAdmin" hidden>
               <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="">Publicação comum</option><option value="aviso">Oficial: aviso</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
               <input id="pubTitulo" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
@@ -1147,7 +1199,7 @@ body.wall-on{overflow:hidden}
             <div class="pub-attach" id="pubAttach" hidden><span id="pubAttachName"></span><button class="link" type="button" id="pubAttachDel">Remover</button></div>
             <div class="compose-bar">
               <label class="cbtn" for="pubFoto" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="pubFoto" accept="image/*" hidden>
-              <label class="cbtn" for="pubVideo" title="Vídeo"><svg><use href="#i-video"/></svg><span>Vídeo</span></label><input type="file" id="pubVideo" accept="video/mp4,video/webm,video/quicktime" hidden>
+              <label class="cbtn" for="pubAudio" title="Áudio"><svg><use href="#i-mic"/></svg><span>Áudio</span></label><input type="file" id="pubAudio" accept="audio/mpeg,audio/mp4,audio/x-m4a,audio/webm,audio/ogg" hidden><span class="admin-only" id="pubVideoBox" hidden><label class="cbtn" for="pubVideo" title="Vídeo (só a Casa)"><svg><use href="#i-video"/></svg><span>Vídeo</span></label><input type="file" id="pubVideo" accept="video/mp4,video/webm,video/quicktime" hidden></span>
               <label class="cbtn" for="pubPdf" title="PDF"><svg><use href="#i-file"/></svg><span>PDF</span></label><input type="file" id="pubPdf" accept="application/pdf" hidden>
               <button class="cbtn" type="button" id="pubLinkBtn" title="Link ou YouTube"><svg><use href="#i-link"/></svg><span>Link</span></button>
               <button class="btn btn-terra btn-sm cbtn-send" id="pubSend" type="submit">Publicar</button>
@@ -1158,7 +1210,7 @@ body.wall-on{overflow:hidden}
           <button class="btn btn-ghost feed-more" type="button" id="pubMore" hidden>Ver mais</button>
         </div>
       </div>
-      <div data-sub-panel="devocional">
+      <div hidden id="legacyDevo">
         <div class="view-head">
         <span class="label">Devocional · toda quarta-feira</span>
         <h2>5 minutos para a sua casa</h2>
@@ -1203,6 +1255,7 @@ body.wall-on{overflow:hidden}
       <div class="view-head">
         <span class="label">Mesa Grande</span>
         <h2>Mesa Grande</h2>
+        <p class="muted">A conversa do dia a dia: stories, desabafos, pedidos de oração e gratidão.</p>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
@@ -1213,10 +1266,6 @@ body.wall-on{overflow:hidden}
         </div>
       </div>
       <div id="feedApp" hidden>
-        <div class="seg" role="tablist" aria-label="Mesa Grande">
-          <button type="button" role="tab" data-sub="conversas" aria-selected="true">Conversas</button>
-          <button type="button" role="tab" data-sub="lazer" aria-selected="false">Lazer em família</button>
-        </div>
         <div data-sub-panel="conversas" class="on">
           <div class="mesa-layout">
             <div class="mesa-main">
@@ -1247,7 +1296,27 @@ body.wall-on{overflow:hidden}
             </aside>
           </div>
         </div>
-        <div data-sub-panel="lazer">
+      </div>
+    </div>
+  </section>
+
+  <!-- LAZER -->
+  <section class="view" id="v-lazer" data-view="lazer">
+    <div class="wrap">
+      <div class="view-head">
+        <span class="label">Lazer</span>
+        <h2>Lazer em família</h2>
+        <p class="muted">Parques, praças, restaurantes e passeios que as famílias da comunidade já testaram. Filtre pela sua cidade.</p>
+      </div>
+      <div class="card" id="lazerGate">
+        <div class="gate">
+          <span class="label">Lazer</span>
+          <h3>Os lugares da comunidade são para quem entrou</h3>
+          <p>Entre para ver e indicar lugares para ir com as crianças.</p>
+          <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+        </div>
+      </div>
+      <div id="lazerApp" hidden>
           <div class="lazer-bar">
             <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
             <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
@@ -1276,8 +1345,7 @@ body.wall-on{overflow:hidden}
           </form>
           <div class="feed-list" id="lzList" aria-live="polite"></div>
           <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
-        </div>
-      </div>
+              </div>
     </div>
   </section>
 
@@ -1286,25 +1354,24 @@ body.wall-on{overflow:hidden}
     <div class="wrap">
       <div class="view-head">
         <span class="label">Mensagens</span>
-        <h2>Conversas só entre vocês</h2>
-        <p class="muted">Texto, emojis, fotos e áudios, em tempo real. Só os dois da conversa veem, e dá para bloquear quando quiser.</p>
+        <h2>Conversa de quarto</h2>
       </div>
       <div class="card" id="dmGate">
         <div class="gate">
           <span class="label">Mensagens</span>
-          <h3>Converse no privado com outros pais</h3>
-          <p>Encontre alguém pelo nome ou chame quem postou na Mesa Grande. Entre com o Google para começar. Só o seu primeiro nome aparece.</p>
+          <h3>Conversa de quarto</h3>
+          <p>Entre para trocar mensagens.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
       </div>
       <div class="chat dm" id="dmApp" hidden>
         <div class="rooms" role="group" aria-label="Conversas privadas">
           <div id="dmList"></div>
-          <div class="dm-find"><span class="label">Encontrar pessoas</span><input id="dmSearch" type="search" placeholder="Buscar pelo nome" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
+          <div class="dm-find"><span class="label">Encontrar pessoas</span><input id="dmSearch" type="search" placeholder="Buscar pessoas" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
           <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
         </div>
         <div class="chat-main">
-          <div class="chat-head"><button class="dm-back" type="button" id="dmBack" aria-label="Voltar para as conversas">‹</button><div class="who"><span class="avatar" id="dmAv" hidden></span><div><b id="dmTitle">Mensagens</b><small id="dmSub">Só vocês dois leem</small></div></div><span class="dm-tools" id="dmTools"></span></div>
+          <div class="chat-head"><button class="dm-back" type="button" id="dmBack" aria-label="Voltar para as conversas">‹</button><div class="who"><span class="avatar" id="dmAv" hidden></span><div><b id="dmTitle">Mensagens</b><small id="dmSub" hidden>Só vocês dois leem</small></div></div><span class="dm-tools" id="dmTools"></span></div>
           <div class="msgs" id="dmMsgs" aria-live="polite"></div>
           <div class="dm-compose" id="dmCompose" hidden>
             <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
@@ -1318,7 +1385,6 @@ body.wall-on{overflow:hidden}
               <button class="hand-btn" type="button" id="dmMic" title="Gravar áudio" aria-label="Gravar áudio"><svg><use href="#i-mic"/></svg></button>
               <button class="btn btn-terra" id="dmSend" type="submit" aria-label="Enviar"><svg><use href="#i-send"/></svg></button>
             </form>
-            <p class="dm-safe">Fotos e áudios de até 5 MB. Vídeo não. Só vocês dois veem.</p>
           </div>
         </div>
       </div>
@@ -1341,6 +1407,12 @@ body.wall-on{overflow:hidden}
             <button class="chip" aria-pressed="false" data-filter="Mente e emoções">Mente e emoções</button>
             <button class="chip" aria-pressed="false" data-filter="Desenvolvimento">Desenvolvimento</button>
             <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
+            <button class="chip" aria-pressed="false" data-filter="Hotéis e pousadas">Hotéis e pousadas</button>
+            <button class="chip" aria-pressed="false" data-filter="Restaurantes e cafés">Restaurantes e cafés</button>
+            <button class="chip" aria-pressed="false" data-filter="Praças e parques">Praças e parques</button>
+            <button class="chip" aria-pressed="false" data-filter="Passeios e lazer">Passeios e lazer</button>
+            <button class="chip" aria-pressed="false" data-filter="Serviços para a casa">Serviços para a casa</button>
+            <button class="chip" aria-pressed="false" data-filter="Escolas e creches">Escolas e creches</button>
             <button class="chip" aria-pressed="false" data-filter="Outro">Outros</button>
           </div>
           <ul class="notes" id="fridgeNotes"></ul>
@@ -1364,7 +1436,7 @@ body.wall-on{overflow:hidden}
               <div class="field"><label for="i-esp">Especialidade</label><input id="i-esp" maxlength="80" placeholder="Ex.: Pediatra, psicóloga, dentista"></div>
             </div>
             <div class="row2">
-              <div class="field"><label for="i-cat">Assunto</label><select id="i-cat"><option>Saúde dos pequenos</option><option>Gestação e bebê</option><option>Mente e emoções</option><option>Desenvolvimento</option><option>Casamento</option><option>Outro</option></select></div>
+              <div class="field"><label for="i-cat">O que você indica?</label><select id="i-cat"><option>Saúde dos pequenos</option><option>Gestação e bebê</option><option>Mente e emoções</option><option>Desenvolvimento</option><option>Casamento</option><option>Hotéis e pousadas</option><option>Restaurantes e cafés</option><option>Praças e parques</option><option>Passeios e lazer</option><option>Serviços para a casa</option><option>Escolas e creches</option><option>Outro</option></select></div>
               <div class="field"><label for="i-modo">Atendimento</label><select id="i-modo"><option>Presencial</option><option>Online</option><option>Online e presencial</option></select></div>
             </div>
             <div class="field"><label for="i-onde">Onde fica</label><input id="i-onde" maxlength="140" placeholder="Cidade, bairro ou endereço da clínica"></div>
@@ -1428,7 +1500,6 @@ body.wall-on{overflow:hidden}
         <button class="btn btn-wa btn-block" id="proSend" type="submit"><svg><use href="#i-wa"/></svg>Chamar pelo WhatsApp</button>
         <p class="status" id="proStatus" role="status"></p>
       </form>
-      <p class="casa-partner"><button class="link" type="button" id="partnerOpen2">Quer ser um Profissional da Casa? Saiba como.</button></p>
       <p class="fridge-note casa-note">Cada profissional atende por conta própria. O aconselhamento pastoral e familiar não é terapia, nem atendimento médico ou psicológico: quando o assunto pedir, indicamos um profissional de saúde.</p>
     </div>
   </section>
@@ -1566,30 +1637,7 @@ body.wall-on{overflow:hidden}
   <p class="status" id="ctStatus" role="status"></p>
   <button class="link" type="button" id="ctSkip" style="justify-self:center">Agora não</button>
 </div></dialog>
-<dialog class="sheet-dlg" id="partnerDlg" aria-labelledby="ptTitle"><div class="sheet-box">
-  <button class="story-x sheet-x" type="button" id="partnerClose" aria-label="Fechar">×</button>
-  <span class="label">Parcerias</span>
-  <h3 id="ptTitle">Anuncie ou seja um Profissional da Casa</h3>
-  <p>Clínicas, escolas, profissionais e marcas que cuidam de famílias podem fazer parte da comunidade de duas formas.</p>
-  <div class="pt-opts">
-    <div class="pt-opt"><b>✓ Selo de Profissional da Casa</b><p>Perfil em Profissionais da Casa e destaque nas Indicações, com o selo ✓ que marca pessoas e lugares de confiança da comunidade. A equipe analisa cada pedido antes de dar o selo.</p></div>
-    <div class="pt-opt"><b>Patrocinar a Prateleira</b><p>Publicação de parceiro na Prateleira e no Início, sempre identificada como publicidade, com link, imagem e botão de WhatsApp.</p></div>
-  </div>
-  <form class="form" id="ptForm" novalidate>
-    <div class="row2">
-      <div class="field"><label for="pt-name">Seu nome</label><input id="pt-name" placeholder="Seu nome" autocomplete="name" maxlength="60"></div>
-      <div class="field"><label for="pt-org">Clínica, escola ou marca</label><input id="pt-org" placeholder="Nome do negócio" maxlength="80"></div>
-    </div>
-    <div class="row2">
-      <div class="field"><label for="pt-city">Cidade e estado</label><input id="pt-city" placeholder="Ex.: Recife, PE" maxlength="60"></div>
-      <div class="field"><label for="pt-int">Tenho interesse em</label><select id="pt-int"><option>Selo de Profissional da Casa</option><option>Patrocinar a Prateleira</option><option>Os dois</option></select></div>
-    </div>
-    <div class="field"><label for="pt-msg">O que você oferece? (opcional)</label><textarea id="pt-msg" maxlength="500" placeholder="Conte em poucas palavras."></textarea></div>
-    <button class="btn btn-wa btn-block" type="submit"><svg><use href="#i-wa"/></svg>Falar com a equipe pelo WhatsApp</button>
-    <p class="status" id="ptStatus" role="status"></p>
-  </form>
-</div></dialog>
-<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span><a class="foot-link" href="#" id="partnerOpen">Anuncie / Seja um Profissional da Casa</a></div></footer>
+<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
 </main>
 
 <a class="wa-float" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
@@ -1823,6 +1871,8 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 // Da nossa mesa para a sua: profissionais de confiança da comunidade.
 // Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
+    { cat:"Outro", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
+      porque:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico e oração. Não substitui médico nem psicólogo.", site:"", whatsapp:"5581992702353", instagram:"denny___silva", selo:true },
     { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
     { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
@@ -1844,12 +1894,12 @@ var PROS = [
   { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
-var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+var TAPE = { "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "mensagens", "indicacoes", "casa", "palestra", "painel"];
-var ALIAS = { dacasa: "prateleira", devocional: "prateleira:devocional", novidades: "prateleira:devocional", artigos: "prateleira:devocional", textos: "prateleira:devocional", lazer: "mesa:lazer", stories: "mesa",
+var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var ALIAS = { dacasa: "prateleira", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
@@ -1940,7 +1990,7 @@ function applyAuthUI(){
   if (!inn) $("acctMenu").hidden = true;
   var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
   document.body.classList.toggle("wall-on", !wall.hidden);
-  var gates = [["feedGate", "feedApp"], ["dmGate", "dmApp"]];
+  var gates = [["feedGate", "feedApp"], ["lazerGate", "lazerApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
 
@@ -2204,27 +2254,6 @@ proForm.addEventListener("submit", function(e){
   var url = waLink(texto), a = h("a", "link", "toque aqui"); a.href = url; a.target = "_blank"; a.rel = "noopener";
   setStatus(proStatus, "", ""); proStatus.className = "status ok";
   proStatus.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
-  window.open(url, "_blank", "noopener");
-});
-
-
-// Parcerias: clínicas, escolas e marcas pedem o selo ✓ ou patrocínio da Prateleira; a mensagem sai pronta no WhatsApp da equipe.
-var ptDlg = $("partnerDlg");
-function openPartner(e){ if (e) e.preventDefault(); setStatus($("ptStatus"), ""); ptDlg.showModal(); ptDlg.scrollTop = 0; }
-$("partnerOpen").addEventListener("click", openPartner);
-$("partnerOpen2").addEventListener("click", openPartner);
-$("partnerClose").addEventListener("click", function(){ ptDlg.close(); });
-ptDlg.addEventListener("click", function(e){ if (e.target === ptDlg) ptDlg.close(); });
-$("ptForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var d = { nome: val("pt-name"), org: val("pt-org"), cidade: val("pt-city"), tema: $("pt-int").value, msg: val("pt-msg") }, st = $("ptStatus");
-  if (!d.nome) return setStatus(st, "Digite seu nome.", "err");
-  if (!d.org) return setStatus(st, "Informe o nome da clínica, escola ou marca.", "err");
-  if (!d.cidade) return setStatus(st, "Informe a cidade e o estado.", "err");
-  var texto = "Oi! Quero ser parceiro do Café, Graça & Fralda.\n\nNome: " + d.nome + "\nClínica, escola ou marca: " + d.org + "\nCidade: " + d.cidade + "\nInteresse: " + d.tema + (d.msg ? "\n\nO que ofereço: " + d.msg : "");
-  var url = waLink(texto), a = h("a", "link", "toque aqui"); a.href = url; a.target = "_blank"; a.rel = "noopener";
-  setStatus(st, "", "ok");
-  st.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
   window.open(url, "_blank", "noopener");
 });
 
@@ -2522,7 +2551,6 @@ function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.us
 viewHooks.mesa = function(sub){
   if (!auth.user) return;
   mesaSync();
-  if (sub === "lazer") { if (typeof loadLazer === "function") loadLazer(true); return; }
   if (!feed.loaded) loadFeed(true);
   loadMembers(); if (typeof loadStories === "function") loadStories();
 };
@@ -2569,7 +2597,7 @@ function totalUnread(){ var t = 0; Object.keys(dm.unread).forEach(function(k){ t
 
 function renderDmList(){
   var box = $("dmList"); box.innerHTML = "";
-  if (!dm.convs.length) { box.appendChild(h("p", "hint", "Nenhuma conversa ainda. Encontre alguém pelo nome ou chame quem postou na Mesa Grande.")); box.firstChild.style.padding = "12px"; return; }
+  if (!dm.convs.length) { box.appendChild(h("p", "hint", "Nenhuma conversa ainda.")); box.firstChild.style.padding = "12px"; return; }
   dm.convs.forEach(function(c){
     var o = otherOf(c), b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", dm.current === c.id);
     var n = dm.unread[c.id] || 0;
@@ -2639,7 +2667,7 @@ function renderDmMsgs(force){
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
-    var e2 = h("div", "empty"); e2.append(h("h3", null, "Diga um oi 👋"), h("p", null, "Comece a conversa. Só vocês dois veem estas mensagens."));
+    var e2 = h("div", "empty"); e2.append(h("h3", null, "Diga um oi 👋"), h("p", null, "Comece a conversa."));
     dmMsgsEl.appendChild(e2); return;
   }
   dm.msgs.forEach(function(m){
@@ -2685,7 +2713,7 @@ function loadDmMsgs(force){
   });
 }
 function setHeader(c){
-  $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Mensagens";
+  $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
   $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c;
 }
 function openConv(id){
@@ -2955,10 +2983,11 @@ auth.on(function(){
 
 // Prateleira: publicações da comunidade (texto, foto, vídeo, PDF, YouTube, link) e as oficiais (com selo). Qualquer pessoa lê; publicar, curtir e comentar exige login.
 var home = { items: [], more: false, loaded: false, tok: 0 };
+var pubFiltro = "all";
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
 var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.github.io/#prateleira";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
-var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
+var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", audio: "🎧 Áudio", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
 
 function pubFileUrl(path){ try { return sb.storage.from("prateleira").getPublicUrl(path).data.publicUrl; } catch(e){ return ""; } }
 function ytId(url){
@@ -3003,7 +3032,7 @@ function renderDestaque(){
 function pubSync(){
   var inn = !!auth.user;
   $("pubForm").hidden = !inn; $("pubGate").hidden = inn;
-  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin;
+  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
   if (inn) $("pubText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?";
 }
 function pubClearAttach(){ pub.file = null; $("pubAttach").hidden = true; $("pubAttachName").textContent = ""; }
@@ -3019,6 +3048,13 @@ $("pubVideo").addEventListener("change", function(){
   if (f.size > 30 * 1024 * 1024) return toast("O vídeo tem mais de 30 MB. Escolha um mais curto ou cole o link do YouTube.");
   var webm = f.type === "video/webm";
   pubSetFile({ blob: f, kind: "video", ext: webm ? "webm" : "mp4", type: webm ? "video/webm" : "video/mp4", name: f.name || "video", label: "🎬 " + (f.name || "Vídeo") + " · " + sizeTxt(f.size) });
+});
+$("pubAudio").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  var m = { "audio/mpeg": "mp3", "audio/mp4": "m4a", "audio/x-m4a": "m4a", "audio/webm": "webm", "audio/ogg": "ogg" }[f.type];
+  if (!m) return toast("Escolha um áudio MP3, M4A, OGG ou WebM.");
+  if (f.size > 10 * 1024 * 1024) return toast("O áudio tem mais de 10 MB.");
+  pubSetFile({ blob: f, kind: "audio", ext: m, type: f.type, name: f.name || "audio." + m, label: "🎧 " + (f.name || "Áudio") + " · " + sizeTxt(f.size) });
 });
 $("pubPdf").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
@@ -3104,7 +3140,8 @@ function mediaOf(p){
   var url = p.arquivo ? pubFileUrl(p.arquivo) : "";
   if (p.youtube) return ytBlock(p);
   if (p.arquivo && /\.jpg$/.test(p.arquivo)) { var im = h("img", "post-img"); im.src = url; im.alt = p.titulo || "Foto de " + p.autor; im.loading = "lazy"; return im; }
-  if (p.arquivo && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
+  if (p.arquivo && p.tipo !== "audio" && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
+  if (p.arquivo && /\.(mp3|m4a|ogg|webm)$/.test(p.arquivo) && p.tipo === "audio") { var au = h("audio", "pub-audio"); au.controls = true; au.preload = "none"; au.src = url; return au; }
   if (p.arquivo && /\.pdf$/.test(p.arquivo)) {
     var a = h("a", "file-chip pub-file"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
     a.append(h("span", "file-ic", "📄"), h("span", "file-nm", p.arquivo_nome || "documento.pdf"), h("small", null, "Abrir")); return a;
@@ -3126,7 +3163,8 @@ function renderList(box, st, prefix, vazio){
 }
 function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
-  renderList($("pubList"), pub, "", ["A Prateleira está vazia", "Seja a primeira pessoa a compartilhar um vídeo, PDF, foto ou link."]);
+  var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
+  renderList($("pubList"), vis, "", ["Nada por aqui ainda", "Seja a primeira pessoa a compartilhar um material."]);
   renderList($("homeList"), home, "home-", ["Em breve, mais novidades da Casa", "Avisos, convites, vídeos e indicações de parceiros aparecem aqui."]);
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
@@ -3214,6 +3252,8 @@ viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque
 viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); };
 auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); if (isShown("inicio")) loadHome(true); });
 pubSync();
+
+filterChips("pubFilters", function(f){ pubFiltro = f; renderPubs(); });
 
 
 // Painel (só administradores): inscritos nos devocionais e indicações enviadas para aprovar.
@@ -3492,6 +3532,9 @@ $("lzForm").addEventListener("submit", function(e){
 });
 auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}; lz.loaded = false; } });
 (function prefill(){ var c = lsGet("cgf-cidade"), u = lsGet("cgf-uf"); if (c) $("lzCidade").value = c; if (u) $("lzUf").value = u; })();
+
+viewHooks.lazer = function(){ if (auth.user) loadLazer(true); };
+auth.on(function(){ if (auth.user && isShown("lazer")) loadLazer(true); });
 
 
 // Instalar o app (PWA) e inicialização.

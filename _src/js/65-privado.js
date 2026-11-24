@@ -9,7 +9,7 @@ function totalUnread(){ var t = 0; Object.keys(dm.unread).forEach(function(k){ t
 
 function renderDmList(){
   var box = $("dmList"); box.innerHTML = "";
-  if (!dm.convs.length) { box.appendChild(h("p", "hint", "Nenhuma conversa ainda. Encontre alguém pelo nome ou chame quem postou na Mesa Grande.")); box.firstChild.style.padding = "12px"; return; }
+  if (!dm.convs.length) { box.appendChild(h("p", "hint", "Nenhuma conversa ainda.")); box.firstChild.style.padding = "12px"; return; }
   dm.convs.forEach(function(c){
     var o = otherOf(c), b = h("button", "room"); b.type = "button"; b.setAttribute("aria-pressed", dm.current === c.id);
     var n = dm.unread[c.id] || 0;
@@ -79,7 +79,7 @@ function renderDmMsgs(force){
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
-    var e2 = h("div", "empty"); e2.append(h("h3", null, "Diga um oi 👋"), h("p", null, "Comece a conversa. Só vocês dois veem estas mensagens."));
+    var e2 = h("div", "empty"); e2.append(h("h3", null, "Diga um oi 👋"), h("p", null, "Comece a conversa."));
     dmMsgsEl.appendChild(e2); return;
   }
   dm.msgs.forEach(function(m){
@@ -125,7 +125,7 @@ function loadDmMsgs(force){
   });
 }
 function setHeader(c){
-  $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Mensagens";
+  $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
   $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c;
 }
 function openConv(id){

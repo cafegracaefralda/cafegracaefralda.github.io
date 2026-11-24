@@ -230,7 +230,6 @@ function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.us
 viewHooks.mesa = function(sub){
   if (!auth.user) return;
   mesaSync();
-  if (sub === "lazer") { if (typeof loadLazer === "function") loadLazer(true); return; }
   if (!feed.loaded) loadFeed(true);
   loadMembers(); if (typeof loadStories === "function") loadStories();
 };

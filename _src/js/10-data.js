@@ -134,6 +134,8 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 // Da nossa mesa para a sua: profissionais de confiança da comunidade.
 // Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
+    { cat:"Outro", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
+      porque:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico e oração. Não substitui médico nem psicólogo.", site:"", whatsapp:"5581992702353", instagram:"denny___silva", selo:true },
     { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
     { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
@@ -155,4 +157,4 @@ var PROS = [
   { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
-var TAPE = { "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+var TAPE = { "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };

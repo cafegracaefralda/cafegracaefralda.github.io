@@ -967,3 +967,57 @@ label.hand-btn{cursor:pointer}
 body.wall-on{overflow:hidden}
 .sheet-box input,.sheet-box select,.sheet-box textarea,.lw-box input{font-size:16px}
 .sheet-box .btn,.lw-box .btn{min-height:46px}
+
+.pub-audio{width:100%;margin-top:8px}
+
+/* Personalidade: cada área tem a sua cor (terracota, verde-sálvia, mostarda, azul-café, ameixa) */
+:root{--sage:#5E7F5B;--sage-soft:#E4ECDF;--mustard:#C98F1E;--mustard-soft:#F8EBCB;--blue:#44688A;--blue-soft:#DEE8F1;--plum:#8E4A6E;--plum-soft:#F1DFE9;--acc:var(--terra);--acc-soft:var(--terra-soft,#F3DDD2)}
+body[data-view="prateleira"]{--acc:var(--mustard);--acc-soft:var(--mustard-soft)}
+body[data-view="mesa"]{--acc:var(--terra);--acc-soft:#F3DDD2}
+body[data-view="lazer"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
+body[data-view="mensagens"]{--acc:var(--blue);--acc-soft:var(--blue-soft)}
+body[data-view="indicacoes"]{--acc:var(--plum);--acc-soft:var(--plum-soft)}
+body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
+.view-head .label,.view .label{color:var(--acc)}
+.view-head h2{position:relative}
+.view-head h2:after{content:"";display:block;width:54px;height:5px;border-radius:5px;background:var(--acc);margin-top:12px}
+.seg button[aria-selected="true"]{background:var(--acc)}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc)}
+.nav a[data-tab="inicio"] svg{color:var(--terra)}.nav a[data-tab="prateleira"] svg{color:var(--mustard)}.nav a[data-tab="mesa"] svg{color:var(--terra)}.nav a[data-tab="lazer"] svg{color:var(--sage)}.nav a[data-tab="mensagens"] svg{color:var(--blue)}.nav a[data-tab="indicacoes"] svg{color:var(--plum)}.nav a[data-tab="casa"] svg{color:var(--sage)}
+.nav a[data-tab="prateleira"][aria-current="page"]{background:var(--mustard-soft);color:#7A5410}.nav a[data-tab="lazer"][aria-current="page"]{background:var(--sage-soft);color:#3F5C3D}.nav a[data-tab="mensagens"][aria-current="page"]{background:var(--blue-soft);color:#2F4C69}.nav a[data-tab="indicacoes"][aria-current="page"]{background:var(--plum-soft);color:#6A3350}.nav a[data-tab="casa"][aria-current="page"]{background:var(--sage-soft);color:#3F5C3D}.nav a[data-tab="mesa"][aria-current="page"],.nav a[data-tab="inicio"][aria-current="page"]{background:#F3DDD2;color:#8C3F22}
+.home-intro{background:linear-gradient(135deg,#F7E3D3 0%,#F8EBCB 55%,#E4ECDF 100%);border-radius:28px;padding:clamp(22px,5vw,40px);margin-bottom:8px}
+.compose,.card.compose{border-top:4px solid var(--acc)}
+.avatar{background:var(--acc-soft);color:var(--acc)}
+.post.oficial{border-left:4px solid var(--terra)}
+.btn-terra{background:var(--acc)}
+.btn-terra:hover{filter:brightness(.92)}
+@media (max-width:1099px){.tabbar [aria-current="page"]{color:var(--acc)}}
+
+/* Cochicho (chat) no celular */
+@media (max-width:760px){
+  #v-mensagens .view-head{margin-bottom:10px}
+  #v-mensagens .view-head .label,#v-mensagens .view-head h2:after{display:none}
+  #v-mensagens .view-head h2{font-size:34px}
+  .chat.dm{background:none;border:0;box-shadow:none}
+  .chat.dm .rooms{display:flex;flex-direction:column;gap:6px;padding:0;overflow:visible;max-height:none}
+  .chat.dm .rooms .dm-find{order:-1;border:0;margin:0;padding:0 0 6px;display:grid;gap:8px}
+  .chat.dm .rooms .dm-find>.label{display:none}
+  .chat.dm .rooms .dm-find input{background:var(--surface);border:1px solid var(--line);padding:12px 18px}
+  .chat.dm .rooms .room{background:var(--surface);border-radius:18px;padding:12px 14px;min-height:64px;gap:14px;box-shadow:0 1px 0 rgba(29,26,23,.04)}
+  .chat.dm .rooms .room:hover{transform:none}
+  .chat.dm .rooms .room .avatar{width:46px;height:46px;font-size:20px;background:var(--blue-soft);color:var(--blue)}
+  .chat.dm .rooms .room b{font-size:16px}
+  .chat.dm .rooms .room .nb{background:var(--blue)}
+  .chat.dm .dm-opt{border:0;font-size:12.5px;padding:10px 4px;margin:6px 0 0}
+  .chat.dm .rooms>#dmList>.hint{text-align:center;padding:28px 0!important;color:var(--muted)}
+  .chat.dm.thread .chat-head .who small,.chat-head #dmSub{display:none}
+  .msgs{background:linear-gradient(180deg,#EEF3F8,#F8F5F0)}
+  .msg.mine,.msgs .mine .bubble{background:linear-gradient(135deg,var(--blue),#5C84A8)!important}
+}
+@media (max-width:760px){
+  #dmPeople{display:grid;gap:6px}
+  #dmPeople>*{width:100%}
+  .msg.me .bubble{background:linear-gradient(135deg,var(--blue),#5C84A8)!important;color:#fff;border-color:transparent}
+  .msg.me .bubble *{color:#fff!important}
+  .composer .btn-terra{background:var(--blue)}
+}

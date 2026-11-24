@@ -16,7 +16,7 @@ function applyAuthUI(){
   if (!inn) $("acctMenu").hidden = true;
   var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
   document.body.classList.toggle("wall-on", !wall.hidden);
-  var gates = [["feedGate", "feedApp"], ["dmGate", "dmApp"]];
+  var gates = [["feedGate", "feedApp"], ["lazerGate", "lazerApp"], ["dmGate", "dmApp"]];
   gates.forEach(function(g){ $(g[0]).hidden = inn; $(g[1]).hidden = !inn; });
 }
 

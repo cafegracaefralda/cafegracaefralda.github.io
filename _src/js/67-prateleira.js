@@ -1,9 +1,10 @@
 // Prateleira: publicações da comunidade (texto, foto, vídeo, PDF, YouTube, link) e as oficiais (com selo). Qualquer pessoa lê; publicar, curtir e comentar exige login.
 var home = { items: [], more: false, loaded: false, tok: 0 };
+var pubFiltro = "all";
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
 var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.github.io/#prateleira";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
-var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
+var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", audio: "🎧 Áudio", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
 
 function pubFileUrl(path){ try { return sb.storage.from("prateleira").getPublicUrl(path).data.publicUrl; } catch(e){ return ""; } }
 function ytId(url){
@@ -48,7 +49,7 @@ function renderDestaque(){
 function pubSync(){
   var inn = !!auth.user;
   $("pubForm").hidden = !inn; $("pubGate").hidden = inn;
-  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin;
+  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
   if (inn) $("pubText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?";
 }
 function pubClearAttach(){ pub.file = null; $("pubAttach").hidden = true; $("pubAttachName").textContent = ""; }
@@ -64,6 +65,13 @@ $("pubVideo").addEventListener("change", function(){
   if (f.size > 30 * 1024 * 1024) return toast("O vídeo tem mais de 30 MB. Escolha um mais curto ou cole o link do YouTube.");
   var webm = f.type === "video/webm";
   pubSetFile({ blob: f, kind: "video", ext: webm ? "webm" : "mp4", type: webm ? "video/webm" : "video/mp4", name: f.name || "video", label: "🎬 " + (f.name || "Vídeo") + " · " + sizeTxt(f.size) });
+});
+$("pubAudio").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  var m = { "audio/mpeg": "mp3", "audio/mp4": "m4a", "audio/x-m4a": "m4a", "audio/webm": "webm", "audio/ogg": "ogg" }[f.type];
+  if (!m) return toast("Escolha um áudio MP3, M4A, OGG ou WebM.");
+  if (f.size > 10 * 1024 * 1024) return toast("O áudio tem mais de 10 MB.");
+  pubSetFile({ blob: f, kind: "audio", ext: m, type: f.type, name: f.name || "audio." + m, label: "🎧 " + (f.name || "Áudio") + " · " + sizeTxt(f.size) });
 });
 $("pubPdf").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
@@ -149,7 +157,8 @@ function mediaOf(p){
   var url = p.arquivo ? pubFileUrl(p.arquivo) : "";
   if (p.youtube) return ytBlock(p);
   if (p.arquivo && /\.jpg$/.test(p.arquivo)) { var im = h("img", "post-img"); im.src = url; im.alt = p.titulo || "Foto de " + p.autor; im.loading = "lazy"; return im; }
-  if (p.arquivo && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
+  if (p.arquivo && p.tipo !== "audio" && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
+  if (p.arquivo && /\.(mp3|m4a|ogg|webm)$/.test(p.arquivo) && p.tipo === "audio") { var au = h("audio", "pub-audio"); au.controls = true; au.preload = "none"; au.src = url; return au; }
   if (p.arquivo && /\.pdf$/.test(p.arquivo)) {
     var a = h("a", "file-chip pub-file"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
     a.append(h("span", "file-ic", "📄"), h("span", "file-nm", p.arquivo_nome || "documento.pdf"), h("small", null, "Abrir")); return a;
@@ -171,7 +180,8 @@ function renderList(box, st, prefix, vazio){
 }
 function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
-  renderList($("pubList"), pub, "", ["A Prateleira está vazia", "Seja a primeira pessoa a compartilhar um vídeo, PDF, foto ou link."]);
+  var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
+  renderList($("pubList"), vis, "", ["Nada por aqui ainda", "Seja a primeira pessoa a compartilhar um material."]);
   renderList($("homeList"), home, "home-", ["Em breve, mais novidades da Casa", "Avisos, convites, vídeos e indicações de parceiros aparecem aqui."]);
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
@@ -259,3 +269,5 @@ viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque
 viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); };
 auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); if (isShown("inicio")) loadHome(true); });
 pubSync();
+
+filterChips("pubFilters", function(f){ pubFiltro = f; renderPubs(); });

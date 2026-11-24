@@ -110,3 +110,6 @@ $("lzForm").addEventListener("submit", function(e){
 });
 auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}; lz.loaded = false; } });
 (function prefill(){ var c = lsGet("cgf-cidade"), u = lsGet("cgf-uf"); if (c) $("lzCidade").value = c; if (u) $("lzUf").value = u; })();
+
+viewHooks.lazer = function(){ if (auth.user) loadLazer(true); };
+auth.on(function(){ if (auth.user && isShown("lazer")) loadLazer(true); });
