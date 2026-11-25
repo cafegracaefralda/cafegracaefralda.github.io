@@ -36,7 +36,7 @@ function renderStories(){
     if (g.user_id === uid()) return;
     row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }));
   });
-  if (!stories.groups.some(function(g){ return g.user_id !== uid(); })) row.appendChild(h("p", "stories-hint", "Os stories das outras famílias aparecem aqui por 24 horas."));
+
 }
 
 /* ---------- Novo story ---------- */

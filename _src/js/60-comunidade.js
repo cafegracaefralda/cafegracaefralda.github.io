@@ -31,7 +31,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (filter !== "all" && p.cat !== filter) return;
+    if (viz.g !== "all" && vizGroup(p.cat) !== viz.g) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
@@ -52,7 +52,7 @@ function renderFridge(filter){
     fridge.appendChild(li);
   });
 }
-filterChips("fridgeFilters", renderFridge);
+filterChips("vizFilters", function(g){ viz.g = g; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 renderFridge("all");
 
 viewHooks.indicacoes = function(){ loadMemberInds(); };

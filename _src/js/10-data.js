@@ -157,4 +157,10 @@ var PROS = [
   { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
+// Vizinhança: tudo cai em poucos grupos (filtro único para profissionais e lugares)
+var GRUPO_VIZ = { "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
+  "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
+  "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
+function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
+var viz = { g: "all" };
 var TAPE = { "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };

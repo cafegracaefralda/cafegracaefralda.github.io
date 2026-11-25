@@ -1130,6 +1130,82 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .mention-item .avatar{width:32px;height:32px;font-size:15px;flex:none}
 .mention-item.on,.mention-item:hover{background:var(--sand)}
 
+/* Mais personalidade: cabeçalho de cada área vira uma faixa colorida com um desenho */
+.view-head{position:relative;overflow:hidden;background:linear-gradient(120deg,var(--acc-soft) 0%,#fff 130%);border:1px solid color-mix(in srgb,var(--acc) 22%,transparent);border-radius:26px;padding:22px 22px 20px;margin-bottom:18px}
+.view-head h2:after{display:none}
+.view-head h2{font-size:clamp(34px,8vw,52px);line-height:1;color:var(--ink)}
+.view-head .muted{margin:8px 0 0;max-width:56ch}
+.view-head:after{position:absolute;right:14px;top:6px;font-size:84px;line-height:1;opacity:.18;transform:rotate(-8deg);pointer-events:none}
+body[data-view="mesa"] #v-mesa>.wrap>.view-head:after{content:"☕"}
+body[data-view="indicacoes"] #v-indicacoes>.wrap>.view-head:after{content:"🏡"}
+body[data-view="mensagens"] #v-mensagens>.wrap>.view-head:after{content:"💬"}
+body[data-view="casa"] #v-casa>.wrap>.view-head:after{content:"🤝"}
+body[data-view="prateleira"] #v-prateleira>.wrap>.view-head:after{content:"📚"}
+.view-head.home-head,.view-head.sub-head{background:none;border:0;padding:0;border-radius:0}
+.view-head.home-head:after,.view-head.sub-head:after{display:none}
+.sub-head{margin:26px 0 10px}
+.sub-head h3{font-size:clamp(24px,5vw,30px)}
+.sub-head .label{color:var(--sage)}
+.viz-filters{margin:0 0 14px;position:sticky;top:64px;z-index:5;padding:8px 0;background:linear-gradient(var(--bg) 80%,transparent)}
+.chip[aria-pressed="true"]{box-shadow:0 8px 18px -10px var(--acc)}
+.post,.card.compose,.of-card,.pf-tile{box-shadow:0 12px 28px -22px rgba(29,26,23,.55)}
+.post-top .avatar{background:var(--acc-soft);color:var(--acc)}
+.lazer-bar{background:var(--sage-soft);border-radius:20px;padding:10px}
+.stories{padding-bottom:4px}
+@media (max-width:760px){.view-head{padding:18px 16px 16px;border-radius:22px}.view-head:after{font-size:64px;right:8px}.viz-filters{top:58px}}
+.nav a{white-space:normal;line-height:1.2}
+
+/* Mesa Grande com cara de rede social */
+#v-mesa>.wrap>.view-head{display:none}
+#v-mesa .wrap{padding-top:6px}
+@media (min-width:1100px){.mesa-layout{grid-template-columns:minmax(0,600px) 300px;gap:24px}}
+.stories{gap:14px;padding:12px 4px 8px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.stories .person{width:76px;display:grid;justify-items:center;gap:6px;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink)}
+.stories .person small{font-size:12px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stories .person .ring{position:relative;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 210deg,#C98F1E,#B65B3A,#8E4A6E,#C98F1E);padding:3px}
+.stories .person .ring>span:first-child{width:100%;height:100%;border-radius:50%;background:var(--surface);border:3px solid var(--surface);display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:var(--terra)}
+.stories .person.mine .ring,.stories .person.own .ring{background:var(--line)}
+.stories .person .ring .plus{position:absolute;right:-2px;bottom:-2px;width:22px;height:22px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-style:normal;font-size:16px;line-height:1;border:2px solid #fff}
+.mesa-main .post,.mesa-main .card.compose{border-radius:16px;border:1px solid var(--line);box-shadow:none;background:var(--surface)}
+.mesa-main .compose{border-top:1px solid var(--line)}
+.mesa-main .post-top{padding:12px 14px}
+.mesa-main .post-top .avatar{width:42px;height:42px;background:conic-gradient(from 210deg,#F7E3D3,#F8EBCB,#F1DFE9,#F7E3D3);color:var(--terra);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--terra)}
+.mesa-main .post-text{font-size:16.5px;line-height:1.5;padding:0 14px 12px}
+.mesa-main .post-acts{border-top:1px solid var(--line)}
+.mesa-main .post-acts button{font-weight:600;min-height:46px}
+.mesa-side .card{border-radius:16px;box-shadow:none}
+@media (max-width:760px){
+  #v-mesa .wrap{padding-left:0;padding-right:0}
+  .stories{border-radius:0;border-left:0;border-right:0;padding-left:12px;padding-right:12px}
+  .mesa-main{gap:8px}
+  .mesa-main>.filters{padding:0 12px}
+  .mesa-main .post,.mesa-main .card.compose{border-radius:0;border-left:0;border-right:0}
+  #feedList{gap:8px}
+}
+
+/* Cara de rede social em tudo: cartões planos, anéis nos avatares, títulos compactos no celular */
+.post,.of-card,.pf-tile,.note{box-shadow:none}
+.post{border-radius:16px}
+.post .avatar{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--acc)}
+.feed-list,.prat-wrap{gap:12px}
+@media (max-width:760px){
+  .view-head{background:none;border:0;padding:4px 4px 0;border-radius:0;margin-bottom:6px}
+  .view-head:after{display:none!important}
+  .view-head .label{display:none}
+  .view-head h2{font-size:30px}
+  .view-head .muted{display:none}
+  .view-head.home-head{display:none}
+  .home-intro{border-radius:18px;padding:12px 14px}
+  .home-intro h1{font-size:21px}
+  #v-inicio .post,#v-inicio .post.oficial{border-radius:0;border-left:0;border-right:0}
+  #v-inicio .wrap{padding-left:0;padding-right:0}
+  #v-inicio .home-intro,#v-inicio .seg,#v-inicio .ofertas-bar,#v-inicio #ofFilters,#v-inicio .of-grid{margin-left:12px;margin-right:12px}
+  .seg{position:sticky;top:58px;z-index:6;background:var(--bg)}
+  #v-perfil .wrap,#v-indicacoes .wrap{padding-left:12px;padding-right:12px}
+}
+.view{overflow-x:clip}
+#v-inicio .seg{width:auto;max-width:calc(100% - 24px)}
+
 </style>
 </head>
 <body>
@@ -1209,7 +1285,6 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
-      <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
@@ -1218,7 +1293,7 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
   <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-  <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
+  <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
   <button type="button" id="tabMore" aria-label="Mais opções"><svg><use href="#i-menu"/></svg><span>Mais</span></button>
@@ -1415,55 +1490,6 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
     <p class="status" id="pfStatus" role="status"></p>
   </div></dialog>
 
-  <!-- LAZER -->
-  <section class="view" id="v-lazer" data-view="lazer">
-    <div class="wrap">
-      <div class="view-head">
-        <span class="label">Lazer em família</span>
-        <h2>Quintal</h2>
-        <p class="muted">Parques, praças, restaurantes e passeios que as famílias da comunidade já testaram. Filtre pela sua cidade.</p>
-      </div>
-      <div class="card" id="lazerGate">
-        <div class="gate">
-          <span class="label">Lazer</span>
-          <h3>Os lugares da comunidade são para quem entrou</h3>
-          <p>Entre para ver e indicar lugares para ir com as crianças.</p>
-          <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-        </div>
-      </div>
-      <div id="lazerApp" hidden>
-          <div class="lazer-bar">
-            <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
-            <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
-            <button class="btn btn-terra" type="button" id="lzOpen"><svg><use href="#i-plus"/></svg>Indicar um lugar</button>
-          </div>
-          <div class="filters" id="lzCats" role="group" aria-label="Filtrar lazer"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Parque e natureza">Parque e natureza</button><button class="chip" aria-pressed="false" data-filter="Restaurante e café">Restaurante e café</button><button class="chip" aria-pressed="false" data-filter="Espaço kids">Espaço kids</button><button class="chip" aria-pressed="false" data-filter="Passeio e cultura">Passeio e cultura</button><button class="chip" aria-pressed="false" data-filter="Esporte">Esporte</button><button class="chip" aria-pressed="false" data-filter="Evento">Evento</button><button class="chip" aria-pressed="false" data-filter="Outro">Outro</button></div>
-          <form class="card form lz-form" id="lzForm" novalidate hidden>
-            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar para ir com as crianças</h3></div>
-            <div class="row2">
-              <div class="field"><label for="lz-nome">Nome do lugar</label><input id="lz-nome" maxlength="100" placeholder="Ex.: Parque da Jaqueira"></div>
-              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option>Parque e natureza</option><option>Restaurante e café</option><option>Espaço kids</option><option>Passeio e cultura</option><option>Esporte</option><option>Evento</option><option>Outro</option></select></div>
-            </div>
-            <div class="row2">
-              <div class="field"><label for="lz-cidade">Cidade</label><input id="lz-cidade" maxlength="60" placeholder="Em qual cidade fica?"></div>
-              <div class="field"><label for="lz-uf">Estado</label><select id="lz-uf"><option value="">Escolha</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
-            </div>
-            <div class="row2">
-              <div class="field"><label for="lz-idades">Idades</label><select id="lz-idades"><option>Todas as idades</option><option>Bebês</option><option>1 a 3 anos</option><option>4 a 7 anos</option><option>8 anos ou mais</option></select></div>
-              <div class="field"><label for="lz-custo">Custo</label><select id="lz-custo"><option>Grátis</option><option>Barato</option><option>Médio</option><option>Caro</option></select></div>
-            </div>
-            <div class="field"><label for="lz-end">Endereço ou bairro (opcional)</label><input id="lz-end" maxlength="140" placeholder="Ajuda a encontrar o lugar"></div>
-            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Tem sombra, banheiro limpo, brinquedos, comida boa…"></textarea></div>
-            <div class="post-bar"><label class="cbtn" for="lz-foto"><svg><use href="#i-photo"/></svg><span>Anexar foto</span></label><input type="file" id="lz-foto" accept="image/*" hidden><span id="lz-foto-nome" class="post-tip"></span></div>
-            <button class="btn btn-terra btn-block" id="lzSend" type="submit">Publicar indicação</button>
-            <p class="status" id="lzStatus" role="status"></p>
-          </form>
-          <div class="feed-list" id="lzList" aria-live="polite"></div>
-          <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
-              </div>
-    </div>
-  </section>
-
   <!-- MENSAGENS -->
   <section class="view" id="v-mensagens" data-view="mensagens">
     <div class="wrap">
@@ -1510,26 +1536,12 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
   <section class="view" id="v-indicacoes" data-view="indicacoes">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Indicações da vizinhança</span>
+        <span class="label">Saúde, lazer, serviços e mais</span>
         <h2>Vizinhança</h2>
-        <p class="muted">Profissionais que já cuidaram bem de famílias daqui. É indicação de gente, não propaganda paga.</p>
+        <p class="muted">Tudo o que a comunidade indica: médicos, escolas, restaurantes, hotéis, praças e passeios.</p>
       </div>
+      <div class="filters viz-filters" id="vizFilters" role="group" aria-label="Filtrar a vizinhança"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Saúde">Saúde</button><button class="chip" aria-pressed="false" data-filter="Família">Família</button><button class="chip" aria-pressed="false" data-filter="Lazer">Lazer</button><button class="chip" aria-pressed="false" data-filter="Comer">Comer</button><button class="chip" aria-pressed="false" data-filter="Hospedagem">Hospedagem</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="fridge">
-          <div class="filters" id="fridgeFilters" role="group" aria-label="Filtrar indicações">
-            <button class="chip" aria-pressed="true" data-filter="all">Todos</button>
-            <button class="chip" aria-pressed="false" data-filter="Saúde dos pequenos">Saúde dos pequenos</button>
-            <button class="chip" aria-pressed="false" data-filter="Gestação e bebê">Gestação e bebê</button>
-            <button class="chip" aria-pressed="false" data-filter="Mente e emoções">Mente e emoções</button>
-            <button class="chip" aria-pressed="false" data-filter="Desenvolvimento">Desenvolvimento</button>
-            <button class="chip" aria-pressed="false" data-filter="Casamento">Casamento</button>
-            <button class="chip" aria-pressed="false" data-filter="Hotéis e pousadas">Hotéis e pousadas</button>
-            <button class="chip" aria-pressed="false" data-filter="Restaurantes e cafés">Restaurantes e cafés</button>
-            <button class="chip" aria-pressed="false" data-filter="Praças e parques">Praças e parques</button>
-            <button class="chip" aria-pressed="false" data-filter="Passeios e lazer">Passeios e lazer</button>
-            <button class="chip" aria-pressed="false" data-filter="Serviços para a casa">Serviços para a casa</button>
-            <button class="chip" aria-pressed="false" data-filter="Escolas e creches">Escolas e creches</button>
-            <button class="chip" aria-pressed="false" data-filter="Outro">Outros</button>
-          </div>
           <ul class="notes" id="fridgeNotes"></ul>
           <div class="card more-pros"><div><b>Temos vários outros profissionais de confiança.</b><p>Psicólogos, dentistas, nutricionistas e mais. Chame a gente no WhatsApp e indicamos o ideal para o seu caso.</p></div><a class="btn btn-wa" data-wa="Oi! Vim pelas Indicações do Café, Graça &amp; Fralda e preciso de um profissional. Pode me indicar?" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir indicação</a></div>
         </div>
@@ -1572,6 +1584,46 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
         </div>
         <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
       
+      <div class="viz-lugares">
+        <div class="view-head sub-head"><span class="label">Lugares</span><h3>Lugares para ir com as crianças</h3></div>
+      <div class="card" id="lazerGate">
+        <div class="gate">
+          <span class="label">Lugares</span>
+          <h3>Os lugares da comunidade são para quem entrou</h3>
+          <p>Entre para ver e indicar lugares para ir com as crianças.</p>
+          <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+        </div>
+      </div>
+      <div id="lazerApp" hidden>
+          <div class="lazer-bar">
+            <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
+            <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
+            <button class="btn btn-terra" type="button" id="lzOpen"><svg><use href="#i-plus"/></svg>Indicar um lugar</button>
+          </div>
+          <form class="card form lz-form" id="lzForm" novalidate hidden>
+            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar para ir com as crianças</h3></div>
+            <div class="row2">
+              <div class="field"><label for="lz-nome">Nome do lugar</label><input id="lz-nome" maxlength="100" placeholder="Ex.: Parque da Jaqueira"></div>
+              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option>Parque e natureza</option><option>Restaurante e café</option><option>Espaço kids</option><option>Passeio e cultura</option><option>Esporte</option><option>Evento</option><option>Outro</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-cidade">Cidade</label><input id="lz-cidade" maxlength="60" placeholder="Em qual cidade fica?"></div>
+              <div class="field"><label for="lz-uf">Estado</label><select id="lz-uf"><option value="">Escolha</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="lz-idades">Idades</label><select id="lz-idades"><option>Todas as idades</option><option>Bebês</option><option>1 a 3 anos</option><option>4 a 7 anos</option><option>8 anos ou mais</option></select></div>
+              <div class="field"><label for="lz-custo">Custo</label><select id="lz-custo"><option>Grátis</option><option>Barato</option><option>Médio</option><option>Caro</option></select></div>
+            </div>
+            <div class="field"><label for="lz-end">Endereço ou bairro (opcional)</label><input id="lz-end" maxlength="140" placeholder="Ajuda a encontrar o lugar"></div>
+            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Tem sombra, banheiro limpo, brinquedos, comida boa…"></textarea></div>
+            <div class="post-bar"><label class="cbtn" for="lz-foto"><svg><use href="#i-photo"/></svg><span>Anexar foto</span></label><input type="file" id="lz-foto" accept="image/*" hidden><span id="lz-foto-nome" class="post-tip"></span></div>
+            <button class="btn btn-terra btn-block" id="lzSend" type="submit">Publicar indicação</button>
+            <p class="status" id="lzStatus" role="status"></p>
+          </form>
+          <div class="feed-list" id="lzList" aria-live="polite"></div>
+          <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
+              </div>
+      </div>
     </div>
   </section>
 
@@ -2065,12 +2117,18 @@ var PROS = [
   { id:"fred", nome:"Dr. Fred Hanaoka", area:"saude", papel:"Pediatra",
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
+// Vizinhança: tudo cai em poucos grupos (filtro único para profissionais e lugares)
+var GRUPO_VIZ = { "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
+  "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
+  "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
+function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
+var viz = { g: "all" };
 var TAPE = { "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
-var ALIAS = { dacasa: "prateleira", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
+var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var ALIAS = { dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
@@ -2738,7 +2796,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (filter !== "all" && p.cat !== filter) return;
+    if (viz.g !== "all" && vizGroup(p.cat) !== viz.g) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
@@ -2759,7 +2817,7 @@ function renderFridge(filter){
     fridge.appendChild(li);
   });
 }
-filterChips("fridgeFilters", renderFridge);
+filterChips("vizFilters", function(g){ viz.g = g; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 renderFridge("all");
 
 viewHooks.indicacoes = function(){ loadMemberInds(); };
@@ -3866,7 +3924,7 @@ function renderStories(){
     if (g.user_id === uid()) return;
     row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }));
   });
-  if (!stories.groups.some(function(g){ return g.user_id !== uid(); })) row.appendChild(h("p", "stories-hint", "Os stories das outras famílias aparecem aqui por 24 horas."));
+
 }
 
 /* ---------- Novo story ---------- */
@@ -3932,7 +3990,6 @@ auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } 
 // Lazer em família: lugares para levar as crianças, indicados pelas famílias, sempre com a cidade (o site é do Brasil inteiro).
 var lz = { items: [], likes: {}, urls: {}, loaded: false, more: false, tok: 0, cat: "all", file: null, busy: false };
 var LZ_PAGE = 12;
-filterChips("lzCats", function(c){ lz.cat = c; loadLazer(true); });
 
 function lzFilters(){ return { cidade: $("lzCidade").value.trim().replace(/[^A-Za-zÀ-ÿ' -]/g, "").slice(0, 60), uf: $("lzUf").value }; }
 function signLazer(rows){
@@ -3976,12 +4033,13 @@ function lzShare(p){
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";
+  var todos = lz.items, lista = viz.g === "all" ? todos : todos.filter(function(p){ return vizGroup(p.categoria) === viz.g; });
   $("lzMore").hidden = !lz.more;
-  if (!lz.items.length) {
+  if (!lista.length) {
     var e = h("div", "empty card"); var f = lzFilters();
     e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "Conhece um bom lugar para ir com as crianças? Toque em “Indicar um lugar”." : "")); box.appendChild(e); return;
   }
-  lz.items.forEach(function(p){ box.appendChild(renderLz(p)); });
+  lista.forEach(function(p){ box.appendChild(renderLz(p)); });
 }
 function renderLz(p){
   var mine = p.user_id === uid(), el = h("article", "post lz-card"); el.id = "lz-" + p.id;
@@ -4042,8 +4100,9 @@ $("lzForm").addEventListener("submit", function(e){
 auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}; lz.loaded = false; } });
 (function prefill(){ var c = lsGet("cgf-cidade"), u = lsGet("cgf-uf"); if (c) $("lzCidade").value = c; if (u) $("lzUf").value = u; })();
 
-viewHooks.lazer = function(){ if (auth.user) loadLazer(true); };
-auth.on(function(){ if (auth.user && isShown("lazer")) loadLazer(true); });
+var _hookViz = viewHooks.indicacoes;
+viewHooks.indicacoes = function(s){ if (_hookViz) _hookViz(s); if (auth.user) loadLazer(true); };
+auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
 
 
 // Instalar o app (PWA) e inicialização.

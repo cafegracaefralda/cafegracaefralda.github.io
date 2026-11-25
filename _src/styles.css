@@ -1094,3 +1094,79 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .mention-item{display:flex;align-items:center;gap:10px;min-height:44px;border:0;background:none;border-radius:12px;padding:6px 10px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
 .mention-item .avatar{width:32px;height:32px;font-size:15px;flex:none}
 .mention-item.on,.mention-item:hover{background:var(--sand)}
+
+/* Mais personalidade: cabeçalho de cada área vira uma faixa colorida com um desenho */
+.view-head{position:relative;overflow:hidden;background:linear-gradient(120deg,var(--acc-soft) 0%,#fff 130%);border:1px solid color-mix(in srgb,var(--acc) 22%,transparent);border-radius:26px;padding:22px 22px 20px;margin-bottom:18px}
+.view-head h2:after{display:none}
+.view-head h2{font-size:clamp(34px,8vw,52px);line-height:1;color:var(--ink)}
+.view-head .muted{margin:8px 0 0;max-width:56ch}
+.view-head:after{position:absolute;right:14px;top:6px;font-size:84px;line-height:1;opacity:.18;transform:rotate(-8deg);pointer-events:none}
+body[data-view="mesa"] #v-mesa>.wrap>.view-head:after{content:"☕"}
+body[data-view="indicacoes"] #v-indicacoes>.wrap>.view-head:after{content:"🏡"}
+body[data-view="mensagens"] #v-mensagens>.wrap>.view-head:after{content:"💬"}
+body[data-view="casa"] #v-casa>.wrap>.view-head:after{content:"🤝"}
+body[data-view="prateleira"] #v-prateleira>.wrap>.view-head:after{content:"📚"}
+.view-head.home-head,.view-head.sub-head{background:none;border:0;padding:0;border-radius:0}
+.view-head.home-head:after,.view-head.sub-head:after{display:none}
+.sub-head{margin:26px 0 10px}
+.sub-head h3{font-size:clamp(24px,5vw,30px)}
+.sub-head .label{color:var(--sage)}
+.viz-filters{margin:0 0 14px;position:sticky;top:64px;z-index:5;padding:8px 0;background:linear-gradient(var(--bg) 80%,transparent)}
+.chip[aria-pressed="true"]{box-shadow:0 8px 18px -10px var(--acc)}
+.post,.card.compose,.of-card,.pf-tile{box-shadow:0 12px 28px -22px rgba(29,26,23,.55)}
+.post-top .avatar{background:var(--acc-soft);color:var(--acc)}
+.lazer-bar{background:var(--sage-soft);border-radius:20px;padding:10px}
+.stories{padding-bottom:4px}
+@media (max-width:760px){.view-head{padding:18px 16px 16px;border-radius:22px}.view-head:after{font-size:64px;right:8px}.viz-filters{top:58px}}
+.nav a{white-space:normal;line-height:1.2}
+
+/* Mesa Grande com cara de rede social */
+#v-mesa>.wrap>.view-head{display:none}
+#v-mesa .wrap{padding-top:6px}
+@media (min-width:1100px){.mesa-layout{grid-template-columns:minmax(0,600px) 300px;gap:24px}}
+.stories{gap:14px;padding:12px 4px 8px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.stories .person{width:76px;display:grid;justify-items:center;gap:6px;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink)}
+.stories .person small{font-size:12px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stories .person .ring{position:relative;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 210deg,#C98F1E,#B65B3A,#8E4A6E,#C98F1E);padding:3px}
+.stories .person .ring>span:first-child{width:100%;height:100%;border-radius:50%;background:var(--surface);border:3px solid var(--surface);display:grid;place-items:center;font-family:var(--serif);font-size:26px;color:var(--terra)}
+.stories .person.mine .ring,.stories .person.own .ring{background:var(--line)}
+.stories .person .ring .plus{position:absolute;right:-2px;bottom:-2px;width:22px;height:22px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-style:normal;font-size:16px;line-height:1;border:2px solid #fff}
+.mesa-main .post,.mesa-main .card.compose{border-radius:16px;border:1px solid var(--line);box-shadow:none;background:var(--surface)}
+.mesa-main .compose{border-top:1px solid var(--line)}
+.mesa-main .post-top{padding:12px 14px}
+.mesa-main .post-top .avatar{width:42px;height:42px;background:conic-gradient(from 210deg,#F7E3D3,#F8EBCB,#F1DFE9,#F7E3D3);color:var(--terra);box-shadow:0 0 0 2px #fff,0 0 0 4px var(--terra)}
+.mesa-main .post-text{font-size:16.5px;line-height:1.5;padding:0 14px 12px}
+.mesa-main .post-acts{border-top:1px solid var(--line)}
+.mesa-main .post-acts button{font-weight:600;min-height:46px}
+.mesa-side .card{border-radius:16px;box-shadow:none}
+@media (max-width:760px){
+  #v-mesa .wrap{padding-left:0;padding-right:0}
+  .stories{border-radius:0;border-left:0;border-right:0;padding-left:12px;padding-right:12px}
+  .mesa-main{gap:8px}
+  .mesa-main>.filters{padding:0 12px}
+  .mesa-main .post,.mesa-main .card.compose{border-radius:0;border-left:0;border-right:0}
+  #feedList{gap:8px}
+}
+
+/* Cara de rede social em tudo: cartões planos, anéis nos avatares, títulos compactos no celular */
+.post,.of-card,.pf-tile,.note{box-shadow:none}
+.post{border-radius:16px}
+.post .avatar{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--acc)}
+.feed-list,.prat-wrap{gap:12px}
+@media (max-width:760px){
+  .view-head{background:none;border:0;padding:4px 4px 0;border-radius:0;margin-bottom:6px}
+  .view-head:after{display:none!important}
+  .view-head .label{display:none}
+  .view-head h2{font-size:30px}
+  .view-head .muted{display:none}
+  .view-head.home-head{display:none}
+  .home-intro{border-radius:18px;padding:12px 14px}
+  .home-intro h1{font-size:21px}
+  #v-inicio .post,#v-inicio .post.oficial{border-radius:0;border-left:0;border-right:0}
+  #v-inicio .wrap{padding-left:0;padding-right:0}
+  #v-inicio .home-intro,#v-inicio .seg,#v-inicio .ofertas-bar,#v-inicio #ofFilters,#v-inicio .of-grid{margin-left:12px;margin-right:12px}
+  .seg{position:sticky;top:58px;z-index:6;background:var(--bg)}
+  #v-perfil .wrap,#v-indicacoes .wrap{padding-left:12px;padding-right:12px}
+}
+.view{overflow-x:clip}
+#v-inicio .seg{width:auto;max-width:calc(100% - 24px)}

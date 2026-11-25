@@ -1,6 +1,6 @@
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
-var ALIAS = { dacasa: "prateleira", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
+var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var ALIAS = { dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };

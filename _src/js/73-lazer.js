@@ -1,7 +1,6 @@
 // Lazer em família: lugares para levar as crianças, indicados pelas famílias, sempre com a cidade (o site é do Brasil inteiro).
 var lz = { items: [], likes: {}, urls: {}, loaded: false, more: false, tok: 0, cat: "all", file: null, busy: false };
 var LZ_PAGE = 12;
-filterChips("lzCats", function(c){ lz.cat = c; loadLazer(true); });
 
 function lzFilters(){ return { cidade: $("lzCidade").value.trim().replace(/[^A-Za-zÀ-ÿ' -]/g, "").slice(0, 60), uf: $("lzUf").value }; }
 function signLazer(rows){
@@ -45,12 +44,13 @@ function lzShare(p){
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";
+  var todos = lz.items, lista = viz.g === "all" ? todos : todos.filter(function(p){ return vizGroup(p.categoria) === viz.g; });
   $("lzMore").hidden = !lz.more;
-  if (!lz.items.length) {
+  if (!lista.length) {
     var e = h("div", "empty card"); var f = lzFilters();
     e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "Conhece um bom lugar para ir com as crianças? Toque em “Indicar um lugar”." : "")); box.appendChild(e); return;
   }
-  lz.items.forEach(function(p){ box.appendChild(renderLz(p)); });
+  lista.forEach(function(p){ box.appendChild(renderLz(p)); });
 }
 function renderLz(p){
   var mine = p.user_id === uid(), el = h("article", "post lz-card"); el.id = "lz-" + p.id;
@@ -111,5 +111,6 @@ $("lzForm").addEventListener("submit", function(e){
 auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}; lz.loaded = false; } });
 (function prefill(){ var c = lsGet("cgf-cidade"), u = lsGet("cgf-uf"); if (c) $("lzCidade").value = c; if (u) $("lzUf").value = u; })();
 
-viewHooks.lazer = function(){ if (auth.user) loadLazer(true); };
-auth.on(function(){ if (auth.user && isShown("lazer")) loadLazer(true); });
+var _hookViz = viewHooks.indicacoes;
+viewHooks.indicacoes = function(s){ if (_hookViz) _hookViz(s); if (auth.user) loadLazer(true); };
+auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
