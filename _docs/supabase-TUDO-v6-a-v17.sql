@@ -1,5 +1,5 @@
--- Café, Graça & Fralda · TUDO de uma vez (v6 a v11). Cole este arquivo inteiro no SQL Editor do Supabase e clique em Run.
--- Pressupõe que o v2, v3, v4 e v5 já foram rodados. Pode rodar mais de uma vez sem problema. Não apaga dados.
+-- Café, Graça & Fralda · TUDO de uma vez (v6 a v17). Cole este arquivo inteiro no SQL Editor do Supabase e clique em Run.
+-- Pressupõe que o v2, v3, v4 e v5 já foram rodados. Pode rodar mais de uma vez sem problema (mesmo com dados já existentes). Não apaga dados.
 
 -- ======== v6-notificacoes ========
 -- Café, Graça & Fralda · banco de dados v6: notificações (sininho).
@@ -254,7 +254,7 @@ grant execute on function public.pub_visivel(uuid) to anon, authenticated;
 -- Avisos do sininho (curtida e comentário em publicação)
 alter table public.notificacoes add column if not exists pub_id uuid references public.pubs (id) on delete cascade;
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create or replace function public.notif_pub_comentario()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -570,9 +570,9 @@ where id = 'prateleira';
 
 -- Indicações dos membros: novas categorias (hotéis, restaurantes, praças e mais)
 -- Linhas antigas com categoria fora da lista viram "Outro" (evita erro ao criar a regra).
-update public.indicacoes_membros set categoria = 'Outro' where categoria not in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Outro');
+update public.indicacoes_membros set categoria = 'Outro' where categoria not in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Saúde', 'Fé e religião', 'Educação', 'Família', 'Casa', 'Outro');
 alter table public.indicacoes_membros drop constraint if exists indicacoes_membros_categoria_check;
-alter table public.indicacoes_membros add constraint indicacoes_membros_categoria_check check (categoria in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Outro'));
+alter table public.indicacoes_membros add constraint indicacoes_membros_categoria_check check (categoria in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Saúde', 'Fé e religião', 'Educação', 'Família', 'Casa', 'Outro'));
 
 -- ======== v11-perfil ========
 -- Café, Graça & Fralda · banco v11: perfil pessoal (nome escolhido, bio, cidade e foto).
@@ -776,7 +776,7 @@ grant execute on function public.oferta_clique(uuid) to authenticated;
 
 -- 6. Alertas para a administração
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create table if not exists public.alertas (
   id uuid primary key default gen_random_uuid(),
@@ -880,7 +880,7 @@ grant execute on function public.desbanir(uuid) to authenticated;
 -- Quem escreve "@Nome" (o nome que a pessoa escolheu no perfil) avisa essa pessoa pelo sininho. Não avisa a si mesma.
 
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create or replace function public.notif_mencao()
 returns trigger language plpgsql security definer set search_path = public as $$
@@ -916,7 +916,7 @@ begin
   end loop;
 end $$;
 
--- ======== v14-stories-48h-e-pedidos ========
+-- ======== v14-stories-48h ========
 -- Café, Graça & Fralda · banco v14: stories somem em 48 horas (antes eram 24).
 -- Como usar: Supabase > SQL Editor > cole tudo > Run. Pode rodar mais de uma vez. Não apaga dados.
 drop policy if exists "stories: ler" on public.stories;
@@ -924,7 +924,7 @@ create policy "stories: ler" on public.stories for select to authenticated using
 
 -- Avisa a administração (sininho) quando alguém pede para anunciar ou envia uma oferta para revisão.
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create or replace function public.notif_pedido_anuncio()
 returns trigger language plpgsql security definer set search_path = public, auth as $$
@@ -958,7 +958,7 @@ alter table public.lazer add constraint lazer_categoria_check check (categoria i
   'Parque e natureza', 'Restaurante e café', 'Espaço kids', 'Passeio e cultura', 'Esporte', 'Evento',
   'Lazer', 'Praças e parques', 'Cultura', 'Filmes e séries', 'Comer', 'Hospedagem', 'Outro'));
 
--- ======== v16-stories-24h-e-posts ========
+-- ======== v16-stories-24h-posts ========
 -- Café, Graça & Fralda · banco v16: stories voltam a durar 24 horas (e não ficam guardados) + 5 postagens oficiais do livro "Entre a Fralda e a Bíblia".
 -- Como usar: Supabase > SQL Editor > cole tudo > Run. Pode rodar mais de uma vez (não duplica as postagens). Não apaga dados de ninguém.
 --
@@ -1046,7 +1046,7 @@ grant insert (sobre) on public.anunciantes to authenticated;
 grant update (sobre) on public.anunciantes to authenticated;
 
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create or replace function public.notif_status_anunciante()
 returns trigger language plpgsql security definer set search_path = public as $$

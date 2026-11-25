@@ -27,6 +27,6 @@ where id = 'prateleira';
 
 -- Indicações dos membros: novas categorias (hotéis, restaurantes, praças e mais)
 -- Linhas antigas com categoria fora da lista viram "Outro" (evita erro ao criar a regra).
-update public.indicacoes_membros set categoria = 'Outro' where categoria not in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Outro');
+update public.indicacoes_membros set categoria = 'Outro' where categoria not in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Saúde', 'Fé e religião', 'Educação', 'Família', 'Casa', 'Outro');
 alter table public.indicacoes_membros drop constraint if exists indicacoes_membros_categoria_check;
-alter table public.indicacoes_membros add constraint indicacoes_membros_categoria_check check (categoria in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Outro'));
+alter table public.indicacoes_membros add constraint indicacoes_membros_categoria_check check (categoria in ('Saúde dos pequenos', 'Gestação e bebê', 'Mente e emoções', 'Desenvolvimento', 'Casamento', 'Hotéis e pousadas', 'Restaurantes e cafés', 'Praças e parques', 'Passeios e lazer', 'Serviços para a casa', 'Escolas e creches', 'Saúde', 'Fé e religião', 'Educação', 'Família', 'Casa', 'Outro'));

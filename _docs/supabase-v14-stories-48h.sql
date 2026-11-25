@@ -5,7 +5,7 @@ create policy "stories: ler" on public.stories for select to authenticated using
 
 -- Avisa a administração (sininho) quando alguém pede para anunciar ou envia uma oferta para revisão.
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
 
 create or replace function public.notif_pedido_anuncio()
 returns trigger language plpgsql security definer set search_path = public, auth as $$
