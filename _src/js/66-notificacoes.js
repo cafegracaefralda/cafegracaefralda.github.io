@@ -7,6 +7,9 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
+  if (n.tipo === "alerta") return ["⚠️ Alerta de linguagem", n.de_nome + ": " + n.resumo];
+  if (n.tipo === "aviso") return ["Aviso da administração", n.resumo];
   return [n.de_nome + " te mandou uma mensagem", n.resumo ? "“" + n.resumo + "”" : ""];
 }
 function setBell(){
@@ -55,7 +58,8 @@ function pushBtn(){ $("bellPush").hidden = !("Notification" in window) || Notifi
 function openNotif(n){
   setPanel(false);
   markRead([n.id]);
-  if (n.tipo === "dm" && n.conversa_id) {
+  if (n.tipo === "alerta") { go("painel", "alertas"); }
+  else if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");
     loadConvs().then(function(){ openConv(n.conversa_id); });
   } else if (n.pub_id) {

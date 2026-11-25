@@ -1067,3 +1067,30 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .foot-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
 .foot .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
 .nav .nav-admin svg{color:#25D366}
+
+/* Ofertas de parceiros */
+.ofertas-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+.ofertas-bar p{margin:0;flex:1 1 220px}
+.of-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:12px}
+.of-grid .empty{grid-column:1/-1}
+.of-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:grid;align-content:start}
+.of-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.of-body{padding:14px;display:grid;gap:8px}
+.of-body h3{font-size:22px;line-height:1.15}
+.of-body p{margin:0;font-size:14.5px}
+.of-ad{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mustard)}
+.of-preco{font-size:17px}
+.of-acts{display:flex;gap:8px;flex-wrap:wrap}
+.of-note{color:var(--muted);font-size:12px}
+.btn.danger{color:#A63D2F;border-color:#A63D2F}
+#v-painel .seg{flex-wrap:wrap}
+#alertaN{background:#A63D2F;color:#fff;border-radius:999px;font-size:11px;padding:1px 6px;margin-left:6px}
+
+/* Menções */
+.mention{color:var(--terra);font-weight:600;text-decoration:none}
+.mention:hover{text-decoration:underline}
+.mention-pop{position:fixed;z-index:1200;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -16px rgba(29,26,23,.45);padding:6px;display:grid;gap:2px}
+.mention-pop[hidden]{display:none}
+.mention-item{display:flex;align-items:center;gap:10px;min-height:44px;border:0;background:none;border-radius:12px;padding:6px 10px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.mention-item .avatar{width:32px;height:32px;font-size:15px;flex:none}
+.mention-item.on,.mention-item:hover{background:var(--sand)}

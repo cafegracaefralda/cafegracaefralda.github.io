@@ -12,7 +12,7 @@ function applyAuthUI(){
   $("acctName").textContent = firstName(auth.name());
   $("menuName").textContent = auth.name();
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
-  $("menuPainel").hidden = !auth.admin;
+  $("menuPainel").hidden = !auth.admin; $("menuPublicar").hidden = !auth.admin; $("homePublicar").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
   var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
   document.body.classList.toggle("wall-on", !wall.hidden);

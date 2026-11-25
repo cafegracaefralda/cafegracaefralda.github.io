@@ -156,7 +156,7 @@ function renderPost(p){
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
   mw.append(mb, menu); top.appendChild(mw);
-  el.append(top, h("p", "post-text", p.texto));
+  var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
     if (feed.urls[p.foto]) im.src = feed.urls[p.foto]; else im.hidden = true;
@@ -181,7 +181,7 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
+    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });

@@ -200,7 +200,7 @@ function renderPub(p, prefix){
   if (menu.childNodes.length) { mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; }); mw.append(mb, menu); top.appendChild(mw); }
   el.appendChild(top);
   if (p.titulo) el.appendChild(h("h3", "pub-title", p.titulo));
-  if (p.texto) el.appendChild(h("p", "post-text", p.texto));
+  if (p.texto) { var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx); }
   if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
   var m = mediaOf(p); if (m) el.appendChild(m);
   var likes = pub.likes[p.id] || [], liked = auth.user && likes.indexOf(uid()) > -1, cm = pub.cmts[p.id] || [];
@@ -220,7 +220,7 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });

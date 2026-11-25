@@ -1103,6 +1103,33 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .foot .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
 .nav .nav-admin svg{color:#25D366}
 
+/* Ofertas de parceiros */
+.ofertas-bar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px}
+.ofertas-bar p{margin:0;flex:1 1 220px}
+.of-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:12px}
+.of-grid .empty{grid-column:1/-1}
+.of-card{background:var(--surface);border:1px solid var(--line);border-radius:20px;overflow:hidden;display:grid;align-content:start}
+.of-img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.of-body{padding:14px;display:grid;gap:8px}
+.of-body h3{font-size:22px;line-height:1.15}
+.of-body p{margin:0;font-size:14.5px}
+.of-ad{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mustard)}
+.of-preco{font-size:17px}
+.of-acts{display:flex;gap:8px;flex-wrap:wrap}
+.of-note{color:var(--muted);font-size:12px}
+.btn.danger{color:#A63D2F;border-color:#A63D2F}
+#v-painel .seg{flex-wrap:wrap}
+#alertaN{background:#A63D2F;color:#fff;border-radius:999px;font-size:11px;padding:1px 6px;margin-left:6px}
+
+/* Menções */
+.mention{color:var(--terra);font-weight:600;text-decoration:none}
+.mention:hover{text-decoration:underline}
+.mention-pop{position:fixed;z-index:1200;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 40px -16px rgba(29,26,23,.45);padding:6px;display:grid;gap:2px}
+.mention-pop[hidden]{display:none}
+.mention-item{display:flex;align-items:center;gap:10px;min-height:44px;border:0;background:none;border-radius:12px;padding:6px 10px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.mention-item .avatar{width:32px;height:32px;font-size:15px;flex:none}
+.mention-item.on,.mention-item:hover{background:var(--sand)}
+
 </style>
 </head>
 <body>
@@ -1170,6 +1197,7 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#perfil">Meu perfil</a>
           <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Falar com a administração</a>
+          <a href="#prateleira" id="menuPublicar" hidden>Publicar na Casa</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -1180,7 +1208,6 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-      <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
@@ -1191,7 +1218,7 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
   <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-  <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
+  <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
   <button type="button" id="tabMore" aria-label="Mais opções"><svg><use href="#i-menu"/></svg><span>Mais</span></button>
@@ -1211,11 +1238,22 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
           <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e preciso de ajuda." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preciso de ajuda</a>
         </div>
       </div>
-      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2></div>
+      <div class="seg" role="tablist" aria-label="A Casa">
+        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Da Casa</button>
+        <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
+      </div>
+      <div data-sub-panel="postagens" class="on">
+      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
+      </div>
+      </div>
+      <div data-sub-panel="ofertas">
+        <div class="ofertas-bar"><p class="muted">Achadinhos de parceiros, com desconto. Todo anúncio é identificado.</p><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
+        <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
+        <div class="of-grid" id="ofList" aria-live="polite"></div>
       </div>
       <div class="app-band" id="app" hidden>
         <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
@@ -1651,6 +1689,9 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
       <div id="panelApp" hidden>
         <div class="seg" role="tablist" aria-label="Painel">
           <button type="button" role="tab" data-sub="inscritos" aria-selected="true">Inscritos</button>
+          <button type="button" role="tab" data-sub="alertas" aria-selected="false">Alertas<span class="badge-n" id="alertaN" hidden></span></button>
+          <button type="button" role="tab" data-sub="anunciantes" aria-selected="false">Anunciantes</button>
+          <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
           <button type="button" role="tab" data-sub="membros" aria-selected="false">Membros</button>
           <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Indicações enviadas</button>
         </div>
@@ -1658,6 +1699,9 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
+        <div data-sub-panel="alertas"><div class="cols-title"><span class="label">Linguagem ofensiva (palavrão publica e avisa; ofensa grave fica escondida)</span></div><div class="mod-list" id="pAlertas"></div></div>
+        <div data-sub-panel="anunciantes"><div class="cols-title"><span class="label">Quem pediu para anunciar</span></div><div class="mod-list" id="pAnunc"></div></div>
+        <div data-sub-panel="ofertas"><div class="cols-title"><span class="label">Ofertas (pendentes primeiro)</span></div><div class="mod-list" id="pOfertas"></div></div>
         <div data-sub-panel="membros">
           <div class="cols-title"><span class="label" id="pMemCount">Membros</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMemMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyMemPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pMembers"></tbody></table></div>
@@ -1710,6 +1754,51 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
     <small class="hint">Mostramos só o seu primeiro nome. Telefone é opcional.</small>
   </div>
 </div>
+<dialog class="sheet-dlg" id="anDlg" aria-labelledby="anTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="anClose" aria-label="Fechar">×</button>
+  <span class="label">Parceiros</span>
+  <h3 id="anTitle">Quero anunciar na comunidade</h3>
+  <form class="form" id="anForm" novalidate>
+    <div class="row2">
+      <div class="field"><label for="an-marca">Nome ou marca</label><input id="an-marca" maxlength="80" placeholder="Como quer aparecer"></div>
+      <div class="field"><label for="an-tipo">Você é</label><select id="an-tipo"><option value="afiliado">Afiliado(a)</option><option value="loja">Loja</option><option value="profissional">Profissional</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="an-ig">Instagram</label><input id="an-ig" maxlength="60" placeholder="@seuperfil"></div>
+      <div class="field"><label for="an-zap">WhatsApp</label><input id="an-zap" type="tel" inputmode="tel" maxlength="20" placeholder="(81) 90000-0000"></div>
+    </div>
+    <div class="field"><label for="an-cidade">Cidade</label><input id="an-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="pt-opt"><b>Não pode ser anunciado</b><p>Bebida alcoólica, cigarro e vape, apostas, emagrecedores "milagrosos", anabolizantes, medicamentos e qualquer produto que faça mal à saúde ou não seja recomendado por médicos.</p></div>
+    <label class="hint check" for="an-ok"><input id="an-ok" type="checkbox">Entendi as regras: todo anúncio aparece identificado, o desconto é real e a equipe pode remover o que não seguir a comunidade.</label>
+    <button class="btn btn-terra btn-block" type="submit" id="anSend">Pedir para anunciar</button>
+    <p class="status" id="anStatus" role="status"></p>
+  </form>
+  <div id="anInfo" hidden>
+    <p id="anInfoTxt"></p>
+    <a class="btn btn-wa btn-block" id="anWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Combinar com a equipe</a>
+  </div>
+</div></dialog>
+<dialog class="sheet-dlg" id="ofDlg" aria-labelledby="ofTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="ofClose" aria-label="Fechar">×</button>
+  <span class="label">Nova oferta</span>
+  <h3 id="ofTitle">Anunciar uma oferta</h3>
+  <form class="form" id="ofForm" novalidate>
+    <div class="field"><label for="of-titulo">Título</label><input id="of-titulo" maxlength="100" placeholder="Ex.: Kit mamadeiras com 20% off"></div>
+    <div class="field"><label for="of-desc">Descrição</label><textarea id="of-desc" maxlength="400" placeholder="O que é e por que vale a pena."></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="of-preco">Preço ou desconto</label><input id="of-preco" maxlength="40" placeholder="De R$ 99 por R$ 79"></div>
+      <div class="field"><label for="of-cupom">Cupom (opcional)</label><input id="of-cupom" maxlength="30" placeholder="CAFE10"></div>
+    </div>
+    <div class="field"><label for="of-link">Link (começa com https://)</label><input id="of-link" type="url" inputmode="url" maxlength="400" placeholder="https://"></div>
+    <div class="row2">
+      <div class="field"><label for="of-cat">Categoria</label><select id="of-cat"><option>Bebê e criança</option><option>Casa</option><option>Mamãe</option><option>Educação</option><option>Livros e fé</option><option>Serviços</option><option>Outros</option></select></div>
+      <div class="field"><label for="of-dias">Vale por</label><select id="of-dias"><option value="7">7 dias</option><option value="15">15 dias</option><option value="30" selected>30 dias</option><option value="60">60 dias</option></select></div>
+    </div>
+    <div class="post-bar"><label class="cbtn" for="of-foto"><svg><use href="#i-photo"/></svg><span>Foto do produto</span></label><input type="file" id="of-foto" accept="image/*" hidden><span id="of-foto-nome" class="hint"></span></div>
+    <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
+    <p class="status" id="ofStatus" role="status"></p>
+  </form>
+</div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
   <h3 id="ctTitle">Como você quer ser chamado(a)?</h3>
@@ -2068,7 +2157,7 @@ function applyAuthUI(){
   $("acctName").textContent = firstName(auth.name());
   $("menuName").textContent = auth.name();
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
-  $("menuPainel").hidden = !auth.admin;
+  $("menuPainel").hidden = !auth.admin; $("menuPublicar").hidden = !auth.admin; $("homePublicar").hidden = !auth.admin;
   if (!inn) $("acctMenu").hidden = true;
   var wall = $("loginWall"); wall.classList.remove("boot"); wall.hidden = inn || !sb;
   document.body.classList.toggle("wall-on", !wall.hidden);
@@ -2266,6 +2355,84 @@ $("pfSave").addEventListener("click", function(){
 });
 
 
+// Menções: digite @ para escolher alguém da comunidade (posts e comentários). A pessoa mencionada recebe uma notificação (gatilho no banco).
+var mn = { list: [], loaded: false, target: null, items: [], sel: 0 };
+function loadMencoes(){
+  if (mn.loaded || !sb || !auth.user) return; mn.loaded = true;
+  sb.from("perfis").select("user_id,nome,apelido").limit(500).then(function(r){
+    mn.list = (r.data || []).map(function(p){ return { id: p.user_id, nome: String(p.apelido || p.nome || "").trim() }; }).filter(function(x){ return x.nome; })
+      .sort(function(a, b){ return b.nome.length - a.nome.length; });
+  });
+}
+auth.on(function(){ if (auth.user) loadMencoes(); else { mn.list = []; mn.loaded = false; } });
+var NAME_CH = /[\p{L}\p{N}_]/u;
+// Texto com @nome vira link para o perfil (sem innerHTML)
+function richText(txt){
+  var frag = document.createDocumentFragment(), s = String(txt || ""), low = s.toLowerCase(), i = 0, last = 0;
+  while ((i = s.indexOf("@", i)) > -1) {
+    var ok = null;
+    if (i === 0 || !NAME_CH.test(s.charAt(i - 1))) {
+      for (var k = 0; k < mn.list.length; k++) {
+        var n = mn.list[k], end = i + 1 + n.nome.length;
+        if (low.substr(i + 1, n.nome.length) === n.nome.toLowerCase() && (end >= s.length || !NAME_CH.test(s.charAt(end)))) { ok = { n: n, end: end }; break; }
+      }
+    }
+    if (ok) {
+      if (i > last) frag.appendChild(document.createTextNode(s.slice(last, i)));
+      var a = h("a", "mention", "@" + s.slice(i + 1, ok.end)); a.href = "#perfil/" + (ok.n.id === uid() ? "" : ok.n.id); frag.appendChild(a);
+      last = i = ok.end;
+    } else i++;
+  }
+  if (last < s.length) frag.appendChild(document.createTextNode(s.slice(last)));
+  return frag;
+}
+// Lista de sugestões ao digitar @
+var mnPop = h("div", "mention-pop"); mnPop.hidden = true; mnPop.setAttribute("role", "listbox"); document.body.appendChild(mnPop);
+function mnClose(){ mnPop.hidden = true; mn.target = null; }
+function mnField(el){ return !!el && (el.id === "postText" || el.id === "pubText" || (el.closest && !!el.closest(".post-cmt-form"))); }
+function mnPick(n){
+  var el = mn.target; if (!el) return;
+  var pos = el.selectionStart, before = el.value.slice(0, pos), after = el.value.slice(pos);
+  var m = /(^|\s)@([\p{L}\p{N}_]*)$/u.exec(before); if (!m) return mnClose();
+  var ini = before.length - m[2].length - 1;
+  var novo = before.slice(0, ini) + "@" + n.nome + " ";
+  el.value = novo + after; el.setSelectionRange(novo.length, novo.length); el.focus(); mnClose();
+  el.dispatchEvent(new Event("input", { bubbles: true }));
+}
+function mnShow(el, q){
+  var ql = q.toLowerCase();
+  mn.items = mn.list.filter(function(x){ var nl = x.nome.toLowerCase(); return x.id !== uid() && (!ql || nl.indexOf(ql) === 0 || nl.indexOf(" " + ql) > -1); }).slice(0, 5);
+  if (!mn.items.length) return mnClose();
+  mn.target = el; mn.sel = 0; mnPop.innerHTML = "";
+  mn.items.forEach(function(n, i){
+    var b = h("button", "mention-item" + (i === 0 ? " on" : "")); b.type = "button"; b.setAttribute("role", "option");
+    b.append(h("span", "avatar", initial(n.nome)), h("span", null, n.nome));
+    b.addEventListener("mousedown", function(e){ e.preventDefault(); mnPick(n); });
+    b.addEventListener("touchstart", function(e){ e.preventDefault(); mnPick(n); }, { passive: false });
+    mnPop.appendChild(b);
+  });
+  var r = el.getBoundingClientRect(); mnPop.hidden = false;
+  var w = Math.min(280, window.innerWidth - 24), left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
+  mnPop.style.width = w + "px"; mnPop.style.left = left + "px";
+  var ph = mnPop.offsetHeight, below = r.bottom + 6;
+  mnPop.style.top = (below + ph > window.innerHeight - 8 ? Math.max(8, r.top - ph - 6) : below) + "px";
+}
+document.addEventListener("input", function(e){
+  var el = e.target; if (!mnField(el) || !auth.user) return;
+  if (!mn.loaded) loadMencoes();
+  var m = /(^|\s)@([\p{L}\p{N}_]*)$/u.exec(el.value.slice(0, el.selectionStart));
+  if (m) mnShow(el, m[2]); else mnClose();
+});
+document.addEventListener("keydown", function(e){
+  if (mnPop.hidden || !mn.target) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); mn.sel = (mn.sel + (e.key === "ArrowDown" ? 1 : mn.items.length - 1)) % mn.items.length; $$(".mention-item", mnPop).forEach(function(b, i){ b.classList.toggle("on", i === mn.sel); }); }
+  else if (e.key === "Enter" || e.key === "Tab") { e.preventDefault(); mnPick(mn.items[mn.sel]); }
+  else if (e.key === "Escape") mnClose();
+});
+document.addEventListener("focusout", function(e){ if (mnField(e.target)) setTimeout(mnClose, 150); });
+window.addEventListener("scroll", mnClose, { passive: true });
+
+
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
 var dlg = $("reader"), readerBody = $("readerBody");
 
@@ -2434,6 +2601,108 @@ proForm.addEventListener("submit", function(e){
   proStatus.append(document.createTextNode("Abrindo o WhatsApp com a sua mensagem pronta. Se não abrir, "), a, document.createTextNode("."));
   window.open(url, "_blank", "noopener");
 });
+
+
+// Ofertas de parceiros (A Casa > Ofertas). Anunciante pede para entrar (pendente), a administração ativa depois de combinar por WhatsApp.
+// Oferta de anunciante novo passa por revisão; anunciante "confiável" publica direto. Todo anúncio aparece identificado.
+var of = { items: [], urls: {}, filtro: "all", loaded: false, anunc: undefined, file: null, busy: false };
+var ZAP_EQUIPE = "5581992702353";
+
+function ofSign(list){
+  var paths = list.map(function(o){ return o.foto; }).filter(function(p){ return p && !of.urls[p]; });
+  if (!paths.length) return Promise.resolve();
+  return sb.storage.from("mural").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.path && x.signedUrl) of.urls[x.path] = x.signedUrl; }); });
+}
+function loadOfertas(){
+  if (!sb || !auth.user) return;
+  var hoje = new Date().toISOString().slice(0, 10);
+  sb.from("ofertas").select("id,user_id,marca,titulo,descricao,preco,cupom,link,foto,categoria,validade,status,criado_em").eq("status", "aprovada").gte("validade", hoje).order("criado_em", { ascending: false }).limit(60).then(function(r){
+    of.items = r.data || []; of.loaded = true;
+    return ofSign(of.items).then(renderOfertas);
+  });
+}
+function ofCard(o){
+  var el = h("article", "of-card");
+  if (o.foto && of.urls[o.foto]) { var im = h("img", "of-img"); im.src = of.urls[o.foto]; im.alt = o.titulo; im.loading = "lazy"; el.appendChild(im); }
+  var b = h("div", "of-body");
+  b.append(h("span", "of-ad", "Anúncio · " + o.marca), h("h3", null, o.titulo));
+  if (o.descricao) b.appendChild(h("p", "muted", o.descricao));
+  if (o.preco) b.appendChild(h("b", "of-preco", o.preco));
+  var acts = h("div", "of-acts");
+  if (o.cupom) { var cp = h("button", "btn btn-ghost btn-sm", "Cupom " + o.cupom); cp.type = "button"; cp.addEventListener("click", function(){ copyText(o.cupom, "Cupom copiado"); }); acts.appendChild(cp); }
+  var a = h("a", "btn btn-terra btn-sm", "Ver oferta"); a.href = o.link; a.target = "_blank"; a.rel = "noopener noreferrer sponsored nofollow";
+  a.addEventListener("click", function(){ if (sb) sb.rpc("oferta_clique", { p_id: o.id }).then(function(){}); });
+  acts.appendChild(a);
+  b.append(acts, h("small", "of-note", "Link do parceiro (pode ser de afiliado). Válido até " + o.validade.split("-").reverse().join("/") + "."));
+  el.appendChild(b); return el;
+}
+function renderOfertas(){
+  var box = $("ofList"); box.innerHTML = "";
+  var l = of.items.filter(function(o){ return of.filtro === "all" || o.categoria === of.filtro; });
+  if (!l.length) { var e = h("div", "empty card"); e.append(h("h3", null, of.loaded ? "Nenhuma oferta por aqui ainda" : "Carregando…"), h("p", null, of.loaded ? "Parceiros publicam achadinhos com desconto aqui." : "")); box.appendChild(e); return; }
+  l.forEach(function(o){ box.appendChild(ofCard(o)); });
+}
+filterChips("ofFilters", function(f){ of.filtro = f; renderOfertas(); });
+
+// --- quero anunciar
+var anDlg = $("anDlg"), ofDlg = $("ofDlg");
+$("an-zap").addEventListener("input", maskPhone);
+function anInfo(txt, wa){ $("anForm").hidden = true; $("anInfo").hidden = false; $("anInfoTxt").textContent = txt; $("anWa").href = waLink(wa || "Oi! Quero anunciar na comunidade Café, Graça & Fralda."); }
+$("ofAnunciar").addEventListener("click", function(){
+  if (!auth.user || !sb) return;
+  sb.from("anunciantes").select("marca,status,confiavel").eq("user_id", auth.user.id).maybeSingle().then(function(r){
+    var a = r.data; of.anunc = a || null;
+    if (a && a.status === "ativo") { setStatus($("ofStatus"), ""); of.file = null; $("of-foto-nome").textContent = ""; $("ofForm").reset(); ofDlg.showModal(); return; }
+    anDlg.showModal(); anDlg.scrollTop = 0; setStatus($("anStatus"), "");
+    if (!a) { $("anForm").hidden = false; $("anInfo").hidden = true; return; }
+    if (a.status === "pendente") anInfo("Recebemos o seu pedido, " + a.marca + ". A equipe combina os detalhes pelo WhatsApp e ativa a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + a.marca + ".");
+    else anInfo("A sua conta de parceiro não está ativa. Fale com a equipe para entender o motivo.", "Oi! Sobre a minha conta de parceiro (" + a.marca + ") na comunidade Café, Graça & Fralda.");
+  });
+});
+$("anClose").addEventListener("click", function(){ anDlg.close(); });
+$("ofClose").addEventListener("click", function(){ ofDlg.close(); });
+$("anForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var st = $("anStatus"), marca = val("an-marca"), raw = $("an-zap").value.trim(), zap = (function(){ var d = raw.replace(/\D/g, ""); if (d.length === 10 || d.length === 11) d = "55" + d; return /^55[0-9]{10,11}$/.test(d) ? d : ""; })();
+  if (marca.length < 2) return setStatus(st, "Informe o nome ou a marca.", "err");
+  if (!zap) return setStatus(st, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
+  if (!$("an-ok").checked) return setStatus(st, "Marque que entendeu as regras para continuar.", "err");
+  $("anSend").disabled = true; setStatus(st, "Enviando…");
+  sb.from("anunciantes").insert({ marca: marca, tipo: $("an-tipo").value, instagram: val("an-ig") || null, whatsapp: zap, cidade: val("an-cidade") || null }).then(function(r){
+    $("anSend").disabled = false;
+    if (r.error) { var m = String(r.error.message || ""); return setStatus(st, m.indexOf("conteudo_improprio") > -1 ? "Escolha um nome respeitoso para a marca." : m.indexOf("conta_suspensa") > -1 ? "Sua conta está suspensa." : "Não foi possível enviar agora. Tente de novo.", "err"); }
+    setStatus(st, ""); anInfo("Pedido enviado! A equipe vai falar com você pelo WhatsApp para combinar os detalhes e ativar a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + marca + ".");
+  });
+});
+$("of-foto").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  shrinkPhoto(f).then(function(b){ of.file = b; $("of-foto-nome").textContent = "📷 Foto pronta"; }, function(){ of.file = null; toast("Não consegui usar essa foto."); });
+});
+$("ofForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  if (of.busy) return;
+  var st = $("ofStatus"), titulo = val("of-titulo"), link = val("of-link");
+  if (titulo.length < 3) return setStatus(st, "Escreva um título.", "err");
+  if (!/^https:\/\/[^\s]+\.[^\s]+$/.test(link)) return setStatus(st, "O link precisa começar com https://", "err");
+  of.busy = true; $("ofSend").disabled = true; setStatus(st, "Enviando…");
+  var dias = parseInt($("of-dias").value, 10), v = new Date(Date.now() + dias * 86400000).toISOString().slice(0, 10);
+  var path = null, up = Promise.resolve({});
+  if (of.file) { path = uid() + "/" + newUuid() + ".jpg"; up = sb.storage.from("mural").upload(path, of.file, { contentType: "image/jpeg", upsert: false }); }
+  up.then(function(u){
+    if (u && u.error) throw new Error("foto");
+    return sb.from("ofertas").insert({ titulo: titulo, descricao: val("of-desc"), preco: val("of-preco") || null, cupom: val("of-cupom") || null, link: link, foto: path, categoria: $("of-cat").value, validade: v });
+  }).then(function(r){
+    if (r.error) { if (path) sb.storage.from("mural").remove([path]); throw new Error(String(r.error.message || "")); }
+    of.busy = false; $("ofSend").disabled = false; ofDlg.close();
+    toast(of.anunc && of.anunc.confiavel ? "Oferta publicada." : "Oferta enviada! A equipe revisa e publica em breve."); of.file = null; loadOfertas();
+  }).catch(function(err){
+    of.busy = false; $("ofSend").disabled = false; var m = err.message || "";
+    setStatus(st, m === "foto" ? "Não foi possível enviar a foto." : m.indexOf("produto_proibido") > -1 ? "Esse tipo de produto não pode ser anunciado na comunidade (bebida alcoólica, cigarro, apostas, emagrecedores, medicamentos e itens que façam mal à saúde)." : m.indexOf("conteudo_improprio") > -1 ? "Revise o texto: há palavras que não combinam com a comunidade." : m.indexOf("muito_rapido") > -1 ? "Você já enviou muitas ofertas hoje. Volte amanhã." : m.indexOf("conta_suspensa") > -1 ? "Sua conta está suspensa." : "Não foi possível enviar agora. Tente de novo.", "err");
+  });
+});
+var _hookInicio = viewHooks.inicio;
+viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
+auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
 
 // Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
@@ -2655,7 +2924,7 @@ function renderPost(p){
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
   mw.append(mb, menu); top.appendChild(mw);
-  el.append(top, h("p", "post-text", p.texto));
+  var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
     if (feed.urls[p.foto]) im.src = feed.urls[p.foto]; else im.hidden = true;
@@ -2680,7 +2949,7 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
+    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
@@ -3078,6 +3347,9 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
+  if (n.tipo === "alerta") return ["⚠️ Alerta de linguagem", n.de_nome + ": " + n.resumo];
+  if (n.tipo === "aviso") return ["Aviso da administração", n.resumo];
   return [n.de_nome + " te mandou uma mensagem", n.resumo ? "“" + n.resumo + "”" : ""];
 }
 function setBell(){
@@ -3126,7 +3398,8 @@ function pushBtn(){ $("bellPush").hidden = !("Notification" in window) || Notifi
 function openNotif(n){
   setPanel(false);
   markRead([n.id]);
-  if (n.tipo === "dm" && n.conversa_id) {
+  if (n.tipo === "alerta") { go("painel", "alertas"); }
+  else if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");
     loadConvs().then(function(){ openConv(n.conversa_id); });
   } else if (n.pub_id) {
@@ -3361,7 +3634,7 @@ function renderPub(p, prefix){
   if (menu.childNodes.length) { mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; }); mw.append(mb, menu); top.appendChild(mw); }
   el.appendChild(top);
   if (p.titulo) el.appendChild(h("h3", "pub-title", p.titulo));
-  if (p.texto) el.appendChild(h("p", "post-text", p.texto));
+  if (p.texto) { var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx); }
   if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
   var m = mediaOf(p); if (m) el.appendChild(m);
   var likes = pub.likes[p.id] || [], liked = auth.user && likes.indexOf(uid()) > -1, cm = pub.cmts[p.id] || [];
@@ -3381,7 +3654,7 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), document.createTextNode(c.texto));
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
@@ -3485,6 +3758,63 @@ function loadMod(){
 $("copyMails").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.email; }).join(", "), "E-mails copiados"); });
 $("copyPhones").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.whatsapp; }).join("\n"), "WhatsApps copiados"); });
 
+
+// --- Alertas de linguagem, anunciantes e ofertas
+var ORIGEM_NOME = { posts: "Mesa Grande", post_comentarios: "Comentário na Mesa", pubs: "Casa/Prateleira", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
+function btnAct(txt, fn, cls){ var b = h("button", "btn btn-ghost btn-sm" + (cls ? " " + cls : ""), txt); b.type = "button"; b.addEventListener("click", fn); return b; }
+function loadAlertas(){
+  sb.from("alertas").select("id,user_id,autor,origem,nivel,trecho,status,criado_em").order("criado_em", { ascending: false }).limit(60).then(function(r){
+    var box = $("pAlertas"); box.innerHTML = ""; var abertos = 0;
+    (r.data || []).forEach(function(a){
+      if (a.status === "aberto") abertos++;
+      var el = h("div", "mod-item" + (a.status === "aberto" ? "" : " off")), body = h("div");
+      body.append(h("small", null, (a.nivel === 2 ? "🔴 Ofensa grave (escondida) · " : "🟡 Palavrão · ") + a.autor + " · " + (ORIGEM_NOME[a.origem] || a.origem) + " · " + ago(a.criado_em) + (a.status === "aberto" ? "" : " · resolvido")), h("p", null, a.trecho));
+      var act = h("div", "confirm");
+      if (a.status === "aberto") {
+        var run = function(acao, msg){ return function(){ if (msg && !confirm(msg)) return; sb.rpc("alerta_resolver", { p_id: a.id, p_acao: acao }).then(function(x){ if (x.error) toast("Não foi possível agora."); loadAlertas(); }); }; };
+        act.append(btnAct("Ignorar", run("ignorar")), btnAct("Advertir", run("advertir", "Enviar um aviso para esta pessoa?")), btnAct("Apagar", run("apagar", "Apagar este conteúdo?")), btnAct("Banir", run("banir", "Banir esta pessoa? Ela não poderá publicar, comentar nem mandar mensagens."), "danger"));
+      }
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Nenhum alerta. Tudo tranquilo."));
+    var n = $("alertaN"); n.textContent = abertos ? String(abertos) : ""; n.hidden = !abertos;
+  });
+}
+function loadAnunc(){
+  sb.from("anunciantes").select("user_id,marca,tipo,instagram,whatsapp,cidade,status,confiavel,criado_em").order("criado_em", { ascending: false }).limit(100).then(function(r){
+    var box = $("pAnunc"); box.innerHTML = "";
+    (r.data || []).forEach(function(a){
+      var el = h("div", "mod-item" + (a.status === "ativo" ? "" : " off")), body = h("div");
+      body.append(h("small", null, a.marca + " · " + a.tipo + " · " + a.status + (a.confiavel ? " · confiável" : "") + " · " + ago(a.criado_em)), h("p", null, [a.instagram, a.whatsapp ? "wa.me/" + a.whatsapp : "", a.cidade].filter(Boolean).join(" · ")));
+      var set = function(patch){ return function(){ sb.from("anunciantes").update(patch).eq("user_id", a.user_id).then(loadAnunc); }; };
+      var act = h("div", "confirm");
+      if (a.whatsapp) { var w = h("a", "btn btn-ghost btn-sm", "WhatsApp"); w.href = "https://wa.me/" + a.whatsapp; w.target = "_blank"; w.rel = "noopener"; act.appendChild(w); }
+      if (a.status !== "ativo") act.appendChild(btnAct("Ativar", set({ status: "ativo" })));
+      if (a.status === "ativo") { act.appendChild(btnAct(a.confiavel ? "Tirar confiável" : "Marcar confiável", set({ confiavel: !a.confiavel }))); act.appendChild(btnAct("Suspender", set({ status: "suspenso" }))); }
+      if (a.status === "pendente") act.appendChild(btnAct("Recusar", set({ status: "recusado" })));
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Ninguém pediu para anunciar ainda."));
+  });
+}
+function loadOfertasAdm(){
+  sb.from("ofertas").select("id,marca,titulo,descricao,preco,cupom,link,categoria,validade,status,cliques,criado_em").order("status", { ascending: true }).order("criado_em", { ascending: false }).limit(100).then(function(r){
+    var box = $("pOfertas"); box.innerHTML = "";
+    (r.data || []).forEach(function(o){
+      var el = h("div", "mod-item" + (o.status === "aprovada" ? "" : " off")), body = h("div");
+      var lk = h("a", "link", o.link); lk.href = o.link; lk.target = "_blank"; lk.rel = "noopener noreferrer nofollow";
+      body.append(h("small", null, o.marca + " · " + o.status + " · " + o.cliques + " cliques · até " + o.validade + " · " + o.categoria), h("p", null, o.titulo + (o.preco ? " · " + o.preco : "") + (o.cupom ? " · cupom " + o.cupom : "") + (o.descricao ? " — " + o.descricao : "")), lk);
+      var set = function(s){ return function(){ sb.from("ofertas").update({ status: s }).eq("id", o.id).then(loadOfertasAdm); }; };
+      var act = h("div", "confirm");
+      if (o.status !== "aprovada") act.appendChild(btnAct("Aprovar", set("aprovada")));
+      if (o.status !== "recusada") act.appendChild(btnAct("Recusar", set("recusada")));
+      act.appendChild(btnAct("Excluir", function(){ if (confirm("Excluir esta oferta?")) sb.from("ofertas").delete().eq("id", o.id).then(loadOfertasAdm); }));
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Nenhuma oferta enviada ainda."));
+  });
+}
+
 viewHooks.painel = function(sub){
   if (!auth.ready) return;
   var note = $("panelNote");
@@ -3492,7 +3822,8 @@ viewHooks.painel = function(sub){
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
   note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
   $("panelApp").hidden = false;
-  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else loadSubs();
+  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else if (sub === "alertas") loadAlertas(); else if (sub === "anunciantes") loadAnunc(); else if (sub === "ofertas") loadOfertasAdm(); else loadSubs();
+  if (sub !== "alertas") sb.from("alertas").select("id", { count: "exact", head: true }).eq("status", "aberto").then(function(c){ var n = $("alertaN"); n.textContent = c.count ? String(c.count) : ""; n.hidden = !c.count; });
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
 

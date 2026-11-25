@@ -49,6 +49,63 @@ function loadMod(){
 $("copyMails").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.email; }).join(", "), "E-mails copiados"); });
 $("copyPhones").addEventListener("click", function(){ copyText(panel.subs.map(function(s){ return s.whatsapp; }).join("\n"), "WhatsApps copiados"); });
 
+
+// --- Alertas de linguagem, anunciantes e ofertas
+var ORIGEM_NOME = { posts: "Mesa Grande", post_comentarios: "Comentário na Mesa", pubs: "Casa/Prateleira", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
+function btnAct(txt, fn, cls){ var b = h("button", "btn btn-ghost btn-sm" + (cls ? " " + cls : ""), txt); b.type = "button"; b.addEventListener("click", fn); return b; }
+function loadAlertas(){
+  sb.from("alertas").select("id,user_id,autor,origem,nivel,trecho,status,criado_em").order("criado_em", { ascending: false }).limit(60).then(function(r){
+    var box = $("pAlertas"); box.innerHTML = ""; var abertos = 0;
+    (r.data || []).forEach(function(a){
+      if (a.status === "aberto") abertos++;
+      var el = h("div", "mod-item" + (a.status === "aberto" ? "" : " off")), body = h("div");
+      body.append(h("small", null, (a.nivel === 2 ? "🔴 Ofensa grave (escondida) · " : "🟡 Palavrão · ") + a.autor + " · " + (ORIGEM_NOME[a.origem] || a.origem) + " · " + ago(a.criado_em) + (a.status === "aberto" ? "" : " · resolvido")), h("p", null, a.trecho));
+      var act = h("div", "confirm");
+      if (a.status === "aberto") {
+        var run = function(acao, msg){ return function(){ if (msg && !confirm(msg)) return; sb.rpc("alerta_resolver", { p_id: a.id, p_acao: acao }).then(function(x){ if (x.error) toast("Não foi possível agora."); loadAlertas(); }); }; };
+        act.append(btnAct("Ignorar", run("ignorar")), btnAct("Advertir", run("advertir", "Enviar um aviso para esta pessoa?")), btnAct("Apagar", run("apagar", "Apagar este conteúdo?")), btnAct("Banir", run("banir", "Banir esta pessoa? Ela não poderá publicar, comentar nem mandar mensagens."), "danger"));
+      }
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Nenhum alerta. Tudo tranquilo."));
+    var n = $("alertaN"); n.textContent = abertos ? String(abertos) : ""; n.hidden = !abertos;
+  });
+}
+function loadAnunc(){
+  sb.from("anunciantes").select("user_id,marca,tipo,instagram,whatsapp,cidade,status,confiavel,criado_em").order("criado_em", { ascending: false }).limit(100).then(function(r){
+    var box = $("pAnunc"); box.innerHTML = "";
+    (r.data || []).forEach(function(a){
+      var el = h("div", "mod-item" + (a.status === "ativo" ? "" : " off")), body = h("div");
+      body.append(h("small", null, a.marca + " · " + a.tipo + " · " + a.status + (a.confiavel ? " · confiável" : "") + " · " + ago(a.criado_em)), h("p", null, [a.instagram, a.whatsapp ? "wa.me/" + a.whatsapp : "", a.cidade].filter(Boolean).join(" · ")));
+      var set = function(patch){ return function(){ sb.from("anunciantes").update(patch).eq("user_id", a.user_id).then(loadAnunc); }; };
+      var act = h("div", "confirm");
+      if (a.whatsapp) { var w = h("a", "btn btn-ghost btn-sm", "WhatsApp"); w.href = "https://wa.me/" + a.whatsapp; w.target = "_blank"; w.rel = "noopener"; act.appendChild(w); }
+      if (a.status !== "ativo") act.appendChild(btnAct("Ativar", set({ status: "ativo" })));
+      if (a.status === "ativo") { act.appendChild(btnAct(a.confiavel ? "Tirar confiável" : "Marcar confiável", set({ confiavel: !a.confiavel }))); act.appendChild(btnAct("Suspender", set({ status: "suspenso" }))); }
+      if (a.status === "pendente") act.appendChild(btnAct("Recusar", set({ status: "recusado" })));
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Ninguém pediu para anunciar ainda."));
+  });
+}
+function loadOfertasAdm(){
+  sb.from("ofertas").select("id,marca,titulo,descricao,preco,cupom,link,categoria,validade,status,cliques,criado_em").order("status", { ascending: true }).order("criado_em", { ascending: false }).limit(100).then(function(r){
+    var box = $("pOfertas"); box.innerHTML = "";
+    (r.data || []).forEach(function(o){
+      var el = h("div", "mod-item" + (o.status === "aprovada" ? "" : " off")), body = h("div");
+      var lk = h("a", "link", o.link); lk.href = o.link; lk.target = "_blank"; lk.rel = "noopener noreferrer nofollow";
+      body.append(h("small", null, o.marca + " · " + o.status + " · " + o.cliques + " cliques · até " + o.validade + " · " + o.categoria), h("p", null, o.titulo + (o.preco ? " · " + o.preco : "") + (o.cupom ? " · cupom " + o.cupom : "") + (o.descricao ? " — " + o.descricao : "")), lk);
+      var set = function(s){ return function(){ sb.from("ofertas").update({ status: s }).eq("id", o.id).then(loadOfertasAdm); }; };
+      var act = h("div", "confirm");
+      if (o.status !== "aprovada") act.appendChild(btnAct("Aprovar", set("aprovada")));
+      if (o.status !== "recusada") act.appendChild(btnAct("Recusar", set("recusada")));
+      act.appendChild(btnAct("Excluir", function(){ if (confirm("Excluir esta oferta?")) sb.from("ofertas").delete().eq("id", o.id).then(loadOfertasAdm); }));
+      el.append(body, act); box.appendChild(el);
+    });
+    if (!box.childNodes.length) box.appendChild(h("p", "muted", "Nenhuma oferta enviada ainda."));
+  });
+}
+
 viewHooks.painel = function(sub){
   if (!auth.ready) return;
   var note = $("panelNote");
@@ -56,6 +113,7 @@ viewHooks.painel = function(sub){
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
   note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Prateleira e na Mesa Grande.";
   $("panelApp").hidden = false;
-  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else loadSubs();
+  if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else if (sub === "alertas") loadAlertas(); else if (sub === "anunciantes") loadAnunc(); else if (sub === "ofertas") loadOfertasAdm(); else loadSubs();
+  if (sub !== "alertas") sb.from("alertas").select("id", { count: "exact", head: true }).eq("status", "aberto").then(function(c){ var n = $("alertaN"); n.textContent = c.count ? String(c.count) : ""; n.hidden = !c.count; });
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });

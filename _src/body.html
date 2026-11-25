@@ -57,6 +57,7 @@
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#perfil">Meu perfil</a>
           <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Falar com a administração</a>
+          <a href="#prateleira" id="menuPublicar" hidden>Publicar na Casa</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -67,7 +68,6 @@
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-      <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
@@ -78,7 +78,7 @@
 
 <nav class="tabbar" id="tabbar" aria-label="Atalhos">
   <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-  <a href="#prateleira" data-tab="prateleira"><svg><use href="#i-megaphone"/></svg><span>Prateleira</span></a>
+  <a href="#lazer" data-tab="lazer"><svg><use href="#i-heart"/></svg><span>Quintal</span></a>
   <a href="#mesa" data-tab="mesa" class="tab-main"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
   <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
   <button type="button" id="tabMore" aria-label="Mais opções"><svg><use href="#i-menu"/></svg><span>Mais</span></button>
@@ -98,11 +98,22 @@
           <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e preciso de ajuda." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preciso de ajuda</a>
         </div>
       </div>
-      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2></div>
+      <div class="seg" role="tablist" aria-label="A Casa">
+        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Da Casa</button>
+        <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
+      </div>
+      <div data-sub-panel="postagens" class="on">
+      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
+      </div>
+      </div>
+      <div data-sub-panel="ofertas">
+        <div class="ofertas-bar"><p class="muted">Achadinhos de parceiros, com desconto. Todo anúncio é identificado.</p><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
+        <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
+        <div class="of-grid" id="ofList" aria-live="polite"></div>
       </div>
       <div class="app-band" id="app" hidden>
         <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
@@ -538,6 +549,9 @@
       <div id="panelApp" hidden>
         <div class="seg" role="tablist" aria-label="Painel">
           <button type="button" role="tab" data-sub="inscritos" aria-selected="true">Inscritos</button>
+          <button type="button" role="tab" data-sub="alertas" aria-selected="false">Alertas<span class="badge-n" id="alertaN" hidden></span></button>
+          <button type="button" role="tab" data-sub="anunciantes" aria-selected="false">Anunciantes</button>
+          <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
           <button type="button" role="tab" data-sub="membros" aria-selected="false">Membros</button>
           <button type="button" role="tab" data-sub="moderacao" aria-selected="false">Indicações enviadas</button>
         </div>
@@ -545,6 +559,9 @@
           <div class="cols-title"><span class="label" id="pSubCount">Inscritos</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pSubs"></tbody></table></div>
         </div>
+        <div data-sub-panel="alertas"><div class="cols-title"><span class="label">Linguagem ofensiva (palavrão publica e avisa; ofensa grave fica escondida)</span></div><div class="mod-list" id="pAlertas"></div></div>
+        <div data-sub-panel="anunciantes"><div class="cols-title"><span class="label">Quem pediu para anunciar</span></div><div class="mod-list" id="pAnunc"></div></div>
+        <div data-sub-panel="ofertas"><div class="cols-title"><span class="label">Ofertas (pendentes primeiro)</span></div><div class="mod-list" id="pOfertas"></div></div>
         <div data-sub-panel="membros">
           <div class="cols-title"><span class="label" id="pMemCount">Membros</span><span style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" type="button" id="copyMemMails">Copiar e-mails</button><button class="btn btn-ghost btn-sm" type="button" id="copyMemPhones">Copiar WhatsApps</button></span></div>
           <div class="scroll-x"><table class="table"><thead><tr><th>Nome</th><th>E-mail</th><th>WhatsApp</th><th>Desde</th></tr></thead><tbody id="pMembers"></tbody></table></div>
@@ -597,6 +614,51 @@
     <small class="hint">Mostramos só o seu primeiro nome. Telefone é opcional.</small>
   </div>
 </div>
+<dialog class="sheet-dlg" id="anDlg" aria-labelledby="anTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="anClose" aria-label="Fechar">×</button>
+  <span class="label">Parceiros</span>
+  <h3 id="anTitle">Quero anunciar na comunidade</h3>
+  <form class="form" id="anForm" novalidate>
+    <div class="row2">
+      <div class="field"><label for="an-marca">Nome ou marca</label><input id="an-marca" maxlength="80" placeholder="Como quer aparecer"></div>
+      <div class="field"><label for="an-tipo">Você é</label><select id="an-tipo"><option value="afiliado">Afiliado(a)</option><option value="loja">Loja</option><option value="profissional">Profissional</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label for="an-ig">Instagram</label><input id="an-ig" maxlength="60" placeholder="@seuperfil"></div>
+      <div class="field"><label for="an-zap">WhatsApp</label><input id="an-zap" type="tel" inputmode="tel" maxlength="20" placeholder="(81) 90000-0000"></div>
+    </div>
+    <div class="field"><label for="an-cidade">Cidade</label><input id="an-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="pt-opt"><b>Não pode ser anunciado</b><p>Bebida alcoólica, cigarro e vape, apostas, emagrecedores "milagrosos", anabolizantes, medicamentos e qualquer produto que faça mal à saúde ou não seja recomendado por médicos.</p></div>
+    <label class="hint check" for="an-ok"><input id="an-ok" type="checkbox">Entendi as regras: todo anúncio aparece identificado, o desconto é real e a equipe pode remover o que não seguir a comunidade.</label>
+    <button class="btn btn-terra btn-block" type="submit" id="anSend">Pedir para anunciar</button>
+    <p class="status" id="anStatus" role="status"></p>
+  </form>
+  <div id="anInfo" hidden>
+    <p id="anInfoTxt"></p>
+    <a class="btn btn-wa btn-block" id="anWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Combinar com a equipe</a>
+  </div>
+</div></dialog>
+<dialog class="sheet-dlg" id="ofDlg" aria-labelledby="ofTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="ofClose" aria-label="Fechar">×</button>
+  <span class="label">Nova oferta</span>
+  <h3 id="ofTitle">Anunciar uma oferta</h3>
+  <form class="form" id="ofForm" novalidate>
+    <div class="field"><label for="of-titulo">Título</label><input id="of-titulo" maxlength="100" placeholder="Ex.: Kit mamadeiras com 20% off"></div>
+    <div class="field"><label for="of-desc">Descrição</label><textarea id="of-desc" maxlength="400" placeholder="O que é e por que vale a pena."></textarea></div>
+    <div class="row2">
+      <div class="field"><label for="of-preco">Preço ou desconto</label><input id="of-preco" maxlength="40" placeholder="De R$ 99 por R$ 79"></div>
+      <div class="field"><label for="of-cupom">Cupom (opcional)</label><input id="of-cupom" maxlength="30" placeholder="CAFE10"></div>
+    </div>
+    <div class="field"><label for="of-link">Link (começa com https://)</label><input id="of-link" type="url" inputmode="url" maxlength="400" placeholder="https://"></div>
+    <div class="row2">
+      <div class="field"><label for="of-cat">Categoria</label><select id="of-cat"><option>Bebê e criança</option><option>Casa</option><option>Mamãe</option><option>Educação</option><option>Livros e fé</option><option>Serviços</option><option>Outros</option></select></div>
+      <div class="field"><label for="of-dias">Vale por</label><select id="of-dias"><option value="7">7 dias</option><option value="15">15 dias</option><option value="30" selected>30 dias</option><option value="60">60 dias</option></select></div>
+    </div>
+    <div class="post-bar"><label class="cbtn" for="of-foto"><svg><use href="#i-photo"/></svg><span>Foto do produto</span></label><input type="file" id="of-foto" accept="image/*" hidden><span id="of-foto-nome" class="hint"></span></div>
+    <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
+    <p class="status" id="ofStatus" role="status"></p>
+  </form>
+</div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
   <h3 id="ctTitle">Como você quer ser chamado(a)?</h3>
