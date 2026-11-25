@@ -1063,3 +1063,7 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .lw-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;text-align:left}
 .lw-list li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:14.5px;color:var(--muted)}
 .lw-list b{display:block;color:var(--ink);font-size:15px}
+
+.foot-link{font-size:13px;color:var(--muted);text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;align-items:center}
+.nav .nav-admin svg{color:#25D366}
