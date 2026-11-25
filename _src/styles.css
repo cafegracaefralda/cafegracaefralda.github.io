@@ -1300,3 +1300,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .ios-safari{margin:0;color:#A63D2F;font-weight:600}
 .ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
 @keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
+/* Foto de perfil: sempre preenche o círculo (o fundo de alguns avatares é um atalho "background" que zerava o tamanho) */
+.avatar.has-img,[data-av].has-img{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important}
+.stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
