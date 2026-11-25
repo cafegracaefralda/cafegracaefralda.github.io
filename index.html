@@ -1240,6 +1240,29 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .story-dlg#storyNew input{width:100%}
 @media (max-width:760px){.story-dlg#storyNew{width:100%;max-width:100%;margin:auto 0 0;border-radius:24px 24px 0 0}}
 
+/* Vizinhança minimalista */
+#v-indicacoes>.wrap>.view-head,.viz-filters{display:none}
+.viz-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 12px}
+.viz-top h2{font-size:clamp(32px,7vw,44px);line-height:1}
+.viz-busca{width:100%;margin-bottom:14px;border-radius:999px;padding:12px 18px;background:var(--surface);border:1px solid var(--line)}
+.viz-list{display:grid;gap:12px;padding:0;margin:0 0 12px;list-style:none;grid-template-columns:minmax(0,1fr)}
+.viz-list .note{transform:none!important;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:none;margin:0}
+.viz-list .note .tape{display:none}
+.viz-list .note-small,.viz-list .note-meta2,.viz-list .note-by{display:none}
+.viz-list .note h3{font-size:24px}
+#lzList{margin-top:0}
+.viz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.viz-op{display:flex;align-items:center;gap:10px;min-height:56px;border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 14px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer;text-align:left}
+.viz-op:hover{border-color:var(--acc);background:var(--acc-soft)}
+.viz-e{font-size:24px}
+#vizDlg .form{border:0;box-shadow:none;padding:0}
+#vizDlg .ind-form-wrap{border:0;box-shadow:none;padding:0;background:none}
+
+.story-pause{margin-left:auto;background:none;border:0;color:#fff;font-size:15px;width:44px;height:44px;cursor:pointer;letter-spacing:-2px}
+.story-head .story-x{margin-left:0}
+.story-view.paused .bar.run i{animation-play-state:paused}
+.story-view.paused .story-img-wrap:after{content:"Pausado";position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;pointer-events:none}
+
 </style>
 </head>
 <body>
@@ -1322,6 +1345,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
+      <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
       <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener" class="nav-admin"><svg><use href="#i-wa"/></svg><span>Falar com a administração</span></a>
     </nav>
 
@@ -1353,7 +1377,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       </div>
       </div>
       <div data-sub-panel="ofertas">
-        <div class="ofertas-bar"><p class="muted">Achadinhos de parceiros, com desconto. Todo anúncio é identificado.</p><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
+        <div class="ofertas-bar"><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
         <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="of-grid" id="ofList" aria-live="polite"></div>
       </div>
@@ -1371,7 +1395,6 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       <div class="view-head">
         <span class="label">Prateleira</span>
         <h2>Prateleira</h2>
-        <p class="muted">Materiais para guardar e consultar: PDFs, áudios, vídeos, links e fotos.</p>
       </div>
       <div data-sub-panel="publicacoes" class="on">
         <div class="prat-wrap">
@@ -1444,13 +1467,12 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       <div class="view-head">
         <span class="label">Mesa Grande</span>
         <h2>Mesa Grande</h2>
-        <p class="muted">A conversa do dia a dia: stories, desabafos, pedidos de oração e gratidão.</p>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
           <span class="label">Mesa Grande</span>
           <h3>A Mesa Grande é só para quem senta à mesa</h3>
-          <p>Conte o dia, poste fotos e stories, indique lugares para ir com as crianças, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
+          <p>Conte o dia, poste fotos e stories, indique lugares para ir em família, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
       </div>
@@ -1474,14 +1496,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
             <aside class="mesa-side" aria-label="Lateral">
-              <div class="card side-card"><span class="label">Quem está na mesa</span><div id="sidePeople"></div></div>
-              <div class="card side-card"><span class="label">Combinados da mesa</span>
-                <ul class="rules">
-                  <li>Fale com respeito. Aqui ninguém é julgado por ainda não crer.</li>
-                  <li>Não publique nome completo, foto de rosto de crianças nem escola.</li>
-                  <li>Conselho de pai não substitui médico ou psicólogo.</li>
-                </ul>
-              </div>
+              <div class="card side-card"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople"></div></div>
             </aside>
           </div>
         </div>
@@ -1499,7 +1514,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
           <p class="muted" id="pfCidade" hidden></p>
           <p id="pfBio" hidden></p>
           <div class="perfil-stats" id="pfStats"></div>
-          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button></div>
+          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
         </div>
       </div>
       <div class="pf-grid" id="pfGrid" aria-live="polite"></div>
@@ -1562,21 +1577,26 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   <!-- INDICAÇÕES -->
   <section class="view" id="v-indicacoes" data-view="indicacoes">
     <div class="wrap">
-      <div class="view-head">
-        <span class="label">Saúde, lazer, serviços e mais</span>
-        <h2>Vizinhança</h2>
-        <p class="muted">Tudo o que a comunidade indica: médicos, escolas, restaurantes, hotéis, praças e passeios.</p>
+      <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
+      <input id="vizBusca" class="viz-busca" type="search" placeholder="Buscar indicações" maxlength="60" aria-label="Buscar indicações">
+      <ul class="notes viz-list" id="fridgeNotes"></ul>
+      <div id="lazerGate" hidden></div>
+      <div id="lazerApp" hidden>
+        <input id="lzCidade" type="hidden"><input id="lzUf" type="hidden">
+        <div class="feed-list" id="lzList" aria-live="polite"></div>
+        <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
       </div>
-      <div class="filters viz-filters" id="vizFilters" role="group" aria-label="Filtrar a vizinhança"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Fé">⛪ Fé / Religião</button><button class="chip" aria-pressed="false" data-filter="Saúde">Saúde</button><button class="chip" aria-pressed="false" data-filter="Família">Família</button><button class="chip" aria-pressed="false" data-filter="Lazer">Lazer</button><button class="chip" aria-pressed="false" data-filter="Comer">Comer</button><button class="chip" aria-pressed="false" data-filter="Hospedagem">Hospedagem</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
-        <div class="fridge">
-          <ul class="notes" id="fridgeNotes"></ul>
-          <div class="card more-pros"><div><b>Temos vários outros profissionais de confiança.</b><p>Psicólogos, dentistas, nutricionistas e mais. Chame a gente no WhatsApp e indicamos o ideal para o seu caso.</p></div><a class="btn btn-wa" data-wa="Oi! Vim pelas Indicações do Café, Graça &amp; Fralda e preciso de um profissional. Pode me indicar?" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir indicação</a></div>
-        </div>
-        <div class="fridge-foot">
-          <p><b>Da nossa mesa para a sua.</b> Conhece um profissional que cuidou bem da sua família? Indique aqui. A equipe confere antes de publicar.</p>
-          <button class="btn btn-dark" type="button" id="indOpen"><svg><use href="#i-arrow"/></svg>Indicar um profissional</button>
-        </div>
-        <div class="card ind-form-wrap" id="indWrap" hidden>
+    </div>
+  </section>
+
+  <dialog class="sheet-dlg" id="vizDlg" aria-labelledby="vizTitle"><div class="sheet-box">
+    <button class="story-x sheet-x" type="button" id="vizClose" aria-label="Fechar">×</button>
+    <div id="vizPick">
+      <h3 id="vizTitle">O que você quer indicar?</h3>
+      <div class="viz-grid" id="vizGrid"></div>
+    </div>
+    <button type="button" id="indOpen" hidden></button><button type="button" id="lzOpen" hidden></button>
+    <div class="card ind-form-wrap" id="indWrap" hidden>
           <div class="gate" id="indGate">
             <span class="label">Indicar um profissional</span>
             <h3>Entre para indicar</h3>
@@ -1584,13 +1604,13 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
             <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
           </div>
           <form class="form" id="indForm" novalidate hidden>
-            <div><span class="label">Da nossa mesa para a sua</span><h3 style="font-size:30px;margin-top:6px">Indique um profissional</h3></div>
+            <div><span class="label">Da nossa mesa para a sua</span><h3 style="font-size:30px;margin-top:6px">Indique em poucas palavras</h3></div>
             <div class="row2">
-              <div class="field"><label for="i-nome">Nome do profissional</label><input id="i-nome" maxlength="80" placeholder="Ex.: Dra. Carla Souza"></div>
-              <div class="field"><label for="i-esp">Especialidade</label><input id="i-esp" maxlength="80" placeholder="Ex.: Pediatra, psicóloga, dentista"></div>
+              <div class="field"><label for="i-nome">Nome</label><input id="i-nome" maxlength="80" placeholder="Ex.: Dra. Carla Souza"></div>
+              <div class="field"><label for="i-esp">O que faz</label><input id="i-esp" maxlength="80" placeholder="Ex.: Pediatra, professora, pastor"></div>
             </div>
             <div class="row2">
-              <div class="field"><label for="i-cat">O que você indica?</label><select id="i-cat"><option>Saúde dos pequenos</option><option>Gestação e bebê</option><option>Mente e emoções</option><option>Desenvolvimento</option><option>Casamento</option><option>Hotéis e pousadas</option><option>Restaurantes e cafés</option><option>Praças e parques</option><option>Passeios e lazer</option><option>Serviços para a casa</option><option>Escolas e creches</option><option>Outro</option></select></div>
+              <div class="field"><label for="i-cat">O que você indica?</label><select id="i-cat"><option value="Saúde">Saúde</option><option value="Fé e religião">Fé e religião</option><option value="Educação">Educação</option><option value="Família">Família</option><option value="Casa">Casa</option><option value="Outro">Outros</option></select></div>
               <div class="field"><label for="i-modo">Atendimento</label><select id="i-modo"><option>Presencial</option><option>Online</option><option>Online e presencial</option></select></div>
             </div>
             <div class="field"><label for="i-onde">Onde fica</label><input id="i-onde" maxlength="140" placeholder="Cidade, bairro ou endereço da clínica"></div>
@@ -1603,35 +1623,17 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               <input id="i-planos" maxlength="120" placeholder="Qual(is) plano(s)? Ex.: Unimed, Bradesco" hidden>
             </fieldset>
             <div class="field"><label for="i-porque">Por que você indica</label><textarea id="i-porque" maxlength="500" placeholder="Conte em poucas palavras como foi o cuidado."></textarea></div>
-            <div class="field"><label for="i-contato">WhatsApp ou Instagram do profissional (opcional)</label><input id="i-contato" maxlength="60" placeholder="(81) 90000-0000 ou @perfil"><small class="hint">Ajuda a equipe a confirmar o perfil mais rápido. Usamos só para isso.</small></div>
+            <div class="field"><label for="i-contato">WhatsApp ou Instagram (opcional)</label><input id="i-contato" maxlength="60" placeholder="(81) 90000-0000 ou @perfil"><small class="hint">Ajuda a equipe a confirmar o perfil mais rápido.</small></div>
             <div class="hp" aria-hidden="true"><label for="i-site">Não preencha</label><input id="i-site" tabindex="-1" autocomplete="off"></div>
             <button class="btn btn-terra btn-block" id="indSend" type="submit">Enviar indicação</button>
             <p class="status" id="indStatus" role="status"></p>
           </form>
         </div>
-        <p class="fridge-note">Indicação de amigo, não é propaganda paga. Confira sempre o registro profissional (CRM, CRP, CRFa…) e escolha com calma o que é melhor para a sua família.</p>
-      
-      <div class="viz-lugares">
-        <div class="view-head sub-head"><span class="label">Lugares</span><h3>Lugares para ir com as crianças</h3></div>
-      <div class="card" id="lazerGate">
-        <div class="gate">
-          <span class="label">Lugares</span>
-          <h3>Os lugares da comunidade são para quem entrou</h3>
-          <p>Entre para ver e indicar lugares para ir com as crianças.</p>
-          <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
-        </div>
-      </div>
-      <div id="lazerApp" hidden>
-          <div class="lazer-bar">
-            <input id="lzCidade" maxlength="60" placeholder="Cidade (ex.: Recife)" aria-label="Buscar por cidade">
-            <select id="lzUf" aria-label="Estado"><option value="">Estado</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select>
-            <button class="btn btn-terra" type="button" id="lzOpen"><svg><use href="#i-plus"/></svg>Indicar um lugar</button>
-          </div>
-          <form class="card form lz-form" id="lzForm" novalidate hidden>
-            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar para ir com as crianças</h3></div>
+    <form class="card form lz-form" id="lzForm" novalidate hidden>
+            <div><span class="label">Lazer em família</span><h3 style="font-size:28px;margin-top:6px">Indique um lugar</h3></div>
             <div class="row2">
               <div class="field"><label for="lz-nome">Nome do lugar</label><input id="lz-nome" maxlength="100" placeholder="Ex.: Parque da Jaqueira"></div>
-              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option>Parque e natureza</option><option>Restaurante e café</option><option>Espaço kids</option><option>Passeio e cultura</option><option>Esporte</option><option>Evento</option><option>Outro</option></select></div>
+              <div class="field"><label for="lz-cat">Tipo de lugar</label><select id="lz-cat"><option value="Lazer">Lazer</option><option value="Praças e parques">Praças e parques</option><option value="Esporte">Esporte</option><option value="Cultura">Cultura</option><option value="Filmes e séries">Filmes e séries</option><option value="Comer">Comer</option><option value="Hospedagem">Hospedagem</option><option value="Outro">Outros</option></select></div>
             </div>
             <div class="row2">
               <div class="field"><label for="lz-cidade">Cidade</label><input id="lz-cidade" maxlength="60" placeholder="Em qual cidade fica?"></div>
@@ -1642,17 +1644,12 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               <div class="field"><label for="lz-custo">Custo</label><select id="lz-custo"><option>Grátis</option><option>Barato</option><option>Médio</option><option>Caro</option></select></div>
             </div>
             <div class="field"><label for="lz-end">Endereço ou bairro (opcional)</label><input id="lz-end" maxlength="140" placeholder="Ajuda a encontrar o lugar"></div>
-            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Tem sombra, banheiro limpo, brinquedos, comida boa…"></textarea></div>
+            <div class="field"><label for="lz-porque">Por que vale a pena?</label><textarea id="lz-porque" maxlength="500" placeholder="Bom para ir em família: espaço, conforto, comida boa…"></textarea></div>
             <div class="post-bar"><label class="cbtn" for="lz-foto"><svg><use href="#i-photo"/></svg><span>Anexar foto</span></label><input type="file" id="lz-foto" accept="image/*" hidden><span id="lz-foto-nome" class="post-tip"></span></div>
             <button class="btn btn-terra btn-block" id="lzSend" type="submit">Publicar indicação</button>
             <p class="status" id="lzStatus" role="status"></p>
           </form>
-          <div class="feed-list" id="lzList" aria-live="polite"></div>
-          <button class="btn btn-ghost feed-more" type="button" id="lzMore" hidden>Ver mais</button>
-              </div>
-      </div>
-    </div>
-  </section>
+  </div></dialog>
 
 
   <!-- CAFÉ NA MESA -->
@@ -1662,7 +1659,6 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       <div class="view-head">
         <span class="label">Profissionais da Casa</span>
         <h2>Gente de confiança, no mesmo lugar</h2>
-        <p class="muted">Saúde e fé lado a lado. O selo <span class="selo-inline" aria-hidden="true">✓</span> marca as pessoas de confiança da comunidade.</p>
       </div>
       <button class="btn btn-terra btn-lg casa-cta" type="button" id="casaCta"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</button>
       <div class="filters" id="proFilters" role="group" aria-label="Filtrar profissionais">
@@ -1800,11 +1796,10 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   <img alt="Prévia do story" id="storyNewImg" class="story-prev">
   <input id="storyCap" maxlength="140" placeholder="Escreva uma legenda (opcional)" aria-label="Legenda">
   <button class="btn btn-terra btn-block" type="button" id="storyPost">Publicar story</button>
-  <p class="hint" style="text-align:center">Some sozinho em 48 horas. Só membros veem.</p>
 </div></dialog>
 <dialog class="story-dlg" id="storyView" aria-label="Story"><div class="story-box story-view">
   <div class="story-bars" id="storyBars"></div>
-  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
+  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-pause" type="button" id="storyPause" aria-label="Pausar story">❚❚</button><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
   <div class="story-img-wrap"><img alt="Story" id="storyImg"><button class="story-nav prev" type="button" id="storyPrev" aria-label="Anterior"></button><button class="story-nav next" type="button" id="storyNext" aria-label="Próximo"></button></div>
   <p class="story-cap" id="storyCapView"></p>
   <div class="story-acts" id="storyActs"></div>
@@ -1817,9 +1812,9 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <p><b>Para acessar, faça o seu login.</b></p>
     <ul class="lw-list" aria-label="O que tem na comunidade">
       <li><b>Mesa Grande</b> conversa, stories e pedidos de oração</li>
-      <li><b>Prateleira</b> PDFs, áudios, vídeos e links</li>
-      <li><b>Quintal</b> lugares para ir com as crianças</li>
-      <li><b>Vizinhança</b> profissionais e lugares indicados</li>
+      <li><b>A Casa</b> devocional da semana e novidades</li>
+      <li><b>Vizinhança</b> lugares, saúde e serviços indicados por quem conhece</li>
+      
     </ul>
     <div class="lw-actions">
       <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
@@ -1830,7 +1825,6 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       </form>
       <p class="status" id="lwStatus" role="status"></p>
     </div>
-    <small class="hint">Mostramos só o seu primeiro nome. Telefone é opcional.</small>
   </div>
 </div>
 <dialog class="sheet-dlg" id="anDlg" aria-labelledby="anTitle"><div class="sheet-box">
@@ -1881,7 +1875,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
   <h3 id="ctTitle">Como você quer ser chamado(a)?</h3>
-  <div id="ct-nome-box"><div class="field"><label for="ct-nome">Seu nome na comunidade</label><input id="ct-nome" maxlength="30" placeholder="Ex.: Ana" autocomplete="nickname"><small class="hint">É o nome que todo mundo vai ver. Pode ser só o primeiro nome.</small></div></div>
+  <div id="ct-nome-box"><div class="field"><label for="ct-nome">Seu nome na comunidade</label><input id="ct-nome" maxlength="30" placeholder="Ex.: Ana" autocomplete="nickname"></div></div>
   <div class="field"><label for="ct-zap">WhatsApp (opcional)</label><input id="ct-zap" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"><small class="hint">Só a equipe vê. Não aparece para os outros membros.</small></div>
   <label class="hint check" for="ct-ok"><input id="ct-ok" type="checkbox" checked>Aceito ser contatado pela equipe do Café, Graça &amp; Fralda neste número.</label>
   <button class="btn btn-terra btn-block" type="button" id="ctSave">Salvar e continuar</button>
@@ -2121,13 +2115,37 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 // Da nossa mesa para a sua: profissionais de confiança da comunidade.
 // Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
-    { cat:"Fé e aconselhamento", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
+    { cat:"Fé e religião", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
       porque:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico e oração. Não substitui médico nem psicólogo.", site:"", whatsapp:"5581992702353", instagram:"denny___silva", selo:true },
     { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
     { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://pequenosgrandes.com.br/", whatsapp:"", instagram:"", selo:true }
   ];
+// Lugares sugeridos pela Casa (referências reais de Minas Gerais). Confira horários e valores nos canais oficiais antes de ir.
+var LUGARES = [
+  { cat:"Lazer", nome:"Lagoa da Pampulha", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cartão-postal de BH, com orla e ciclofaixa para passear a pé ou de bicicleta em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Parque Municipal Fazenda Lagoa do Nado", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Parque da prefeitura apresentado como referência de lazer em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Zoológico de Belo Horizonte", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Passeio de dia inteiro para todas as idades, com bichos e áreas verdes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Praça da Liberdade", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Jardins e centros culturais no coração de BH. Ótima para caminhar e tomar um café. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Parque Municipal Américo Renné Giannetti", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Um dos parques mais tradicionais da cidade, no centro, com sombra e espaço para a família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Praça do Papa", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Mirante com vista de BH, bom para o fim de tarde. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Estádio Mineirão", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Estádio da Pampulha, modernizado para a Copa de 2014. Abriga o Museu Brasileiro do Futebol. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Mineirinho", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Ginásio ao lado do Mineirão, com jogos e eventos esportivos. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Estádio Independência", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Estádio tradicional de BH para ver futebol em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Inhotim", oque:"Brumadinho, MG", porque:"Sugestão da Casa: Museu de arte contemporânea a céu aberto, com jardins, a cerca de 60 km de BH. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Conjunto Moderno da Pampulha", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Obras de Niemeyer na Pampulha, como a Igrejinha, reconhecidas como Patrimônio Mundial. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Museu dos Brinquedos", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cerca de 5 mil peças de brinquedos do Brasil e do mundo. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Theatro Brasil Vallourec", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cinema histórico do centro de BH. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Belas Artes", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cinema de rua com filmes de arte e programação diferente. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Humberto Mauro", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Sala de cinema do Palácio das Artes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado Central de BH", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Desde 1929, com mais de 400 lojas de queijos, doces, artesanato e comida mineira. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado Novo", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Lojas, bares e restaurantes no centro, bom para passear e comer. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Xapuri", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Restaurante de comida mineira na Pampulha, conhecido pelo fogão a lenha. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Ouro Minas Palace Hotel", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Hotel tradicional de BH para ficar com a família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Pousada Solar da Ponte", oque:"Tiradentes, MG", porque:"Sugestão da Casa: Pousada charmosa na histórica Tiradentes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Grande Hotel de Araxá", oque:"Araxá, MG", porque:"Sugestão da Casa: Hotel histórico da cidade das águas, em Araxá. Confira horários e valores antes de ir.", mapa:true }
+];
 // Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
 // Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
 // Versículo entre aspas: aspas de dentro viram simples, e o ponto final fica dentro da citação.
@@ -2145,12 +2163,12 @@ var PROS = [
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
 // Vizinhança: tudo cai em poucos grupos (filtro único para profissionais e lugares)
-var GRUPO_VIZ = { "Fé e aconselhamento":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
+var GRUPO_VIZ = { "Fé e religião":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
   "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
   "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
 function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
-var viz = { g: "all" };
-var TAPE = { "Fé e aconselhamento":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+var viz = { q: "" };
+var TAPE = { "Fé e religião":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
@@ -2381,7 +2399,7 @@ function loadPerfil(){
   var id = pfTarget(), tok = ++pf.tok; pf.id = id;
   var mine = id === uid();
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
-  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine;
+  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine;
   Promise.all([
     sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
@@ -2437,6 +2455,12 @@ $("pfSave").addEventListener("click", function(){
   }).then(function(){
     $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); toast("Perfil salvo."); loadPerfil();
   }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
+});
+
+$("pfShare").addEventListener("click", function(){
+  var url = location.origin + location.pathname + "#perfil/" + uid();
+  var txt = "Venha me conhecer na comunidade Café, Graça & Fralda: " + url;
+  window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener");
 });
 
 
@@ -2724,7 +2748,7 @@ function ofCard(o){
 function renderOfertas(){
   var box = $("ofList"); box.innerHTML = "";
   var l = of.items.filter(function(o){ return of.filtro === "all" || o.categoria === of.filtro; });
-  if (!l.length) { var e = h("div", "empty card"); e.append(h("h3", null, of.loaded ? "Nenhuma oferta por aqui ainda" : "Carregando…"), h("p", null, of.loaded ? "Parceiros publicam achadinhos com desconto aqui." : "")); box.appendChild(e); return; }
+  if (!l.length) { var e = h("div", "empty card"); e.append(h("h3", null, of.loaded ? "Sem ofertas por enquanto" : "Carregando…"), h("p", null, "")); box.appendChild(e); return; }
   l.forEach(function(o){ box.appendChild(ofCard(o)); });
 }
 filterChips("ofFilters", function(f){ of.filtro = f; renderOfertas(); });
@@ -2789,6 +2813,39 @@ var _hookInicio = viewHooks.inicio;
 viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
 auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
+// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido -> aviso para a administração -> opção de falar pelo WhatsApp)
+$("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
+
+
+// Vizinhança: tela limpa (busca + lista). Ao tocar em "Indicar", a pessoa escolhe o assunto e aparece o formulário certo.
+var VIZ_OPCOES = [
+  { v: "Saúde", e: "🩺", t: "p" }, { v: "Fé e religião", e: "⛪", t: "p" }, { v: "Educação", e: "📚", t: "p" }, { v: "Família", e: "👨‍👩‍👧", t: "p" }, { v: "Casa", e: "🏠", t: "p" },
+  { v: "Lazer", e: "🌳", t: "l" }, { v: "Praças e parques", e: "🌿", t: "l" }, { v: "Esporte", e: "⚽", t: "l" }, { v: "Cultura", e: "🎭", t: "l" }, { v: "Filmes e séries", e: "🎬", t: "l" }, { v: "Comer", e: "🍽️", t: "l" }, { v: "Hospedagem", e: "🛏️", t: "l" },
+  { v: "Outro", n: "Outros", e: "✨", t: "p" }
+];
+var vizDlg = $("vizDlg");
+function vizReset(){
+  $("vizPick").hidden = false; $("indWrap").hidden = true; $("lzForm").hidden = true;
+  $("i-cat").closest(".field").hidden = false; $("lz-cat").closest(".field").hidden = false;
+}
+function vizClose(){ if (vizDlg.open) vizDlg.close(); }
+VIZ_OPCOES.forEach(function(o){
+  var b = h("button", "viz-op"); b.type = "button"; b.append(h("span", "viz-e", o.e), h("span", null, o.n || o.v));
+  b.addEventListener("click", function(){
+    $("vizPick").hidden = true;
+    if (o.t === "p") { $("i-cat").value = o.v; $("i-cat").closest(".field").hidden = true; $("indOpen").click(); }
+    else { $("lz-cat").value = o.v; $("lz-cat").closest(".field").hidden = true; $("lzOpen").click(); }
+    vizDlg.scrollTop = 0;
+  });
+  $("vizGrid").appendChild(b);
+});
+$("vizNova").addEventListener("click", function(){ vizReset(); setStatus($("indStatus"), ""); setStatus($("lzStatus"), ""); vizDlg.showModal(); });
+$("vizClose").addEventListener("click", vizClose);
+vizDlg.addEventListener("click", function(e){ if (e.target === vizDlg) vizClose(); });
+vizDlg.addEventListener("close", vizReset);
+new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
+$("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
+
 
 // Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
@@ -2805,7 +2862,7 @@ function filterChips(groupId, onPick){
 var fridge = $("fridgeNotes");
 function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
-function fridgeItems(){ return INDICACOES.concat(fromMembers); }
+function fridgeItems(){ return INDICACOES.concat(LUGARES, fromMembers); }
 function loadMemberInds(){
   if (!sb) return;
   sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -2823,7 +2880,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (viz.g !== "all" && vizGroup(p.cat) !== viz.g) return;
+    if (viz.q && [p.nome, p.oque, p.onde, p.porque, p.cat].join(" ").toLowerCase().indexOf(viz.q) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
@@ -2833,6 +2890,7 @@ function renderFridge(filter){
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
+    if (p.mapa) lnk("btn-ghost", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome + ", " + p.oque), "i-arrow", "Ver no mapa");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
     li.append(tape, top, hn, h("p", "note-what", p.oque), why);
@@ -2844,7 +2902,6 @@ function renderFridge(filter){
     fridge.appendChild(li);
   });
 }
-filterChips("vizFilters", function(g){ viz.g = g; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 renderFridge("all");
 
 viewHooks.indicacoes = function(){ loadMemberInds(); };
@@ -2967,28 +3024,30 @@ $("feedMore").addEventListener("click", function(){ loadFeed(false); });
 // Quem está na mesa (como os "stories": toque para chamar no privado)
 function loadMembers(){
   if (!sb || !auth.user) return;
-  sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", uid()).order("criado_em", { ascending: false }).limit(30).then(function(r){
+  sb.from("perfis").select("user_id,nome").neq("user_id", uid()).order("criado_em", { ascending: false }).limit(300).then(function(r){
     if (!r.data) return;
     feed.members = r.data; renderMembers();
   });
 }
 function renderMembers(){
-  var side = $("sidePeople"); side.innerHTML = "";
-  feed.members.forEach(function(p){
-    if (side.childNodes.length >= 6) return;
-    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Chamar no privado"));
-    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ openDm(p.user_id, p.nome || "Alguém"); });
+  var side = $("sidePeople"), q = ($("sideBusca").value || "").trim().toLowerCase(); side.innerHTML = "";
+  if (!q) return;
+  var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
+  achou.forEach(function(p){
+    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
+    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
-  if (!feed.members.length) side.appendChild(h("p", "hint", "Você é a primeira pessoa por aqui. Convide alguém para a mesa!"));
+  if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
 }
+$("sideBusca").addEventListener("input", renderMembers);
 
 // Desenhar
 function renderFeed(){
   var box = $("feedList"); box.innerHTML = "";
   $("feedMore").hidden = !feed.more;
   if (!feed.posts.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "A Mesa está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
+    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "Seja a primeira pessoa a publicar" : "Carregando…"), h("p", null, ""));
     box.appendChild(e); return;
   }
   feed.posts.forEach(function(p){ box.appendChild(renderPost(p)); });
@@ -3113,7 +3172,7 @@ indForm.addEventListener("submit", function(e){
     if (r.error) return setStatus(st, String(r.error.message || "").indexOf("muito_rapido") > -1 ? "Você já enviou várias indicações hoje. Volte amanhã." : "Não foi possível enviar agora. Tente de novo.", "err");
     indForm.reset(); $("i-planos").hidden = true;
     setStatus(st, "Recebi! A equipe confere e publica em breve. Obrigado por indicar.", "ok");
-    loadMemberInds();
+    loadMemberInds(); if (typeof vizClose === "function") setTimeout(vizClose, 1600);
   });
 });
 
@@ -3195,7 +3254,7 @@ function renderDmMsgs(force){
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
   dmMsgsEl.innerHTML = "";
   if (!dm.current) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Suas mensagens"), h("p", null, "Escolha uma conversa ao lado, ou procure uma pessoa pelo nome em “Encontrar pessoas”."));
+    var e = h("div", "empty"); e.append(h("h3", null, "Suas mensagens"));
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
@@ -3444,7 +3503,7 @@ function setBell(){
 }
 function renderBell(){
   var box = $("bellList"); box.innerHTML = "";
-  if (!notif.items.length) { var e = h("p", "bell-empty", "Nada por aqui ainda. Quando alguém comentar, curtir ou te chamar no privado, aparece aqui."); box.appendChild(e); return; }
+  if (!notif.items.length) { var e = h("p", "bell-empty", "Sem novidades por enquanto."); box.appendChild(e); return; }
   notif.items.forEach(function(n){
     var t = notifText(n), b = h("button", "bell-item" + (n.lida ? "" : " new")); b.type = "button";
     var tx = h("span", "bi-tx"); tx.append(h("b", null, t[0]), t[1] ? h("small", null, t[1]) : document.createTextNode(""), h("time", null, ago(n.criado_em)));
@@ -3702,8 +3761,8 @@ function renderList(box, st, prefix, vazio){
 function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
-  renderList($("pubList"), vis, "", ["Nada por aqui ainda", "Seja a primeira pessoa a compartilhar um material."]);
-  renderList($("homeList"), home, "home-", ["Em breve, mais novidades da Casa", "Avisos, convites, vídeos e indicações de parceiros aparecem aqui."]);
+  renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
+  renderList($("homeList"), home, "home-", ["Em breve, novidades da Casa", ""]);
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function renderPub(p, prefix){
@@ -3996,7 +4055,8 @@ function showStory(){
     acts.appendChild(dmb);
   }
   if (!dlg.open) dlg.showModal();
-  stories.timer = setTimeout(nextStory, STORY_MS);
+  stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); $("storyPause").textContent = "❚❚"; $("storyPause").setAttribute("aria-label", "Pausar story");
+  stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, STORY_MS);
 }
 function openStory(g){ stories.cur = g; stories.idx = 0; showStory(); }
 function nextStory(){
@@ -4014,6 +4074,20 @@ $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer)
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
 document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
 auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
+
+// Pausar: botão no topo ou segurar o dedo na foto. Ao soltar (ou tocar em ▶), continua de onde parou.
+function pauseStory(on){
+  var dlg = $("storyView"); if (!stories.cur || on === stories.paused) return;
+  stories.paused = on; dlg.classList.toggle("paused", on);
+  if (on) { clearTimeout(stories.timer); stories.left = Math.max(300, stories.left - (Date.now() - stories.t0)); }
+  else { stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, stories.left); }
+  $("storyPause").textContent = on ? "▶" : "❚❚"; $("storyPause").setAttribute("aria-label", on ? "Continuar story" : "Pausar story");
+}
+$("storyPause").addEventListener("click", function(){ pauseStory(!stories.paused); });
+var holdT = null, held = false;
+$("storyView").querySelector(".story-img-wrap").addEventListener("pointerdown", function(){ held = false; holdT = setTimeout(function(){ held = true; pauseStory(true); }, 220); });
+["pointerup", "pointercancel", "pointerleave"].forEach(function(ev){ $("storyView").querySelector(".story-img-wrap").addEventListener(ev, function(){ clearTimeout(holdT); if (held) { held = false; pauseStory(false); } }); });
+document.addEventListener("keydown", function(e){ if ($("storyView").open && (e.key === " " || e.key === "p")) { e.preventDefault(); pauseStory(!stories.paused); } });
 
 
 // Lazer em família: lugares para levar as crianças, indicados pelas famílias, sempre com a cidade (o site é do Brasil inteiro).
@@ -4058,15 +4132,15 @@ $("lzOpen").addEventListener("click", function(){
 
 function mapsUrl(p){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome_local + (p.endereco ? ", " + p.endereco : "") + ", " + p.cidade + " - " + p.uf); }
 function lzShare(p){
-  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir com as crianças na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
+  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";
-  var todos = lz.items, lista = viz.g === "all" ? todos : todos.filter(function(p){ return vizGroup(p.categoria) === viz.g; });
+  var todos = lz.items, lista = !viz.q ? todos : todos.filter(function(p){ return [p.nome_local, p.cidade, p.porque, p.categoria, p.endereco].join(" ").toLowerCase().indexOf(viz.q) > -1; });
   $("lzMore").hidden = !lz.more;
   if (!lista.length) {
     var e = h("div", "empty card"); var f = lzFilters();
-    e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "Conhece um bom lugar para ir com as crianças? Toque em “Indicar um lugar”." : "")); box.appendChild(e); return;
+    e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "" : "")); box.appendChild(e); return;
   }
   lista.forEach(function(p){ box.appendChild(renderLz(p)); });
 }

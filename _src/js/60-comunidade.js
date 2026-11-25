@@ -13,7 +13,7 @@ function filterChips(groupId, onPick){
 var fridge = $("fridgeNotes");
 function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
-function fridgeItems(){ return INDICACOES.concat(fromMembers); }
+function fridgeItems(){ return INDICACOES.concat(LUGARES, fromMembers); }
 function loadMemberInds(){
   if (!sb) return;
   sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -31,7 +31,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (viz.g !== "all" && vizGroup(p.cat) !== viz.g) return;
+    if (viz.q && [p.nome, p.oque, p.onde, p.porque, p.cat].join(" ").toLowerCase().indexOf(viz.q) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
@@ -41,6 +41,7 @@ function renderFridge(filter){
     function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
+    if (p.mapa) lnk("btn-ghost", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome + ", " + p.oque), "i-arrow", "Ver no mapa");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
     li.append(tape, top, hn, h("p", "note-what", p.oque), why);
@@ -52,7 +53,6 @@ function renderFridge(filter){
     fridge.appendChild(li);
   });
 }
-filterChips("vizFilters", function(g){ viz.g = g; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 renderFridge("all");
 
 viewHooks.indicacoes = function(){ loadMemberInds(); };

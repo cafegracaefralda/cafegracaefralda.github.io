@@ -181,8 +181,8 @@ function renderList(box, st, prefix, vazio){
 function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
-  renderList($("pubList"), vis, "", ["Nada por aqui ainda", "Seja a primeira pessoa a compartilhar um material."]);
-  renderList($("homeList"), home, "home-", ["Em breve, mais novidades da Casa", "Avisos, convites, vídeos e indicações de parceiros aparecem aqui."]);
+  renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
+  renderList($("homeList"), home, "home-", ["Em breve, novidades da Casa", ""]);
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function renderPub(p, prefix){

@@ -19,7 +19,7 @@ function setBell(){
 }
 function renderBell(){
   var box = $("bellList"); box.innerHTML = "";
-  if (!notif.items.length) { var e = h("p", "bell-empty", "Nada por aqui ainda. Quando alguém comentar, curtir ou te chamar no privado, aparece aqui."); box.appendChild(e); return; }
+  if (!notif.items.length) { var e = h("p", "bell-empty", "Sem novidades por enquanto."); box.appendChild(e); return; }
   notif.items.forEach(function(n){
     var t = notifText(n), b = h("button", "bell-item" + (n.lida ? "" : " new")); b.type = "button";
     var tx = h("span", "bi-tx"); tx.append(h("b", null, t[0]), t[1] ? h("small", null, t[1]) : document.createTextNode(""), h("time", null, ago(n.criado_em)));

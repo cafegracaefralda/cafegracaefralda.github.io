@@ -79,7 +79,8 @@ function showStory(){
     acts.appendChild(dmb);
   }
   if (!dlg.open) dlg.showModal();
-  stories.timer = setTimeout(nextStory, STORY_MS);
+  stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); $("storyPause").textContent = "❚❚"; $("storyPause").setAttribute("aria-label", "Pausar story");
+  stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, STORY_MS);
 }
 function openStory(g){ stories.cur = g; stories.idx = 0; showStory(); }
 function nextStory(){
@@ -97,3 +98,17 @@ $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer)
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
 document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
 auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
+
+// Pausar: botão no topo ou segurar o dedo na foto. Ao soltar (ou tocar em ▶), continua de onde parou.
+function pauseStory(on){
+  var dlg = $("storyView"); if (!stories.cur || on === stories.paused) return;
+  stories.paused = on; dlg.classList.toggle("paused", on);
+  if (on) { clearTimeout(stories.timer); stories.left = Math.max(300, stories.left - (Date.now() - stories.t0)); }
+  else { stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, stories.left); }
+  $("storyPause").textContent = on ? "▶" : "❚❚"; $("storyPause").setAttribute("aria-label", on ? "Continuar story" : "Pausar story");
+}
+$("storyPause").addEventListener("click", function(){ pauseStory(!stories.paused); });
+var holdT = null, held = false;
+$("storyView").querySelector(".story-img-wrap").addEventListener("pointerdown", function(){ held = false; holdT = setTimeout(function(){ held = true; pauseStory(true); }, 220); });
+["pointerup", "pointercancel", "pointerleave"].forEach(function(ev){ $("storyView").querySelector(".story-img-wrap").addEventListener(ev, function(){ clearTimeout(holdT); if (held) { held = false; pauseStory(false); } }); });
+document.addEventListener("keydown", function(e){ if ($("storyView").open && (e.key === " " || e.key === "p")) { e.preventDefault(); pauseStory(!stories.paused); } });

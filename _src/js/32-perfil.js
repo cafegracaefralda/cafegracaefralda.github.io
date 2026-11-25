@@ -19,7 +19,7 @@ function loadPerfil(){
   var id = pfTarget(), tok = ++pf.tok; pf.id = id;
   var mine = id === uid();
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
-  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine;
+  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine;
   Promise.all([
     sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
@@ -75,4 +75,10 @@ $("pfSave").addEventListener("click", function(){
   }).then(function(){
     $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); toast("Perfil salvo."); loadPerfil();
   }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
+});
+
+$("pfShare").addEventListener("click", function(){
+  var url = location.origin + location.pathname + "#perfil/" + uid();
+  var txt = "Venha me conhecer na comunidade Café, Graça & Fralda: " + url;
+  window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener");
 });

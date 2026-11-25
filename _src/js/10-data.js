@@ -134,13 +134,37 @@ var ARCHIVE = DEVOS.slice(0, SCHED.k).reverse();
 // Da nossa mesa para a sua: profissionais de confiança da comunidade.
 // Para acrescentar alguém, copie um bloco e troque os dados (o site é opcional).
   var INDICACOES = [
-    { cat:"Fé e aconselhamento", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
+    { cat:"Fé e religião", nome:"Denny Silva", oque:"Aconselhamento pastoral e familiar", onde:"", modo:"",
       porque:"Atende famílias em aconselhamento pastoral, criação de filhos, estudo bíblico e oração. Não substitui médico nem psicólogo.", site:"", whatsapp:"5581992702353", instagram:"denny___silva", selo:true },
     { cat:"Gestação e bebê", nome:"Dra. Larissa Moraes", oque:"Obstetra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://dralarissamoraes.com.br/", whatsapp:"", instagram:"", selo:true },
     { cat:"Saúde dos pequenos", nome:"Dr. Fred Hanaoka", oque:"Pediatra", onde:"", modo:"",
       porque:"Indicação de confiança da comunidade Café, Graça & Fralda. Conheça o trabalho pelo site.", site:"https://pequenosgrandes.com.br/", whatsapp:"", instagram:"", selo:true }
   ];
+// Lugares sugeridos pela Casa (referências reais de Minas Gerais). Confira horários e valores nos canais oficiais antes de ir.
+var LUGARES = [
+  { cat:"Lazer", nome:"Lagoa da Pampulha", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cartão-postal de BH, com orla e ciclofaixa para passear a pé ou de bicicleta em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Parque Municipal Fazenda Lagoa do Nado", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Parque da prefeitura apresentado como referência de lazer em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Zoológico de Belo Horizonte", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Passeio de dia inteiro para todas as idades, com bichos e áreas verdes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Praça da Liberdade", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Jardins e centros culturais no coração de BH. Ótima para caminhar e tomar um café. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Parque Municipal Américo Renné Giannetti", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Um dos parques mais tradicionais da cidade, no centro, com sombra e espaço para a família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Praça do Papa", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Mirante com vista de BH, bom para o fim de tarde. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Estádio Mineirão", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Estádio da Pampulha, modernizado para a Copa de 2014. Abriga o Museu Brasileiro do Futebol. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Mineirinho", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Ginásio ao lado do Mineirão, com jogos e eventos esportivos. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Estádio Independência", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Estádio tradicional de BH para ver futebol em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Inhotim", oque:"Brumadinho, MG", porque:"Sugestão da Casa: Museu de arte contemporânea a céu aberto, com jardins, a cerca de 60 km de BH. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Conjunto Moderno da Pampulha", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Obras de Niemeyer na Pampulha, como a Igrejinha, reconhecidas como Patrimônio Mundial. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Museu dos Brinquedos", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cerca de 5 mil peças de brinquedos do Brasil e do mundo. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Theatro Brasil Vallourec", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cinema histórico do centro de BH. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Belas Artes", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Cinema de rua com filmes de arte e programação diferente. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Filmes e séries", nome:"Cine Humberto Mauro", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Sala de cinema do Palácio das Artes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado Central de BH", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Desde 1929, com mais de 400 lojas de queijos, doces, artesanato e comida mineira. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado Novo", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Lojas, bares e restaurantes no centro, bom para passear e comer. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Xapuri", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Restaurante de comida mineira na Pampulha, conhecido pelo fogão a lenha. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Ouro Minas Palace Hotel", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Hotel tradicional de BH para ficar com a família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Pousada Solar da Ponte", oque:"Tiradentes, MG", porque:"Sugestão da Casa: Pousada charmosa na histórica Tiradentes. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Hospedagem", nome:"Grande Hotel de Araxá", oque:"Araxá, MG", porque:"Sugestão da Casa: Hotel histórico da cidade das águas, em Araxá. Confira horários e valores antes de ir.", mapa:true }
+];
 // Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
 // Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
 // Versículo entre aspas: aspas de dentro viram simples, e o ponto final fica dentro da citação.
@@ -158,9 +182,9 @@ var PROS = [
     resumo:"Pediatra indicado pela comunidade Café, Graça & Fralda para o cuidado da saúde dos pequenos.", site:"https://pequenosgrandes.com.br/" }
 ];
 // Vizinhança: tudo cai em poucos grupos (filtro único para profissionais e lugares)
-var GRUPO_VIZ = { "Fé e aconselhamento":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
+var GRUPO_VIZ = { "Fé e religião":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
   "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
   "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
 function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
-var viz = { g: "all" };
-var TAPE = { "Fé e aconselhamento":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+var viz = { q: "" };
+var TAPE = { "Fé e religião":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };

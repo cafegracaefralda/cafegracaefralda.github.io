@@ -40,15 +40,15 @@ $("lzOpen").addEventListener("click", function(){
 
 function mapsUrl(p){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome_local + (p.endereco ? ", " + p.endereco : "") + ", " + p.cidade + " - " + p.uf); }
 function lzShare(p){
-  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir com as crianças na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
+  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";
-  var todos = lz.items, lista = viz.g === "all" ? todos : todos.filter(function(p){ return vizGroup(p.categoria) === viz.g; });
+  var todos = lz.items, lista = !viz.q ? todos : todos.filter(function(p){ return [p.nome_local, p.cidade, p.porque, p.categoria, p.endereco].join(" ").toLowerCase().indexOf(viz.q) > -1; });
   $("lzMore").hidden = !lz.more;
   if (!lista.length) {
     var e = h("div", "empty card"); var f = lzFilters();
-    e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "Conhece um bom lugar para ir com as crianças? Toque em “Indicar um lugar”." : "")); box.appendChild(e); return;
+    e.append(h("h3", null, lz.loaded ? (f.cidade || f.uf ? "Nenhuma indicação nesta cidade ainda" : "Ainda não há lugares indicados") : "Carregando…"), h("p", null, lz.loaded ? "" : "")); box.appendChild(e); return;
   }
   lista.forEach(function(p){ box.appendChild(renderLz(p)); });
 }

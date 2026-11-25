@@ -114,28 +114,30 @@ $("feedMore").addEventListener("click", function(){ loadFeed(false); });
 // Quem está na mesa (como os "stories": toque para chamar no privado)
 function loadMembers(){
   if (!sb || !auth.user) return;
-  sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", uid()).order("criado_em", { ascending: false }).limit(30).then(function(r){
+  sb.from("perfis").select("user_id,nome").neq("user_id", uid()).order("criado_em", { ascending: false }).limit(300).then(function(r){
     if (!r.data) return;
     feed.members = r.data; renderMembers();
   });
 }
 function renderMembers(){
-  var side = $("sidePeople"); side.innerHTML = "";
-  feed.members.forEach(function(p){
-    if (side.childNodes.length >= 6) return;
-    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Chamar no privado"));
-    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ openDm(p.user_id, p.nome || "Alguém"); });
+  var side = $("sidePeople"), q = ($("sideBusca").value || "").trim().toLowerCase(); side.innerHTML = "";
+  if (!q) return;
+  var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
+  achou.forEach(function(p){
+    var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
+    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
-  if (!feed.members.length) side.appendChild(h("p", "hint", "Você é a primeira pessoa por aqui. Convide alguém para a mesa!"));
+  if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
 }
+$("sideBusca").addEventListener("input", renderMembers);
 
 // Desenhar
 function renderFeed(){
   var box = $("feedList"); box.innerHTML = "";
   $("feedMore").hidden = !feed.more;
   if (!feed.posts.length) {
-    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "A Mesa está esperando a primeira história" : "Carregando…"), h("p", null, feed.loaded ? "Conte como foi o seu dia, indique alguém que cuidou bem da sua família ou peça uma oração." : ""));
+    var e = h("div", "empty card"); e.append(h("h3", null, feed.loaded ? "Seja a primeira pessoa a publicar" : "Carregando…"), h("p", null, ""));
     box.appendChild(e); return;
   }
   feed.posts.forEach(function(p){ box.appendChild(renderPost(p)); });

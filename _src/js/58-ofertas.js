@@ -34,7 +34,7 @@ function ofCard(o){
 function renderOfertas(){
   var box = $("ofList"); box.innerHTML = "";
   var l = of.items.filter(function(o){ return of.filtro === "all" || o.categoria === of.filtro; });
-  if (!l.length) { var e = h("div", "empty card"); e.append(h("h3", null, of.loaded ? "Nenhuma oferta por aqui ainda" : "Carregando…"), h("p", null, of.loaded ? "Parceiros publicam achadinhos com desconto aqui." : "")); box.appendChild(e); return; }
+  if (!l.length) { var e = h("div", "empty card"); e.append(h("h3", null, of.loaded ? "Sem ofertas por enquanto" : "Carregando…"), h("p", null, "")); box.appendChild(e); return; }
   l.forEach(function(o){ box.appendChild(ofCard(o)); });
 }
 filterChips("ofFilters", function(f){ of.filtro = f; renderOfertas(); });

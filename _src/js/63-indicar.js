@@ -22,6 +22,6 @@ indForm.addEventListener("submit", function(e){
     if (r.error) return setStatus(st, String(r.error.message || "").indexOf("muito_rapido") > -1 ? "Você já enviou várias indicações hoje. Volte amanhã." : "Não foi possível enviar agora. Tente de novo.", "err");
     indForm.reset(); $("i-planos").hidden = true;
     setStatus(st, "Recebi! A equipe confere e publica em breve. Obrigado por indicar.", "ok");
-    loadMemberInds();
+    loadMemberInds(); if (typeof vizClose === "function") setTimeout(vizClose, 1600);
   });
 });

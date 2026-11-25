@@ -75,7 +75,7 @@ function renderDmMsgs(force){
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
   dmMsgsEl.innerHTML = "";
   if (!dm.current) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Suas mensagens"), h("p", null, "Escolha uma conversa ao lado, ou procure uma pessoa pelo nome em “Encontrar pessoas”."));
+    var e = h("div", "empty"); e.append(h("h3", null, "Suas mensagens"));
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {
