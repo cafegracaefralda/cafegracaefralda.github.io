@@ -1,11 +1,11 @@
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
 var ALIAS = { dacasa: "prateleira", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[tela] = function(aba): roda quando a tela abre
-var NAV_OF = { palestra: "casa" };  // telas que acendem outro item do menu
+var NAV_OF = { palestra: "casa", perfil: "" };  // telas que acendem outro item do menu
 
 function parseHash(){
   var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";

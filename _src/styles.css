@@ -1038,3 +1038,28 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 /* Selo = logo do Café, Graça & Fralda (no lugar do ✓) */
 .selo,.post.oficial .selo,.selo-inline{font-size:0!important;color:transparent!important;background:#1D1A17 url("icons/icon-192.png") center/cover no-repeat!important;width:22px!important;height:22px!important;border-radius:50%!important;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line);vertical-align:-5px!important}
 .note h3 .selo{width:24px!important;height:24px!important}
+
+/* Perfil pessoal */
+.perfil-head{display:flex;gap:18px;align-items:center;padding:20px;border-top:4px solid var(--terra)}
+.perfil-av{width:84px;height:84px;border-radius:50%;background:var(--terra-soft,#F3DDD2);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:38px;flex:none;background-size:cover;background-position:center;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--terra)}
+.perfil-av.has-img{color:transparent}
+.perfil-info{min-width:0;display:grid;gap:6px}
+.perfil-info h2{font-size:clamp(26px,7vw,34px);line-height:1.05;word-break:break-word}
+.perfil-info p{margin:0;overflow-wrap:anywhere}
+.perfil-stats{font-size:14px;color:var(--muted)}
+.perfil-stats b{color:var(--ink);font-size:16px}
+.perfil-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:16px}
+.pf-grid .empty{grid-column:1/-1}
+.pf-tile{display:grid;gap:8px;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;text-decoration:none;color:var(--ink);min-height:120px}
+.pf-tile:hover{border-color:var(--terra)}
+.pf-kind{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--terra)}
+.pf-tile p{margin:0;font-size:15px;line-height:1.4}
+.pf-tile small{color:var(--muted)}
+.pf-photo{display:flex;align-items:center;gap:14px}
+.name-link:hover{text-decoration:underline!important}
+@media (max-width:520px){.perfil-head{flex-direction:column;align-items:flex-start}.pf-grid{grid-template-columns:1fr 1fr}}
+
+.lw-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;text-align:left}
+.lw-list li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:14.5px;color:var(--muted)}
+.lw-list b{display:block;color:var(--ink);font-size:15px}

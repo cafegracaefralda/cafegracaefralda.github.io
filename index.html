@@ -1074,6 +1074,31 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 .selo,.post.oficial .selo,.selo-inline{font-size:0!important;color:transparent!important;background:#1D1A17 url("icons/icon-192.png") center/cover no-repeat!important;width:22px!important;height:22px!important;border-radius:50%!important;box-shadow:0 0 0 2px #fff,0 0 0 3px var(--line);vertical-align:-5px!important}
 .note h3 .selo{width:24px!important;height:24px!important}
 
+/* Perfil pessoal */
+.perfil-head{display:flex;gap:18px;align-items:center;padding:20px;border-top:4px solid var(--terra)}
+.perfil-av{width:84px;height:84px;border-radius:50%;background:var(--terra-soft,#F3DDD2);color:var(--terra);display:grid;place-items:center;font-family:var(--serif);font-size:38px;flex:none;background-size:cover;background-position:center;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--terra)}
+.perfil-av.has-img{color:transparent}
+.perfil-info{min-width:0;display:grid;gap:6px}
+.perfil-info h2{font-size:clamp(26px,7vw,34px);line-height:1.05;word-break:break-word}
+.perfil-info p{margin:0;overflow-wrap:anywhere}
+.perfil-stats{font-size:14px;color:var(--muted)}
+.perfil-stats b{color:var(--ink);font-size:16px}
+.perfil-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin-top:16px}
+.pf-grid .empty{grid-column:1/-1}
+.pf-tile{display:grid;gap:8px;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;text-decoration:none;color:var(--ink);min-height:120px}
+.pf-tile:hover{border-color:var(--terra)}
+.pf-kind{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--terra)}
+.pf-tile p{margin:0;font-size:15px;line-height:1.4}
+.pf-tile small{color:var(--muted)}
+.pf-photo{display:flex;align-items:center;gap:14px}
+.name-link:hover{text-decoration:underline!important}
+@media (max-width:520px){.perfil-head{flex-direction:column;align-items:flex-start}.pf-grid{grid-template-columns:1fr 1fr}}
+
+.lw-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;text-align:left}
+.lw-list li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px;font-size:14.5px;color:var(--muted)}
+.lw-list b{display:block;color:var(--ink);font-size:15px}
+
 </style>
 </head>
 <body>
@@ -1139,6 +1164,7 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
         </button>
         <div class="menu" id="acctMenu" hidden>
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
+          <a href="#perfil">Meu perfil</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -1316,6 +1342,34 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
       </div>
     </div>
   </section>
+
+  <!-- PERFIL -->
+  <section class="view" id="v-perfil" data-view="perfil">
+    <div class="wrap">
+      <div class="card perfil-head">
+        <div class="perfil-av" id="pfAv" aria-hidden="true"></div>
+        <div class="perfil-info">
+          <h2 id="pfNome"></h2>
+          <p class="muted" id="pfCidade" hidden></p>
+          <p id="pfBio" hidden></p>
+          <div class="perfil-stats" id="pfStats"></div>
+          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button></div>
+        </div>
+      </div>
+      <div class="pf-grid" id="pfGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <dialog class="sheet-dlg" id="pfDlg" aria-labelledby="pfDlgTitle"><div class="sheet-box">
+    <button class="story-x sheet-x" type="button" id="pfDlgClose" aria-label="Fechar">×</button>
+    <h3 id="pfDlgTitle">Editar perfil</h3>
+    <div class="pf-photo"><div class="perfil-av" id="pfEditAv" aria-hidden="true"></div><label class="btn btn-ghost btn-sm" for="pfFoto">Trocar foto</label><input type="file" id="pfFoto" accept="image/*" hidden></div>
+    <div class="field"><label for="pf-nome">Nome na comunidade</label><input id="pf-nome" maxlength="30"></div>
+    <div class="field"><label for="pf-cidade">Cidade (opcional)</label><input id="pf-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="field"><label for="pf-bio">Sobre você (opcional)</label><textarea id="pf-bio" maxlength="160" placeholder="Uma frase sobre você ou sua família."></textarea></div>
+    <button class="btn btn-terra btn-block" type="button" id="pfSave">Salvar</button>
+    <p class="status" id="pfStatus" role="status"></p>
+  </div></dialog>
 
   <!-- LAZER -->
   <section class="view" id="v-lazer" data-view="lazer">
@@ -1632,6 +1686,12 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
     <h2 id="lwTitle">Que bom ter você na comunidade Café, Graça &amp; Fralda</h2>
     <p>Aqui tem mesa posta para todas as famílias, com valores cristãos e portas abertas. Tem café, conversa, indicação de quem cuida bem da gente e muita graça no meio da correria.</p>
     <p><b>Para acessar, faça o seu login.</b></p>
+    <ul class="lw-list" aria-label="O que tem na comunidade">
+      <li><b>Mesa Grande</b> conversa, stories e pedidos de oração</li>
+      <li><b>Prateleira</b> PDFs, áudios, vídeos e links</li>
+      <li><b>Quintal</b> lugares para ir com as crianças</li>
+      <li><b>Vizinhança</b> profissionais e lugares indicados</li>
+    </ul>
     <div class="lw-actions">
       <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
       <div class="lw-or"><span>ou com o e-mail</span></div>
@@ -1646,13 +1706,12 @@ body[data-view="casa"]{--acc:var(--sage);--acc-soft:var(--sage-soft)}
 </div>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
-  <h3 id="ctTitle">Falta só um passo</h3>
-  <p>Se quiser, deixe o seu WhatsApp para a equipe falar com você quando precisar. É opcional e <b>não aparece</b> para os outros membros.</p>
-  <div class="field"><label for="ct-zap">Seu WhatsApp (opcional)</label><input id="ct-zap" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"></div>
+  <h3 id="ctTitle">Como você quer ser chamado(a)?</h3>
+  <div id="ct-nome-box"><div class="field"><label for="ct-nome">Seu nome na comunidade</label><input id="ct-nome" maxlength="30" placeholder="Ex.: Ana" autocomplete="nickname"><small class="hint">É o nome que todo mundo vai ver. Pode ser só o primeiro nome.</small></div></div>
+  <div class="field"><label for="ct-zap">WhatsApp (opcional)</label><input id="ct-zap" type="tel" inputmode="tel" placeholder="(81) 90000-0000" autocomplete="tel" maxlength="20"><small class="hint">Só a equipe vê. Não aparece para os outros membros.</small></div>
   <label class="hint check" for="ct-ok"><input id="ct-ok" type="checkbox" checked>Aceito ser contatado pela equipe do Café, Graça &amp; Fralda neste número.</label>
   <button class="btn btn-terra btn-block" type="button" id="ctSave">Salvar e continuar</button>
   <p class="status" id="ctStatus" role="status"></p>
-  <button class="link" type="button" id="ctSkip" style="justify-self:center">Agora não</button>
 </div></dialog>
 <footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
 </main>
@@ -1915,13 +1974,13 @@ var TAPE = { "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", 
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var VIEWS = ["inicio", "prateleira", "mesa", "lazer", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
 var ALIAS = { dacasa: "prateleira", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[tela] = function(aba): roda quando a tela abre
-var NAV_OF = { palestra: "casa" };  // telas que acendem outro item do menu
+var NAV_OF = { palestra: "casa", perfil: "" };  // telas que acendem outro item do menu
 
 function parseHash(){
   var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";
@@ -1992,7 +2051,7 @@ document.addEventListener("click", function(e){ if (navEl.classList.contains("op
 // Login com Google (Supabase Auth) e menu da conta.
 var auth = { user: null, admin: false, ready: false, listeners: [] };
 auth.on = function(fn){ auth.listeners.push(fn); };
-auth.name = function(){ var u = auth.user; return u ? (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || (u.email || "").split("@")[0] : ""; };
+auth.name = function(){ var u = auth.user; return auth.apelido ? auth.apelido : u ? (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || (u.email || "").split("@")[0] : ""; };
 function emitAuth(){ applyAuthUI(); auth.listeners.forEach(function(fn){ try { fn(auth); } catch(e){ console.error(e); } }); }
 
 function applyAuthUI(){
@@ -2013,7 +2072,7 @@ function applyAuthUI(){
 
 auth.signIn = function(){
   if (!sb) { toast("O login não está disponível agora. Fale comigo no WhatsApp."); return; }
-  lsSet("cgf-after", location.hash || "#inicio");
+  lsSet("cgf-after", !location.hash || location.hash === "#inicio" ? "#mesa" : location.hash);
   sb.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } }
@@ -2035,8 +2094,11 @@ auth.signOut = function(){ if (sb) sb.auth.signOut(); };
 
 function setSession(session){
   auth.user = session && session.user ? session.user : null;
+  if (!auth.user) auth.apelido = "";
   auth.admin = false;
+  var primeira = !auth.ready;
   auth.ready = true;
+  if (primeira && auth.user && !location.hash) { history.replaceState(null, "", "#mesa"); if (typeof renderRoute === "function") renderRoute(); }
   emitAuth();
   if (auth.user && sb) {
     sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); });
@@ -2068,7 +2130,8 @@ if (sb) {
 }
 
 
-// WhatsApp de quem entra: pedido no primeiro login, com aceite. Só a própria pessoa e a administração veem.
+// Primeiro login: a pessoa escolhe o nome que a comunidade vai ver (obrigatório) e, se quiser, deixa o WhatsApp.
+// Só a própria pessoa e a administração veem o WhatsApp.
 var ct = { checked: "" };
 var ctDlg = $("contatoDlg");
 $("ct-zap").addEventListener("input", maskPhone);
@@ -2077,32 +2140,124 @@ function normZap(v){
   if (d.length === 10 || d.length === 11) d = "55" + d;
   return /^55[0-9]{10,11}$/.test(d) ? d : "";
 }
+function googleFirstName(){ return firstName(auth.name()); }
 auth.on(function(){
   if (!auth.user || !sb) { ct.checked = ""; if (ctDlg.open) ctDlg.close(); return; }
   if (ct.checked === auth.user.id) return;
   ct.checked = auth.user.id;
-  sb.from("contatos").select("whatsapp").eq("user_id", auth.user.id).maybeSingle().then(function(r){
-    if (r.error) { ct.checked = ""; return; }
-    if (!r.data && !ctDlg.open) { $("ct-zap").value = ""; setStatus($("ctStatus"), ""); ctDlg.showModal(); }
+  sb.rpc("garantir_perfil").then(function(p){
+    if (p.error) { ct.checked = ""; return; }
+    var temNome = !!(p.data && p.data.apelido);
+    if (temNome) { auth.apelido = p.data.apelido; applyAuthUI(); }
+    return sb.from("contatos").select("whatsapp").eq("user_id", auth.user.id).maybeSingle().then(function(r){
+      if (r.error) { ct.checked = ""; return; }
+      ct.temContato = !!r.data;
+      if ((!temNome || !r.data) && !ctDlg.open) {
+        ct.temNome = temNome;
+        $("ct-nome").value = (p.data && p.data.apelido) || googleFirstName();
+        $("ct-zap").value = ""; setStatus($("ctStatus"), "");
+        $("ct-nome-box").hidden = temNome;
+        ctDlg.showModal();
+      }
+    });
   });
 });
 $("ctSave").addEventListener("click", function(){
-  var st = $("ctStatus"), raw = $("ct-zap").value.trim(), zap = normZap(raw);
-  if (!raw) return saveContato(null);
-  if (!zap) return setStatus(st, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999, ou toque em Agora não.", "err");
-  if (!$("ct-ok").checked) return setStatus(st, "Para salvar o número, aceite o contato da equipe.", "err");
-  saveContato(zap);
-});
-function saveContato(zap){
-  var st = $("ctStatus");
+  var st = $("ctStatus"), nome = val("ct-nome").replace(/\s+/g, " "), raw = $("ct-zap").value.trim(), zap = raw ? normZap(raw) : null;
+  if (!ct.temNome && (nome.length < 2 || nome.length > 30)) return setStatus(st, "Escolha um nome com 2 a 30 letras.", "err");
+  if (raw && !zap) return setStatus(st, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999, ou deixe em branco.", "err");
+  if (zap && !$("ct-ok").checked) return setStatus(st, "Para salvar o número, aceite o contato da equipe.", "err");
   $("ctSave").disabled = true; setStatus(st, "Salvando…");
-  sb.from("contatos").upsert({ whatsapp: zap, consentimento: true }, { onConflict: "user_id" }).then(function(r){
+  var passos = [];
+  if (!ct.temNome) passos.push(sb.from("perfis").update({ apelido: nome }).eq("user_id", auth.user.id));
+  if (!ct.temContato) passos.push(sb.from("contatos").upsert({ whatsapp: zap, consentimento: true }, { onConflict: "user_id" }));
+  Promise.all(passos).then(function(rs){
     $("ctSave").disabled = false;
-    if (r.error) return setStatus(st, "Não foi possível salvar agora. Tente de novo.", "err");
-    setStatus(st, ""); ctDlg.close(); toast("Pronto! Bem-vindo à mesa.");
+    if (rs.some(function(r){ return r.error; })) return setStatus(st, "Não foi possível salvar agora. Tente de novo.", "err");
+    setStatus(st, ""); ctDlg.close(); toast("Pronto! Bem-vinda(o) à mesa, " + (ct.temNome ? "" : nome) + ".");
+    if (!ct.temNome) { auth.apelido = nome; applyAuthUI(); }
+  });
+});
+
+
+// Perfil pessoal (estilo Instagram): nome escolhido, foto, cidade, bio e tudo o que a pessoa publicou.
+function nameLink(texto, userId){
+  var a = h("a", "name-link", texto); a.href = "#perfil/" + (userId === uid() ? "" : userId); a.style.fontWeight = "700"; a.style.color = "inherit"; a.style.fontSize = "inherit"; a.style.textDecoration = "none"; return a;
+}
+var pf = { id: "", data: null, tok: 0, file: null };
+function pfTarget(){ var s = (location.hash || "").replace(/^#\/?/, "").split("/"); return s[0] === "perfil" && s[1] ? s[1] : uid(); }
+function pfFillAvatar(el, nome, url){
+  el.innerHTML = ""; el.style.backgroundImage = "";
+  if (url) { el.style.backgroundImage = 'url("' + url + '")'; el.classList.add("has-img"); } else { el.classList.remove("has-img"); el.textContent = initial(nome); }
+}
+function pfSign(path){ return path ? sb.storage.from("mural").createSignedUrl(path, 3600).then(function(r){ return r.data ? r.data.signedUrl : ""; }) : Promise.resolve(""); }
+function pfTile(emoji, rotulo, texto, quando, destino){
+  var a = h("a", "pf-tile"); a.href = destino;
+  a.append(h("span", "pf-kind", emoji + " " + rotulo), h("p", null, texto ? texto.slice(0, 120) : "(sem texto)"), h("small", null, ago(quando)));
+  return a;
+}
+function loadPerfil(){
+  if (!sb || !auth.user) return;
+  var id = pfTarget(), tok = ++pf.tok; pf.id = id;
+  var mine = id === uid();
+  $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
+  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine;
+  Promise.all([
+    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
+    sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
+    sb.from("pubs").select("id,tipo,titulo,texto,criado_em,oficial").eq("user_id", id).eq("oficial", false).order("criado_em", { ascending: false }).limit(30),
+    sb.from("lazer").select("id,nome_local,cidade,uf,porque,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30)
+  ]).then(function(rs){
+    if (tok !== pf.tok) return;
+    var p = rs[0].data;
+    if (!p) { $("pfNome").textContent = "Perfil não encontrado"; return; }
+    pf.data = p;
+    var nome = p.apelido || p.nome || "Visitante";
+    $("pfNome").textContent = nome;
+    $("pfCidade").hidden = !p.cidade; $("pfCidade").textContent = p.cidade ? "📍 " + p.cidade : "";
+    $("pfBio").hidden = !p.bio; $("pfBio").textContent = p.bio || "";
+    pfFillAvatar($("pfAv"), nome, "");
+    pfSign(p.avatar).then(function(u){ if (tok === pf.tid || tok === pf.tok) pfFillAvatar($("pfAv"), nome, u); });
+    var itens = [];
+    (rs[1].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("☕", "Mesa Grande", x.texto, x.criado_em, "#mesa") }); });
+    (rs[2].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("📚", (TIPO_PUB[x.tipo] || "Prateleira").replace(/^\S+\s/, ""), x.titulo || x.texto, x.criado_em, "#prateleira") }); });
+    (rs[3].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("🌳", "Quintal", x.nome_local + " · " + x.cidade + "/" + x.uf, x.criado_em, "#lazer") }); });
+    itens.sort(function(a, b){ return a.t < b.t ? 1 : -1; });
+    $("pfStats").innerHTML = ""; var n = h("span", null); n.append(h("b", null, String(itens.length)), document.createTextNode(itens.length === 1 ? " publicação" : " publicações")); $("pfStats").appendChild(n);
+    if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa, na Prateleira e no Quintal aparece aqui." : "")); $("pfGrid").appendChild(e); }
+    itens.forEach(function(i){ $("pfGrid").appendChild(i.el); });
   });
 }
-$("ctSkip").addEventListener("click", function(){ saveContato(null); });
+viewHooks.perfil = function(){ if (auth.user) loadPerfil(); };
+window.addEventListener("hashchange", function(){ if (isShown("perfil")) viewHooks.perfil(); });
+auth.on(function(){ if (auth.user && isShown("perfil")) loadPerfil(); });
+
+$("pfMsg").addEventListener("click", function(){ if (pf.data) { go("mensagens"); openDm(pf.id, pf.data.apelido || pf.data.nome); } });
+$("pfEdit").addEventListener("click", function(){
+  var p = pf.data || {}; pf.file = null;
+  $("pf-nome").value = p.apelido || p.nome || ""; $("pf-cidade").value = p.cidade || ""; $("pf-bio").value = p.bio || "";
+  pfFillAvatar($("pfEditAv"), p.apelido || p.nome, ""); pfSign(p.avatar).then(function(u){ if (!pf.file) pfFillAvatar($("pfEditAv"), p.apelido || p.nome, u); });
+  setStatus($("pfStatus"), ""); $("pfDlg").showModal();
+});
+$("pfDlgClose").addEventListener("click", function(){ $("pfDlg").close(); });
+$("pfFoto").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = ""; if (!f) return;
+  shrinkPhoto(f).then(function(blob){ pf.file = blob; pfFillAvatar($("pfEditAv"), "", URL.createObjectURL(blob)); }, function(){ toast("Não consegui usar essa foto."); });
+});
+$("pfSave").addEventListener("click", function(){
+  var st = $("pfStatus"), nome = val("pf-nome").replace(/\s+/g, " ");
+  if (nome.length < 2 || nome.length > 30) return setStatus(st, "Escolha um nome com 2 a 30 letras.", "err");
+  $("pfSave").disabled = true; setStatus(st, "Salvando…");
+  var path = pf.file ? uid() + "/avatar-" + newUuid() + ".jpg" : null;
+  var up = path ? sb.storage.from("mural").upload(path, pf.file, { contentType: "image/jpeg", upsert: false }) : Promise.resolve({});
+  up.then(function(u){
+    if (u && u.error) throw new Error("foto");
+    var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null }; if (path) row.avatar = path;
+    return sb.from("perfis").update(row).eq("user_id", uid()).then(function(r){ if (r.error) throw new Error("salvar"); });
+  }).then(function(){
+    $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); toast("Perfil salvo."); loadPerfil();
+  }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
+});
 
 
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
@@ -2485,7 +2640,7 @@ function actBtn(label, ic, fn, cls){
 function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
-  who.append(h("b", null, mine ? "Você" : p.nome), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
+  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
   top.append(h("span", "avatar", initial(p.nome)), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
@@ -3189,7 +3344,7 @@ function renderPub(p, prefix){
   var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
-  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(h("b", null, mine ? "Você" : p.autor), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
   // menu ⋯
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;

@@ -1,7 +1,7 @@
 // Login com Google (Supabase Auth) e menu da conta.
 var auth = { user: null, admin: false, ready: false, listeners: [] };
 auth.on = function(fn){ auth.listeners.push(fn); };
-auth.name = function(){ var u = auth.user; return u ? (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || (u.email || "").split("@")[0] : ""; };
+auth.name = function(){ var u = auth.user; return auth.apelido ? auth.apelido : u ? (u.user_metadata && (u.user_metadata.full_name || u.user_metadata.name)) || (u.email || "").split("@")[0] : ""; };
 function emitAuth(){ applyAuthUI(); auth.listeners.forEach(function(fn){ try { fn(auth); } catch(e){ console.error(e); } }); }
 
 function applyAuthUI(){
@@ -22,7 +22,7 @@ function applyAuthUI(){
 
 auth.signIn = function(){
   if (!sb) { toast("O login não está disponível agora. Fale comigo no WhatsApp."); return; }
-  lsSet("cgf-after", location.hash || "#inicio");
+  lsSet("cgf-after", !location.hash || location.hash === "#inicio" ? "#mesa" : location.hash);
   sb.auth.signInWithOAuth({
     provider: "google",
     options: { redirectTo: location.origin + location.pathname, queryParams: { prompt: "select_account" } }
@@ -44,8 +44,11 @@ auth.signOut = function(){ if (sb) sb.auth.signOut(); };
 
 function setSession(session){
   auth.user = session && session.user ? session.user : null;
+  if (!auth.user) auth.apelido = "";
   auth.admin = false;
+  var primeira = !auth.ready;
   auth.ready = true;
+  if (primeira && auth.user && !location.hash) { history.replaceState(null, "", "#mesa"); if (typeof renderRoute === "function") renderRoute(); }
   emitAuth();
   if (auth.user && sb) {
     sb.rpc("eh_admin").then(function(r){ auth.admin = !!(r && r.data === true); emitAuth(); });

@@ -189,7 +189,7 @@ function renderPub(p, prefix){
   var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
-  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(h("b", null, mine ? "Você" : p.autor), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
   // menu ⋯
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;

@@ -147,7 +147,7 @@ function actBtn(label, ic, fn, cls){
 function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
-  who.append(h("b", null, mine ? "Você" : p.nome), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
+  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
   top.append(h("span", "avatar", initial(p.nome)), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
