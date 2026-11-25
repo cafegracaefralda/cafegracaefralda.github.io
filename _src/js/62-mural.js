@@ -120,7 +120,7 @@ function renderMembers(){
   var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
   achou.forEach(function(p){
     var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
-    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
+    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
   if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
@@ -145,7 +145,7 @@ function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
   who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.aprovado === false ? " · em análise" : "")));
-  top.append(h("span", "avatar", initial(p.nome)), who);
+  top.append(avSpan(p.user_id, p.nome), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -178,17 +178,17 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
+    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
-    var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
+    var send = h("button", "cm-send", "↑"); send.type = "submit"; send.setAttribute("aria-label", "Enviar comentário"); f.append(avSpan(uid(), auth.name(), "avatar me-av"), inp, send);
     f.addEventListener("submit", function(e){
       e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
       sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em").then(function(r){
@@ -223,7 +223,7 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = phCompartilhe(firstName(auth.name())); }
+function mesaSync(){ $("postAv").textContent = initial(auth.name()); avTag($("postAv"), uid()); if (auth.user) $("postText").placeholder = phCompartilhe(firstName(auth.name())); }
 viewHooks.mesa = function(sub){
   if (!auth.user) return;
   mesaSync();

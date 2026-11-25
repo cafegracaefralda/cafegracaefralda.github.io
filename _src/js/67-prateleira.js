@@ -49,7 +49,7 @@ function renderDestaque(){
 function pubSync(){
   var inn = !!auth.user;
   $("pubForm").hidden = !inn; $("pubGate").hidden = inn;
-  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
+  $("pubAv").textContent = initial(auth.name()); avTag($("pubAv"), uid()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
   if (inn) $("pubText").placeholder = phCompartilhe(firstName(auth.name()));
 }
 function pubClearAttach(){ pub.file = null; $("pubAttach").hidden = true; $("pubAttachName").textContent = ""; }
@@ -189,7 +189,7 @@ function renderPub(p, prefix){
   var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
-  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(avSpan(p.user_id, p.autor), who); }
   // menu ⋯
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -220,13 +220,13 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     if (!auth.user) { var lg = h("p", "hint", "Entre com o Google para comentar."); box.appendChild(lg); return box; }

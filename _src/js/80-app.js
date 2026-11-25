@@ -11,6 +11,7 @@
   window.addEventListener("appinstalled", function(){ deferred = null; mostrar(false); toast("App instalado!"); });
   if (isIOS) mostrar(true);
   function instalar(){
+    if (!deferred && isIOS) { $("iosSafari").hidden = !/crios|fxios|edgios/i.test(navigator.userAgent); }
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function(r){ deferred = null; if (r && r.outcome !== "accepted") mostrar(false); }); } else ios.showModal();
   }
   btn.addEventListener("click", instalar); lw.addEventListener("click", instalar);

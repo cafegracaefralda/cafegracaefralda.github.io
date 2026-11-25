@@ -87,7 +87,7 @@
 
 <div class="install-bar" id="app" hidden>
   <img class="app-icon" src="icons/icon-192.png" alt="" width="40" height="40">
-  <div class="ib-tx"><b>Instale o app</b><span>Abre em tela cheia, como no celular.</span></div>
+  <div class="ib-tx"><b>Instale o app</b><span>Abre em tela cheia, como um app.</span></div>
   <button class="btn btn-terra btn-sm" type="button" id="installBtn">Instalar</button>
   <button class="ib-x" type="button" id="installX" aria-label="Agora não">×</button>
 </div>
@@ -622,16 +622,16 @@
 </dialog>
 
 <dialog id="iosHelp" aria-labelledby="iosTitle">
-  <div class="reader-top"><button class="icon-btn" type="button" id="iosClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
-  <div class="reader">
-    <span class="label">No iPhone</span>
-    <h3 id="iosTitle">Instale em 3 toques</h3>
+  <div class="ios-card">
+    <button class="story-x sheet-x" type="button" id="iosClose" aria-label="Fechar">×</button>
+    <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
+    <h3 id="iosTitle">Instale no seu iPhone</h3>
+    <p class="ios-safari" id="iosSafari" hidden>Abra este site no <b>Safari</b> para instalar.</p>
     <ol class="ios-steps">
-      <li>Abra este site no <b>Safari</b>.</li>
-      <li>Toque no botão <b>Compartilhar</b> (o quadrado com a seta para cima).</li>
-      <li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li>
+      <li><span class="ios-n">1</span><span>Toque em <b>Compartilhar</b> <svg class="ios-share" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> na barra do Safari</span></li>
+      <li><span class="ios-n">2</span><span>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b></span></li>
     </ol>
-    <p>Pronto: o ícone aparece junto com os seus apps.</p>
+    <div class="ios-arrow" aria-hidden="true">↓</div>
   </div>
 </dialog>
 

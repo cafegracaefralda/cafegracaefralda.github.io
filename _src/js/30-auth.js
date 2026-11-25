@@ -8,7 +8,7 @@ function applyAuthUI(){
   var inn = !!auth.user;
   $$('[data-auth="in"]').forEach(function(e){ e.hidden = !inn; });
   $$('[data-auth="out"]').forEach(function(e){ e.hidden = inn; });
-  $("acctAvatar").textContent = initial(auth.name());
+  $("acctAvatar").textContent = initial(auth.name()); if (typeof avTag === "function") avTag($("acctAvatar"), auth.user ? auth.user.id : "");
   $("acctName").textContent = firstName(auth.name());
   $("menuName").textContent = auth.name();
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";

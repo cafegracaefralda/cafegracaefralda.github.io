@@ -27,19 +27,19 @@ function loadStories(){
     signStories(vivos).then(function(){ stories.groups = groupStories(vivos); renderStories(); });
   });
 }
-function tile(label, letter, cls, onClick, badge){
+function tile(label, letter, cls, onClick, badge, userId){
   var b = h("button", "person" + (cls ? " " + cls : "")); b.type = "button";
-  var ring = h("span", "ring"); ring.appendChild(h("span", null, letter));
+  var ring = h("span", "ring"), ini = h("span", null, letter); if (userId) avTag(ini, userId); ring.appendChild(ini);
   if (badge) ring.appendChild(h("i", "plus", "+"));
   b.append(ring, h("small", null, label)); b.addEventListener("click", onClick); return b;
 }
 function renderStories(){
   var row = $("storiesRow"); if (!row) return; row.innerHTML = "";
   var mine = stories.groups.filter(function(g){ return g.user_id === uid(); })[0];
-  row.appendChild(tile("Seu story", initial(auth.name()), mine ? "" : "me", function(){ if (mine) openStory(mine); else storyInput.click(); }, true));
+  row.appendChild(tile("Seu story", initial(auth.name()), mine ? "" : "me", function(){ if (mine) openStory(mine); else storyInput.click(); }, true, uid()));
   stories.groups.forEach(function(g){
     if (g.user_id === uid()) return;
-    row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }));
+    row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }, false, g.user_id));
   });
 
 }
@@ -71,7 +71,7 @@ function showStory(){
   clearTimeout(stories.timer);
   var bars = $("storyBars"); bars.innerHTML = "";
   g.items.forEach(function(x, i){ var bar = h("span", "bar" + (i < stories.idx ? " done" : i === stories.idx ? " run" : "")); bar.appendChild(h("i")); bars.appendChild(bar); });
-  $("storyAv").textContent = initial(g.nome); $("storyNm").textContent = g.user_id === uid() ? "Você" : g.nome; $("storyTm").textContent = ago(s.criado_em);
+  $("storyAv").textContent = initial(g.nome); avTag($("storyAv"), g.user_id); $("storyNm").textContent = g.user_id === uid() ? "Você" : g.nome; $("storyTm").textContent = ago(s.criado_em);
   $("storyImg").src = stories.urls[s.foto] || ""; $("storyCapView").textContent = s.legenda || ""; $("storyCapView").hidden = !s.legenda;
   var acts = $("storyActs"); acts.innerHTML = "";
   if (g.user_id === uid()) {

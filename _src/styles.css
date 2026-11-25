@@ -1263,3 +1263,40 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .install-bar .ib-x{background:none;border:0;color:#F6EBDD;font-size:26px;width:44px;height:44px;cursor:pointer;opacity:.7}
 @media (max-width:420px){.install-bar .ib-tx span{display:none}}
 .login-wall #lwInstall{margin-top:-4px}
+
+/* Foto de perfil nos avatares */
+.avatar{background-size:cover;background-position:center}
+.avatar.has-img{color:transparent!important}
+.ring>span.has-img{color:transparent}
+.ring>span:first-child{background-size:cover;background-position:center}
+
+/* Comentários: balões compactos, sem cara de outra postagem */
+.post-cmts{display:grid;gap:10px;padding:10px 14px 12px!important;background:rgba(29,26,23,.025);border-top:1px solid var(--line)}
+.post-cmt{display:flex;gap:8px;align-items:flex-start;background:none!important;padding:0!important;border-radius:0}
+.post-cmt .avatar{width:30px;height:30px;font-size:14px;box-shadow:none!important;flex:none}
+.post-cmt>div{background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:7px 12px 6px;min-width:0}
+.post-cmt p{margin:0;font-size:14.5px;line-height:1.38;display:block}
+.post-cmt b{display:block;font-size:13px;margin:0 0 1px}
+.post-cmt .c-time{display:inline-block;color:var(--muted);font-size:11.5px;margin-top:3px}
+.post-cmt .link{font-size:11.5px;margin-left:10px;font-weight:500;color:var(--muted)}
+.post-cmts>.link,.post-cmts>button.link{justify-self:start;font-size:13px;color:var(--muted);font-weight:500}
+.post-cmt-form{display:flex;gap:8px;align-items:center;padding-top:2px}
+.post-cmt-form .me-av{width:30px;height:30px;font-size:14px;box-shadow:none!important;flex:none}
+.post-cmt-form input{flex:1;min-width:0;border-radius:999px;background:#fff;border:1px solid var(--line);padding:9px 14px;font-size:16px}
+.cm-send{width:36px;height:36px;border-radius:50%;border:0;background:var(--acc,var(--terra));color:#fff;font-size:18px;font-weight:700;line-height:1;cursor:pointer;flex:none}
+.cm-send:disabled{opacity:.5}
+.post-cmt .c-time{display:block!important}
+
+/* iPhone: passo a passo curto (o iOS não permite instalar com um toque) */
+#iosHelp{border:0;padding:0;background:transparent;width:min(100%,420px);margin:auto auto 0;max-height:100dvh}
+#iosHelp::backdrop{background:rgba(29,26,23,.6)}
+.ios-card{position:relative;background:#FFFAF3;border-radius:26px 26px 0 0;padding:24px 22px calc(70px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;justify-items:center;text-align:center}
+.ios-card .app-icon{border-radius:16px}
+.ios-card h3{font-size:28px}
+.ios-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;text-align:left;width:100%}
+.ios-steps li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:15.5px}
+.ios-n{width:28px;height:28px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.ios-share{width:20px;height:20px;vertical-align:-4px;color:#0A84FF}
+.ios-safari{margin:0;color:#A63D2F;font-weight:600}
+.ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
+@keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}

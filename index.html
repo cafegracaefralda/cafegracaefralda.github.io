@@ -1299,6 +1299,43 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 @media (max-width:420px){.install-bar .ib-tx span{display:none}}
 .login-wall #lwInstall{margin-top:-4px}
 
+/* Foto de perfil nos avatares */
+.avatar{background-size:cover;background-position:center}
+.avatar.has-img{color:transparent!important}
+.ring>span.has-img{color:transparent}
+.ring>span:first-child{background-size:cover;background-position:center}
+
+/* Comentários: balões compactos, sem cara de outra postagem */
+.post-cmts{display:grid;gap:10px;padding:10px 14px 12px!important;background:rgba(29,26,23,.025);border-top:1px solid var(--line)}
+.post-cmt{display:flex;gap:8px;align-items:flex-start;background:none!important;padding:0!important;border-radius:0}
+.post-cmt .avatar{width:30px;height:30px;font-size:14px;box-shadow:none!important;flex:none}
+.post-cmt>div{background:#fff;border:1px solid var(--line);border-radius:4px 16px 16px 16px;padding:7px 12px 6px;min-width:0}
+.post-cmt p{margin:0;font-size:14.5px;line-height:1.38;display:block}
+.post-cmt b{display:block;font-size:13px;margin:0 0 1px}
+.post-cmt .c-time{display:inline-block;color:var(--muted);font-size:11.5px;margin-top:3px}
+.post-cmt .link{font-size:11.5px;margin-left:10px;font-weight:500;color:var(--muted)}
+.post-cmts>.link,.post-cmts>button.link{justify-self:start;font-size:13px;color:var(--muted);font-weight:500}
+.post-cmt-form{display:flex;gap:8px;align-items:center;padding-top:2px}
+.post-cmt-form .me-av{width:30px;height:30px;font-size:14px;box-shadow:none!important;flex:none}
+.post-cmt-form input{flex:1;min-width:0;border-radius:999px;background:#fff;border:1px solid var(--line);padding:9px 14px;font-size:16px}
+.cm-send{width:36px;height:36px;border-radius:50%;border:0;background:var(--acc,var(--terra));color:#fff;font-size:18px;font-weight:700;line-height:1;cursor:pointer;flex:none}
+.cm-send:disabled{opacity:.5}
+.post-cmt .c-time{display:block!important}
+
+/* iPhone: passo a passo curto (o iOS não permite instalar com um toque) */
+#iosHelp{border:0;padding:0;background:transparent;width:min(100%,420px);margin:auto auto 0;max-height:100dvh}
+#iosHelp::backdrop{background:rgba(29,26,23,.6)}
+.ios-card{position:relative;background:#FFFAF3;border-radius:26px 26px 0 0;padding:24px 22px calc(70px + env(safe-area-inset-bottom,0px));display:grid;gap:14px;justify-items:center;text-align:center}
+.ios-card .app-icon{border-radius:16px}
+.ios-card h3{font-size:28px}
+.ios-steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;text-align:left;width:100%}
+.ios-steps li{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;font-size:15.5px}
+.ios-n{width:28px;height:28px;border-radius:50%;background:var(--terra);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.ios-share{width:20px;height:20px;vertical-align:-4px;color:#0A84FF}
+.ios-safari{margin:0;color:#A63D2F;font-weight:600}
+.ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
+@keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+
 </style>
 </head>
 <body>
@@ -1395,7 +1432,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 
 <div class="install-bar" id="app" hidden>
   <img class="app-icon" src="icons/icon-192.png" alt="" width="40" height="40">
-  <div class="ib-tx"><b>Instale o app</b><span>Abre em tela cheia, como no celular.</span></div>
+  <div class="ib-tx"><b>Instale o app</b><span>Abre em tela cheia, como um app.</span></div>
   <button class="btn btn-terra btn-sm" type="button" id="installBtn">Instalar</button>
   <button class="ib-x" type="button" id="installX" aria-label="Agora não">×</button>
 </div>
@@ -1930,16 +1967,16 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 </dialog>
 
 <dialog id="iosHelp" aria-labelledby="iosTitle">
-  <div class="reader-top"><button class="icon-btn" type="button" id="iosClose" aria-label="Fechar"><svg><use href="#i-x"/></svg></button></div>
-  <div class="reader">
-    <span class="label">No iPhone</span>
-    <h3 id="iosTitle">Instale em 3 toques</h3>
+  <div class="ios-card">
+    <button class="story-x sheet-x" type="button" id="iosClose" aria-label="Fechar">×</button>
+    <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
+    <h3 id="iosTitle">Instale no seu iPhone</h3>
+    <p class="ios-safari" id="iosSafari" hidden>Abra este site no <b>Safari</b> para instalar.</p>
     <ol class="ios-steps">
-      <li>Abra este site no <b>Safari</b>.</li>
-      <li>Toque no botão <b>Compartilhar</b> (o quadrado com a seta para cima).</li>
-      <li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li>
+      <li><span class="ios-n">1</span><span>Toque em <b>Compartilhar</b> <svg class="ios-share" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> na barra do Safari</span></li>
+      <li><span class="ios-n">2</span><span>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b></span></li>
     </ol>
-    <p>Pronto: o ícone aparece junto com os seus apps.</p>
+    <div class="ios-arrow" aria-hidden="true">↓</div>
   </div>
 </dialog>
 
@@ -2292,7 +2329,7 @@ function applyAuthUI(){
   var inn = !!auth.user;
   $$('[data-auth="in"]').forEach(function(e){ e.hidden = !inn; });
   $$('[data-auth="out"]').forEach(function(e){ e.hidden = inn; });
-  $("acctAvatar").textContent = initial(auth.name());
+  $("acctAvatar").textContent = initial(auth.name()); if (typeof avTag === "function") avTag($("acctAvatar"), auth.user ? auth.user.id : "");
   $("acctName").textContent = firstName(auth.name());
   $("menuName").textContent = auth.name();
   $("menuEmail").textContent = auth.user ? auth.user.email || "" : "";
@@ -2489,7 +2526,7 @@ $("pfSave").addEventListener("click", function(){
     var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null }; if (path) row.avatar = path;
     return sb.from("perfis").update(row).eq("user_id", uid()).then(function(r){ if (r.error) throw new Error("salvar"); });
   }).then(function(){
-    $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); toast("Perfil salvo."); loadPerfil();
+    $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); avForget(uid()); toast("Perfil salvo."); loadPerfil();
   }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
 });
 
@@ -2551,7 +2588,7 @@ function mnShow(el, q){
   mn.target = el; mn.sel = 0; mnPop.innerHTML = "";
   mn.items.forEach(function(n, i){
     var b = h("button", "mention-item" + (i === 0 ? " on" : "")); b.type = "button"; b.setAttribute("role", "option");
-    b.append(h("span", "avatar", initial(n.nome)), h("span", null, n.nome));
+    b.append(avSpan(n.id, n.nome), h("span", null, n.nome));
     b.addEventListener("mousedown", function(e){ e.preventDefault(); mnPick(n); });
     b.addEventListener("touchstart", function(e){ e.preventDefault(); mnPick(n); }, { passive: false });
     mnPop.appendChild(b);
@@ -2576,6 +2613,42 @@ document.addEventListener("keydown", function(e){
 });
 document.addEventListener("focusout", function(e){ if (mnField(e.target)) setTimeout(mnClose, 150); });
 window.addEventListener("scroll", mnClose, { passive: true });
+
+
+// Foto de perfil em todo lugar: qualquer .avatar com data-av="<id da pessoa>" ganha a foto dela (se tiver). Sem foto, fica a inicial.
+var av = { map: {}, busy: false, timer: null };
+function avTag(el, userId){ if (!el) return el; if (userId) el.setAttribute("data-av", userId); else el.removeAttribute("data-av"); avSoon(); return el; }
+function avSpan(userId, nome, cls){ var s = h("span", cls || "avatar", initial(nome)); return avTag(s, userId); }
+function avPaint(root){
+  $$("[data-av]", root || document).forEach(function(el){
+    var u = av.map[el.getAttribute("data-av")];
+    if (u) { el.style.backgroundImage = 'url("' + u + '")'; el.classList.add("has-img"); }
+    else { el.style.backgroundImage = ""; el.classList.remove("has-img"); }
+  });
+}
+function avLoad(){
+  if (!sb || !auth.user || av.busy) return;
+  var ids = [];
+  $$("[data-av]").forEach(function(el){ var id = el.getAttribute("data-av"); if (av.map[id] === undefined && ids.indexOf(id) < 0) ids.push(id); });
+  if (!ids.length) { avPaint(); return; }
+  ids = ids.slice(0, 80); av.busy = true;
+  sb.from("perfis").select("user_id,avatar").in("user_id", ids).then(function(r){
+    var rows = r.data || [], paths = [];
+    ids.forEach(function(id){ av.map[id] = ""; });
+    rows.forEach(function(x){ if (x.avatar) paths.push(x.avatar); });
+    if (!paths.length) return;
+    return sb.storage.from("mural").createSignedUrls(paths, 3600).then(function(s){
+      var byPath = {}; (s.data || []).forEach(function(o){ if (o.path && o.signedUrl) byPath[o.path] = o.signedUrl; });
+      rows.forEach(function(x){ if (x.avatar && byPath[x.avatar]) av.map[x.user_id] = byPath[x.avatar]; });
+    });
+  }).catch(function(){}).then(function(){ av.busy = false; avPaint(); if ($$("[data-av]").some(function(el){ return av.map[el.getAttribute("data-av")] === undefined; })) avSoon(); });
+}
+function avSoon(){ clearTimeout(av.timer); av.timer = setTimeout(avLoad, 120); }
+function avForget(userId){ delete av.map[userId]; avSoon(); }
+new MutationObserver(function(muts){
+  for (var i = 0; i < muts.length; i++) { var m = muts[i]; if (m.type === "attributes" || m.addedNodes.length) { avSoon(); return; } }
+}).observe(document.body, { childList: true, subtree: true });
+auth.on(function(){ if (!auth.user) { av.map = {}; } avSoon(); });
 
 
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
@@ -3066,7 +3139,7 @@ function renderMembers(){
   var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
   achou.forEach(function(p){
     var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
-    s.append(h("span", "avatar", initial(p.nome)), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
+    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
   if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
@@ -3091,7 +3164,7 @@ function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
   who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.aprovado === false ? " · em análise" : "")));
-  top.append(h("span", "avatar", initial(p.nome)), who);
+  top.append(avSpan(p.user_id, p.nome), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -3124,17 +3197,17 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
+    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
-    var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
+    var send = h("button", "cm-send", "↑"); send.type = "submit"; send.setAttribute("aria-label", "Enviar comentário"); f.append(avSpan(uid(), auth.name(), "avatar me-av"), inp, send);
     f.addEventListener("submit", function(e){
       e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
       sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em").then(function(r){
@@ -3169,7 +3242,7 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = phCompartilhe(firstName(auth.name())); }
+function mesaSync(){ $("postAv").textContent = initial(auth.name()); avTag($("postAv"), uid()); if (auth.user) $("postText").placeholder = phCompartilhe(firstName(auth.name())); }
 viewHooks.mesa = function(sub){
   if (!auth.user) return;
   mesaSync();
@@ -3225,7 +3298,7 @@ function renderDmList(){
     var n = dm.unread[c.id] || 0;
     if (n) b.appendChild(h("span", "nb", String(n)));
     var tx = h("span", "rtx"); tx.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
-    b.append(h("span", "avatar", initial(dmName(o))), tx);
+    b.append(avSpan(o, dmName(o)), tx);
     b.addEventListener("click", function(){ openConv(c.id); });
     box.appendChild(b);
   });
@@ -3235,7 +3308,7 @@ function renderPeople(list){
   if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
   list.forEach(function(x){
     var b = h("button", "room"); b.type = "button"; var tx = h("span", "rtx"); tx.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
-    b.append(h("span", "avatar", initial(x.nome)), tx);
+    b.append(avSpan(x.user_id, x.nome), tx);
     b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
     box.appendChild(b);
   });
@@ -3295,7 +3368,7 @@ function renderDmMsgs(force){
   }
   dm.msgs.forEach(function(m){
     var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
-    row.appendChild(h("span", "avatar", initial(mine ? auth.name() : dmName(m.de))));
+    row.appendChild(avSpan(mine ? me() : m.de, mine ? auth.name() : dmName(m.de)));
     top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
     bub.appendChild(top);
     if (m.arquivo) bub.appendChild(fileView(m));
@@ -3337,7 +3410,7 @@ function loadDmMsgs(force){
 }
 function setHeader(c){
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
-  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c;
+  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; avTag($("dmAv"), c ? otherOf(c) : ""); $("dmAv").hidden = !c;
 }
 function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";
@@ -3661,7 +3734,7 @@ function renderDestaque(){
 function pubSync(){
   var inn = !!auth.user;
   $("pubForm").hidden = !inn; $("pubGate").hidden = inn;
-  $("pubAv").textContent = initial(auth.name()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
+  $("pubAv").textContent = initial(auth.name()); avTag($("pubAv"), uid()); $("pubAdmin").hidden = !auth.admin; $("pubVideoBox").hidden = !auth.admin;
   if (inn) $("pubText").placeholder = phCompartilhe(firstName(auth.name()));
 }
 function pubClearAttach(){ pub.file = null; $("pubAttach").hidden = true; $("pubAttachName").textContent = ""; }
@@ -3801,7 +3874,7 @@ function renderPub(p, prefix){
   var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
-  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(h("span", "avatar", initial(p.autor)), who); }
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(avSpan(p.user_id, p.autor), who); }
   // menu ⋯
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -3832,13 +3905,13 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto));
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(h("span", "avatar", initial(c.nome)), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     if (!auth.user) { var lg = h("p", "hint", "Entre com o Google para comentar."); box.appendChild(lg); return box; }
@@ -4035,19 +4108,19 @@ function loadStories(){
     signStories(vivos).then(function(){ stories.groups = groupStories(vivos); renderStories(); });
   });
 }
-function tile(label, letter, cls, onClick, badge){
+function tile(label, letter, cls, onClick, badge, userId){
   var b = h("button", "person" + (cls ? " " + cls : "")); b.type = "button";
-  var ring = h("span", "ring"); ring.appendChild(h("span", null, letter));
+  var ring = h("span", "ring"), ini = h("span", null, letter); if (userId) avTag(ini, userId); ring.appendChild(ini);
   if (badge) ring.appendChild(h("i", "plus", "+"));
   b.append(ring, h("small", null, label)); b.addEventListener("click", onClick); return b;
 }
 function renderStories(){
   var row = $("storiesRow"); if (!row) return; row.innerHTML = "";
   var mine = stories.groups.filter(function(g){ return g.user_id === uid(); })[0];
-  row.appendChild(tile("Seu story", initial(auth.name()), mine ? "" : "me", function(){ if (mine) openStory(mine); else storyInput.click(); }, true));
+  row.appendChild(tile("Seu story", initial(auth.name()), mine ? "" : "me", function(){ if (mine) openStory(mine); else storyInput.click(); }, true, uid()));
   stories.groups.forEach(function(g){
     if (g.user_id === uid()) return;
-    row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }));
+    row.appendChild(tile(g.nome || "Alguém", initial(g.nome), "", function(){ openStory(g); }, false, g.user_id));
   });
 
 }
@@ -4079,7 +4152,7 @@ function showStory(){
   clearTimeout(stories.timer);
   var bars = $("storyBars"); bars.innerHTML = "";
   g.items.forEach(function(x, i){ var bar = h("span", "bar" + (i < stories.idx ? " done" : i === stories.idx ? " run" : "")); bar.appendChild(h("i")); bars.appendChild(bar); });
-  $("storyAv").textContent = initial(g.nome); $("storyNm").textContent = g.user_id === uid() ? "Você" : g.nome; $("storyTm").textContent = ago(s.criado_em);
+  $("storyAv").textContent = initial(g.nome); avTag($("storyAv"), g.user_id); $("storyNm").textContent = g.user_id === uid() ? "Você" : g.nome; $("storyTm").textContent = ago(s.criado_em);
   $("storyImg").src = stories.urls[s.foto] || ""; $("storyCapView").textContent = s.legenda || ""; $("storyCapView").hidden = !s.legenda;
   var acts = $("storyActs"); acts.innerHTML = "";
   if (g.user_id === uid()) {
@@ -4261,6 +4334,7 @@ auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
   window.addEventListener("appinstalled", function(){ deferred = null; mostrar(false); toast("App instalado!"); });
   if (isIOS) mostrar(true);
   function instalar(){
+    if (!deferred && isIOS) { $("iosSafari").hidden = !/crios|fxios|edgios/i.test(navigator.userAgent); }
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function(r){ deferred = null; if (r && r.outcome !== "accepted") mostrar(false); }); } else ios.showModal();
   }
   btn.addEventListener("click", instalar); lw.addEventListener("click", instalar);

@@ -15,7 +15,7 @@ function renderDmList(){
     var n = dm.unread[c.id] || 0;
     if (n) b.appendChild(h("span", "nb", String(n)));
     var tx = h("span", "rtx"); tx.append(document.createTextNode(dmName(o)), h("small", null, ago(c.ultima_em)));
-    b.append(h("span", "avatar", initial(dmName(o))), tx);
+    b.append(avSpan(o, dmName(o)), tx);
     b.addEventListener("click", function(){ openConv(c.id); });
     box.appendChild(b);
   });
@@ -25,7 +25,7 @@ function renderPeople(list){
   if (!list.length) { box.appendChild(h("p", "hint", $("dmSearch").value.trim() ? "Ninguém com esse nome." : "Ainda não há outras pessoas aqui.")); return; }
   list.forEach(function(x){
     var b = h("button", "room"); b.type = "button"; var tx = h("span", "rtx"); tx.append(document.createTextNode(x.nome || "Alguém"), h("small", null, "Conversar no privado"));
-    b.append(h("span", "avatar", initial(x.nome)), tx);
+    b.append(avSpan(x.user_id, x.nome), tx);
     b.addEventListener("click", function(){ openDm(x.user_id, x.nome || "Alguém"); });
     box.appendChild(b);
   });
@@ -85,7 +85,7 @@ function renderDmMsgs(force){
   }
   dm.msgs.forEach(function(m){
     var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
-    row.appendChild(h("span", "avatar", initial(mine ? auth.name() : dmName(m.de))));
+    row.appendChild(avSpan(mine ? me() : m.de, mine ? auth.name() : dmName(m.de)));
     top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
     bub.appendChild(top);
     if (m.arquivo) bub.appendChild(fileView(m));
@@ -127,7 +127,7 @@ function loadDmMsgs(force){
 }
 function setHeader(c){
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
-  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; $("dmAv").hidden = !c;
+  $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; avTag($("dmAv"), c ? otherOf(c) : ""); $("dmAv").hidden = !c;
 }
 function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";

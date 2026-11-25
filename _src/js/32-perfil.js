@@ -73,7 +73,7 @@ $("pfSave").addEventListener("click", function(){
     var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null }; if (path) row.avatar = path;
     return sb.from("perfis").update(row).eq("user_id", uid()).then(function(r){ if (r.error) throw new Error("salvar"); });
   }).then(function(){
-    $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); toast("Perfil salvo."); loadPerfil();
+    $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); avForget(uid()); toast("Perfil salvo."); loadPerfil();
   }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
 });
 

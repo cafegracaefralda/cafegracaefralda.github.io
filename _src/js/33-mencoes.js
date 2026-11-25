@@ -49,7 +49,7 @@ function mnShow(el, q){
   mn.target = el; mn.sel = 0; mnPop.innerHTML = "";
   mn.items.forEach(function(n, i){
     var b = h("button", "mention-item" + (i === 0 ? " on" : "")); b.type = "button"; b.setAttribute("role", "option");
-    b.append(h("span", "avatar", initial(n.nome)), h("span", null, n.nome));
+    b.append(avSpan(n.id, n.nome), h("span", null, n.nome));
     b.addEventListener("mousedown", function(e){ e.preventDefault(); mnPick(n); });
     b.addEventListener("touchstart", function(e){ e.preventDefault(); mnPick(n); }, { passive: false });
     mnPop.appendChild(b);
