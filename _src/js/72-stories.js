@@ -1,4 +1,4 @@
-// Stories: fotos que somem em 24 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.
+// Stories: fotos que somem em 48 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.
 var stories = { groups: [], urls: {}, cur: null, idx: 0, timer: null, file: null };
 var storyInput = document.createElement("input"); storyInput.type = "file"; storyInput.accept = "image/*"; storyInput.hidden = true; document.body.appendChild(storyInput);
 var STORY_MS = 5000;
@@ -56,7 +56,7 @@ $("storyPost").addEventListener("click", function(){
     return sb.from("stories").insert({ foto: path, legenda: $("storyCap").value.trim() || null }).select("id");
   }).then(function(r){
     if (r.error) { sb.storage.from("mural").remove([path]); throw new Error(String(r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "story"); }
-    $("storyNew").close(); stories.file = null; toast("Story publicado. Some em 24 horas."); loadStories();
+    $("storyNew").close(); stories.file = null; toast("Story publicado. Some em 48 horas."); loadStories();
   }).catch(function(err){ toast(err.message === "rapido" ? "Calma! Muitos stories hoje." : "Não foi possível publicar o story."); }).then(function(){ btn.disabled = false; });
 });
 

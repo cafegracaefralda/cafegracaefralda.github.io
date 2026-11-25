@@ -98,3 +98,6 @@ $("ofForm").addEventListener("submit", function(e){
 var _hookInicio = viewHooks.inicio;
 viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
 auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
+
+// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido -> aviso para a administração -> opção de falar pelo WhatsApp)
+$("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });

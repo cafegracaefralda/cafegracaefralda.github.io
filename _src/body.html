@@ -72,6 +72,7 @@
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
       <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
+      <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
       <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener" class="nav-admin"><svg><use href="#i-wa"/></svg><span>Falar com a administração</span></a>
     </nav>
 
@@ -89,14 +90,7 @@
   <!-- INÍCIO -->
   <section class="view" id="v-inicio" data-view="inicio">
     <div class="wrap">
-      <div class="home-intro">
-        <h1>Entre o café e a fralda<span class="comma">,</span> <em class="swoosh">tem graça.</em></h1>
-        <p class="lede">Uma comunidade para todas as famílias, com valores cristãos e portas abertas. Aqui cabe todo mundo.</p>
-        <div class="ctas">
-          <a class="btn btn-terra" href="#casa"><svg><use href="#i-cup"/></svg>Preciso de um profissional da Casa</a>
-          <a class="btn btn-wa" data-wa="Oi! Vim pelo site Café, Graça & Fralda e preciso de ajuda." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Preciso de ajuda</a>
-        </div>
-      </div>
+      <h1 class="sr-only">Café, Graça &amp; Fralda: entre o café e a fralda, tem graça.</h1>
       <div class="seg" role="tablist" aria-label="A Casa">
         <button type="button" role="tab" data-sub="postagens" aria-selected="true">Da Casa</button>
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
@@ -324,7 +318,7 @@
         <h2>Vizinhança</h2>
         <p class="muted">Tudo o que a comunidade indica: médicos, escolas, restaurantes, hotéis, praças e passeios.</p>
       </div>
-      <div class="filters viz-filters" id="vizFilters" role="group" aria-label="Filtrar a vizinhança"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Saúde">Saúde</button><button class="chip" aria-pressed="false" data-filter="Família">Família</button><button class="chip" aria-pressed="false" data-filter="Lazer">Lazer</button><button class="chip" aria-pressed="false" data-filter="Comer">Comer</button><button class="chip" aria-pressed="false" data-filter="Hospedagem">Hospedagem</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
+      <div class="filters viz-filters" id="vizFilters" role="group" aria-label="Filtrar a vizinhança"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Fé">⛪ Fé / Religião</button><button class="chip" aria-pressed="false" data-filter="Saúde">Saúde</button><button class="chip" aria-pressed="false" data-filter="Família">Família</button><button class="chip" aria-pressed="false" data-filter="Lazer">Lazer</button><button class="chip" aria-pressed="false" data-filter="Comer">Comer</button><button class="chip" aria-pressed="false" data-filter="Hospedagem">Hospedagem</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="fridge">
           <ul class="notes" id="fridgeNotes"></ul>
           <div class="card more-pros"><div><b>Temos vários outros profissionais de confiança.</b><p>Psicólogos, dentistas, nutricionistas e mais. Chame a gente no WhatsApp e indicamos o ideal para o seu caso.</p></div><a class="btn btn-wa" data-wa="Oi! Vim pelas Indicações do Café, Graça &amp; Fralda e preciso de um profissional. Pode me indicar?" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Pedir indicação</a></div>
@@ -557,7 +551,7 @@
   <img alt="Prévia do story" id="storyNewImg" class="story-prev">
   <input id="storyCap" maxlength="140" placeholder="Escreva uma legenda (opcional)" aria-label="Legenda">
   <button class="btn btn-terra btn-block" type="button" id="storyPost">Publicar story</button>
-  <p class="hint" style="text-align:center">Some sozinho em 24 horas. Só membros veem.</p>
+  <p class="hint" style="text-align:center">Some sozinho em 48 horas. Só membros veem.</p>
 </div></dialog>
 <dialog class="story-dlg" id="storyView" aria-label="Story"><div class="story-box story-view">
   <div class="story-bars" id="storyBars"></div>
@@ -644,7 +638,7 @@
   <button class="btn btn-terra btn-block" type="button" id="ctSave">Salvar e continuar</button>
   <p class="status" id="ctStatus" role="status"></p>
 </div></dialog>
-<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span><a class="foot-link" data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Falar com a administração</a></div></footer>
+<footer class="foot"><div class="wrap"><span>© <span id="year">2026</span> Café, Graça &amp; Fralda</span></div></footer>
 </main>
 
 <a class="wa-float" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
