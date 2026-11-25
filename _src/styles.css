@@ -1301,3 +1301,10 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
 @keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
 .stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
+
+/* Editar texto (até 5 minutos) */
+.edit-box{display:grid;gap:8px;padding:0 14px 10px}
+.post-cmt .edit-box,.bubble .edit-box{padding:0}
+.edit-box textarea{width:100%;font-size:16px;border-radius:14px;border:1px solid var(--terra);background:#fff;padding:10px 12px;resize:vertical}
+.edit-bar{display:flex;gap:8px}
+.dm-edit{font-size:11px;margin-left:8px;color:var(--muted)}

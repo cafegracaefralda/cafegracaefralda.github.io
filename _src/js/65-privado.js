@@ -70,7 +70,7 @@ function signDm(msgs){
   return sb.storage.from("privado").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) dm.urls[x.path] = x.signedUrl; }); }, function(){});
 }
 function renderDmMsgs(force){
-  var sig = dm.current + ":" + dm.msgs.length + ":" + (dm.msgs.length ? dm.msgs[dm.msgs.length - 1].id : "");
+  var sig = dm.current + ":" + dm.msgs.length + ":" + (dm.msgs.length ? dm.msgs[dm.msgs.length - 1].id : "") + ":" + dm.msgs.filter(function(x){ return x.editado_em; }).length;
   if (!force && sig === dm.sig) return;
   dm.sig = sig;
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
@@ -86,10 +86,11 @@ function renderDmMsgs(force){
   dm.msgs.forEach(function(m){
     var mine = m.de === me(), row = h("div", "msg" + (mine ? " me" : "")), bub = h("div", "bubble"), top = h("div", "bubble-top");
     row.appendChild(avSpan(mine ? me() : m.de, mine ? auth.name() : dmName(m.de)));
-    top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em)));
+    top.append(h("b", null, mine ? "Você" : dmName(m.de)), h("time", null, ago(m.criado_em) + (m.editado_em ? " · editado" : "")));
     bub.appendChild(top);
     if (m.arquivo) bub.appendChild(fileView(m));
-    if (m.texto) bub.appendChild(h("p", null, m.texto));
+    var mtx = null; if (m.texto) { mtx = h("p", null, m.texto); bub.appendChild(mtx); }
+    if (mine && m.texto && !m.arquivo && podeEditar(m.criado_em)) { var me2 = h("button", "link dm-edit", "Editar"); me2.type = "button"; me2.addEventListener("click", function(){ editarInline(mtx, m.texto, 1000, function(v){ return salvarTexto("dm_mensagens", m.id, v, function(n){ m.texto = n.texto; m.editado_em = n.editado_em; renderDmMsgs(true); }); }); me2.remove(); }); top.appendChild(me2); }
     row.appendChild(bub); dmMsgsEl.appendChild(row);
   });
   if (force || nearEnd) dmMsgsEl.scrollTop = dmMsgsEl.scrollHeight;
@@ -115,7 +116,7 @@ function markConvRead(id){
   if (!dm.unread[id]) return;
   sb.rpc("marcar_lidas", { p_conversa: id }).then(function(){ dm.unread[id] = 0; setBadge(totalUnread()); renderDmList(); if (typeof loadNotifs === "function") loadNotifs(); });
 }
-var DM_COLS = "id,conversa_id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo";
+var DM_COLS = "id,conversa_id,de,texto,criado_em,arquivo,arquivo_nome,arquivo_tipo,editado_em";
 function loadDmMsgs(force){
   var id = dm.current; if (!id || !sb) return;
   sb.from("dm_mensagens").select(DM_COLS).eq("conversa_id", id).order("criado_em", { ascending: false }).limit(100).then(function(r){

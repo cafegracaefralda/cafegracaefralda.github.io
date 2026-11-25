@@ -55,7 +55,7 @@ $("postForm").addEventListener("submit", function(e){
   }
   up.then(function(u){
     if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("posts").insert({ tipo: "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
+    return sb.from("posts").insert({ tipo: "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em,editado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
         var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
@@ -84,7 +84,7 @@ function loadFeed(reset){
   if (!sb || !auth.user) return;
   var tok = ++feed.tok, base = reset ? [] : feed.posts;
   if (reset) { feed.posts = []; feed.loaded = false; }
-  var q = sb.from("posts").select("id,user_id,nome,tipo,texto,foto,aprovado,criado_em").order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
+  var q = sb.from("posts").select("id,user_id,nome,tipo,texto,foto,aprovado,criado_em,editado_em").order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
   if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
   q.then(function(r){
     if (!r.data || tok !== feed.tok) return;
@@ -93,7 +93,7 @@ function loadFeed(reset){
     if (!ids.length) { feed.loaded = true; renderFeed(); return; }
     return Promise.all([
       sb.from("post_curtidas").select("post_id,user_id").in("post_id", ids),
-      sb.from("post_comentarios").select("id,post_id,user_id,nome,texto,criado_em").in("post_id", ids).order("criado_em", { ascending: true }),
+      sb.from("post_comentarios").select("id,post_id,user_id,nome,texto,criado_em,editado_em").in("post_id", ids).order("criado_em", { ascending: true }),
       signPhotos(fresh)
     ]).then(function(x){
       if (tok !== feed.tok) return;
@@ -144,11 +144,12 @@ function actBtn(label, ic, fn, cls){
 function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
-  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.aprovado === false ? " · em análise" : "")));
+  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.editado_em ? " · editado" : "") + (p.aprovado === false ? " · em análise" : "")));
   top.append(avSpan(p.user_id, p.nome), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
+  if (mine && podeEditar(p.criado_em)) { var ed = h("button", null, "Editar"); ed.type = "button"; ed.addEventListener("click", function(){ menu.hidden = true; editarInline(ptx, p.texto, 1500, function(v){ return salvarTexto("posts", p.id, v, function(n){ p.texto = n.texto; p.editado_em = n.editado_em; renderFeed(); }); }); }); menu.appendChild(ed); }
   if (mine || auth.admin) { var del = h("button", null, "Apagar"); del.type = "button"; del.addEventListener("click", function(){ menu.hidden = true; if (confirm("Apagar esta publicação?")) deletePost(p); }); menu.appendChild(del); }
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
@@ -178,7 +179,8 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
+    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
+    if (c.user_id === uid() && podeEditar(c.criado_em)) { var ce = h("button", "link", "Editar"); ce.type = "button"; ce.addEventListener("click", function(){ editarInline(pp, c.texto, 600, function(v){ return salvarTexto("post_comentarios", c.id, v, function(n){ c.texto = n.texto; c.editado_em = n.editado_em; renderFeed(); }); }); }); pp.appendChild(ce); }
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
@@ -191,7 +193,7 @@ function renderCmts(p, cm, open){
     var send = h("button", "cm-send", "↑"); send.type = "submit"; send.setAttribute("aria-label", "Enviar comentário"); f.append(avSpan(uid(), auth.name(), "avatar me-av"), inp, send);
     f.addEventListener("submit", function(e){
       e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
-      sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em").then(function(r){
+      sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em,editado_em").then(function(r){
         if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
         feed.cmts[p.id].push(r.data[0]); renderFeed();
       });
