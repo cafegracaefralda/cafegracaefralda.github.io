@@ -7,6 +7,7 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "casa") return ["📣 Novidade da Casa", n.resumo || ""];
   if (n.tipo === "pedido") return ["🤝 Parceria", n.resumo];
   if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "alerta") return ["⚠️ Alerta de linguagem", n.de_nome + ": " + n.resumo];
@@ -59,7 +60,8 @@ function pushBtn(){ $("bellPush").hidden = !("Notification" in window) || Notifi
 function openNotif(n){
   setPanel(false);
   markRead([n.id]);
-  if (n.tipo === "pedido") { go("painel", /^Oferta/.test(n.resumo) ? "ofertas" : "anunciantes"); }
+  if (n.tipo === "casa") { go("inicio"); home.focus = n.pub_id; loadHome(true); }
+  else if (n.tipo === "pedido") { go("painel", /^Oferta/.test(n.resumo) ? "ofertas" : "anunciantes"); }
   else if (n.tipo === "alerta") { go("painel", "alertas"); }
   else if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");

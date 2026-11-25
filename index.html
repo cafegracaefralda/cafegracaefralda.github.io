@@ -1335,6 +1335,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .ios-safari{margin:0;color:#A63D2F;font-weight:600}
 .ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
 @keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+.stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
 
 </style>
 </head>
@@ -3596,6 +3597,7 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "casa") return ["📣 Novidade da Casa", n.resumo || ""];
   if (n.tipo === "pedido") return ["🤝 Parceria", n.resumo];
   if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "alerta") return ["⚠️ Alerta de linguagem", n.de_nome + ": " + n.resumo];
@@ -3648,7 +3650,8 @@ function pushBtn(){ $("bellPush").hidden = !("Notification" in window) || Notifi
 function openNotif(n){
   setPanel(false);
   markRead([n.id]);
-  if (n.tipo === "pedido") { go("painel", /^Oferta/.test(n.resumo) ? "ofertas" : "anunciantes"); }
+  if (n.tipo === "casa") { go("inicio"); home.focus = n.pub_id; loadHome(true); }
+  else if (n.tipo === "pedido") { go("painel", /^Oferta/.test(n.resumo) ? "ofertas" : "anunciantes"); }
   else if (n.tipo === "alerta") { go("painel", "alertas"); }
   else if (n.tipo === "dm" && n.conversa_id) {
     go("mensagens");
@@ -3868,6 +3871,7 @@ function renderPubs(){
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
   renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
   if (home.items.length) renderList($("homeList"), home, "home-", ["", ""]); else $("homeList").innerHTML = "";
+  if (home.focus) { var he = $("home-pub-" + home.focus); if (he) { home.focus = ""; he.classList.add("focus"); he.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ he.classList.remove("focus"); }, 2500); } }
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function renderPub(p, prefix){
@@ -4327,8 +4331,7 @@ auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
   var standalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
   if (!document.querySelector('link[rel="manifest"]') || standalone) return;
   var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-  var deferred = null, dispensado = false;
-  try { var t = parseInt(lsGet("cgf-app-x") || "0", 10); dispensado = t && Date.now() - t < 7 * 86400000; } catch(e){}
+  var deferred = null, dispensado = false;  // o X só some com a barra nesta visita: ao entrar de novo, ela volta até a pessoa instalar
   function mostrar(on){ sec.hidden = !on || dispensado; lw.hidden = !on; document.body.classList.toggle("has-install", !sec.hidden); }
   window.addEventListener("beforeinstallprompt", function(e){ e.preventDefault(); deferred = e; mostrar(true); });
   window.addEventListener("appinstalled", function(){ deferred = null; mostrar(false); toast("App instalado!"); });
@@ -4338,7 +4341,7 @@ auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
     if (deferred) { deferred.prompt(); deferred.userChoice.then(function(r){ deferred = null; if (r && r.outcome !== "accepted") mostrar(false); }); } else ios.showModal();
   }
   btn.addEventListener("click", instalar); lw.addEventListener("click", instalar);
-  $("installX").addEventListener("click", function(){ dispensado = true; lsSet("cgf-app-x", String(Date.now())); mostrar(true); });
+  $("installX").addEventListener("click", function(){ dispensado = true; mostrar(true); });
   $("iosClose").addEventListener("click", function(){ ios.close(); });
   ios.addEventListener("click", function(e){ if (e.target === ios) ios.close(); });
 })();

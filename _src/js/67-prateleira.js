@@ -183,6 +183,7 @@ function renderPubs(){
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
   renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
   if (home.items.length) renderList($("homeList"), home, "home-", ["", ""]); else $("homeList").innerHTML = "";
+  if (home.focus) { var he = $("home-pub-" + home.focus); if (he) { home.focus = ""; he.classList.add("focus"); he.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ he.classList.remove("focus"); }, 2500); } }
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function renderPub(p, prefix){
