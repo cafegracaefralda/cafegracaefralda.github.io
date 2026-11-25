@@ -63,7 +63,7 @@ $("anForm").addEventListener("submit", function(e){
   if (!zap) return setStatus(st, "Informe o WhatsApp com DDD, por exemplo (81) 99999-9999.", "err");
   if (!$("an-ok").checked) return setStatus(st, "Marque que entendeu as regras para continuar.", "err");
   $("anSend").disabled = true; setStatus(st, "Enviando…");
-  sb.from("anunciantes").insert({ marca: marca, tipo: $("an-tipo").value, instagram: val("an-ig") || null, whatsapp: zap, cidade: val("an-cidade") || null }).then(function(r){
+  sb.from("anunciantes").insert({ marca: marca, tipo: $("an-tipo").value, instagram: val("an-ig") || null, whatsapp: zap, cidade: val("an-cidade") || null, sobre: val("an-sobre") || null }).then(function(r){
     $("anSend").disabled = false;
     if (r.error) { var m = String(r.error.message || ""); return setStatus(st, m.indexOf("conteudo_improprio") > -1 ? "Escolha um nome respeitoso para a marca." : m.indexOf("conta_suspensa") > -1 ? "Sua conta está suspensa." : "Não foi possível enviar agora. Tente de novo.", "err"); }
     setStatus(st, ""); anInfo("Pedido enviado! A equipe vai falar com você pelo WhatsApp para combinar os detalhes e ativar a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + marca + ".");

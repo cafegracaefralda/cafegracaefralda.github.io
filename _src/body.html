@@ -85,6 +85,12 @@
 </nav>
 
 
+<div class="install-bar" id="app" hidden>
+  <img class="app-icon" src="icons/icon-192.png" alt="" width="40" height="40">
+  <div class="ib-tx"><b>Instale o app</b><span>Abre em tela cheia, como no celular.</span></div>
+  <button class="btn btn-terra btn-sm" type="button" id="installBtn">Instalar</button>
+  <button class="ib-x" type="button" id="installX" aria-label="Agora não">×</button>
+</div>
 <main class="page" id="main">
 
   <!-- INÍCIO -->
@@ -107,11 +113,6 @@
         <div class="ofertas-bar"><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
         <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="of-grid" id="ofList" aria-live="polite"></div>
-      </div>
-      <div class="app-band" id="app" hidden>
-        <img class="app-icon" src="icons/icon-192.png" alt="" width="64" height="64">
-        <div><h3>Leve no celular</h3><p>Instale como aplicativo: abre em tela cheia e funciona até sem internet.</p></div>
-        <button class="btn btn-terra" type="button" id="installBtn"><svg><use href="#i-arrow"/></svg>Instalar o app</button>
       </div>
     </div>
   </section>
@@ -209,16 +210,14 @@
             <div class="mesa-main">
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
-                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="No que você está pensando?" aria-label="Publicação"></textarea></div>
+                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea></div>
                 <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
                 <div class="compose-bar">
                   <label class="cbtn" for="postFile" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="postFile" accept="image/*" hidden>
-                  <select id="postTipo" aria-label="Tipo (opcional)"><option value="conversa">☕ Papo de mesa</option><option value="indicacao">💡 Indicação</option><option value="desabafo">🫶 Desabafo</option><option value="oracao">🙏 Oração</option><option value="gratidao">✨ Gratidão</option></select>
                   <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
                 </div>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
-              <div class="filters" id="feedTypes" role="group" aria-label="Filtrar a Mesa Grande"></div>
               <div class="feed-list" id="feedList" aria-live="polite"></div>
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
@@ -277,7 +276,7 @@
       <div class="chat dm" id="dmApp" hidden>
         <div class="rooms" role="group" aria-label="Conversas privadas">
           <div id="dmList"></div>
-          <div class="dm-find"><span class="label">Encontrar pessoas</span><input id="dmSearch" type="search" placeholder="Buscar pessoas" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
+          <div class="dm-find"><input id="dmSearch" type="search" placeholder="Buscar pessoas" maxlength="40" aria-label="Buscar pessoas pelo nome"><div id="dmPeople"></div></div>
           <label class="dm-opt" for="dmAccept"><input id="dmAccept" type="checkbox" checked>Aceito receber mensagens privadas</label>
         </div>
         <div class="chat-main">
@@ -526,7 +525,7 @@
 </div></dialog>
 <dialog class="story-dlg" id="storyView" aria-label="Story"><div class="story-box story-view">
   <div class="story-bars" id="storyBars"></div>
-  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-pause" type="button" id="storyPause" aria-label="Pausar story">❚❚</button><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
+  <div class="story-head"><span class="avatar" id="storyAv"></span><b id="storyNm"></b><time id="storyTm"></time><button class="story-pause" type="button" id="storyPause" aria-label="Pausar story"></button><button class="story-x" type="button" id="storyViewClose" aria-label="Fechar">×</button></div>
   <div class="story-img-wrap"><img alt="Story" id="storyImg"><button class="story-nav prev" type="button" id="storyPrev" aria-label="Anterior"></button><button class="story-nav next" type="button" id="storyNext" aria-label="Próximo"></button></div>
   <p class="story-cap" id="storyCapView"></p>
   <div class="story-acts" id="storyActs"></div>
@@ -545,6 +544,7 @@
     </ul>
     <div class="lw-actions">
       <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
+      <button class="btn btn-ghost btn-block" type="button" id="lwInstall" hidden>Instalar o app</button>
       <div class="lw-or"><span>ou com o e-mail</span></div>
       <form class="form" id="lwForm" novalidate>
         <div class="field"><label for="lw-mail">Seu e-mail</label><input id="lw-mail" type="email" inputmode="email" autocomplete="email" placeholder="voce@email.com" maxlength="120"></div>
@@ -568,6 +568,7 @@
       <div class="field"><label for="an-zap">WhatsApp</label><input id="an-zap" type="tel" inputmode="tel" maxlength="20" placeholder="(81) 90000-0000"></div>
     </div>
     <div class="field"><label for="an-cidade">Cidade</label><input id="an-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="field"><label for="an-sobre">O que você quer anunciar?</label><textarea id="an-sobre" maxlength="300" placeholder="Conte em poucas palavras."></textarea></div>
     <div class="pt-opt"><b>Não pode ser anunciado</b><p>Bebida alcoólica, cigarro e vape, apostas, emagrecedores "milagrosos", anabolizantes, medicamentos e qualquer produto que faça mal à saúde ou não seja recomendado por médicos.</p></div>
     <label class="hint check" for="an-ok"><input id="an-ok" type="checkbox">Entendi as regras: todo anúncio aparece identificado, o desconto é real e a equipe pode remover o que não seguir a comunidade.</label>
     <button class="btn btn-terra btn-block" type="submit" id="anSend">Pedir para anunciar</button>

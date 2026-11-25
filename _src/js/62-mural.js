@@ -7,17 +7,12 @@ var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.em + " " + t.
 var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
 var PAGE = 15;
 
+// Convites para publicar (um por visita, sempre com o nome da pessoa)
+var PH_IDX = Math.floor(Math.random() * 4);
+function phCompartilhe(n){
+  return ["Puxe a cadeira, " + n + ". O que vamos compartilhar hoje?", "Tem café na mesa, " + n + ". Conta pra gente…", "Compartilhe algo com a nossa comunidade, " + n + "…", "Uma dica, um desabafo ou uma graça do dia, " + n + "?"][PH_IDX];
+}
 function uid(){ return auth.user ? auth.user.id : ""; }
-
-// Filtro da Mesa por tipo de publicação
-(function buildChips(){
-  var fil = $("feedTypes");
-  [{ id: "all", nome: "Tudo", em: "" }].concat(TIPOS).forEach(function(t){
-    var b = h("button", "chip", (t.em ? t.em + " " : "") + t.nome); b.type = "button"; b.setAttribute("aria-pressed", t.id === "all");
-    b.addEventListener("click", function(){ feed.filtro = t.id; $$(".chip", fil).forEach(function(x){ x.setAttribute("aria-pressed", x === b); }); loadFeed(true); });
-    fil.appendChild(b);
-  });
-})();
 
 // Foto: reduz para no máximo 1280 px e salva como JPEG novo (isso também apaga a localização e os dados da câmera)
 function shrinkPhoto(file){
@@ -60,7 +55,7 @@ $("postForm").addEventListener("submit", function(e){
   }
   up.then(function(u){
     if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("posts").insert({ tipo: $("postTipo").value || "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
+    return sb.from("posts").insert({ tipo: "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em").then(function(r){
       if (r.error || !r.data || !r.data.length) {
         if (path) sb.storage.from("mural").remove([path]);
         var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
@@ -149,7 +144,7 @@ function actBtn(label, ic, fn, cls){
 function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
-  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + " · " + (TIPO_NOME[p.tipo] || TIPO_NOME.conversa) + (p.aprovado === false ? " · em análise" : "")));
+  who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.aprovado === false ? " · em análise" : "")));
   top.append(h("span", "avatar", initial(p.nome)), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
@@ -228,7 +223,7 @@ function reportPost(p){
 }
 auth.on(function(){ if (!auth.user) { feed.posts = []; feed.likes = {}; feed.cmts = {}; feed.urls = {}; feed.loaded = false; feed.members = []; $("feedList").innerHTML = ""; } });
 
-function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = "No que você está pensando, " + firstName(auth.name()) + "?"; }
+function mesaSync(){ $("postAv").textContent = initial(auth.name()); if (auth.user) $("postText").placeholder = phCompartilhe(firstName(auth.name())); }
 viewHooks.mesa = function(sub){
   if (!auth.user) return;
   mesaSync();

@@ -33,6 +33,7 @@ function renderPeople(list){
 function loadPeople(){
   if (!sb || !auth.user) return;
   var term = $("dmSearch").value.trim().replace(/[^A-Za-zÀ-ÿ ]/g, "").slice(0, 40);
+  if (!term) { $("dmPeople").innerHTML = ""; return; }
   var q = sb.from("perfis").select("user_id,nome").eq("aceita_dm", true).neq("user_id", me()).order("criado_em", { ascending: false }).limit(30);
   if (term) q = q.ilike("nome", "%" + term + "%");
   q.then(function(r){ if (r.data) renderPeople(r.data); });
@@ -75,7 +76,7 @@ function renderDmMsgs(force){
   var nearEnd = dmMsgsEl.scrollHeight - dmMsgsEl.scrollTop - dmMsgsEl.clientHeight < 120;
   dmMsgsEl.innerHTML = "";
   if (!dm.current) {
-    var e = h("div", "empty"); e.append(h("h3", null, "Suas mensagens"));
+    var e = h("div", "empty dm-blank"); e.append(h("span", "dm-ico", "💬"), h("h3", null, "Suas mensagens"));
     dmMsgsEl.appendChild(e); return;
   }
   if (!dm.msgs.length) {

@@ -1227,3 +1227,39 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .story-head .story-x{margin-left:0}
 .story-view.paused .bar.run i{animation-play-state:paused}
 .story-view.paused .story-img-wrap:after{content:"Pausado";position:absolute;left:50%;top:14px;transform:translateX(-50%);background:rgba(0,0,0,.55);color:#fff;font-size:12px;padding:4px 12px;border-radius:999px;pointer-events:none}
+
+/* Pausa do story: botão redondo discreto, sem etiqueta */
+.story-pause{margin-left:auto;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);border:0;color:#fff;cursor:pointer;letter-spacing:0;font-size:0}
+.story-pause:hover{background:rgba(255,255,255,.28)}
+.story-head .story-x{margin-left:6px}
+.story-view.paused .story-img-wrap:after{content:none}
+
+/* Mensagens no computador: chat de verdade (lista + conversa), sem faixa de título */
+@media (min-width:761px){
+  #v-mensagens>.wrap>.view-head{display:none}
+  #v-mensagens .wrap{padding-top:6px}
+  .chat.dm{height:calc(100dvh - 120px);min-height:520px;max-width:1040px;margin:0 auto;border-radius:20px;border:1px solid var(--line);background:var(--surface);box-shadow:none;grid-template-columns:320px minmax(0,1fr);overflow:hidden}
+  .chat.dm .rooms{background:var(--surface);border-right:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:6px;overflow-y:auto}
+  .chat.dm .rooms .dm-find{order:-1;border:0;margin:0;padding:0 0 8px;display:grid;gap:8px}
+  .chat.dm .rooms .dm-find input{background:var(--bg);border:1px solid transparent;padding:11px 16px}
+  .chat.dm .rooms .room{border-radius:14px;padding:10px 12px}
+  .chat.dm .rooms .dm-opt{margin-top:auto;border:0;font-size:12px;opacity:.7}
+  .chat.dm .chat-head{display:none}
+  .chat.dm.thread .chat-head,.chat.dm .chat-head:has(#dmAv:not([hidden])){display:flex}
+  .chat-main{background:var(--bg)}
+  .dm-blank{display:grid;gap:10px;justify-items:center;align-content:center;height:100%;color:var(--muted)}
+  .dm-blank .dm-ico{font-size:54px;opacity:.5}
+  .dm-blank h3{font-family:var(--serif);font-size:26px;font-weight:500;color:var(--ink);opacity:.7}
+}
+.msgs:has(.dm-blank){display:grid;place-items:center}
+
+/* Barra de instalar o app (no topo, um toque) */
+.install-bar{display:flex;align-items:center;gap:12px;padding:8px 14px;background:#1D1A17;color:#F6EBDD;position:relative;z-index:50}
+.install-bar[hidden]{display:none}
+.install-bar .app-icon{width:40px;height:40px;border-radius:10px;flex:none}
+.install-bar .ib-tx{display:grid;line-height:1.2;min-width:0;flex:1}
+.install-bar .ib-tx b{font-size:15px}
+.install-bar .ib-tx span{font-size:12.5px;opacity:.75;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.install-bar .ib-x{background:none;border:0;color:#F6EBDD;font-size:26px;width:44px;height:44px;cursor:pointer;opacity:.7}
+@media (max-width:420px){.install-bar .ib-tx span{display:none}}
+.login-wall #lwInstall{margin-top:-4px}

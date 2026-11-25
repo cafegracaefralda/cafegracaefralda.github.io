@@ -1,4 +1,4 @@
-// Stories: fotos que somem em 48 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.
+// Stories: fotos que somem em 24 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.
 var stories = { groups: [], urls: {}, cur: null, idx: 0, timer: null, file: null };
 var storyInput = document.createElement("input"); storyInput.type = "file"; storyInput.accept = "image/*"; storyInput.hidden = true; document.body.appendChild(storyInput);
 var STORY_MS = 5000;
@@ -19,7 +19,12 @@ function loadStories(){
   if (!sb || !auth.user) return;
   sb.from("stories").select("id,user_id,nome,foto,legenda,criado_em").order("criado_em", { ascending: true }).limit(120).then(function(r){
     if (!r.data) return;
-    signStories(r.data).then(function(){ stories.groups = groupStories(r.data); renderStories(); });
+    var vivos = [], limite = Date.now() - 86400000;
+    r.data.forEach(function(x){
+      if (new Date(x.criado_em).getTime() > limite) vivos.push(x);
+      else if (x.user_id === uid()) { sb.storage.from("mural").remove([x.foto]).then(function(){ return sb.from("stories").delete().eq("id", x.id).then(function(){}); }); }
+    });
+    signStories(vivos).then(function(){ stories.groups = groupStories(vivos); renderStories(); });
   });
 }
 function tile(label, letter, cls, onClick, badge){
@@ -56,7 +61,7 @@ $("storyPost").addEventListener("click", function(){
     return sb.from("stories").insert({ foto: path, legenda: $("storyCap").value.trim() || null }).select("id");
   }).then(function(r){
     if (r.error) { sb.storage.from("mural").remove([path]); throw new Error(String(r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "story"); }
-    $("storyNew").close(); stories.file = null; toast("Story publicado. Some em 48 horas."); loadStories();
+    $("storyNew").close(); stories.file = null; toast("Story publicado. Some em 24 horas."); loadStories();
   }).catch(function(err){ toast(err.message === "rapido" ? "Calma! Muitos stories hoje." : "Não foi possível publicar o story."); }).then(function(){ btn.disabled = false; });
 });
 
@@ -79,7 +84,7 @@ function showStory(){
     acts.appendChild(dmb);
   }
   if (!dlg.open) dlg.showModal();
-  stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); $("storyPause").textContent = "❚❚"; $("storyPause").setAttribute("aria-label", "Pausar story");
+  stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); setPauseIcon(false);
   stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, STORY_MS);
 }
 function openStory(g){ stories.cur = g; stories.idx = 0; showStory(); }
@@ -99,13 +104,16 @@ $("storyView").addEventListener("click", function(e){ if (e.target === $("storyV
 document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
 auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
 
+var ICO_PAUSE = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>';
+var ICO_PLAY = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10-6.5a1 1 0 0 0 0-1.8l-10-6.5A1 1 0 0 0 8 5.5Z" fill="currentColor"/></svg>';
+function setPauseIcon(paused){ var b = $("storyPause"); b.innerHTML = paused ? ICO_PLAY : ICO_PAUSE; b.setAttribute("aria-label", paused ? "Continuar story" : "Pausar story"); }
 // Pausar: botão no topo ou segurar o dedo na foto. Ao soltar (ou tocar em ▶), continua de onde parou.
 function pauseStory(on){
   var dlg = $("storyView"); if (!stories.cur || on === stories.paused) return;
   stories.paused = on; dlg.classList.toggle("paused", on);
   if (on) { clearTimeout(stories.timer); stories.left = Math.max(300, stories.left - (Date.now() - stories.t0)); }
   else { stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, stories.left); }
-  $("storyPause").textContent = on ? "▶" : "❚❚"; $("storyPause").setAttribute("aria-label", on ? "Continuar story" : "Pausar story");
+  setPauseIcon(on);
 }
 $("storyPause").addEventListener("click", function(){ pauseStory(!stories.paused); });
 var holdT = null, held = false;

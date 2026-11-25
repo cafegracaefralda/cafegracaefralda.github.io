@@ -72,11 +72,11 @@ function loadAlertas(){
   });
 }
 function loadAnunc(){
-  sb.from("anunciantes").select("user_id,marca,tipo,instagram,whatsapp,cidade,status,confiavel,criado_em").order("criado_em", { ascending: false }).limit(100).then(function(r){
+  sb.from("anunciantes").select("user_id,marca,tipo,instagram,whatsapp,cidade,sobre,status,confiavel,criado_em").order("criado_em", { ascending: false }).limit(100).then(function(r){
     var box = $("pAnunc"); box.innerHTML = "";
     (r.data || []).forEach(function(a){
       var el = h("div", "mod-item" + (a.status === "ativo" ? "" : " off")), body = h("div");
-      body.append(h("small", null, a.marca + " · " + a.tipo + " · " + a.status + (a.confiavel ? " · confiável" : "") + " · " + ago(a.criado_em)), h("p", null, [a.instagram, a.whatsapp ? "wa.me/" + a.whatsapp : "", a.cidade].filter(Boolean).join(" · ")));
+      body.append(h("small", null, a.marca + " · " + a.tipo + " · " + a.status + (a.confiavel ? " · confiável" : "") + " · " + ago(a.criado_em)), h("p", null, [a.instagram, a.whatsapp ? "wa.me/" + a.whatsapp : "", a.cidade].filter(Boolean).join(" · ")), h("p", null, a.sobre || ""));
       var set = function(patch){ return function(){ sb.from("anunciantes").update(patch).eq("user_id", a.user_id).then(loadAnunc); }; };
       var act = h("div", "confirm");
       if (a.whatsapp) { var w = h("a", "btn btn-ghost btn-sm", "WhatsApp"); w.href = "https://wa.me/" + a.whatsapp; w.target = "_blank"; w.rel = "noopener"; act.appendChild(w); }
