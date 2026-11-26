@@ -208,14 +208,19 @@
         <div data-sub-panel="conversas" class="on">
           <div class="mesa-layout">
             <div class="mesa-main">
+              <div class="mesa-find">
+                <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
+                <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
+              </div>
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea></div>
-                <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
                 <div class="compose-bar">
-                  <label class="cbtn" for="postFile" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="postFile" accept="image/*" hidden>
+                  <button class="cbtn" type="button" id="postFotoBtn" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></button>
+                  <button class="cbtn" type="button" id="postLinkBtn" title="Link"><svg><use href="#i-link"/></svg><span>Link</span></button>
                   <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
                 </div>
+                <input type="file" id="postFile" accept="image/*" hidden>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
               <div class="feed-tabs" id="feedTabs" role="group" aria-label="Mesa"><button class="chip" type="button" aria-pressed="true" data-f="todos">Todos</button><button class="chip" type="button" aria-pressed="false" data-f="seg">Seguindo</button></div>
@@ -223,7 +228,7 @@
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
             <aside class="mesa-side" aria-label="Lateral">
-              <div class="card side-card"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople"></div></div>
+              <div class="card side-card"><h3 class="side-h">Convide quem você ama</h3><p class="hint">Digite o WhatsApp de um amigo ou conhecido e a mensagem com o convite já sai pronta.</p><button class="btn btn-terra btn-block" type="button" data-invite>Convidar pelo WhatsApp</button></div>
             </aside>
           </div>
         </div>
@@ -600,6 +605,28 @@
     <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
     <p class="status" id="ofStatus" role="status"></p>
   </form>
+</div></dialog>
+<dialog class="sheet-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
+  <button class="story-x sheet-x" type="button" id="pdClose" aria-label="Fechar">×</button>
+  <h3 id="pdTitle">Nova publicação</h3>
+  <div class="pd-photo" id="pdPhoto" hidden><img alt="Prévia da foto" id="pdImg"><button type="button" class="pd-trocar" id="pdTrocar">Trocar foto</button><button type="button" class="pd-tirar" id="pdTirar" aria-label="Tirar foto">×</button></div>
+  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg>Adicionar foto</button>
+  <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
+  <div class="pd-link"><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="300" placeholder="Adicionar link (opcional)" aria-label="Link"></div>
+  <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
+  <p class="status" id="pdStatus" role="status"></p>
+</div></dialog>
+<dialog class="sheet-dlg" id="inviteDlg" aria-labelledby="ivTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="ivClose" aria-label="Fechar">×</button>
+  <span class="label">Traga alguém para a mesa</span>
+  <h3 id="ivTitle">Convidar pelo WhatsApp</h3>
+  <p>Digite o WhatsApp de um amigo ou conhecido. Vai abrir a conversa com ele, com o convite e o link já escritos. É só tocar em enviar.</p>
+  <div class="field"><label for="ivNome">Nome (opcional)</label><input id="ivNome" maxlength="30" placeholder="Ex.: Mariana" autocomplete="off"></div>
+  <div class="field"><label for="ivFone">WhatsApp com DDD</label><input id="ivFone" type="tel" inputmode="tel" maxlength="16" placeholder="(31) 91234-5678" autocomplete="off"></div>
+  <button class="btn btn-wa btn-block" type="button" id="ivEnviar"><svg><use href="#i-wa"/></svg>Enviar convite</button>
+  <button class="btn btn-ghost btn-block" type="button" id="ivContatos" hidden>Escolher dos meus contatos</button>
+  <button class="btn btn-ghost btn-block" type="button" id="ivLink">Compartilhar o link do site</button>
+  <p class="status" id="ivStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>

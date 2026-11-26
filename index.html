@@ -1363,6 +1363,37 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .feed-tabs{display:flex;gap:8px;padding:0 2px}
 .pf-seg{margin-left:10px}
 
+/* Mesa estilo Instagram: busca no topo, publicar com legenda, convite */
+.mesa-find{display:flex;gap:8px;align-items:flex-start;margin-bottom:12px}
+.find-box{position:relative;flex:1;min-width:0}
+.find-box input{width:100%;border-radius:999px;padding:12px 16px;background:var(--surface);border:1px solid var(--line);font-size:16px}
+.find-list{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;background:var(--surface,#fff);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 36px -18px rgba(29,26,23,.45);padding:4px;max-height:60vh;overflow-y:auto}
+.find-list:empty{display:none}
+.find-inv{min-height:46px;white-space:nowrap}
+.find-inv svg{width:18px;height:18px}
+.side-h{font-size:20px}
+.pd-photo{position:relative;border-radius:16px;overflow:hidden;background:var(--bg)}
+.pd-photo img{display:block;width:100%;max-height:46dvh;object-fit:cover}
+.pd-trocar{position:absolute;left:10px;bottom:10px;background:rgba(29,26,23,.7);color:#fff;border:0;border-radius:999px;padding:10px 14px;font:inherit;font-size:14px;min-height:44px}
+.pd-tirar{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(29,26,23,.7);color:#fff;font-size:24px;line-height:1}
+.pd-cap{display:flex;gap:10px;align-items:flex-start}
+.pd-cap .avatar{width:40px;height:40px;flex:none}
+.pd-cap textarea{flex:1;min-width:0;border:1px solid var(--line);border-radius:14px;padding:10px 12px;font:inherit;font-size:16px;resize:vertical}
+.pd-link{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:14px;padding:0 12px}
+.pd-link svg{width:20px;height:20px;color:var(--terra);flex:none}
+.pd-link input{flex:1;min-width:0;border:0;background:none;font-size:16px;min-height:46px;outline:0}
+#pdAddFoto svg{width:20px;height:20px}
+.pd-box h3{font-size:24px}
+.av-link{cursor:pointer}
+.post-img-wrap{position:relative}
+.post-heart{position:absolute;left:50%;top:50%;width:96px;height:96px;margin:-48px 0 0 -48px;color:#fff;pointer-events:none;opacity:0;filter:drop-shadow(0 4px 14px rgba(0,0,0,.4))}
+.post-heart svg{width:100%;height:100%}.post-heart svg path{fill:currentColor}
+.post-heart.pop{animation:hpop .8s ease}
+@keyframes hpop{0%{opacity:0;transform:scale(.4)}20%{opacity:1;transform:scale(1.15)}60%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1)}}
+.post-text a{color:var(--terra);font-weight:600;overflow-wrap:anywhere}
+.post-more{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.post-acts .sp{flex:1}
+
 </style>
 </head>
 <body>
@@ -1580,14 +1611,19 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
         <div data-sub-panel="conversas" class="on">
           <div class="mesa-layout">
             <div class="mesa-main">
+              <div class="mesa-find">
+                <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
+                <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
+              </div>
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea></div>
-                <div class="post-photo" id="postPhoto" hidden><img alt="Prévia da foto" id="postPhotoImg"><button type="button" class="link" id="postPhotoDel">Tirar foto</button></div>
                 <div class="compose-bar">
-                  <label class="cbtn" for="postFile" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></label><input type="file" id="postFile" accept="image/*" hidden>
+                  <button class="cbtn" type="button" id="postFotoBtn" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></button>
+                  <button class="cbtn" type="button" id="postLinkBtn" title="Link"><svg><use href="#i-link"/></svg><span>Link</span></button>
                   <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
                 </div>
+                <input type="file" id="postFile" accept="image/*" hidden>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
               <div class="feed-tabs" id="feedTabs" role="group" aria-label="Mesa"><button class="chip" type="button" aria-pressed="true" data-f="todos">Todos</button><button class="chip" type="button" aria-pressed="false" data-f="seg">Seguindo</button></div>
@@ -1595,7 +1631,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
             <aside class="mesa-side" aria-label="Lateral">
-              <div class="card side-card"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople"></div></div>
+              <div class="card side-card"><h3 class="side-h">Convide quem você ama</h3><p class="hint">Digite o WhatsApp de um amigo ou conhecido e a mensagem com o convite já sai pronta.</p><button class="btn btn-terra btn-block" type="button" data-invite>Convidar pelo WhatsApp</button></div>
             </aside>
           </div>
         </div>
@@ -1972,6 +2008,28 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
     <p class="status" id="ofStatus" role="status"></p>
   </form>
+</div></dialog>
+<dialog class="sheet-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
+  <button class="story-x sheet-x" type="button" id="pdClose" aria-label="Fechar">×</button>
+  <h3 id="pdTitle">Nova publicação</h3>
+  <div class="pd-photo" id="pdPhoto" hidden><img alt="Prévia da foto" id="pdImg"><button type="button" class="pd-trocar" id="pdTrocar">Trocar foto</button><button type="button" class="pd-tirar" id="pdTirar" aria-label="Tirar foto">×</button></div>
+  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg>Adicionar foto</button>
+  <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
+  <div class="pd-link"><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="300" placeholder="Adicionar link (opcional)" aria-label="Link"></div>
+  <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
+  <p class="status" id="pdStatus" role="status"></p>
+</div></dialog>
+<dialog class="sheet-dlg" id="inviteDlg" aria-labelledby="ivTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="ivClose" aria-label="Fechar">×</button>
+  <span class="label">Traga alguém para a mesa</span>
+  <h3 id="ivTitle">Convidar pelo WhatsApp</h3>
+  <p>Digite o WhatsApp de um amigo ou conhecido. Vai abrir a conversa com ele, com o convite e o link já escritos. É só tocar em enviar.</p>
+  <div class="field"><label for="ivNome">Nome (opcional)</label><input id="ivNome" maxlength="30" placeholder="Ex.: Mariana" autocomplete="off"></div>
+  <div class="field"><label for="ivFone">WhatsApp com DDD</label><input id="ivFone" type="tel" inputmode="tel" maxlength="16" placeholder="(31) 91234-5678" autocomplete="off"></div>
+  <button class="btn btn-wa btn-block" type="button" id="ivEnviar"><svg><use href="#i-wa"/></svg>Enviar convite</button>
+  <button class="btn btn-ghost btn-block" type="button" id="ivContatos" hidden>Escolher dos meus contatos</button>
+  <button class="btn btn-ghost btn-block" type="button" id="ivLink">Compartilhar o link do site</button>
+  <p class="status" id="ivStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
@@ -2712,6 +2770,30 @@ new MutationObserver(function(muts){
 }).observe(document.body, { childList: true, subtree: true });
 auth.on(function(){ if (!auth.user) { av.map = {}; } avSoon(); });
 
+// Foto de perfil clicável (como no Instagram): leva ao perfil da pessoa
+function avLink(userId, nome, cls){
+  var s = avSpan(userId, nome, cls); if (!userId) return s;
+  s.classList.add("av-link"); s.setAttribute("role", "link"); s.tabIndex = 0; s.setAttribute("aria-label", "Ver perfil de " + nome);
+  var ir = function(e){ e.stopPropagation(); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
+  s.addEventListener("click", ir); s.addEventListener("keydown", function(e){ if (e.key === "Enter") ir(e); });
+  return s;
+}
+// Endereços de internet no texto viram link clicável
+function linkify(frag){
+  var w = document.createTreeWalker(frag, NodeFilter.SHOW_TEXT), nodes = [], n;
+  while ((n = w.nextNode())) nodes.push(n);
+  nodes.forEach(function(t){
+    var s = t.nodeValue, re = /(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi, m, last = 0, f = document.createDocumentFragment(), any = false;
+    while ((m = re.exec(s))) {
+      any = true; var u = m[0].replace(/[.,;:!?)]+$/, ""); if (m.index > last) f.appendChild(document.createTextNode(s.slice(last, m.index)));
+      var a = h("a", null, u.length > 42 ? u.slice(0, 40) + "…" : u); a.href = /^https?:/i.test(u) ? u : "https://" + u; a.target = "_blank"; a.rel = "noopener noreferrer nofollow"; f.appendChild(a);
+      last = m.index + u.length; re.lastIndex = last;
+    }
+    if (!any) return; if (last < s.length) f.appendChild(document.createTextNode(s.slice(last))); t.parentNode.replaceChild(f, t);
+  });
+  return frag;
+}
+
 
 // Editar o que você publicou: só o texto, só a própria pessoa e só até 5 minutos depois (o banco confere de novo).
 var EDIT_MS = 5 * 60 * 1000;
@@ -2802,6 +2884,53 @@ function nsfwGuard(canvas){
     });
   });
 }
+
+
+// Convidar amigos e conhecidos pelo WhatsApp: a pessoa digita o número e a conversa abre com o convite pronto.
+var SITE_URL = "https://cafegracaefralda.github.io/";
+function foneBR(v){
+  var d = String(v || "").replace(/\D/g, "").replace(/^0+/, "");
+  if (d.length === 10 || d.length === 11) d = "55" + d;
+  if (/^55\d{10,11}$/.test(d)) return d;
+  return "";
+}
+function foneMask(v){
+  var d = String(v || "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "").slice(0, 11);
+  if (d.length > 6) return "(" + d.slice(0, 2) + ") " + d.slice(2, d.length > 10 ? 7 : 6) + "-" + d.slice(d.length > 10 ? 7 : 6);
+  if (d.length > 2) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+  return d;
+}
+function conviteTexto(nome){
+  var eu = firstName(auth.name()), oi = nome ? "Oi, " + firstName(nome) + "!" : "Oi!";
+  return oi + " Aqui é " + (eu || "um amigo") + ". Estou na *Café, Graça & Fralda*, uma comunidade para todas as famílias: conversa, dicas, indicações de profissionais e lugares, tudo com gente de confiança.\n\nAchei que você ia gostar. Entra por aqui:\n" + SITE_URL;
+}
+function abrirConvite(nome){
+  if (!auth.user) return;
+  $("ivNome").value = nome && !/\d/.test(nome) ? nome : ""; $("ivFone").value = nome && /\d/.test(nome) ? foneMask(nome) : "";
+  setStatus($("ivStatus"), ""); $("ivContatos").hidden = !(navigator.contacts && navigator.contacts.select);
+  $("ivLink").hidden = false; $("inviteDlg").showModal();
+}
+document.addEventListener("click", function(e){ var b = e.target.closest && e.target.closest("[data-invite]"); if (b) { e.preventDefault(); abrirConvite(); } });
+$("ivClose").addEventListener("click", function(){ $("inviteDlg").close(); });
+$("ivFone").addEventListener("input", function(){ this.value = foneMask(this.value); });
+$("ivEnviar").addEventListener("click", function(){
+  var f = foneBR($("ivFone").value), st = $("ivStatus");
+  if (!f) return setStatus(st, "Confira o número: DDD + número, como (31) 91234-5678.", "err");
+  window.open(waLink(conviteTexto($("ivNome").value.trim()), f), "_blank", "noopener");
+  setStatus(st, "Abrimos o WhatsApp com o convite pronto. É só tocar em enviar. Quer convidar outra pessoa? Digite o próximo número.", "ok");
+  $("ivNome").value = ""; $("ivFone").value = ""; $("ivNome").focus();
+});
+$("ivContatos").addEventListener("click", function(){
+  navigator.contacts.select(["name", "tel"], { multiple: false }).then(function(r){
+    var c = r && r[0]; if (!c) return;
+    $("ivNome").value = (c.name && c.name[0]) || ""; $("ivFone").value = foneMask((c.tel && c.tel[0]) || "");
+  }).catch(function(){});
+});
+$("ivLink").addEventListener("click", function(){
+  var tx = conviteTexto("");
+  if (navigator.share) return navigator.share({ title: "Café, Graça & Fralda", text: tx }).catch(function(){});
+  window.open(waLink(tx, ""), "_blank", "noopener");
+});
 
 
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
@@ -3203,23 +3332,39 @@ function shrinkPhoto(file){
   });
 }
 function newUuid(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
+// Publicar (estilo Instagram): foto -> legenda -> Compartilhar. Também dá para só escrever, ou só colocar um link.
+var postDlg = $("postDlg");
+function pdVer(){ $("pdPhoto").hidden = !feed.photo; $("pdAddFoto").hidden = !!feed.photo; }
+function clearPhoto(){ feed.photo = null; $("pdImg").removeAttribute("src"); pdVer(); }
+function abrirPost(opts){
+  opts = opts || {};
+  $("pdAv").textContent = initial(auth.name()); avTag($("pdAv"), uid());
+  var t = $("postText").value.trim(); if (t && !$("pdTexto").value) $("pdTexto").value = t;
+  pdVer(); setStatus($("pdStatus"), "");
+  if (!postDlg.open) postDlg.showModal();
+  if (opts.link) $("pdLink").focus(); else if (!opts.foto) $("pdTexto").focus();
+}
+function pegarFoto(){ $("postFile").click(); }
+$("postFotoBtn").addEventListener("click", function(){ if (!auth.user) return; pegarFoto(); });
+$("postLinkBtn").addEventListener("click", function(){ if (!auth.user) return; abrirPost({ link: true }); });
+$("pdAddFoto").addEventListener("click", pegarFoto); $("pdTrocar").addEventListener("click", pegarFoto);
+$("pdTirar").addEventListener("click", clearPhoto);
+$("pdClose").addEventListener("click", function(){ postDlg.close(); });
 $("postFile").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
   if (!f) return;
   shrinkPhoto(f).then(function(blob){
-    feed.photo = blob;
-    $("postPhotoImg").src = URL.createObjectURL(blob); $("postPhoto").hidden = false;
+    feed.photo = blob; $("pdImg").src = URL.createObjectURL(blob); abrirPost({ foto: true }); $("pdTexto").focus();
   }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
 });
-function clearPhoto(){ feed.photo = null; $("postPhoto").hidden = true; $("postPhotoImg").removeAttribute("src"); }
-$("postPhotoDel").addEventListener("click", clearPhoto);
-
-// Publicar
-$("postForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var texto = $("postText").value.trim();
-  if (!texto || !sb || !auth.user || feed.busy) return;
-  feed.busy = true; $("postSend").disabled = true;
+function linkOk(u){
+  u = String(u || "").trim(); if (!u) return "";
+  if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+  try { var x = new URL(u); return /\./.test(x.hostname) ? x.href : null; } catch (e) { return null; }
+}
+function publicar(texto, st, done){
+  if (!sb || !auth.user || feed.busy) return;
+  feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
   var path = null, up = Promise.resolve();
   if (feed.photo) {
     path = uid() + "/" + newUuid() + ".jpg";
@@ -3235,13 +3380,25 @@ $("postForm").addEventListener("submit", function(e){
       return r.data[0];
     });
   }).then(function(p){
-    $("postText").value = ""; clearPhoto();
+    $("postText").value = ""; $("pdTexto").value = ""; $("pdLink").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
     toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
-    setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
-  }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
+    setStatus(st, msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
+  }).then(function(){ feed.busy = false; $("postSend").disabled = false; $("pdEnviar").disabled = false; });
+}
+$("postForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var texto = $("postText").value.trim(); if (!texto) return;
+  publicar(texto, $("postStatus"));
+});
+$("pdEnviar").addEventListener("click", function(){
+  var t = $("pdTexto").value.trim(), l = linkOk($("pdLink").value), st = $("pdStatus");
+  if (l === null) return setStatus(st, "Esse link não parece certo. Confira o endereço.", "err");
+  if (!t && !feed.photo && !l) return setStatus(st, "Escreva uma legenda, escolha uma foto ou cole um link.", "err");
+  var texto = (t + (l ? (t ? "\n\n" : "") + l : "")).trim() || "📷";
+  publicar(texto, st);
 });
 
 // Carregar a Mesa
@@ -3289,15 +3446,19 @@ function loadMembers(){
 }
 function renderMembers(){
   var side = $("sidePeople"), q = ($("sideBusca").value || "").trim().toLowerCase(); side.innerHTML = "";
-  if (!q) return;
-  var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
+  if (document.activeElement !== $("sideBusca") && !q) return;
+  var lista = q ? feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }) : feed.members;
+  var achou = lista.slice(0, q ? 8 : 5);
+  if (!q && achou.length) side.appendChild(h("p", "hint", "Quem entrou há pouco"));
   achou.forEach(function(p){
     var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
-    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
+    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("mousedown", function(e){ e.preventDefault(); }); s.addEventListener("click", function(){ $("sideBusca").value = ""; $("sideBusca").blur(); side.innerHTML = ""; go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
-  if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
+  if (q && !achou.length) { side.appendChild(h("p", "hint", "Ninguém com esse nome ainda.")); var iv = h("button", "link", "Convidar essa pessoa pelo WhatsApp"); iv.type = "button"; iv.addEventListener("mousedown", function(e){ e.preventDefault(); }); iv.addEventListener("click", function(){ if (typeof abrirConvite === "function") abrirConvite($("sideBusca").value.trim()); }); side.appendChild(iv); }
 }
+$("sideBusca").addEventListener("focus", renderMembers);
+$("sideBusca").addEventListener("blur", function(){ setTimeout(function(){ if (document.activeElement !== $("sideBusca")) $("sidePeople").innerHTML = ""; }, 150); });
 $("sideBusca").addEventListener("input", renderMembers);
 
 // Desenhar
@@ -3318,7 +3479,7 @@ function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
   who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.editado_em ? " · editado" : "") + (p.aprovado === false ? " · em análise" : "")));
-  top.append(avSpan(p.user_id, p.nome), who);
+  top.append(avLink(p.user_id, p.nome), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -3327,11 +3488,15 @@ function renderPost(p){
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
   mw.append(mb, menu); top.appendChild(mw);
-  var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
+  var ptx = h("p", "post-text"); ptx.appendChild(linkify(richText(p.texto))); el.append(top, ptx);
+  if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
     if (feed.urls[p.foto]) im.src = feed.urls[p.foto]; else im.hidden = true;
-    el.appendChild(im);
+    var iw = h("div", "post-img-wrap"), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart")); iw.append(im, hh);
+    var lastTap = 0;
+    iw.addEventListener("click", function(){ var n = Date.now(); if (n - lastTap < 320) { lastTap = 0; hh.classList.remove("pop"); void hh.offsetWidth; hh.classList.add("pop"); if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); } else lastTap = n; });
+    el.appendChild(iw);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
   var cnt = h("div", "post-count");
@@ -3343,6 +3508,8 @@ function renderPost(p){
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
+  var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.github.io/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
+  sh.style.marginLeft = "auto"; acts.appendChild(sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
@@ -3359,7 +3526,7 @@ function renderCmts(p, cm, open){
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avLink(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
@@ -4066,7 +4233,7 @@ function renderPub(p, prefix){
   var mine = auth.user && p.user_id === uid(), el = h("article", "post" + (p.oficial ? " oficial" : "")); el.id = (prefix || "") + "pub-" + p.id;
   var sub = ago(p.criado_em) + " · " + (p.oficial ? (TIPO_OF[p.tipo] || "📣 Aviso") : (TIPO_PUB[p.tipo] || "Publicação")) + (p.fixado ? " · 📌" : "") + (p.aprovado === false ? " · oculto" : "");
   var top;
-  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(avSpan(p.user_id, p.autor), who); }
+  if (p.oficial) top = casaHead(sub); else { top = h("div", "post-top"); var who = h("div", "grow"); who.append(nameLink(mine ? "Você" : p.autor, p.user_id), h("small", null, sub)); top.append(avLink(p.user_id, p.autor), who); }
   // menu ⋯
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -4105,7 +4272,7 @@ function renderPubCmts(p, cm, open){
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avLink(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     if (!auth.user) { var lg = h("p", "hint", "Entre com o Google para comentar."); box.appendChild(lg); return box; }

@@ -31,23 +31,39 @@ function shrinkPhoto(file){
   });
 }
 function newUuid(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
+// Publicar (estilo Instagram): foto -> legenda -> Compartilhar. Também dá para só escrever, ou só colocar um link.
+var postDlg = $("postDlg");
+function pdVer(){ $("pdPhoto").hidden = !feed.photo; $("pdAddFoto").hidden = !!feed.photo; }
+function clearPhoto(){ feed.photo = null; $("pdImg").removeAttribute("src"); pdVer(); }
+function abrirPost(opts){
+  opts = opts || {};
+  $("pdAv").textContent = initial(auth.name()); avTag($("pdAv"), uid());
+  var t = $("postText").value.trim(); if (t && !$("pdTexto").value) $("pdTexto").value = t;
+  pdVer(); setStatus($("pdStatus"), "");
+  if (!postDlg.open) postDlg.showModal();
+  if (opts.link) $("pdLink").focus(); else if (!opts.foto) $("pdTexto").focus();
+}
+function pegarFoto(){ $("postFile").click(); }
+$("postFotoBtn").addEventListener("click", function(){ if (!auth.user) return; pegarFoto(); });
+$("postLinkBtn").addEventListener("click", function(){ if (!auth.user) return; abrirPost({ link: true }); });
+$("pdAddFoto").addEventListener("click", pegarFoto); $("pdTrocar").addEventListener("click", pegarFoto);
+$("pdTirar").addEventListener("click", clearPhoto);
+$("pdClose").addEventListener("click", function(){ postDlg.close(); });
 $("postFile").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
   if (!f) return;
   shrinkPhoto(f).then(function(blob){
-    feed.photo = blob;
-    $("postPhotoImg").src = URL.createObjectURL(blob); $("postPhoto").hidden = false;
+    feed.photo = blob; $("pdImg").src = URL.createObjectURL(blob); abrirPost({ foto: true }); $("pdTexto").focus();
   }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
 });
-function clearPhoto(){ feed.photo = null; $("postPhoto").hidden = true; $("postPhotoImg").removeAttribute("src"); }
-$("postPhotoDel").addEventListener("click", clearPhoto);
-
-// Publicar
-$("postForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  var texto = $("postText").value.trim();
-  if (!texto || !sb || !auth.user || feed.busy) return;
-  feed.busy = true; $("postSend").disabled = true;
+function linkOk(u){
+  u = String(u || "").trim(); if (!u) return "";
+  if (!/^https?:\/\//i.test(u)) u = "https://" + u;
+  try { var x = new URL(u); return /\./.test(x.hostname) ? x.href : null; } catch (e) { return null; }
+}
+function publicar(texto, st, done){
+  if (!sb || !auth.user || feed.busy) return;
+  feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
   var path = null, up = Promise.resolve();
   if (feed.photo) {
     path = uid() + "/" + newUuid() + ".jpg";
@@ -63,13 +79,25 @@ $("postForm").addEventListener("submit", function(e){
       return r.data[0];
     });
   }).then(function(p){
-    $("postText").value = ""; clearPhoto();
+    $("postText").value = ""; $("pdTexto").value = ""; $("pdLink").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
     toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
   }).catch(function(err){
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
-    setStatus($("postStatus"), msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
-  }).then(function(){ feed.busy = false; $("postSend").disabled = false; });
+    setStatus(st, msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
+  }).then(function(){ feed.busy = false; $("postSend").disabled = false; $("pdEnviar").disabled = false; });
+}
+$("postForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  var texto = $("postText").value.trim(); if (!texto) return;
+  publicar(texto, $("postStatus"));
+});
+$("pdEnviar").addEventListener("click", function(){
+  var t = $("pdTexto").value.trim(), l = linkOk($("pdLink").value), st = $("pdStatus");
+  if (l === null) return setStatus(st, "Esse link não parece certo. Confira o endereço.", "err");
+  if (!t && !feed.photo && !l) return setStatus(st, "Escreva uma legenda, escolha uma foto ou cole um link.", "err");
+  var texto = (t + (l ? (t ? "\n\n" : "") + l : "")).trim() || "📷";
+  publicar(texto, st);
 });
 
 // Carregar a Mesa
@@ -117,15 +145,19 @@ function loadMembers(){
 }
 function renderMembers(){
   var side = $("sidePeople"), q = ($("sideBusca").value || "").trim().toLowerCase(); side.innerHTML = "";
-  if (!q) return;
-  var achou = feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }).slice(0, 6);
+  if (document.activeElement !== $("sideBusca") && !q) return;
+  var lista = q ? feed.members.filter(function(p){ return String(p.nome || "").toLowerCase().indexOf(q) > -1; }) : feed.members;
+  var achou = lista.slice(0, q ? 8 : 5);
+  if (!q && achou.length) side.appendChild(h("p", "hint", "Quem entrou há pouco"));
   achou.forEach(function(p){
     var s = h("button", "side-person"); s.type = "button"; var tx = h("span"); tx.append(h("b", null, p.nome || "Alguém"), h("small", null, "Ver perfil"));
-    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("click", function(){ go("perfil/" + p.user_id); });
+    s.append(avSpan(p.user_id, p.nome), tx); s.addEventListener("mousedown", function(e){ e.preventDefault(); }); s.addEventListener("click", function(){ $("sideBusca").value = ""; $("sideBusca").blur(); side.innerHTML = ""; go("perfil/" + p.user_id); });
     side.appendChild(s);
   });
-  if (!achou.length) side.appendChild(h("p", "hint", "Ninguém com esse nome."));
+  if (q && !achou.length) { side.appendChild(h("p", "hint", "Ninguém com esse nome ainda.")); var iv = h("button", "link", "Convidar essa pessoa pelo WhatsApp"); iv.type = "button"; iv.addEventListener("mousedown", function(e){ e.preventDefault(); }); iv.addEventListener("click", function(){ if (typeof abrirConvite === "function") abrirConvite($("sideBusca").value.trim()); }); side.appendChild(iv); }
 }
+$("sideBusca").addEventListener("focus", renderMembers);
+$("sideBusca").addEventListener("blur", function(){ setTimeout(function(){ if (document.activeElement !== $("sideBusca")) $("sidePeople").innerHTML = ""; }, 150); });
 $("sideBusca").addEventListener("input", renderMembers);
 
 // Desenhar
@@ -146,7 +178,7 @@ function renderPost(p){
   var mine = p.user_id === uid(), el = h("article", "post"); el.id = "post-" + p.id;
   var top = h("div", "post-top"), who = h("div", "grow");
   who.append(nameLink(mine ? "Você" : p.nome, p.user_id), h("small", null, ago(p.criado_em) + (p.editado_em ? " · editado" : "") + (p.aprovado === false ? " · em análise" : "")));
-  top.append(avSpan(p.user_id, p.nome), who);
+  top.append(avLink(p.user_id, p.nome), who);
   // menu ⋯ (apagar / denunciar)
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
@@ -155,11 +187,15 @@ function renderPost(p){
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
   mw.append(mb, menu); top.appendChild(mw);
-  var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
+  var ptx = h("p", "post-text"); ptx.appendChild(linkify(richText(p.texto))); el.append(top, ptx);
+  if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
     if (feed.urls[p.foto]) im.src = feed.urls[p.foto]; else im.hidden = true;
-    el.appendChild(im);
+    var iw = h("div", "post-img-wrap"), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart")); iw.append(im, hh);
+    var lastTap = 0;
+    iw.addEventListener("click", function(){ var n = Date.now(); if (n - lastTap < 320) { lastTap = 0; hh.classList.remove("pop"); void hh.offsetWidth; hh.classList.add("pop"); if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); } else lastTap = n; });
+    el.appendChild(iw);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
   var cnt = h("div", "post-count");
@@ -171,6 +207,8 @@ function renderPost(p){
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
+  var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.github.io/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
+  sh.style.marginLeft = "auto"; acts.appendChild(sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
@@ -187,7 +225,7 @@ function renderCmts(p, cm, open){
       d.addEventListener("click", function(){ sb.from("post_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); feed.cmts[p.id] = feed.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderFeed(); }); });
       pp.appendChild(d);
     }
-    body.appendChild(pp); row.append(avSpan(c.user_id, c.nome), body); box.appendChild(row);
+    body.appendChild(pp); row.append(avLink(c.user_id, c.nome), body); box.appendChild(row);
   });
   if (open) {
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");

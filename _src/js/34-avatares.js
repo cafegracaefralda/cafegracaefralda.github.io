@@ -32,3 +32,27 @@ new MutationObserver(function(muts){
   for (var i = 0; i < muts.length; i++) { var m = muts[i]; if (m.type === "attributes" || m.addedNodes.length) { avSoon(); return; } }
 }).observe(document.body, { childList: true, subtree: true });
 auth.on(function(){ if (!auth.user) { av.map = {}; } avSoon(); });
+
+// Foto de perfil clicável (como no Instagram): leva ao perfil da pessoa
+function avLink(userId, nome, cls){
+  var s = avSpan(userId, nome, cls); if (!userId) return s;
+  s.classList.add("av-link"); s.setAttribute("role", "link"); s.tabIndex = 0; s.setAttribute("aria-label", "Ver perfil de " + nome);
+  var ir = function(e){ e.stopPropagation(); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
+  s.addEventListener("click", ir); s.addEventListener("keydown", function(e){ if (e.key === "Enter") ir(e); });
+  return s;
+}
+// Endereços de internet no texto viram link clicável
+function linkify(frag){
+  var w = document.createTreeWalker(frag, NodeFilter.SHOW_TEXT), nodes = [], n;
+  while ((n = w.nextNode())) nodes.push(n);
+  nodes.forEach(function(t){
+    var s = t.nodeValue, re = /(https?:\/\/[^\s<]+|www\.[^\s<]+)/gi, m, last = 0, f = document.createDocumentFragment(), any = false;
+    while ((m = re.exec(s))) {
+      any = true; var u = m[0].replace(/[.,;:!?)]+$/, ""); if (m.index > last) f.appendChild(document.createTextNode(s.slice(last, m.index)));
+      var a = h("a", null, u.length > 42 ? u.slice(0, 40) + "…" : u); a.href = /^https?:/i.test(u) ? u : "https://" + u; a.target = "_blank"; a.rel = "noopener noreferrer nofollow"; f.appendChild(a);
+      last = m.index + u.length; re.lastIndex = last;
+    }
+    if (!any) return; if (last < s.length) f.appendChild(document.createTextNode(s.slice(last))); t.parentNode.replaceChild(f, t);
+  });
+  return frag;
+}
