@@ -11,7 +11,7 @@ function pmTentar(tentativa){
   ]).then(function(r){
     if ((r[0].count || 0) + (r[1].count || 0) > 0 || r[0].error) return;
     var nome = firstName(auth.name());
-    $("pmTexto").value = "Oi, eu sou " + nome + ", de ____. Vim conhecer a comunidade e estou feliz de estar aqui. ☕";
+    $("pmTexto").value = "Oi, eu sou " + nome + " e estou feliz em estar aqui. ☕"; $("pmTitle").textContent = "Que bom ter você aqui, " + nome + "!";
     setStatus($("pmStatus"), ""); $("primeiroDlg").showModal();
   });
 }
@@ -20,7 +20,6 @@ $("pmClose").addEventListener("click", function(){ $("primeiroDlg").close(); });
 $("pmPublicar").addEventListener("click", function(){
   var t = $("pmTexto").value.trim(), st = $("pmStatus");
   if (t.length < 3) return setStatus(st, "Escreva uma frase para se apresentar.", "err");
-  if (/____/.test(t)) return setStatus(st, "Complete de onde você é (troque os traços).", "err");
   $("pmPublicar").disabled = true; setStatus(st, "Publicando…");
   sb.from("posts").insert({ tipo: "conversa", texto: t }).then(function(r){
     $("pmPublicar").disabled = false;
@@ -28,3 +27,7 @@ $("pmPublicar").addEventListener("click", function(){
     $("primeiroDlg").close(); toast("Primeiro post publicado! Bem-vinda(o) à mesa."); go("mesa"); if (typeof loadFeed === "function") loadFeed(true);
   });
 });
+
+// Próximos passos sugeridos ao entrar: completar o perfil e indicar algo para a comunidade
+$("pmPerfil").addEventListener("click", function(){ $("primeiroDlg").close(); go("perfil"); setTimeout(function(){ var b = $("pfEdit"); if (b && !b.hidden) b.click(); }, 900); });
+$("pmIndicar").addEventListener("click", function(){ $("primeiroDlg").close(); go("indicacoes"); setTimeout(function(){ $("vizNova").click(); }, 500); });

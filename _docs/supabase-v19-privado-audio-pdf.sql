@@ -1,4 +1,4 @@
--- Café, Graça & Fralda · banco v19: Mensagens privadas com PDF e áudios que somem em 72 horas.
+-- Café, Graça & Fralda · banco v19: Mensagens privadas com PDF, áudios que somem em 72 horas e link no perfil.
 -- Como usar: Supabase > SQL Editor > cole tudo > Run (depois do v18). Pode rodar mais de uma vez. Não apaga dados.
 -- Regras: foto (JPEG), PDF e áudio até 5 MB; o áudio some 72 horas depois de enviado (arquivo e mensagem).
 
@@ -56,3 +56,9 @@ revoke all on function public.dm_audios_vencidos() from public, anon;
 revoke all on function public.dm_expirar_audios() from public, anon;
 grant execute on function public.dm_audios_vencidos() to authenticated;
 grant execute on function public.dm_expirar_audios() to authenticated;
+
+-- 5. Link no perfil (Instagram, LinkedIn ou qualquer site): só http(s), até 200 caracteres
+alter table public.perfis add column if not exists link text;
+alter table public.perfis drop constraint if exists perfis_link_check;
+alter table public.perfis add constraint perfis_link_check check (link is null or (char_length(link) <= 200 and link ~ '^https?://[^[:space:]]+$'));
+grant update (aceita_dm, apelido, bio, cidade, avatar, link) on public.perfis to authenticated;

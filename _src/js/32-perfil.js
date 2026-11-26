@@ -21,7 +21,7 @@ function loadPerfil(){
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
   $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine; $("pfFollow").hidden = mine; pfSeguidores(id, mine);
   Promise.all([
-    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
+    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar,link").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
     sb.from("pubs").select("id,tipo,titulo,texto,criado_em,oficial").eq("user_id", id).eq("oficial", false).order("criado_em", { ascending: false }).limit(30),
     sb.from("lazer").select("id,nome_local,cidade,uf,porque,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30)
@@ -34,6 +34,8 @@ function loadPerfil(){
     $("pfNome").textContent = nome;
     $("pfCidade").hidden = !p.cidade; $("pfCidade").textContent = p.cidade ? "📍 " + p.cidade : "";
     $("pfBio").hidden = !p.bio; $("pfBio").textContent = p.bio || "";
+    var lk = /^https?:\/\//i.test(p.link || "") ? p.link : ""; $("pfLink").hidden = !lk;
+    if (lk) { $("pfLinkA").href = lk; $("pfLinkA").textContent = "🔗 " + lk.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "").slice(0, 40); }
     pfFillAvatar($("pfAv"), nome, "");
     pfSign(p.avatar).then(function(u){ if (tok === pf.tid || tok === pf.tok) pfFillAvatar($("pfAv"), nome, u); });
     var itens = [];
@@ -53,7 +55,7 @@ auth.on(function(){ if (auth.user && isShown("perfil")) loadPerfil(); });
 $("pfMsg").addEventListener("click", function(){ if (pf.data) { go("mensagens"); openDm(pf.id, pf.data.apelido || pf.data.nome); } });
 $("pfEdit").addEventListener("click", function(){
   var p = pf.data || {}; pf.file = null;
-  $("pf-nome").value = p.apelido || p.nome || ""; $("pf-cidade").value = p.cidade || ""; $("pf-bio").value = p.bio || "";
+  $("pf-nome").value = p.apelido || p.nome || ""; $("pf-cidade").value = p.cidade || ""; $("pf-bio").value = p.bio || ""; $("pf-link").value = p.link || "";
   pfFillAvatar($("pfEditAv"), p.apelido || p.nome, ""); pfSign(p.avatar).then(function(u){ if (!pf.file) pfFillAvatar($("pfEditAv"), p.apelido || p.nome, u); });
   setStatus($("pfStatus"), ""); $("pfDlg").showModal();
 });
@@ -70,11 +72,13 @@ $("pfSave").addEventListener("click", function(){
   var up = path ? sb.storage.from("mural").upload(path, pf.file, { contentType: "image/jpeg", upsert: false }) : Promise.resolve({});
   up.then(function(u){
     if (u && u.error) throw new Error("foto");
-    var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null }; if (path) row.avatar = path;
+    var lkv = val("pf-link"); if (lkv && !/^https?:\/\//i.test(lkv)) lkv = "https://" + lkv;
+    if (lkv && !/^https?:\/\/[^\s]+\.[^\s]+$/.test(lkv)) throw new Error("link");
+    var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null, link: lkv || null }; if (path) row.avatar = path;
     return sb.from("perfis").update(row).eq("user_id", uid()).then(function(r){ if (r.error) throw new Error("salvar"); });
   }).then(function(){
     $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); avForget(uid()); toast("Perfil salvo."); loadPerfil();
-  }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
+  }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "link" ? "Esse link não parece certo. Confira o endereço." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
 });
 
 $("pfShare").addEventListener("click", function(){

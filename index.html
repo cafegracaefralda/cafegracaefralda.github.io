@@ -1418,6 +1418,10 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .file-pdf{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px;color:var(--ink);text-decoration:none;max-width:260px}
 .file-pdf span{grid-row:span 2;font-size:26px}.file-pdf b{font-size:14.5px;overflow-wrap:anywhere}.file-pdf small{color:var(--muted)}
 
+.pm-next{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
+.pm-next b{font-size:14px;color:var(--muted)}
+#pfLink a{color:var(--terra);font-weight:600;overflow-wrap:anywhere}
+
 </style>
 </head>
 <body>
@@ -1674,6 +1678,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
           <h2 id="pfNome"></h2>
           <p class="muted" id="pfCidade" hidden></p>
           <p id="pfBio" hidden></p>
+          <p id="pfLink" hidden><a id="pfLinkA" target="_blank" rel="noopener noreferrer nofollow ugc"></a></p>
           <div class="perfil-stats" id="pfStats"></div>
           <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-terra btn-sm" type="button" id="pfFollow" hidden>Seguir</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
         </div>
@@ -1688,6 +1693,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <div class="pf-photo"><div class="perfil-av" id="pfEditAv" aria-hidden="true"></div><label class="btn btn-ghost btn-sm" for="pfFoto">Trocar foto</label><input type="file" id="pfFoto" accept="image/*" hidden></div>
     <div class="field"><label for="pf-nome">Nome na comunidade</label><input id="pf-nome" maxlength="30"></div>
     <div class="field"><label for="pf-cidade">Cidade (opcional)</label><input id="pf-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="field"><label for="pf-link">Seu link (opcional)</label><input id="pf-link" type="url" inputmode="url" maxlength="200" placeholder="Instagram, LinkedIn ou qualquer site"></div>
     <div class="field"><label for="pf-bio">Sobre você (opcional)</label><textarea id="pf-bio" maxlength="160" placeholder="Uma frase sobre você ou sua família."></textarea></div>
     <button class="btn btn-terra btn-block" type="button" id="pfSave">Salvar</button>
     <p class="status" id="pfStatus" role="status"></p>
@@ -2076,11 +2082,15 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
   <span class="label">Bem-vindo à mesa</span>
-  <h3 id="pmTitle">Faça o seu primeiro post</h3>
-  <p>Se apresente para a comunidade: seu nome, de onde você é e o que te trouxe aqui.</p>
-  <textarea id="pmTexto" maxlength="600" rows="4" aria-label="Seu primeiro post"></textarea>
+  <h3 id="pmTitle">Que bom ter você aqui</h3>
+  <p>Comece se apresentando. Pode ser simples, é só dizer quem você é.</p>
+  <textarea id="pmTexto" maxlength="600" rows="3" aria-label="Seu primeiro post"></textarea>
   <button class="btn btn-terra btn-block" type="button" id="pmPublicar">Publicar na Mesa</button>
   <p class="status" id="pmStatus" role="status"></p>
+  <div class="pm-next"><b>Para deixar a mesa mais sua</b>
+    <button class="btn btn-ghost btn-block" type="button" id="pmPerfil">Completar o meu perfil (foto, sobre você e link)</button>
+    <button class="btn btn-ghost btn-block" type="button" id="pmIndicar">Indicar um lugar, profissional, restaurante ou qualquer coisa</button>
+  </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
@@ -2715,7 +2725,7 @@ function loadPerfil(){
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
   $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine; $("pfFollow").hidden = mine; pfSeguidores(id, mine);
   Promise.all([
-    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
+    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar,link").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
     sb.from("pubs").select("id,tipo,titulo,texto,criado_em,oficial").eq("user_id", id).eq("oficial", false).order("criado_em", { ascending: false }).limit(30),
     sb.from("lazer").select("id,nome_local,cidade,uf,porque,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30)
@@ -2728,6 +2738,8 @@ function loadPerfil(){
     $("pfNome").textContent = nome;
     $("pfCidade").hidden = !p.cidade; $("pfCidade").textContent = p.cidade ? "📍 " + p.cidade : "";
     $("pfBio").hidden = !p.bio; $("pfBio").textContent = p.bio || "";
+    var lk = /^https?:\/\//i.test(p.link || "") ? p.link : ""; $("pfLink").hidden = !lk;
+    if (lk) { $("pfLinkA").href = lk; $("pfLinkA").textContent = "🔗 " + lk.replace(/^https?:\/\/(www\.)?/i, "").replace(/\/$/, "").slice(0, 40); }
     pfFillAvatar($("pfAv"), nome, "");
     pfSign(p.avatar).then(function(u){ if (tok === pf.tid || tok === pf.tok) pfFillAvatar($("pfAv"), nome, u); });
     var itens = [];
@@ -2747,7 +2759,7 @@ auth.on(function(){ if (auth.user && isShown("perfil")) loadPerfil(); });
 $("pfMsg").addEventListener("click", function(){ if (pf.data) { go("mensagens"); openDm(pf.id, pf.data.apelido || pf.data.nome); } });
 $("pfEdit").addEventListener("click", function(){
   var p = pf.data || {}; pf.file = null;
-  $("pf-nome").value = p.apelido || p.nome || ""; $("pf-cidade").value = p.cidade || ""; $("pf-bio").value = p.bio || "";
+  $("pf-nome").value = p.apelido || p.nome || ""; $("pf-cidade").value = p.cidade || ""; $("pf-bio").value = p.bio || ""; $("pf-link").value = p.link || "";
   pfFillAvatar($("pfEditAv"), p.apelido || p.nome, ""); pfSign(p.avatar).then(function(u){ if (!pf.file) pfFillAvatar($("pfEditAv"), p.apelido || p.nome, u); });
   setStatus($("pfStatus"), ""); $("pfDlg").showModal();
 });
@@ -2764,11 +2776,13 @@ $("pfSave").addEventListener("click", function(){
   var up = path ? sb.storage.from("mural").upload(path, pf.file, { contentType: "image/jpeg", upsert: false }) : Promise.resolve({});
   up.then(function(u){
     if (u && u.error) throw new Error("foto");
-    var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null }; if (path) row.avatar = path;
+    var lkv = val("pf-link"); if (lkv && !/^https?:\/\//i.test(lkv)) lkv = "https://" + lkv;
+    if (lkv && !/^https?:\/\/[^\s]+\.[^\s]+$/.test(lkv)) throw new Error("link");
+    var row = { apelido: nome, cidade: val("pf-cidade") || null, bio: val("pf-bio") || null, link: lkv || null }; if (path) row.avatar = path;
     return sb.from("perfis").update(row).eq("user_id", uid()).then(function(r){ if (r.error) throw new Error("salvar"); });
   }).then(function(){
     $("pfSave").disabled = false; $("pfDlg").close(); auth.apelido = nome; applyAuthUI(); avForget(uid()); toast("Perfil salvo."); loadPerfil();
-  }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
+  }).catch(function(err){ $("pfSave").disabled = false; setStatus(st, err.message === "link" ? "Esse link não parece certo. Confira o endereço." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível salvar agora. Tente de novo.", "err"); });
 });
 
 $("pfShare").addEventListener("click", function(){
@@ -2983,7 +2997,7 @@ function pmTentar(tentativa){
   ]).then(function(r){
     if ((r[0].count || 0) + (r[1].count || 0) > 0 || r[0].error) return;
     var nome = firstName(auth.name());
-    $("pmTexto").value = "Oi, eu sou " + nome + ", de ____. Vim conhecer a comunidade e estou feliz de estar aqui. ☕";
+    $("pmTexto").value = "Oi, eu sou " + nome + " e estou feliz em estar aqui. ☕"; $("pmTitle").textContent = "Que bom ter você aqui, " + nome + "!";
     setStatus($("pmStatus"), ""); $("primeiroDlg").showModal();
   });
 }
@@ -2992,7 +3006,6 @@ $("pmClose").addEventListener("click", function(){ $("primeiroDlg").close(); });
 $("pmPublicar").addEventListener("click", function(){
   var t = $("pmTexto").value.trim(), st = $("pmStatus");
   if (t.length < 3) return setStatus(st, "Escreva uma frase para se apresentar.", "err");
-  if (/____/.test(t)) return setStatus(st, "Complete de onde você é (troque os traços).", "err");
   $("pmPublicar").disabled = true; setStatus(st, "Publicando…");
   sb.from("posts").insert({ tipo: "conversa", texto: t }).then(function(r){
     $("pmPublicar").disabled = false;
@@ -3000,6 +3013,10 @@ $("pmPublicar").addEventListener("click", function(){
     $("primeiroDlg").close(); toast("Primeiro post publicado! Bem-vinda(o) à mesa."); go("mesa"); if (typeof loadFeed === "function") loadFeed(true);
   });
 });
+
+// Próximos passos sugeridos ao entrar: completar o perfil e indicar algo para a comunidade
+$("pmPerfil").addEventListener("click", function(){ $("primeiroDlg").close(); go("perfil"); setTimeout(function(){ var b = $("pfEdit"); if (b && !b.hidden) b.click(); }, 900); });
+$("pmIndicar").addEventListener("click", function(){ $("primeiroDlg").close(); go("indicacoes"); setTimeout(function(){ $("vizNova").click(); }, 500); });
 
 
 // Barreira de nudez no próprio aparelho: a foto é analisada ANTES de sair do celular (nada é enviado para terceiros).

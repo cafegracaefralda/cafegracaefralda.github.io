@@ -247,6 +247,7 @@
           <h2 id="pfNome"></h2>
           <p class="muted" id="pfCidade" hidden></p>
           <p id="pfBio" hidden></p>
+          <p id="pfLink" hidden><a id="pfLinkA" target="_blank" rel="noopener noreferrer nofollow ugc"></a></p>
           <div class="perfil-stats" id="pfStats"></div>
           <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-terra btn-sm" type="button" id="pfFollow" hidden>Seguir</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
         </div>
@@ -261,6 +262,7 @@
     <div class="pf-photo"><div class="perfil-av" id="pfEditAv" aria-hidden="true"></div><label class="btn btn-ghost btn-sm" for="pfFoto">Trocar foto</label><input type="file" id="pfFoto" accept="image/*" hidden></div>
     <div class="field"><label for="pf-nome">Nome na comunidade</label><input id="pf-nome" maxlength="30"></div>
     <div class="field"><label for="pf-cidade">Cidade (opcional)</label><input id="pf-cidade" maxlength="60" placeholder="Ex.: Recife, PE"></div>
+    <div class="field"><label for="pf-link">Seu link (opcional)</label><input id="pf-link" type="url" inputmode="url" maxlength="200" placeholder="Instagram, LinkedIn ou qualquer site"></div>
     <div class="field"><label for="pf-bio">Sobre você (opcional)</label><textarea id="pf-bio" maxlength="160" placeholder="Uma frase sobre você ou sua família."></textarea></div>
     <button class="btn btn-terra btn-block" type="button" id="pfSave">Salvar</button>
     <p class="status" id="pfStatus" role="status"></p>
@@ -649,11 +651,15 @@
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
   <span class="label">Bem-vindo à mesa</span>
-  <h3 id="pmTitle">Faça o seu primeiro post</h3>
-  <p>Se apresente para a comunidade: seu nome, de onde você é e o que te trouxe aqui.</p>
-  <textarea id="pmTexto" maxlength="600" rows="4" aria-label="Seu primeiro post"></textarea>
+  <h3 id="pmTitle">Que bom ter você aqui</h3>
+  <p>Comece se apresentando. Pode ser simples, é só dizer quem você é.</p>
+  <textarea id="pmTexto" maxlength="600" rows="3" aria-label="Seu primeiro post"></textarea>
   <button class="btn btn-terra btn-block" type="button" id="pmPublicar">Publicar na Mesa</button>
   <p class="status" id="pmStatus" role="status"></p>
+  <div class="pm-next"><b>Para deixar a mesa mais sua</b>
+    <button class="btn btn-ghost btn-block" type="button" id="pmPerfil">Completar o meu perfil (foto, sobre você e link)</button>
+    <button class="btn btn-ghost btn-block" type="button" id="pmIndicar">Indicar um lugar, profissional, restaurante ou qualquer coisa</button>
+  </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
