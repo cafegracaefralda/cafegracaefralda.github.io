@@ -32,6 +32,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
+    if (viz.casa && !p.selo) return;
     if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
@@ -39,10 +40,11 @@ function renderFridge(filter){
     if (p.pend) top.append(h("span", "ex pend", "Em análise"));
     var why = h("div", "note-why"); why.append(h("span", "note-small", p.por ? "Por que indica" : "Por que indicamos"),h("p", null, "“" + p.porque + "”"));
     var acts = h("div", "note-acts");
-    function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
+    function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; if (href.charAt(0) !== "#") { a.target = "_blank"; a.rel = "noopener"; } a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
     if (p.mapa) lnk("btn-ghost", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome + ", " + p.oque), "i-arrow", "Ver no mapa");
+    if (p.nome === "Denny Silva" && p.selo) lnk("btn-ghost", "#palestra", "i-arrow", "Convidar para palestra");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
     li.append(tape, top, hn, h("p", "note-what", p.oque), why);

@@ -34,13 +34,15 @@ function modItem(table, it, extra){
   var act = h("div", "confirm"), hide = h("button", "btn btn-ghost btn-sm", it.aprovado ? "Ocultar" : "Mostrar"), del = h("button", "btn btn-ghost btn-sm", "Excluir"); hide.type = del.type = "button";
   hide.addEventListener("click", function(){ sb.from(table).update({ aprovado: !it.aprovado }).eq("id", it.id).then(loadMod); });
   del.addEventListener("click", function(){ del.textContent = "Confirmar?"; del.onclick = function(){ sb.from(table).delete().eq("id", it.id).then(loadMod); }; });
-  act.append(hide, del); el.append(body, act); return el;
+  act.append(hide, del);
+  if (it.cartao) { var cb = h("button", "btn btn-wa btn-sm", "Cartão + WhatsApp"); cb.type = "button"; cb.addEventListener("click", function(){ abrirCartao(it.cartao); }); act.insertBefore(cb, act.firstChild); }
+  el.append(body, act); return el;
 }
 function loadMod(){
   sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40).then(function(r){
     var c3 = $("pModInds"); c3.innerHTML = "";
     (r.data || []).forEach(function(x){
-      c3.appendChild(modItem("indicacoes_membros", { id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
+      c3.appendChild(modItem("indicacoes_membros", { cartao: x, id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
         texto: x.especialidade + " · " + x.onde + " · " + (x.plano === "plano" ? "Plano: " + x.planos : "Particular") + " · Conheceu: " + x.como_conheceu + " — " + x.porque + (x.contato ? " · Contato: " + x.contato : "") }, x.aprovado ? "publicada" : "AGUARDANDO"));
     });
     if (!c3.childNodes.length) c3.appendChild(h("p", "muted", "Nenhuma indicação enviada ainda."));

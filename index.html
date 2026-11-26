@@ -1400,10 +1400,14 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .compose-top .cbox textarea{background:none;border-radius:22px 22px 0 0;outline:0!important;padding:12px 16px 4px}
 .cbox-bar{display:flex;align-items:center;gap:2px;padding:2px 6px 6px}
 .cbox-bar .cbtn{min-width:44px;min-height:44px;padding:0;justify-content:center;border-radius:50%}
-.cbox-bar .cbtn-send{margin-left:auto;min-width:0;min-height:40px;padding:0 20px;border-radius:999px}
+.cbox-bar .cbtn-send{margin-left:auto;min-width:0;min-height:44px;padding:0 20px;border-radius:999px}
 .viz-dicas{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
 .viz-dicas button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;color:var(--ink);min-height:40px;cursor:pointer}
 .viz-dicas button:hover{background:var(--sand)}
+
+.lw-logo{width:64px;height:64px;margin:0 auto 6px}
+.lw-box{text-align:center}
+.home-sub{color:var(--muted);margin:2px 0 0}
 
 </style>
 </head>
@@ -1485,7 +1489,6 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
-      <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
       <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
       <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener" class="nav-admin"><svg><use href="#i-wa"/></svg><span>Falar com a administração</span></a>
     </nav>
@@ -1516,7 +1519,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
@@ -1729,7 +1732,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
       <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
-      <div class="viz-dicas" id="vizDicas" aria-label="Sugestões de busca"></div>
+      <div class="viz-dicas"><button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button></div>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
@@ -1851,7 +1854,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa">Profissionais</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Palestras"><a href="#indicacoes">← Vizinhança</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
@@ -1957,16 +1960,9 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 </div></dialog>
 <div class="login-wall boot" id="loginWall" role="dialog" aria-modal="true" aria-labelledby="lwTitle">
   <div class="lw-box">
-    <span class="label">Boas-vindas</span>
-    <h2 id="lwTitle">Que bom ter você na comunidade Café, Graça &amp; Fralda</h2>
-    <p>Aqui tem mesa posta para todas as famílias, com valores cristãos e portas abertas. Tem café, conversa, indicação de quem cuida bem da gente e muita graça no meio da correria.</p>
-    <p><b>Para acessar, faça o seu login.</b></p>
-    <ul class="lw-list" aria-label="O que tem na comunidade">
-      <li><b>Mesa Grande</b> conversa, stories e pedidos de oração</li>
-      <li><b>A Casa</b> devocional da semana e novidades</li>
-      <li><b>Vizinhança</b> lugares, saúde e serviços indicados por quem conhece</li>
-      
-    </ul>
+    <span class="logo-mark lw-logo"><svg><use href="#logo"/></svg></span>
+    <h2 id="lwTitle">Entre o café e a fralda, tem graça.</h2>
+    <p>Uma mesa posta para todas as famílias. Entre, puxe a cadeira.</p>
     <div class="lw-actions">
       <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
       <button class="btn btn-ghost btn-block" type="button" id="lwInstall" hidden>Instalar o app</button>
@@ -2001,7 +1997,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   </form>
   <div id="anInfo" hidden>
     <p id="anInfoTxt"></p>
-    <a class="btn btn-wa btn-block" id="anWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Combinar com a equipe</a>
+    <button class="btn btn-terra btn-block" type="button" id="anOk">Entendi</button>
   </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="ofDlg" aria-labelledby="ofTitle"><div class="sheet-box">
@@ -2046,6 +2042,15 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   <button class="btn btn-ghost btn-block" type="button" id="ivContatos" hidden>Escolher dos meus contatos</button>
   <button class="btn btn-ghost btn-block" type="button" id="ivLink">Compartilhar o link do site</button>
   <p class="status" id="ivStatus" role="status"></p>
+</div></dialog>
+<dialog class="sheet-dlg" id="cardDlg" aria-labelledby="cdTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="cdClose" aria-label="Fechar">×</button>
+  <h3 id="cdTitle">Cartão de parceria</h3>
+  <img id="cdImg" alt="Cartão da indicação" style="width:100%;border-radius:14px">
+  <div class="field"><label for="cdTexto">Mensagem (pode editar)</label><textarea id="cdTexto" rows="7" style="font-size:16px"></textarea></div>
+  <button class="btn btn-wa btn-block" type="button" id="cdEnviar"><svg><use href="#i-wa"/></svg>Enviar pelo WhatsApp</button>
+  <button class="btn btn-ghost btn-block" type="button" id="cdBaixar">Baixar imagem</button>
+  <p class="status" id="cdStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
@@ -2374,13 +2379,13 @@ var TAPE = { "Fé e religião":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Resta
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "casa", "palestra", "painel"];
+var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "palestra", "painel"];
 var ALIAS = { dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
-              cafe: "casa", agendar: "casa", cadeira: "casa", profissional: "casa", contato: "casa", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
+              casa: "indicacoes", cafe: "indicacoes", agendar: "indicacoes", cadeira: "indicacoes", profissional: "indicacoes", contato: "indicacoes", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
 var viewHooks = {};  // viewHooks[tela] = function(aba): roda quando a tela abre
-var NAV_OF = { palestra: "casa", perfil: "" };  // telas que acendem outro item do menu
+var NAV_OF = { palestra: "indicacoes", perfil: "" };  // telas que acendem outro item do menu
 
 function parseHash(){
   var p = (location.hash || "").replace(/^#\/?/, "").split("/"), v = p[0], s = p[1] || "";
@@ -2967,6 +2972,14 @@ $("ivLink").addEventListener("click", function(){
 });
 
 
+// Saudação personalizada em A Casa (muda conforme a hora e usa só o primeiro nome)
+function homeOi(){
+  var n = auth.user ? firstName(auth.name()) : "", hr = new Date().getHours(), t = hr < 5 ? "Boa madrugada" : hr < 12 ? "Bom dia" : hr < 18 ? "Boa tarde" : "Boa noite";
+  $("homeOi").textContent = t + (n ? ", " + n : "") + " ☕";
+}
+auth.on(homeOi); homeOi();
+
+
 // 5 minutos: devocional da semana, anteriores, leitura em janela e cadastro de novidades.
 var dlg = $("reader"), readerBody = $("readerBody");
 
@@ -3181,7 +3194,8 @@ filterChips("ofFilters", function(f){ of.filtro = f; renderOfertas(); });
 // --- quero anunciar
 var anDlg = $("anDlg"), ofDlg = $("ofDlg");
 $("an-zap").addEventListener("input", maskPhone);
-function anInfo(txt, wa){ $("anForm").hidden = true; $("anInfo").hidden = false; $("anInfoTxt").textContent = txt; $("anWa").href = waLink(wa || "Oi! Quero anunciar na comunidade Café, Graça & Fralda."); }
+function anInfo(txt){ $("anForm").hidden = true; $("anInfo").hidden = false; $("anInfoTxt").textContent = txt; }
+$("anOk").addEventListener("click", function(){ anDlg.close(); });
 $("ofAnunciar").addEventListener("click", function(){
   if (!auth.user || !sb) return;
   sb.from("anunciantes").select("marca,status,confiavel").eq("user_id", auth.user.id).maybeSingle().then(function(r){
@@ -3189,8 +3203,8 @@ $("ofAnunciar").addEventListener("click", function(){
     if (a && a.status === "ativo") { setStatus($("ofStatus"), ""); of.file = null; $("of-foto-nome").textContent = ""; $("ofForm").reset(); ofDlg.showModal(); return; }
     anDlg.showModal(); anDlg.scrollTop = 0; setStatus($("anStatus"), "");
     if (!a) { $("anForm").hidden = false; $("anInfo").hidden = true; return; }
-    if (a.status === "pendente") anInfo("Recebemos o seu pedido, " + a.marca + ". A equipe combina os detalhes pelo WhatsApp e ativa a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + a.marca + ".");
-    else anInfo("A sua conta de parceiro não está ativa. Fale com a equipe para entender o motivo.", "Oi! Sobre a minha conta de parceiro (" + a.marca + ") na comunidade Café, Graça & Fralda.");
+    if (a.status === "pendente") anInfo("Recebemos o seu pedido, " + a.marca + ". A equipe analisa e você recebe a resposta aqui no site, no sininho 🔔.");
+    else anInfo("A sua conta de parceiro não está ativa no momento. Qualquer novidade, você recebe o aviso aqui no site, no sininho 🔔.");
   });
 });
 $("anClose").addEventListener("click", function(){ anDlg.close(); });
@@ -3205,7 +3219,7 @@ $("anForm").addEventListener("submit", function(e){
   sb.from("anunciantes").insert({ marca: marca, tipo: $("an-tipo").value, instagram: val("an-ig") || null, whatsapp: zap, cidade: val("an-cidade") || null, sobre: val("an-sobre") || null }).then(function(r){
     $("anSend").disabled = false;
     if (r.error) { var m = String(r.error.message || ""); return setStatus(st, m.indexOf("conteudo_improprio") > -1 ? "Escolha um nome respeitoso para a marca." : m.indexOf("conta_suspensa") > -1 ? "Sua conta está suspensa." : "Não foi possível enviar agora. Tente de novo.", "err"); }
-    setStatus(st, ""); anInfo("Pedido enviado! A equipe vai falar com você pelo WhatsApp para combinar os detalhes e ativar a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + marca + ".");
+    setStatus(st, ""); anInfo("Pedido enviado! A equipe analisa e você recebe a resposta aqui no site, no sininho 🔔.");
   });
 });
 $("of-foto").addEventListener("change", function(){
@@ -3238,7 +3252,7 @@ var _hookInicio = viewHooks.inicio;
 viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
 auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
-// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido -> aviso para a administração -> opção de falar pelo WhatsApp)
+// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
 
 
@@ -3271,11 +3285,9 @@ vizDlg.addEventListener("close", vizReset);
 new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
 $("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 
-// Dicas de busca: toque para preencher (especialista, cidade ou nome)
-["Pediatra", "Obstetra", "Psicólogo", "Recife", "Salvador", "Belo Horizonte", "Restaurante", "Parque"].forEach(function(t){
-  var b = h("button", null, t); b.type = "button";
-  b.addEventListener("click", function(){ $("vizBusca").value = t; $("vizBusca").dispatchEvent(new Event("input")); });
-  $("vizDicas").appendChild(b);
+// Filtro "Da Casa ✓": só os profissionais de confiança da comunidade
+$("vizCasa").addEventListener("click", function(){
+  viz.casa = !viz.casa; this.setAttribute("aria-pressed", viz.casa); renderFridge();
 });
 
 
@@ -3313,6 +3325,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
+    if (viz.casa && !p.selo) return;
     if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
@@ -3320,10 +3333,11 @@ function renderFridge(filter){
     if (p.pend) top.append(h("span", "ex pend", "Em análise"));
     var why = h("div", "note-why"); why.append(h("span", "note-small", p.por ? "Por que indica" : "Por que indicamos"),h("p", null, "“" + p.porque + "”"));
     var acts = h("div", "note-acts");
-    function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
+    function lnk(cls, href, ic, label){ var a = h("a", "btn btn-sm " + cls); a.href = href; if (href.charAt(0) !== "#") { a.target = "_blank"; a.rel = "noopener"; } a.append(icon(ic), document.createTextNode(label)); acts.appendChild(a); }
     if (p.whatsapp) lnk("btn-wa", "https://wa.me/" + p.whatsapp.replace(/\D/g, ""), "i-wa", "WhatsApp");
     if (p.site) lnk("btn-terra", p.site, "i-arrow", "Conhecer o site");
     if (p.mapa) lnk("btn-ghost", "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome + ", " + p.oque), "i-arrow", "Ver no mapa");
+    if (p.nome === "Denny Silva" && p.selo) lnk("btn-ghost", "#palestra", "i-arrow", "Convidar para palestra");
     if (p.instagram) lnk("btn-ghost", "https://instagram.com/" + p.instagram.replace(/^@/, ""), "i-ig", "Instagram");
     var hn = h("h3", null, p.nome); if (p.selo) hn.appendChild(seloEl());
     li.append(tape, top, hn, h("p", "note-what", p.oque), why);
@@ -4397,13 +4411,15 @@ function modItem(table, it, extra){
   var act = h("div", "confirm"), hide = h("button", "btn btn-ghost btn-sm", it.aprovado ? "Ocultar" : "Mostrar"), del = h("button", "btn btn-ghost btn-sm", "Excluir"); hide.type = del.type = "button";
   hide.addEventListener("click", function(){ sb.from(table).update({ aprovado: !it.aprovado }).eq("id", it.id).then(loadMod); });
   del.addEventListener("click", function(){ del.textContent = "Confirmar?"; del.onclick = function(){ sb.from(table).delete().eq("id", it.id).then(loadMod); }; });
-  act.append(hide, del); el.append(body, act); return el;
+  act.append(hide, del);
+  if (it.cartao) { var cb = h("button", "btn btn-wa btn-sm", "Cartão + WhatsApp"); cb.type = "button"; cb.addEventListener("click", function(){ abrirCartao(it.cartao); }); act.insertBefore(cb, act.firstChild); }
+  el.append(body, act); return el;
 }
 function loadMod(){
   sb.from("indicacoes_membros").select("id,autor,nome,especialidade,onde,plano,planos,como_conheceu,porque,contato,aprovado,criado_em").order("criado_em", { ascending: false }).limit(40).then(function(r){
     var c3 = $("pModInds"); c3.innerHTML = "";
     (r.data || []).forEach(function(x){
-      c3.appendChild(modItem("indicacoes_membros", { id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
+      c3.appendChild(modItem("indicacoes_membros", { cartao: x, id: x.id, aprovado: x.aprovado, criado_em: x.criado_em, nome: x.nome + " (por " + x.autor + ")",
         texto: x.especialidade + " · " + x.onde + " · " + (x.plano === "plano" ? "Plano: " + x.planos : "Particular") + " · Conheceu: " + x.como_conheceu + " — " + x.porque + (x.contato ? " · Contato: " + x.contato : "") }, x.aprovado ? "publicada" : "AGUARDANDO"));
     });
     if (!c3.childNodes.length) c3.appendChild(h("p", "muted", "Nenhuma indicação enviada ainda."));
@@ -4480,6 +4496,68 @@ viewHooks.painel = function(sub){
   if (sub !== "alertas") sb.from("alertas").select("id", { count: "exact", head: true }).eq("status", "aberto").then(function(c){ var n = $("alertaN"); n.textContent = c.count ? String(c.count) : ""; n.hidden = !c.count; });
 };
 auth.on(function(){ if (route.view === "painel") viewHooks.painel(route.sub); });
+
+
+// Cartão de parceria: a administração gera uma imagem (logo + indicação) e a mensagem pronta para mandar no WhatsApp à pessoa indicada.
+var cartao = { x: null, blob: null, texto: "", fone: "" };
+function cartaoLogo(){
+  return new Promise(function(res){
+    var sym = document.getElementById("logo"); if (!sym) return res(null);
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-.5 -.4 25 23.4" width="500" height="470" color="#F6EBDD">' + sym.innerHTML.replace(/currentColor/g, "#F6EBDD") + "</svg>";
+    var im = new Image(); im.onload = function(){ res(im); }; im.onerror = function(){ res(null); };
+    im.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  });
+}
+function cartaoQuebra(ctx, txt, max){
+  var ws = String(txt).split(/\s+/), lines = [], cur = "";
+  ws.forEach(function(w){ var t = cur ? cur + " " + w : w; if (ctx.measureText(t).width > max && cur) { lines.push(cur); cur = w; } else cur = t; });
+  if (cur) lines.push(cur); return lines;
+}
+function cartaoFone(c){
+  var d = String(c || "").replace(/\D/g, "").replace(/^0+/, "");
+  if (d.length === 10 || d.length === 11) d = "55" + d;
+  return /^55\d{10,11}$/.test(d) ? d : "";
+}
+function cartaoDesenhar(x, logo){
+  var W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H; var g = c.getContext("2d");
+  g.fillStyle = "#1D1A17"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#E2A07C"; g.fillRect(0, 0, W, 10);
+  if (logo) g.drawImage(logo, W / 2 - 110, 90, 220, 207);
+  g.textAlign = "center"; g.fillStyle = "#F6EBDD"; g.font = "600 46px Georgia, serif"; g.fillText("Café, Graça & Fralda", W / 2, 370);
+  g.fillStyle = "#E2A07C"; g.font = "600 26px Arial, sans-serif"; g.fillText("INDICADO(A) PELA COMUNIDADE", W / 2, 470);
+  g.fillStyle = "#F6EBDD"; g.font = "600 84px Georgia, serif"; var y = 590;
+  cartaoQuebra(g, x.nome, 900).slice(0, 2).forEach(function(l){ g.fillText(l, W / 2, y); y += 98; });
+  g.fillStyle = "#E2A07C"; g.font = "400 38px Arial, sans-serif"; g.fillText([x.especialidade, x.onde].filter(Boolean).join(" · "), W / 2, y + 6);
+  g.fillStyle = "#F6EBDD"; g.font = "italic 40px Georgia, serif"; y += 100;
+  cartaoQuebra(g, "“" + String(x.porque || "").slice(0, 230) + "”", 860).slice(0, 5).forEach(function(l){ g.fillText(l, W / 2, y); y += 58; });
+  g.fillStyle = "#9d9388"; g.font = "400 30px Arial, sans-serif"; g.fillText("— " + (x.autor || "um membro") + ", da nossa comunidade", W / 2, y + 20);
+  g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("cafegracaefralda.github.io", W / 2, H - 90);
+  return c;
+}
+function cartaoMensagem(x){
+  return "Olá, " + firstName(x.nome) + "! Tudo bem?\n\nAqui é da *Café, Graça & Fralda*, uma comunidade para todas as famílias. " + (x.autor ? "A " + x.autor + ", " : "Uma pessoa ") + "da nossa comunidade indicou o seu trabalho (" + x.especialidade + ") e a gente adorou conhecer.\n\nQueremos te convidar para uma *parceria* com a nossa comunidade. Posso te contar como funciona?\n\nConheça a casa: https://cafegracaefralda.github.io/";
+}
+function abrirCartao(x){
+  cartao.x = x; cartao.texto = cartaoMensagem(x); cartao.fone = cartaoFone(x.contato);
+  $("cdTexto").value = cartao.texto; setStatus($("cdStatus"), x.contato && !cartao.fone ? "O contato informado (“" + x.contato + "”) não é um telefone: o WhatsApp vai abrir para você escolher a conversa." : "");
+  cartaoLogo().then(function(logo){
+    var c = cartaoDesenhar(x, logo);
+    c.toBlob(function(b){ cartao.blob = b; $("cdImg").src = URL.createObjectURL(b); $("cardDlg").showModal(); }, "image/png");
+  });
+}
+function cartaoBaixar(){ if (!cartao.blob) return; var a = h("a"); a.href = URL.createObjectURL(cartao.blob); a.download = "indicacao-" + String(cartao.x.nome || "cartao").toLowerCase().replace(/[^a-z0-9]+/g, "-") + ".png"; document.body.appendChild(a); a.click(); a.remove(); }
+$("cdClose").addEventListener("click", function(){ $("cardDlg").close(); });
+$("cdBaixar").addEventListener("click", cartaoBaixar);
+$("cdEnviar").addEventListener("click", function(){
+  var texto = $("cdTexto").value, file = cartao.blob && new File([cartao.blob], "indicacao.png", { type: "image/png" });
+  if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], text: texto }).catch(function(){});   // no celular: escolha o WhatsApp e o contato; a imagem e a mensagem vão juntas
+    return;
+  }
+  cartaoBaixar();
+  window.open(waLink(texto, cartao.fone), "_blank", "noopener");
+  setStatus($("cdStatus"), "A imagem foi baixada. No WhatsApp, toque no clipe e anexe a imagem antes de enviar.", "ok");
+});
 
 
 // Stories: fotos que somem em 24 horas. Só para quem entrou. Toque na pessoa para ver; "Seu story" para publicar.

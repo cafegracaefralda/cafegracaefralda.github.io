@@ -42,7 +42,8 @@ filterChips("ofFilters", function(f){ of.filtro = f; renderOfertas(); });
 // --- quero anunciar
 var anDlg = $("anDlg"), ofDlg = $("ofDlg");
 $("an-zap").addEventListener("input", maskPhone);
-function anInfo(txt, wa){ $("anForm").hidden = true; $("anInfo").hidden = false; $("anInfoTxt").textContent = txt; $("anWa").href = waLink(wa || "Oi! Quero anunciar na comunidade Café, Graça & Fralda."); }
+function anInfo(txt){ $("anForm").hidden = true; $("anInfo").hidden = false; $("anInfoTxt").textContent = txt; }
+$("anOk").addEventListener("click", function(){ anDlg.close(); });
 $("ofAnunciar").addEventListener("click", function(){
   if (!auth.user || !sb) return;
   sb.from("anunciantes").select("marca,status,confiavel").eq("user_id", auth.user.id).maybeSingle().then(function(r){
@@ -50,8 +51,8 @@ $("ofAnunciar").addEventListener("click", function(){
     if (a && a.status === "ativo") { setStatus($("ofStatus"), ""); of.file = null; $("of-foto-nome").textContent = ""; $("ofForm").reset(); ofDlg.showModal(); return; }
     anDlg.showModal(); anDlg.scrollTop = 0; setStatus($("anStatus"), "");
     if (!a) { $("anForm").hidden = false; $("anInfo").hidden = true; return; }
-    if (a.status === "pendente") anInfo("Recebemos o seu pedido, " + a.marca + ". A equipe combina os detalhes pelo WhatsApp e ativa a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + a.marca + ".");
-    else anInfo("A sua conta de parceiro não está ativa. Fale com a equipe para entender o motivo.", "Oi! Sobre a minha conta de parceiro (" + a.marca + ") na comunidade Café, Graça & Fralda.");
+    if (a.status === "pendente") anInfo("Recebemos o seu pedido, " + a.marca + ". A equipe analisa e você recebe a resposta aqui no site, no sininho 🔔.");
+    else anInfo("A sua conta de parceiro não está ativa no momento. Qualquer novidade, você recebe o aviso aqui no site, no sininho 🔔.");
   });
 });
 $("anClose").addEventListener("click", function(){ anDlg.close(); });
@@ -66,7 +67,7 @@ $("anForm").addEventListener("submit", function(e){
   sb.from("anunciantes").insert({ marca: marca, tipo: $("an-tipo").value, instagram: val("an-ig") || null, whatsapp: zap, cidade: val("an-cidade") || null, sobre: val("an-sobre") || null }).then(function(r){
     $("anSend").disabled = false;
     if (r.error) { var m = String(r.error.message || ""); return setStatus(st, m.indexOf("conteudo_improprio") > -1 ? "Escolha um nome respeitoso para a marca." : m.indexOf("conta_suspensa") > -1 ? "Sua conta está suspensa." : "Não foi possível enviar agora. Tente de novo.", "err"); }
-    setStatus(st, ""); anInfo("Pedido enviado! A equipe vai falar com você pelo WhatsApp para combinar os detalhes e ativar a sua conta de parceiro.", "Oi! Pedi para anunciar na comunidade Café, Graça & Fralda como " + marca + ".");
+    setStatus(st, ""); anInfo("Pedido enviado! A equipe analisa e você recebe a resposta aqui no site, no sininho 🔔.");
   });
 });
 $("of-foto").addEventListener("change", function(){
@@ -99,5 +100,5 @@ var _hookInicio = viewHooks.inicio;
 viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
 auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
-// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido -> aviso para a administração -> opção de falar pelo WhatsApp)
+// Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });

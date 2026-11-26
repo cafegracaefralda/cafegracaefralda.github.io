@@ -1365,7 +1365,11 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .compose-top .cbox textarea{background:none;border-radius:22px 22px 0 0;outline:0!important;padding:12px 16px 4px}
 .cbox-bar{display:flex;align-items:center;gap:2px;padding:2px 6px 6px}
 .cbox-bar .cbtn{min-width:44px;min-height:44px;padding:0;justify-content:center;border-radius:50%}
-.cbox-bar .cbtn-send{margin-left:auto;min-width:0;min-height:40px;padding:0 20px;border-radius:999px}
+.cbox-bar .cbtn-send{margin-left:auto;min-width:0;min-height:44px;padding:0 20px;border-radius:999px}
 .viz-dicas{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
 .viz-dicas button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;color:var(--ink);min-height:40px;cursor:pointer}
 .viz-dicas button:hover{background:var(--sand)}
+
+.lw-logo{width:64px;height:64px;margin:0 auto 6px}
+.lw-box{text-align:center}
+.home-sub{color:var(--muted);margin:2px 0 0}

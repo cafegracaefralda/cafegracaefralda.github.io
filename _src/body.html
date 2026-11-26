@@ -71,7 +71,6 @@
       <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
-      <a href="#casa" data-tab="casa"><svg><use href="#i-cup"/></svg><span>Profissionais da Casa</span></a>
       <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
       <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener" class="nav-admin"><svg><use href="#i-wa"/></svg><span>Falar com a administração</span></a>
     </nav>
@@ -102,7 +101,7 @@
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><span class="label">Da Casa</span><h2>Postagens da Casa</h2><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
@@ -315,7 +314,7 @@
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
       <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
-      <div class="viz-dicas" id="vizDicas" aria-label="Sugestões de busca"></div>
+      <div class="viz-dicas"><button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button></div>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
@@ -437,7 +436,7 @@
 
   <!-- CONVITE PARA PALESTRA -->
   <section class="view" id="v-palestra" data-view="palestra">
-    <div class="wrap"><nav class="subnav" aria-label="Profissionais da Casa"><a href="#casa">Profissionais</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
+    <div class="wrap"><nav class="subnav" aria-label="Palestras"><a href="#indicacoes">← Vizinhança</a><a href="#palestra" aria-current="page">Palestras</a></nav></div>
     <div class="wrap cafe-grid">
       <div class="cafe-info">
         <span class="label">Convite para palestra</span>
@@ -543,16 +542,9 @@
 </div></dialog>
 <div class="login-wall boot" id="loginWall" role="dialog" aria-modal="true" aria-labelledby="lwTitle">
   <div class="lw-box">
-    <span class="label">Boas-vindas</span>
-    <h2 id="lwTitle">Que bom ter você na comunidade Café, Graça &amp; Fralda</h2>
-    <p>Aqui tem mesa posta para todas as famílias, com valores cristãos e portas abertas. Tem café, conversa, indicação de quem cuida bem da gente e muita graça no meio da correria.</p>
-    <p><b>Para acessar, faça o seu login.</b></p>
-    <ul class="lw-list" aria-label="O que tem na comunidade">
-      <li><b>Mesa Grande</b> conversa, stories e pedidos de oração</li>
-      <li><b>A Casa</b> devocional da semana e novidades</li>
-      <li><b>Vizinhança</b> lugares, saúde e serviços indicados por quem conhece</li>
-      
-    </ul>
+    <span class="logo-mark lw-logo"><svg><use href="#logo"/></svg></span>
+    <h2 id="lwTitle">Entre o café e a fralda, tem graça.</h2>
+    <p>Uma mesa posta para todas as famílias. Entre, puxe a cadeira.</p>
     <div class="lw-actions">
       <button class="btn btn-google btn-block" type="button" id="lwGoogle"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
       <button class="btn btn-ghost btn-block" type="button" id="lwInstall" hidden>Instalar o app</button>
@@ -587,7 +579,7 @@
   </form>
   <div id="anInfo" hidden>
     <p id="anInfoTxt"></p>
-    <a class="btn btn-wa btn-block" id="anWa" href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>Combinar com a equipe</a>
+    <button class="btn btn-terra btn-block" type="button" id="anOk">Entendi</button>
   </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="ofDlg" aria-labelledby="ofTitle"><div class="sheet-box">
@@ -632,6 +624,15 @@
   <button class="btn btn-ghost btn-block" type="button" id="ivContatos" hidden>Escolher dos meus contatos</button>
   <button class="btn btn-ghost btn-block" type="button" id="ivLink">Compartilhar o link do site</button>
   <p class="status" id="ivStatus" role="status"></p>
+</div></dialog>
+<dialog class="sheet-dlg" id="cardDlg" aria-labelledby="cdTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="cdClose" aria-label="Fechar">×</button>
+  <h3 id="cdTitle">Cartão de parceria</h3>
+  <img id="cdImg" alt="Cartão da indicação" style="width:100%;border-radius:14px">
+  <div class="field"><label for="cdTexto">Mensagem (pode editar)</label><textarea id="cdTexto" rows="7" style="font-size:16px"></textarea></div>
+  <button class="btn btn-wa btn-block" type="button" id="cdEnviar"><svg><use href="#i-wa"/></svg>Enviar pelo WhatsApp</button>
+  <button class="btn btn-ghost btn-block" type="button" id="cdBaixar">Baixar imagem</button>
+  <p class="status" id="cdStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
