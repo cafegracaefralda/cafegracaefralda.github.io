@@ -21,7 +21,7 @@ function loadPerfil(){
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
   $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine; $("pfFollow").hidden = mine; pfSeguidores(id, mine);
   Promise.all([
-    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar,link").eq("user_id", id).maybeSingle(),
+    sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar,link").eq("user_id", id).maybeSingle().then(function(r){ return r.error ? sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle() : r; }),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
     sb.from("pubs").select("id,tipo,titulo,texto,criado_em,oficial").eq("user_id", id).eq("oficial", false).order("criado_em", { ascending: false }).limit(30),
     sb.from("lazer").select("id,nome_local,cidade,uf,porque,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30)
