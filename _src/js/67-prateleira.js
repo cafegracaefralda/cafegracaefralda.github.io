@@ -137,7 +137,29 @@ function fetchPubs(st, reset, soOficial){
   });
 }
 function loadPubs(reset){ fetchPubs(pub, reset, false); }
-function loadHome(reset){ fetchPubs(home, reset, true); }
+function loadHome(reset){ fetchPubs(home, reset, true); if (reset !== false) loadHomeMesa(); }
+// Posts da administração com PDF (ex.: lançamentos) também aparecem em A Casa, com as fotos e o PDF
+function loadHomeMesa(){
+  if (!sb || !auth.user) return;
+  sb.from("posts").select("id,nome,texto,foto,fotos,anexo,anexo_nome,link,criado_em").or("anexo.not.is.null,link.not.is.null").order("criado_em", { ascending: false }).limit(2).then(function(r){ return r.error ? sb.from("posts").select("id,nome,texto,foto,fotos,anexo,anexo_nome,criado_em").not("anexo", "is", null).order("criado_em", { ascending: false }).limit(2) : r; }).then(function(r){
+    var box = $("homeMesa"); box.innerHTML = "";
+    if (r.error || !r.data || !r.data.length) return;
+    return signPhotos(r.data).then(function(){
+      r.data.forEach(function(p){
+        var el = h("article", "post oficial"), top = h("div", "post-top"), who = h("div", "grow");
+        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa Grande"));
+        top.append(avLink(null, p.nome), who); el.appendChild(top);
+        var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
+        var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
+        if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
+        if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
+        if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
+        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa Grande"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
+        box.appendChild(el);
+      });
+    });
+  });
+}
 function reloadPubs(){ loadPubs(true); loadHome(true); }
 $("pubMore").addEventListener("click", function(){ loadPubs(false); });
 $("homeMore").addEventListener("click", function(){ loadHome(false); });
@@ -269,7 +291,7 @@ function reportPub(p){
 document.addEventListener("click", function(){ $$(".pmenu").forEach(function(m){ m.hidden = true; }); });
 
 viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque(); if (!pub.loaded) loadPubs(true); } };
-viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); };
+viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); else loadHomeMesa(); };
 auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); if (isShown("inicio")) loadHome(true); });
 pubSync();
 

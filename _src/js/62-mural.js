@@ -45,9 +45,9 @@ function pdVer(){
   });
   $("pdAddFoto").hidden = feed.photos.length >= MAX_FOTOS;
   $("pdAddFotoTx").textContent = feed.photos.length ? "Adicionar outra foto (" + feed.photos.length + "/" + MAX_FOTOS + ")" : "Adicionar foto (até " + MAX_FOTOS + ")";
-  $("pdAddPdf").hidden = !auth.admin; $("pdAddPdfTx").textContent = feed.pdf ? "PDF: " + feed.pdf.name + " (trocar)" : "Anexar PDF (só administração)";
+  $("pdLinkRow").hidden = !auth.admin; $("pdAddPdf").hidden = !auth.admin; $("pdAddPdfTx").textContent = feed.pdf ? "PDF: " + feed.pdf.name + " (trocar)" : "Anexar PDF (só administração)";
 }
-function clearPhoto(){ feed.photos.forEach(function(it){ URL.revokeObjectURL(it.url); }); feed.photos = []; feed.pdf = null; pdVer(); }
+function clearPhoto(){ feed.photos.forEach(function(it){ URL.revokeObjectURL(it.url); }); feed.photos = []; feed.pdf = null; $("pdLink").value = ""; pdVer(); }
 function abrirPost(opts){
   opts = opts || {};
   $("pdAv").textContent = initial(auth.name()); avTag($("pdAv"), uid());
@@ -86,7 +86,7 @@ function semLink(t, st){ if (TEM_LINK.test(t)) { setStatus(st, "Links são exclu
 function publicar(texto, st, done){
   if (!sb || !auth.user || feed.busy) return;
   feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
-  var fotos = feed.photos.map(function(x){ return x.blob; }), pdf = feed.pdf, paths = [], pdfPath = null, todos = [];
+  var fotos = feed.photos.map(function(x){ return x.blob; }), pdf = feed.pdf, paths = [], pdfPath = null, todos = [], lk = auth.admin ? $("pdLink").value.trim() : "";
   function limpar(){ if (todos.length) sb.storage.from("mural").remove(todos); }
   var ups = fotos.map(function(blob){
     var path = uid() + "/" + newUuid() + ".jpg"; todos.push(path);
@@ -94,9 +94,9 @@ function publicar(texto, st, done){
   });
   if (pdf && auth.admin) { pdfPath = uid() + "/" + newUuid() + ".pdf"; todos.push(pdfPath); ups.push(sb.storage.from("mural").upload(pdfPath, pdf.file, { contentType: "application/pdf", upsert: false }).then(function(u){ if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; } })); }
   Promise.all(ups).then(function(){
-    var row = { tipo: "conversa", texto: texto }, novo = paths.length > 1 || !!pdfPath, cols = "id,user_id,nome,tipo,texto,foto,criado_em,editado_em";
+    var row = { tipo: "conversa", texto: texto }, novo = paths.length > 1 || !!pdfPath || !!lk, cols = "id,user_id,nome,tipo,texto,foto,criado_em,editado_em";
     if (paths.length) row.foto = paths[0];
-    if (novo) { if (paths.length) row.fotos = paths; if (pdfPath) { row.anexo = pdfPath; row.anexo_nome = pdf.name; } cols += ",fotos,anexo,anexo_nome"; }
+    if (novo) { if (paths.length) row.fotos = paths; if (pdfPath) { row.anexo = pdfPath; row.anexo_nome = pdf.name; } if (lk) row.link = lk; cols += ",fotos,anexo,anexo_nome,link"; }
     return sb.from("posts").insert(row).select(cols).then(function(r){
       if (r.error || !r.data || !r.data.length) {
         limpar();
@@ -121,9 +121,10 @@ $("postForm").addEventListener("submit", function(e){
   publicar(texto, $("postStatus"));
 });
 $("pdEnviar").addEventListener("click", function(){
-  var t = $("pdTexto").value.trim(), st = $("pdStatus");
-  if (!t && !feed.photos.length) return setStatus(st, "Escreva uma legenda ou escolha uma foto.", "err");
-  if (!semLink(t, st)) return;
+  var t = $("pdTexto").value.trim(), st = $("pdStatus"), lk = auth.admin ? $("pdLink").value.trim() : "";
+  if (lk && !/^https:\/\/[^\s]+\.[^\s]+$/.test(lk)) return setStatus(st, "O link precisa começar com https://", "err");
+  if (!t && !feed.photos.length && !lk && !feed.pdf) return setStatus(st, "Escreva uma legenda, escolha uma foto, um PDF ou um link.", "err");
+  if (!auth.admin && !semLink(t, st)) return;
   publicar(t || "📷", st);
 });
 
@@ -146,7 +147,7 @@ function loadFeed(reset){
     if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
     return q;
   }
-  consulta(COLS + ",fotos,anexo,anexo_nome").then(function(r){ return r.error ? consulta(COLS) : r; }).then(function(r){
+  consulta(COLS + ",fotos,anexo,anexo_nome,link").then(function(r){ return r.error ? consulta(COLS + ",fotos,anexo,anexo_nome") : r; }).then(function(r){ return r.error ? consulta(COLS) : r; }).then(function(r){
     if (!r.data || tok !== feed.tok) return;
     var fresh = r.data, ids = fresh.map(function(p){ return p.id; });
     feed.more = fresh.length === PAGE;
@@ -237,6 +238,9 @@ function renderPost(p){
     var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer";
     var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF"));
     an.append(h("span", null, "📄"), at); el.appendChild(an);
+  }
+  if (p.link && /^https:\/\//.test(p.link)) {
+    var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
   var cnt = h("div", "post-count");

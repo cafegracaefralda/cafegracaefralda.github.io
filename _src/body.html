@@ -103,6 +103,7 @@
       <div data-sub-panel="postagens" class="on">
       <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
+        <div id="homeMesa"></div>
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
@@ -130,7 +131,7 @@
           <form class="card compose" id="pubForm" autocomplete="off" hidden>
             <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um material: PDF, áudio, link…" aria-label="Publicação"></textarea></div>
             <div class="admin-only" id="pubAdmin" hidden>
-              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="">Publicação comum</option><option value="aviso">Oficial: aviso</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
+              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="aviso" selected>Oficial: aviso (aparece em A Casa)</option><option value="">Publicação comum (só na Prateleira)</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
               <input id="pubTitulo" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
               <label class="hint" for="pubFixar" style="display:flex;gap:8px;align-items:center;cursor:pointer"><input id="pubFixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo</label>
             </div>
@@ -625,6 +626,7 @@
   <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
   <button class="btn btn-ghost btn-block" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
   <input type="file" id="postPdf" accept="application/pdf" hidden>
+  <div class="pd-link" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (começa com https://) — só administração" aria-label="Link"></div>
   <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
   <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
   <p class="status" id="pdStatus" role="status"></p>

@@ -1564,6 +1564,7 @@ body.dm-thread .aviso-bar{display:none!important}
       <div data-sub-panel="postagens" class="on">
       <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
+        <div id="homeMesa"></div>
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
@@ -1591,7 +1592,7 @@ body.dm-thread .aviso-bar{display:none!important}
           <form class="card compose" id="pubForm" autocomplete="off" hidden>
             <div class="compose-top"><span class="avatar" id="pubAv">A</span><textarea id="pubText" maxlength="2000" rows="2" placeholder="Compartilhe um material: PDF, áudio, link…" aria-label="Publicação"></textarea></div>
             <div class="admin-only" id="pubAdmin" hidden>
-              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="">Publicação comum</option><option value="aviso">Oficial: aviso</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
+              <select id="pubTipo" aria-label="Tipo da publicação oficial"><option value="aviso" selected>Oficial: aviso (aparece em A Casa)</option><option value="">Publicação comum (só na Prateleira)</option><option value="devocional">Oficial: devocional</option><option value="evento">Oficial: evento</option><option value="parceiro">Oficial: parceiro (propaganda)</option></select>
               <input id="pubTitulo" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
               <label class="hint" for="pubFixar" style="display:flex;gap:8px;align-items:center;cursor:pointer"><input id="pubFixar" type="checkbox" style="width:18px;height:18px;accent-color:var(--terra)">Fixar no topo</label>
             </div>
@@ -2086,6 +2087,7 @@ body.dm-thread .aviso-bar{display:none!important}
   <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
   <button class="btn btn-ghost btn-block" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
   <input type="file" id="postPdf" accept="application/pdf" hidden>
+  <div class="pd-link" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (começa com https://) — só administração" aria-label="Link"></div>
   <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
   <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
   <p class="status" id="pdStatus" role="status"></p>
@@ -3608,9 +3610,9 @@ function pdVer(){
   });
   $("pdAddFoto").hidden = feed.photos.length >= MAX_FOTOS;
   $("pdAddFotoTx").textContent = feed.photos.length ? "Adicionar outra foto (" + feed.photos.length + "/" + MAX_FOTOS + ")" : "Adicionar foto (até " + MAX_FOTOS + ")";
-  $("pdAddPdf").hidden = !auth.admin; $("pdAddPdfTx").textContent = feed.pdf ? "PDF: " + feed.pdf.name + " (trocar)" : "Anexar PDF (só administração)";
+  $("pdLinkRow").hidden = !auth.admin; $("pdAddPdf").hidden = !auth.admin; $("pdAddPdfTx").textContent = feed.pdf ? "PDF: " + feed.pdf.name + " (trocar)" : "Anexar PDF (só administração)";
 }
-function clearPhoto(){ feed.photos.forEach(function(it){ URL.revokeObjectURL(it.url); }); feed.photos = []; feed.pdf = null; pdVer(); }
+function clearPhoto(){ feed.photos.forEach(function(it){ URL.revokeObjectURL(it.url); }); feed.photos = []; feed.pdf = null; $("pdLink").value = ""; pdVer(); }
 function abrirPost(opts){
   opts = opts || {};
   $("pdAv").textContent = initial(auth.name()); avTag($("pdAv"), uid());
@@ -3649,7 +3651,7 @@ function semLink(t, st){ if (TEM_LINK.test(t)) { setStatus(st, "Links são exclu
 function publicar(texto, st, done){
   if (!sb || !auth.user || feed.busy) return;
   feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
-  var fotos = feed.photos.map(function(x){ return x.blob; }), pdf = feed.pdf, paths = [], pdfPath = null, todos = [];
+  var fotos = feed.photos.map(function(x){ return x.blob; }), pdf = feed.pdf, paths = [], pdfPath = null, todos = [], lk = auth.admin ? $("pdLink").value.trim() : "";
   function limpar(){ if (todos.length) sb.storage.from("mural").remove(todos); }
   var ups = fotos.map(function(blob){
     var path = uid() + "/" + newUuid() + ".jpg"; todos.push(path);
@@ -3657,9 +3659,9 @@ function publicar(texto, st, done){
   });
   if (pdf && auth.admin) { pdfPath = uid() + "/" + newUuid() + ".pdf"; todos.push(pdfPath); ups.push(sb.storage.from("mural").upload(pdfPath, pdf.file, { contentType: "application/pdf", upsert: false }).then(function(u){ if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; } })); }
   Promise.all(ups).then(function(){
-    var row = { tipo: "conversa", texto: texto }, novo = paths.length > 1 || !!pdfPath, cols = "id,user_id,nome,tipo,texto,foto,criado_em,editado_em";
+    var row = { tipo: "conversa", texto: texto }, novo = paths.length > 1 || !!pdfPath || !!lk, cols = "id,user_id,nome,tipo,texto,foto,criado_em,editado_em";
     if (paths.length) row.foto = paths[0];
-    if (novo) { if (paths.length) row.fotos = paths; if (pdfPath) { row.anexo = pdfPath; row.anexo_nome = pdf.name; } cols += ",fotos,anexo,anexo_nome"; }
+    if (novo) { if (paths.length) row.fotos = paths; if (pdfPath) { row.anexo = pdfPath; row.anexo_nome = pdf.name; } if (lk) row.link = lk; cols += ",fotos,anexo,anexo_nome,link"; }
     return sb.from("posts").insert(row).select(cols).then(function(r){
       if (r.error || !r.data || !r.data.length) {
         limpar();
@@ -3684,9 +3686,10 @@ $("postForm").addEventListener("submit", function(e){
   publicar(texto, $("postStatus"));
 });
 $("pdEnviar").addEventListener("click", function(){
-  var t = $("pdTexto").value.trim(), st = $("pdStatus");
-  if (!t && !feed.photos.length) return setStatus(st, "Escreva uma legenda ou escolha uma foto.", "err");
-  if (!semLink(t, st)) return;
+  var t = $("pdTexto").value.trim(), st = $("pdStatus"), lk = auth.admin ? $("pdLink").value.trim() : "";
+  if (lk && !/^https:\/\/[^\s]+\.[^\s]+$/.test(lk)) return setStatus(st, "O link precisa começar com https://", "err");
+  if (!t && !feed.photos.length && !lk && !feed.pdf) return setStatus(st, "Escreva uma legenda, escolha uma foto, um PDF ou um link.", "err");
+  if (!auth.admin && !semLink(t, st)) return;
   publicar(t || "📷", st);
 });
 
@@ -3709,7 +3712,7 @@ function loadFeed(reset){
     if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
     return q;
   }
-  consulta(COLS + ",fotos,anexo,anexo_nome").then(function(r){ return r.error ? consulta(COLS) : r; }).then(function(r){
+  consulta(COLS + ",fotos,anexo,anexo_nome,link").then(function(r){ return r.error ? consulta(COLS + ",fotos,anexo,anexo_nome") : r; }).then(function(r){ return r.error ? consulta(COLS) : r; }).then(function(r){
     if (!r.data || tok !== feed.tok) return;
     var fresh = r.data, ids = fresh.map(function(p){ return p.id; });
     feed.more = fresh.length === PAGE;
@@ -3800,6 +3803,9 @@ function renderPost(p){
     var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer";
     var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF"));
     an.append(h("span", null, "📄"), at); el.appendChild(an);
+  }
+  if (p.link && /^https:\/\//.test(p.link)) {
+    var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
   var cnt = h("div", "post-count");
@@ -4519,7 +4525,29 @@ function fetchPubs(st, reset, soOficial){
   });
 }
 function loadPubs(reset){ fetchPubs(pub, reset, false); }
-function loadHome(reset){ fetchPubs(home, reset, true); }
+function loadHome(reset){ fetchPubs(home, reset, true); if (reset !== false) loadHomeMesa(); }
+// Posts da administração com PDF (ex.: lançamentos) também aparecem em A Casa, com as fotos e o PDF
+function loadHomeMesa(){
+  if (!sb || !auth.user) return;
+  sb.from("posts").select("id,nome,texto,foto,fotos,anexo,anexo_nome,link,criado_em").or("anexo.not.is.null,link.not.is.null").order("criado_em", { ascending: false }).limit(2).then(function(r){ return r.error ? sb.from("posts").select("id,nome,texto,foto,fotos,anexo,anexo_nome,criado_em").not("anexo", "is", null).order("criado_em", { ascending: false }).limit(2) : r; }).then(function(r){
+    var box = $("homeMesa"); box.innerHTML = "";
+    if (r.error || !r.data || !r.data.length) return;
+    return signPhotos(r.data).then(function(){
+      r.data.forEach(function(p){
+        var el = h("article", "post oficial"), top = h("div", "post-top"), who = h("div", "grow");
+        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa Grande"));
+        top.append(avLink(null, p.nome), who); el.appendChild(top);
+        var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
+        var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
+        if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
+        if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
+        if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
+        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa Grande"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
+        box.appendChild(el);
+      });
+    });
+  });
+}
 function reloadPubs(){ loadPubs(true); loadHome(true); }
 $("pubMore").addEventListener("click", function(){ loadPubs(false); });
 $("homeMore").addEventListener("click", function(){ loadHome(false); });
@@ -4651,7 +4679,7 @@ function reportPub(p){
 document.addEventListener("click", function(){ $$(".pmenu").forEach(function(m){ m.hidden = true; }); });
 
 viewHooks.prateleira = function(sub){ if (sub !== "devocional") { renderDestaque(); if (!pub.loaded) loadPubs(true); } };
-viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); };
+viewHooks.inicio = function(){ renderDestaque(); if (!home.loaded) loadHome(true); else loadHomeMesa(); };
 auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("prateleira") !== "devocional") loadPubs(true); if (isShown("inicio")) loadHome(true); });
 pubSync();
 

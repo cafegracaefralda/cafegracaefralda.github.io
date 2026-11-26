@@ -79,3 +79,4 @@ Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão pa
 - Mesa: até 3 fotos por post (`fotos text[]`) e, só para administração, anexo em PDF (`anexo`, `anexo_nome`): `_docs/supabase-v20-posts-3-fotos.sql` (rodar antes de usar). O site continua funcionando sem o v20 (1 foto). `_docs/supabase-v20b-limpar-posts.sql` apaga TODOS os posts do site (uso único, sem volta).
 - O livro chama-se "Entre o Café e a Fralda, tem Graça" (Denny Silva; lema "Deus cria. Os pais formam. Somente Deus salva."). Os posts antigos do v16 citavam um título errado.
 - Textos de surpresa ou presentes da família NÃO entram no repositório (ele é público).
+- Mesa (administração): foto(s) + PDF + link juntos (`posts.link`, `_docs/supabase-v21-post-link.sql`, rodar depois do v20). Posts da administração com PDF ou link também aparecem em A Casa (`#homeMesa`). No composer da Casa (Prateleira) o administrador agora já começa em "Oficial: aviso", que é o que aparece em A Casa.
