@@ -2,7 +2,7 @@
 var home = { items: [], more: false, loaded: false, tok: 0 };
 var pubFiltro = "all";
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
-var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.com.br/#prateleira";
+var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.com.br/";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
 var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", audio: "🎧 Áudio", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
 
@@ -39,8 +39,6 @@ function renderDestaque(){
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
     acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
-    var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
-    acts.appendChild(more);
     el.appendChild(acts);
   });
 }
@@ -117,9 +115,12 @@ function fetchPubs(st, reset, soOficial){
   var tok = ++st.tok, base = reset ? [] : st.items;
   if (reset) { st.items = []; st.loaded = false; }
   var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em,editado_em" + (auth.user ? ",user_id" : "");
-  var q = sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
-  if (soOficial) q = q.eq("oficial", true);
-  q.then(function(r){
+  function consulta(cs){
+    var q = sb.from("pubs").select(cs).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
+    if (soOficial) q = q.eq("oficial", true);
+    return q;
+  }
+  consulta(cols + ",fotos,videos,docs,docs_nomes").then(function(r){ return r.error ? consulta(cols) : r; }).then(function(r){
     if (!r.data || tok !== st.tok) return;
     var fresh = r.data, ids = fresh.map(function(x){ return x.id; });
     st.more = fresh.length === PUB_PAGE;
@@ -192,6 +193,29 @@ function mediaOf(p){
   }
   return null;
 }
+// Tudo junto na mesma postagem: fotos, vídeos, PDFs, e o link/arquivo que a mídia principal não mostrou
+function extrasOf(p){
+  var out = [];
+  if (p.fotos && p.fotos.length) {
+    var g = h("div", "post-imgs n" + Math.min(p.fotos.length, 3));
+    p.fotos.forEach(function(f, k){ var im = h("img", "post-img"); im.src = pubFileUrl(f); im.alt = (p.titulo || "Foto") + " " + (k + 1); im.loading = "lazy"; g.appendChild(im); });
+    out.push(g);
+  }
+  if (p.videos && p.videos.length) {
+    var vb = h("div", "pub-videos");
+    p.videos.forEach(function(f){ var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = pubFileUrl(f); vb.appendChild(v); });
+    out.push(vb);
+  }
+  if (p.docs && p.docs.length) {
+    var db2 = h("div", "pub-docs");
+    p.docs.forEach(function(f, k){ var a = h("a", "file-chip pub-file"); a.href = pubFileUrl(f); a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(h("span", "file-ic", "📄"), h("span", "file-nm", (p.docs_nomes && p.docs_nomes[k]) || "documento.pdf"), h("small", null, "Abrir")); db2.appendChild(a); });
+    out.push(db2);
+  }
+  // quando o post tem YouTube, o arquivo e o link também aparecem; quando tem arquivo, o link também aparece
+  if (p.youtube && p.arquivo) { var m2 = mediaOf({ arquivo: p.arquivo, arquivo_nome: p.arquivo_nome, tipo: p.tipo, titulo: p.titulo, autor: p.autor }); if (m2) out.push(m2); }
+  if ((p.youtube || p.arquivo) && p.link) { var m3 = mediaOf({ link: p.link, link_texto: p.link_texto }); if (m3) out.push(m3); }
+  return out;
+}
 function renderList(box, st, prefix, vazio){
   if (!box) return;
   box.innerHTML = "";
@@ -227,6 +251,7 @@ function renderPub(p, prefix){
   if (p.texto) { var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx); }
   if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
   var m = mediaOf(p); if (m) el.appendChild(m);
+  extrasOf(p).forEach(function(x){ el.appendChild(x); });
   var likes = pub.likes[p.id] || [], liked = auth.user && likes.indexOf(uid()) > -1, cm = pub.cmts[p.id] || [];
   if (likes.length || cm.length) {
     var cnt = h("div", "post-count"); cnt.append(h("span", null, likes.length ? "♥ " + likes.length + (likes.length === 1 ? " curtida" : " curtidas") : ""));

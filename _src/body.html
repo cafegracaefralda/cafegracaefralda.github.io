@@ -34,7 +34,7 @@
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="Café, Graça &amp; Fralda, início">
       <span class="logo-mark"><svg><use href="#logo"/></svg></span>
-      <span>Café, Graça <i>&amp;</i> Fralda</span>
+      <span class="sr-only">Café, Graça &amp; Fralda</span>
     </a>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     
@@ -57,7 +57,7 @@
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#perfil">Meu perfil</a>
           <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Falar com a administração</a>
-          <a href="#prateleira" id="menuPublicar" hidden>Publicar na Casa</a>
+          <a href="#inicio" id="menuPublicar" hidden>Publicar na Casa</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -101,9 +101,32 @@
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
-        <div id="homeMesa"></div>
+        <form class="card compose" id="casaForm" autocomplete="off" hidden>
+        <div class="compose-top"><span class="avatar" id="casaAv">A</span>
+          <div class="cbox">
+            <input id="casaTitulo" class="cbox-title" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
+            <textarea id="casaTexto" maxlength="2000" rows="3" placeholder="Escreva a postagem da Casa…" aria-label="Postagem da Casa"></textarea>
+            <div class="casa-anexos" id="casaAnexos"></div>
+            <div class="pd-link" id="casaLinkRow" hidden><svg><use href="#i-link"/></svg><input id="casaLink" maxlength="300" placeholder="Link ou YouTube (https://…)" aria-label="Link"><button class="link" type="button" id="casaLinkDel">Remover</button></div>
+            <div class="cbox-bar">
+              <button class="cbtn" type="button" id="casaFotoBtn" title="Fotos" aria-label="Adicionar fotos"><svg><use href="#i-photo"/></svg></button>
+              <button class="cbtn" type="button" id="casaVideoBtn" title="Vídeo" aria-label="Adicionar vídeo"><svg><use href="#i-video"/></svg></button>
+              <button class="cbtn" type="button" id="casaPdfBtn" title="PDF" aria-label="Adicionar PDF"><svg><use href="#i-file"/></svg></button>
+              <button class="cbtn" type="button" id="casaLinkBtn" title="Link ou YouTube" aria-label="Adicionar link"><svg><use href="#i-link"/></svg></button>
+              <button class="btn btn-terra btn-sm cbtn-send" id="casaSend" type="submit">Publicar</button>
+            </div>
+          </div>
+        </div>
+        <div class="casa-opts"><select id="casaTipo" aria-label="Tipo da postagem"><option value="aviso">Aviso</option><option value="devocional">Devocional</option><option value="evento">Evento</option><option value="parceiro">Parceiro (propaganda)</option></select>
+          <label class="hint" for="casaFixar"><input id="casaFixar" type="checkbox">Fixar no topo</label></div>
+        <input type="file" id="casaFotoIn" accept="image/*" multiple hidden>
+        <input type="file" id="casaVideoIn" accept="video/mp4,video/webm" multiple hidden>
+        <input type="file" id="casaPdfIn" accept="application/pdf" multiple hidden>
+        <p class="status" id="casaStatus" role="status"></p>
+      </form>
+      <div id="homeMesa"></div>
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
@@ -118,7 +141,7 @@
   </section>
 
   <!-- PRATELEIRA -->
-  <section class="view" id="v-prateleira" data-view="prateleira">
+  <section id="v-prateleira" hidden aria-hidden="true">
     <div class="wrap">
       <div class="view-head">
         <span class="label">Prateleira</span>
@@ -208,11 +231,11 @@
         <div data-sub-panel="conversas" class="on">
           <div class="mesa-layout">
             <div class="mesa-main">
+              <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <div class="mesa-find">
                 <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
                 <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
               </div>
-              <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span>
                   <div class="cbox">

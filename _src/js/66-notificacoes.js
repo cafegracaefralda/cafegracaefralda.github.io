@@ -74,7 +74,7 @@ function openNotif(n){
     loadConvs().then(function(){ openConv(n.conversa_id); });
   } else if (n.pub_id) {
     pub.focus = n.pub_id; if (n.tipo === "pub_comentario") pub.open[n.pub_id] = true;
-    go("prateleira", "publicacoes"); loadPubs(true);
+    go("inicio"); loadHome(true);
   } else if (n.post_id) {
     feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
     go("mesa"); loadFeed(true);

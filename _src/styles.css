@@ -1416,3 +1416,23 @@ body.dm-thread .aviso-bar{display:none!important}
 .post-imgs.n3 .post-img{aspect-ratio:auto;min-height:150px}
 .post-anexo{display:flex;align-items:center;gap:12px;margin:10px 16px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--ink);text-decoration:none}
 .post-anexo span{font-size:28px}.post-anexo b{display:block;font-size:15px;overflow-wrap:anywhere}.post-anexo small{color:var(--muted)}
+
+/* A Casa: compositor único (foto, vídeo, PDF, link e YouTube juntos) */
+.cbox-title{border:0;background:none;font:inherit;font-weight:700;font-size:16px;padding:12px 16px 0;outline:0;width:100%}
+.casa-anexos{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px}
+.casa-anexos:empty{display:none}
+.casa-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 12px;font-size:13px;max-width:100%}
+.casa-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px}
+.casa-chip button{width:26px;height:26px;border-radius:50%;border:0;background:var(--sand);cursor:pointer;line-height:1}
+.casa-opts{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.casa-opts select{min-height:44px;border-radius:14px;border:1px solid var(--line);padding:0 10px;background:var(--surface);font-size:15px}
+.casa-opts label{display:flex;gap:8px;align-items:center;cursor:pointer}.casa-opts input{width:18px;height:18px;accent-color:var(--terra)}
+#casaForm .pd-link{margin:0 12px}
+.pub-videos video{width:100%;max-height:60vh;background:#000;border-radius:0;display:block}
+.pub-docs{display:grid;gap:8px;padding:0 16px 10px}
+
+/* estilo Instagram: sem o nome no topo (só a logo, o sino e a foto); os stories vêm logo abaixo */
+header.top .logo{gap:0}
+header.top .logo .logo-mark{width:42px;height:42px}
+.mesa-main .stories{margin-top:0}
+.mesa-find{margin-top:10px}

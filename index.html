@@ -1452,6 +1452,26 @@ body.dm-thread .aviso-bar{display:none!important}
 .post-anexo{display:flex;align-items:center;gap:12px;margin:10px 16px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:var(--bg);color:var(--ink);text-decoration:none}
 .post-anexo span{font-size:28px}.post-anexo b{display:block;font-size:15px;overflow-wrap:anywhere}.post-anexo small{color:var(--muted)}
 
+/* A Casa: compositor único (foto, vídeo, PDF, link e YouTube juntos) */
+.cbox-title{border:0;background:none;font:inherit;font-weight:700;font-size:16px;padding:12px 16px 0;outline:0;width:100%}
+.casa-anexos{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px}
+.casa-anexos:empty{display:none}
+.casa-chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 12px;font-size:13px;max-width:100%}
+.casa-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:170px}
+.casa-chip button{width:26px;height:26px;border-radius:50%;border:0;background:var(--sand);cursor:pointer;line-height:1}
+.casa-opts{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.casa-opts select{min-height:44px;border-radius:14px;border:1px solid var(--line);padding:0 10px;background:var(--surface);font-size:15px}
+.casa-opts label{display:flex;gap:8px;align-items:center;cursor:pointer}.casa-opts input{width:18px;height:18px;accent-color:var(--terra)}
+#casaForm .pd-link{margin:0 12px}
+.pub-videos video{width:100%;max-height:60vh;background:#000;border-radius:0;display:block}
+.pub-docs{display:grid;gap:8px;padding:0 16px 10px}
+
+/* estilo Instagram: sem o nome no topo (só a logo, o sino e a foto); os stories vêm logo abaixo */
+header.top .logo{gap:0}
+header.top .logo .logo-mark{width:42px;height:42px}
+.mesa-main .stories{margin-top:0}
+.mesa-find{margin-top:10px}
+
 </style>
 </head>
 <body>
@@ -1495,7 +1515,7 @@ body.dm-thread .aviso-bar{display:none!important}
   <div class="wrap">
     <a class="logo" href="#inicio" aria-label="Café, Graça &amp; Fralda, início">
       <span class="logo-mark"><svg><use href="#logo"/></svg></span>
-      <span>Café, Graça <i>&amp;</i> Fralda</span>
+      <span class="sr-only">Café, Graça &amp; Fralda</span>
     </a>
     <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><svg><use href="#i-menu"/></svg></button>
     
@@ -1518,7 +1538,7 @@ body.dm-thread .aviso-bar{display:none!important}
           <div class="menu-head"><b id="menuName"></b><span id="menuEmail"></span></div>
           <a href="#perfil">Meu perfil</a>
           <a data-wa="Oi! Vim pela comunidade Café, Graça & Fralda e quero falar com a administração." href="https://wa.me/5581992702353" target="_blank" rel="noopener">Falar com a administração</a>
-          <a href="#prateleira" id="menuPublicar" hidden>Publicar na Casa</a>
+          <a href="#inicio" id="menuPublicar" hidden>Publicar na Casa</a>
           <a href="#painel" id="menuPainel" hidden>Painel</a>
           <button type="button" id="menuOut">Sair</button>
         </div>
@@ -1562,9 +1582,32 @@ body.dm-thread .aviso-bar{display:none!important}
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#prateleira" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
-        <div id="homeMesa"></div>
+        <form class="card compose" id="casaForm" autocomplete="off" hidden>
+        <div class="compose-top"><span class="avatar" id="casaAv">A</span>
+          <div class="cbox">
+            <input id="casaTitulo" class="cbox-title" maxlength="120" placeholder="Título (opcional)" aria-label="Título">
+            <textarea id="casaTexto" maxlength="2000" rows="3" placeholder="Escreva a postagem da Casa…" aria-label="Postagem da Casa"></textarea>
+            <div class="casa-anexos" id="casaAnexos"></div>
+            <div class="pd-link" id="casaLinkRow" hidden><svg><use href="#i-link"/></svg><input id="casaLink" maxlength="300" placeholder="Link ou YouTube (https://…)" aria-label="Link"><button class="link" type="button" id="casaLinkDel">Remover</button></div>
+            <div class="cbox-bar">
+              <button class="cbtn" type="button" id="casaFotoBtn" title="Fotos" aria-label="Adicionar fotos"><svg><use href="#i-photo"/></svg></button>
+              <button class="cbtn" type="button" id="casaVideoBtn" title="Vídeo" aria-label="Adicionar vídeo"><svg><use href="#i-video"/></svg></button>
+              <button class="cbtn" type="button" id="casaPdfBtn" title="PDF" aria-label="Adicionar PDF"><svg><use href="#i-file"/></svg></button>
+              <button class="cbtn" type="button" id="casaLinkBtn" title="Link ou YouTube" aria-label="Adicionar link"><svg><use href="#i-link"/></svg></button>
+              <button class="btn btn-terra btn-sm cbtn-send" id="casaSend" type="submit">Publicar</button>
+            </div>
+          </div>
+        </div>
+        <div class="casa-opts"><select id="casaTipo" aria-label="Tipo da postagem"><option value="aviso">Aviso</option><option value="devocional">Devocional</option><option value="evento">Evento</option><option value="parceiro">Parceiro (propaganda)</option></select>
+          <label class="hint" for="casaFixar"><input id="casaFixar" type="checkbox">Fixar no topo</label></div>
+        <input type="file" id="casaFotoIn" accept="image/*" multiple hidden>
+        <input type="file" id="casaVideoIn" accept="video/mp4,video/webm" multiple hidden>
+        <input type="file" id="casaPdfIn" accept="application/pdf" multiple hidden>
+        <p class="status" id="casaStatus" role="status"></p>
+      </form>
+      <div id="homeMesa"></div>
         <article class="post oficial destaque" id="homeDevo"></article>
         <div class="feed-list" id="homeList" aria-live="polite"></div>
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
@@ -1579,7 +1622,7 @@ body.dm-thread .aviso-bar{display:none!important}
   </section>
 
   <!-- PRATELEIRA -->
-  <section class="view" id="v-prateleira" data-view="prateleira">
+  <section id="v-prateleira" hidden aria-hidden="true">
     <div class="wrap">
       <div class="view-head">
         <span class="label">Prateleira</span>
@@ -1669,11 +1712,11 @@ body.dm-thread .aviso-bar{display:none!important}
         <div data-sub-panel="conversas" class="on">
           <div class="mesa-layout">
             <div class="mesa-main">
+              <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <div class="mesa-find">
                 <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
                 <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
               </div>
-              <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span>
                   <div class="cbox">
@@ -2530,8 +2573,8 @@ function vizLoc(p){
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
-var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "palestra", "painel"];
-var ALIAS = { anunciar: "inicio", dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
+var VIEWS = ["inicio", "mesa", "perfil", "mensagens", "indicacoes", "palestra", "painel"];
+var ALIAS = { anunciar: "inicio", dacasa: "inicio", prateleira: "inicio", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               casa: "indicacoes", cafe: "indicacoes", agendar: "indicacoes", cadeira: "indicacoes", profissional: "indicacoes", contato: "indicacoes", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
@@ -4343,7 +4386,7 @@ function openNotif(n){
     loadConvs().then(function(){ openConv(n.conversa_id); });
   } else if (n.pub_id) {
     pub.focus = n.pub_id; if (n.tipo === "pub_comentario") pub.open[n.pub_id] = true;
-    go("prateleira", "publicacoes"); loadPubs(true);
+    go("inicio"); loadHome(true);
   } else if (n.post_id) {
     feed.focus = n.post_id; if (n.tipo === "comentario") feed.open[n.post_id] = true;
     go("mesa"); loadFeed(true);
@@ -4390,7 +4433,7 @@ auth.on(function(){
 var home = { items: [], more: false, loaded: false, tok: 0 };
 var pubFiltro = "all";
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
-var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.com.br/#prateleira";
+var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.com.br/";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
 var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", audio: "🎧 Áudio", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
 
@@ -4427,8 +4470,6 @@ function renderDestaque(){
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
     acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
-    var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
-    acts.appendChild(more);
     el.appendChild(acts);
   });
 }
@@ -4505,9 +4546,12 @@ function fetchPubs(st, reset, soOficial){
   var tok = ++st.tok, base = reset ? [] : st.items;
   if (reset) { st.items = []; st.loaded = false; }
   var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em,editado_em" + (auth.user ? ",user_id" : "");
-  var q = sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
-  if (soOficial) q = q.eq("oficial", true);
-  q.then(function(r){
+  function consulta(cs){
+    var q = sb.from("pubs").select(cs).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
+    if (soOficial) q = q.eq("oficial", true);
+    return q;
+  }
+  consulta(cols + ",fotos,videos,docs,docs_nomes").then(function(r){ return r.error ? consulta(cols) : r; }).then(function(r){
     if (!r.data || tok !== st.tok) return;
     var fresh = r.data, ids = fresh.map(function(x){ return x.id; });
     st.more = fresh.length === PUB_PAGE;
@@ -4580,6 +4624,29 @@ function mediaOf(p){
   }
   return null;
 }
+// Tudo junto na mesma postagem: fotos, vídeos, PDFs, e o link/arquivo que a mídia principal não mostrou
+function extrasOf(p){
+  var out = [];
+  if (p.fotos && p.fotos.length) {
+    var g = h("div", "post-imgs n" + Math.min(p.fotos.length, 3));
+    p.fotos.forEach(function(f, k){ var im = h("img", "post-img"); im.src = pubFileUrl(f); im.alt = (p.titulo || "Foto") + " " + (k + 1); im.loading = "lazy"; g.appendChild(im); });
+    out.push(g);
+  }
+  if (p.videos && p.videos.length) {
+    var vb = h("div", "pub-videos");
+    p.videos.forEach(function(f){ var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = pubFileUrl(f); vb.appendChild(v); });
+    out.push(vb);
+  }
+  if (p.docs && p.docs.length) {
+    var db2 = h("div", "pub-docs");
+    p.docs.forEach(function(f, k){ var a = h("a", "file-chip pub-file"); a.href = pubFileUrl(f); a.target = "_blank"; a.rel = "noopener noreferrer"; a.append(h("span", "file-ic", "📄"), h("span", "file-nm", (p.docs_nomes && p.docs_nomes[k]) || "documento.pdf"), h("small", null, "Abrir")); db2.appendChild(a); });
+    out.push(db2);
+  }
+  // quando o post tem YouTube, o arquivo e o link também aparecem; quando tem arquivo, o link também aparece
+  if (p.youtube && p.arquivo) { var m2 = mediaOf({ arquivo: p.arquivo, arquivo_nome: p.arquivo_nome, tipo: p.tipo, titulo: p.titulo, autor: p.autor }); if (m2) out.push(m2); }
+  if ((p.youtube || p.arquivo) && p.link) { var m3 = mediaOf({ link: p.link, link_texto: p.link_texto }); if (m3) out.push(m3); }
+  return out;
+}
 function renderList(box, st, prefix, vazio){
   if (!box) return;
   box.innerHTML = "";
@@ -4615,6 +4682,7 @@ function renderPub(p, prefix){
   if (p.texto) { var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx); }
   if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
   var m = mediaOf(p); if (m) el.appendChild(m);
+  extrasOf(p).forEach(function(x){ el.appendChild(x); });
   var likes = pub.likes[p.id] || [], liked = auth.user && likes.indexOf(uid()) > -1, cm = pub.cmts[p.id] || [];
   if (likes.length || cm.length) {
     var cnt = h("div", "post-count"); cnt.append(h("span", null, likes.length ? "♥ " + likes.length + (likes.length === 1 ? " curtida" : " curtidas") : ""));
@@ -4684,6 +4752,94 @@ auth.on(function(){ pubSync(); if (isShown("prateleira") && currentSub("pratelei
 pubSync();
 
 filterChips("pubFilters", function(f){ pubFiltro = f; renderPubs(); });
+
+
+// A Casa: a administração publica foto(s), vídeo(s), PDF(s), link e YouTube JUNTOS na mesma postagem.
+var casa = { fotos: [], videos: [], docs: [], busy: false };
+var CASA_MAX = { fotos: 6, videos: 2, docs: 3 }, CASA_MB = 30;
+function casaSync(){
+  var on = !!(auth.user && auth.admin); $("casaForm").hidden = !on;
+  if (on) { $("casaAv").textContent = initial(auth.name()); avTag($("casaAv"), uid()); }
+}
+auth.on(casaSync); casaSync();
+function casaChips(){
+  var box = $("casaAnexos"); box.innerHTML = "";
+  [["fotos", "📷"], ["videos", "🎬"], ["docs", "📄"]].forEach(function(k){
+    casa[k[0]].forEach(function(it, i){
+      var c = h("span", "casa-chip"), t = h("span", null, k[1] + " " + it.name), x = h("button", null, "×"); x.type = "button"; x.setAttribute("aria-label", "Tirar " + it.name);
+      x.addEventListener("click", function(){ if (it.url) URL.revokeObjectURL(it.url); casa[k[0]].splice(i, 1); casaChips(); });
+      c.append(t, x); box.appendChild(c);
+    });
+  });
+}
+function casaLimpar(){
+  ["fotos", "videos", "docs"].forEach(function(k){ casa[k].forEach(function(it){ if (it.url) URL.revokeObjectURL(it.url); }); casa[k] = []; });
+  $("casaTitulo").value = ""; $("casaTexto").value = ""; $("casaLink").value = ""; $("casaLinkRow").hidden = true; $("casaFixar").checked = false; casaChips();
+}
+$("casaFotoBtn").addEventListener("click", function(){ $("casaFotoIn").click(); });
+$("casaVideoBtn").addEventListener("click", function(){ $("casaVideoIn").click(); });
+$("casaPdfBtn").addEventListener("click", function(){ $("casaPdfIn").click(); });
+$("casaLinkBtn").addEventListener("click", function(){ $("casaLinkRow").hidden = false; $("casaLink").focus(); });
+$("casaLinkDel").addEventListener("click", function(){ $("casaLink").value = ""; $("casaLinkRow").hidden = true; });
+$("casaFotoIn").addEventListener("change", function(){
+  var fs = Array.prototype.slice.call(this.files || [], 0, Math.max(0, CASA_MAX.fotos - casa.fotos.length)); this.value = "";
+  var chain = Promise.resolve();
+  fs.forEach(function(f){ chain = chain.then(function(){ return shrinkPhoto(f).then(function(blob){ casa.fotos.push({ blob: blob, name: (f.name || "foto").slice(0, 30), url: URL.createObjectURL(blob) }); }, function(e){ if (!e || e.message !== "nsfw") toast("Não consegui usar essa foto."); }); }); });
+  chain.then(casaChips);
+});
+function casaArquivos(inp, tipo, rx, chave, msg){
+  var fs = Array.prototype.slice.call(inp.files || []); inp.value = "";
+  fs.forEach(function(f){
+    if (!rx.test(f.type)) return toast(msg);
+    if (f.size > CASA_MB * 1024 * 1024) return toast("O arquivo passa de " + CASA_MB + " MB.");
+    if (casa[chave].length >= CASA_MAX[chave]) return toast("Máximo de " + CASA_MAX[chave] + " por postagem.");
+    casa[chave].push({ blob: f, name: String(f.name || "arquivo").slice(0, 110) });
+  });
+  casaChips();
+}
+$("casaVideoIn").addEventListener("change", function(){ casaArquivos(this, "video", /^video\/(mp4|webm)$/, "videos", "Use vídeo MP4 ou WebM."); });
+$("casaPdfIn").addEventListener("change", function(){ casaArquivos(this, "pdf", /^application\/pdf$/, "docs", "Escolha um arquivo PDF."); });
+
+$("casaForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  if (!sb || !auth.user || !auth.admin || casa.busy) return;
+  var st = $("casaStatus"), titulo = $("casaTitulo").value.trim(), texto = $("casaTexto").value.trim(), link = $("casaLink").value.trim();
+  var yt = link ? ytId(link) : "";
+  if (link && !yt && !/^https:\/\/[^\s]+\.[^\s]+$/i.test(link)) return setStatus(st, "O link precisa começar com https://", "err");
+  if (!titulo && !texto) return setStatus(st, "Escreva um título ou um texto para a postagem.", "err");
+  casa.busy = true; $("casaSend").disabled = true; setStatus(st, "Publicando…");
+  var enviados = [], jobs = [];
+  function sobe(it, ext, tipo){
+    var path = uid() + "/" + newUuid() + "." + ext; enviados.push(path);
+    return sb.storage.from("prateleira").upload(path, it.blob, { contentType: tipo, upsert: false }).then(function(u){ if (u && u.error) throw new Error("arquivo"); return path; });
+  }
+  var pf = Promise.all(casa.fotos.map(function(it){ return sobe(it, "jpg", "image/jpeg"); }));
+  var pv = Promise.all(casa.videos.map(function(it){ return sobe(it, /webm/.test(it.blob.type) ? "webm" : "mp4", it.blob.type); }));
+  var pd = Promise.all(casa.docs.map(function(it){ return sobe(it, "pdf", "application/pdf"); }));
+  Promise.all([pf, pv, pd]).then(function(r){
+    var fotos = r[0], videos = r[1], docs = r[2], total = fotos.length + videos.length + docs.length;
+    var row = { tipo: $("casaTipo").value, oficial: true, fixado: $("casaFixar").checked, titulo: titulo || null, texto: texto, youtube: yt || null, link: link && !yt ? link : null, link_texto: link && !yt ? "Abrir link" : null };
+    var cols = "id,user_id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em,editado_em";
+    if (total === 1) {   // um arquivo só: formato simples (funciona mesmo antes do v22)
+      row.arquivo = (fotos[0] || videos[0] || docs[0]); row.arquivo_nome = (casa.fotos[0] || casa.videos[0] || casa.docs[0]).name.slice(0, 120);
+    } else if (total > 1) {
+      if (fotos.length) row.fotos = fotos; if (videos.length) row.videos = videos;
+      if (docs.length) { row.docs = docs; row.docs_nomes = casa.docs.map(function(d){ return d.name.slice(0, 120); }); }
+      cols += ",fotos,videos,docs,docs_nomes";
+    }
+    return sb.from("pubs").insert(row).select(cols).then(function(x){
+      if (x.error || !x.data || !x.data.length) { if (enviados.length) sb.storage.from("prateleira").remove(enviados); var er = new Error("post"); er.detail = x.error ? (x.error.message || "") : ""; throw er; }
+      return x.data[0];
+    });
+  }).then(function(p){
+    casaLimpar(); setStatus(st, ""); toast("Publicado em A Casa.");
+    pub.items.unshift(p); if (p.oficial) home.items.unshift(p); pub.likes[p.id] = []; pub.cmts[p.id] = []; renderPubs();
+  }).catch(function(err){
+    if (enviados.length && err.message === "arquivo") sb.storage.from("prateleira").remove(enviados);
+    var m = err.message === "arquivo" ? "Não foi possível enviar um dos arquivos." : (/dados_invalidos|column|schema/i.test(err.detail || "") ? "Para postar vários anexos de uma vez, rode o SQL v22 no Supabase." : "Não foi possível publicar agora. Tente de novo.");
+    setStatus(st, m, "err"); toast(m);
+  }).then(function(){ casa.busy = false; $("casaSend").disabled = false; });
+});
 
 
 // Painel (só administradores): inscritos nos devocionais e indicações enviadas para aprovar.
