@@ -1394,6 +1394,17 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .post-more{background:none;border:0;padding:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
 .post-acts .sp{flex:1}
 
+/* caixa de texto única: foto e link ficam dentro dela */
+.cbox{flex:1;min-width:0;background:var(--bg);border-radius:22px;border:1px solid transparent;display:grid}
+.cbox:focus-within{background:#fff;border-color:var(--terra-light)}
+.compose-top .cbox textarea{background:none;border-radius:22px 22px 0 0;outline:0!important;padding:12px 16px 4px}
+.cbox-bar{display:flex;align-items:center;gap:2px;padding:2px 6px 6px}
+.cbox-bar .cbtn{min-width:44px;min-height:44px;padding:0;justify-content:center;border-radius:50%}
+.cbox-bar .cbtn-send{margin-left:auto;min-width:0;min-height:40px;padding:0 20px;border-radius:999px}
+.viz-dicas{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.viz-dicas button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;color:var(--ink);min-height:40px;cursor:pointer}
+.viz-dicas button:hover{background:var(--sand)}
+
 </style>
 </head>
 <body>
@@ -1617,11 +1628,15 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               </div>
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
-                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea></div>
-                <div class="compose-bar">
-                  <button class="cbtn" type="button" id="postFotoBtn" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></button>
-                  <button class="cbtn" type="button" id="postLinkBtn" title="Link"><svg><use href="#i-link"/></svg><span>Link</span></button>
-                  <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                <div class="compose-top"><span class="avatar" id="postAv">A</span>
+                  <div class="cbox">
+                    <textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
+                    <div class="cbox-bar">
+                      <button class="cbtn" type="button" id="postFotoBtn" title="Foto" aria-label="Adicionar foto"><svg><use href="#i-photo"/></svg></button>
+                      <button class="cbtn" type="button" id="postLinkBtn" title="Link" aria-label="Adicionar link"><svg><use href="#i-link"/></svg></button>
+                      <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                    </div>
+                  </div>
                 </div>
                 <input type="file" id="postFile" accept="image/*" hidden>
                 <p class="status" id="postStatus" role="status"></p>
@@ -1713,7 +1728,8 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   <section class="view" id="v-indicacoes" data-view="indicacoes">
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
-      <input id="vizBusca" class="viz-busca" type="search" placeholder="Buscar indicações" maxlength="60" aria-label="Buscar indicações">
+      <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
+      <div class="viz-dicas" id="vizDicas" aria-label="Sugestões de busca"></div>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
@@ -2312,7 +2328,25 @@ var LUGARES = [
   { cat:"Comer", nome:"Xapuri", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Restaurante de comida mineira na Pampulha, conhecido pelo fogão a lenha. Confira horários e valores antes de ir.", mapa:true },
   { cat:"Hospedagem", nome:"Ouro Minas Palace Hotel", oque:"Belo Horizonte, MG", porque:"Sugestão da Casa: Hotel tradicional de BH para ficar com a família. Confira horários e valores antes de ir.", mapa:true },
   { cat:"Hospedagem", nome:"Pousada Solar da Ponte", oque:"Tiradentes, MG", porque:"Sugestão da Casa: Pousada charmosa na histórica Tiradentes. Confira horários e valores antes de ir.", mapa:true },
-  { cat:"Hospedagem", nome:"Grande Hotel de Araxá", oque:"Araxá, MG", porque:"Sugestão da Casa: Hotel histórico da cidade das águas, em Araxá. Confira horários e valores antes de ir.", mapa:true }
+  { cat:"Hospedagem", nome:"Grande Hotel de Araxá", oque:"Araxá, MG", porque:"Sugestão da Casa: Hotel histórico da cidade das águas, em Araxá. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Marco Zero (Recife Antigo)", oque:"Recife, PE", porque:"Sugestão da Casa: Praça no coração do Recife Antigo, com vista para o porto e para o rio. Bom para passear a pé em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Praia de Boa Viagem", oque:"Recife, PE", porque:"Sugestão da Casa: Orla famosa do Recife, com calçadão para caminhar e quiosques. Fique atento às indicações de banho de mar. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Paço do Frevo", oque:"Recife, PE", porque:"Sugestão da Casa: Casa dedicada ao frevo, Patrimônio Cultural da Humanidade, no Recife Antigo. Passeio leve e cheio de cor. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Instituto Ricardo Brennand", oque:"Recife, PE", porque:"Sugestão da Casa: Museu e jardins grandes na Várzea, com acervo de arte e áreas verdes para caminhar. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Oficina Cerâmica Francisco Brennand", oque:"Recife, PE", porque:"Sugestão da Casa: Espaço com esculturas e cerâmicas do artista Francisco Brennand, em meio a jardins. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Jardim Botânico do Recife", oque:"Recife, PE", porque:"Sugestão da Casa: Área verde com trilhas e sombra, boa para uma manhã tranquila com as crianças. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Parque Dona Lindu", oque:"Recife, PE", porque:"Sugestão da Casa: Parque à beira-mar em Boa Viagem, com espaço aberto para caminhar e brincar. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado de São José", oque:"Recife, PE", porque:"Sugestão da Casa: Mercado histórico do Recife, com artesanato, comidas e frutas da região. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Ilha do Retiro", oque:"Recife, PE", porque:"Sugestão da Casa: Estádio do Sport Club do Recife, para quem curte futebol em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Pelourinho (Centro Histórico)", oque:"Salvador, BA", porque:"Sugestão da Casa: Casarões coloridos, igrejas e ladeiras no centro histórico de Salvador, Patrimônio da Humanidade. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Elevador Lacerda", oque:"Salvador, BA", porque:"Sugestão da Casa: Elevador histórico que liga a Cidade Alta à Cidade Baixa, com vista para a Baía de Todos-os-Santos. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Lazer", nome:"Farol da Barra", oque:"Salvador, BA", porque:"Sugestão da Casa: Cartão-postal de Salvador, famoso pelo pôr do sol e pela orla para caminhar. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Mercado Modelo", oque:"Salvador, BA", porque:"Sugestão da Casa: Mercado de artesanato e comidas típicas baianas, ao lado do Elevador Lacerda. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Comer", nome:"Acarajé da Dinha", oque:"Salvador, BA", porque:"Sugestão da Casa: Acarajé tradicional no Largo de Santana, no Rio Vermelho. Uma das paradas clássicas da cidade. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Igreja do Senhor do Bonfim", oque:"Salvador, BA", porque:"Sugestão da Casa: Igreja muito querida dos baianos, famosa pelas fitinhas coloridas e pela vista. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Cultura", nome:"Solar do Unhão (MAM Bahia)", oque:"Salvador, BA", porque:"Sugestão da Casa: Museu de arte moderna num casarão à beira da baía, com jardim e vista bonita. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Praças e parques", nome:"Parque de Pituaçu", oque:"Salvador, BA", porque:"Sugestão da Casa: Parque grande com lagoa e pista para caminhar e pedalar, bom para o dia em família. Confira horários e valores antes de ir.", mapa:true },
+  { cat:"Esporte", nome:"Arena Fonte Nova", oque:"Salvador, BA", porque:"Sugestão da Casa: Estádio de Salvador, para quem quer ver um jogo ao vivo. Confira horários e valores antes de ir.", mapa:true },
 ];
 // Profissionais da Casa: pessoas de confiança da comunidade (recebem o selo ✓).
 // Para acrescentar alguém, copie um bloco. area: "saude" ou "fe". Só preencha o que for real (whatsapp, site, instagram, resumo).
@@ -3237,7 +3271,15 @@ vizDlg.addEventListener("close", vizReset);
 new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
 $("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 
+// Dicas de busca: toque para preencher (especialista, cidade ou nome)
+["Pediatra", "Obstetra", "Psicólogo", "Recife", "Salvador", "Belo Horizonte", "Restaurante", "Parque"].forEach(function(t){
+  var b = h("button", null, t); b.type = "button";
+  b.addEventListener("click", function(){ $("vizBusca").value = t; $("vizBusca").dispatchEvent(new Event("input")); });
+  $("vizDicas").appendChild(b);
+});
 
+
+function semAcento(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
 // Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
   var chips = $$("#" + groupId + " .chip");
@@ -3271,7 +3313,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (viz.q && [p.nome, p.oque, p.onde, p.porque, p.cat].join(" ").toLowerCase().indexOf(viz.q) < 0) return;
+    if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));

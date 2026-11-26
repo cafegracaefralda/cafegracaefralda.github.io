@@ -1,3 +1,4 @@
+function semAcento(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
 // Indicações: da nossa mesa para a sua (curadas pela equipe + enviadas pelos membros).
 function filterChips(groupId, onPick){
   var chips = $$("#" + groupId + " .chip");
@@ -31,7 +32,7 @@ function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
   fridgeItems().forEach(function(p){
-    if (viz.q && [p.nome, p.oque, p.onde, p.porque, p.cat].join(" ").toLowerCase().indexOf(viz.q) < 0) return;
+    if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));

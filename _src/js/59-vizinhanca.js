@@ -26,3 +26,10 @@ vizDlg.addEventListener("click", function(e){ if (e.target === vizDlg) vizClose(
 vizDlg.addEventListener("close", vizReset);
 new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
 $("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
+
+// Dicas de busca: toque para preencher (especialista, cidade ou nome)
+["Pediatra", "Obstetra", "Psicólogo", "Recife", "Salvador", "Belo Horizonte", "Restaurante", "Parque"].forEach(function(t){
+  var b = h("button", null, t); b.type = "button";
+  b.addEventListener("click", function(){ $("vizBusca").value = t; $("vizBusca").dispatchEvent(new Event("input")); });
+  $("vizDicas").appendChild(b);
+});

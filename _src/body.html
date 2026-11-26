@@ -214,11 +214,15 @@
               </div>
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
               <form class="card compose" id="postForm" autocomplete="off">
-                <div class="compose-top"><span class="avatar" id="postAv">A</span><textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea></div>
-                <div class="compose-bar">
-                  <button class="cbtn" type="button" id="postFotoBtn" title="Foto"><svg><use href="#i-photo"/></svg><span>Foto</span></button>
-                  <button class="cbtn" type="button" id="postLinkBtn" title="Link"><svg><use href="#i-link"/></svg><span>Link</span></button>
-                  <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                <div class="compose-top"><span class="avatar" id="postAv">A</span>
+                  <div class="cbox">
+                    <textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
+                    <div class="cbox-bar">
+                      <button class="cbtn" type="button" id="postFotoBtn" title="Foto" aria-label="Adicionar foto"><svg><use href="#i-photo"/></svg></button>
+                      <button class="cbtn" type="button" id="postLinkBtn" title="Link" aria-label="Adicionar link"><svg><use href="#i-link"/></svg></button>
+                      <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
+                    </div>
+                  </div>
                 </div>
                 <input type="file" id="postFile" accept="image/*" hidden>
                 <p class="status" id="postStatus" role="status"></p>
@@ -310,7 +314,8 @@
   <section class="view" id="v-indicacoes" data-view="indicacoes">
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
-      <input id="vizBusca" class="viz-busca" type="search" placeholder="Buscar indicações" maxlength="60" aria-label="Buscar indicações">
+      <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
+      <div class="viz-dicas" id="vizDicas" aria-label="Sugestões de busca"></div>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
