@@ -1373,3 +1373,9 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .lw-logo{width:64px;height:64px;margin:0 auto 6px}
 .lw-box{text-align:center}
 .home-sub{color:var(--muted);margin:2px 0 0}
+
+.viz-filtros{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 6px}
+.viz-filtros select{flex:1 1 140px;min-width:0;min-height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font:inherit;font-size:16px;color:var(--ink)}
+.viz-filtros .chip{min-height:46px}
+.viz-count{margin:2px 2px 10px}
+#vizMais{margin:14px auto;display:block}

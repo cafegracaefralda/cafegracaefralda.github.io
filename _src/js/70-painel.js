@@ -83,6 +83,7 @@ function loadAnunc(){
       var act = h("div", "confirm");
       if (a.whatsapp) { var w = h("a", "btn btn-ghost btn-sm", "WhatsApp"); w.href = "https://wa.me/" + a.whatsapp; w.target = "_blank"; w.rel = "noopener"; act.appendChild(w); }
       if (a.status !== "ativo") act.appendChild(btnAct("Ativar", set({ status: "ativo" })));
+      if (a.status === "ativo" && a.whatsapp) { var lk2 = h("a", "btn btn-wa btn-sm", "Enviar link do anúncio"); lk2.href = waLink("Olá, " + a.marca + "! O seu pedido para anunciar na *Café, Graça & Fralda* foi aprovado. 🎉\n\nPara cadastrar o seu anúncio (foto, link, descrição e o que quiser), entre por aqui e toque em *Quero anunciar*:\n" + SITE_URL + "#anunciar", a.whatsapp); lk2.target = "_blank"; lk2.rel = "noopener"; act.appendChild(lk2); }
       if (a.status === "ativo") { act.appendChild(btnAct(a.confiavel ? "Tirar confiável" : "Marcar confiável", set({ confiavel: !a.confiavel }))); act.appendChild(btnAct("Suspender", set({ status: "suspenso" }))); }
       if (a.status === "pendente") act.appendChild(btnAct("Recusar", set({ status: "recusado" })));
       el.append(body, act); box.appendChild(el);

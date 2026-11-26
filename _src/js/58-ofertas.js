@@ -102,3 +102,13 @@ auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") =
 
 // Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
+
+// Link para o parceiro aprovado: https://.../#anunciar abre o formulário do anúncio (ou o pedido, se ainda não for parceiro)
+var anQ = /^#anunciar/.test(location.hash);
+function anunciarHash(){
+  if (!anQ || !auth.user || !sb) return;
+  anQ = false; go("inicio/ofertas");
+  setTimeout(function(){ $("ofAnunciar").click(); }, 400);
+}
+window.addEventListener("hashchange", function(){ if (/^#anunciar/.test(location.hash)) { anQ = true; anunciarHash(); } });
+auth.on(function(){ setTimeout(anunciarHash, 600); });

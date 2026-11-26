@@ -208,7 +208,7 @@ function renderPost(p){
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.github.io/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
-  sh.style.marginLeft = "auto"; acts.appendChild(sh);
+  sh.style.marginLeft = "auto"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;

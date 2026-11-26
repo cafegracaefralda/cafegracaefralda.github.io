@@ -25,9 +25,25 @@ $("vizClose").addEventListener("click", vizClose);
 vizDlg.addEventListener("click", function(e){ if (e.target === vizDlg) vizClose(); });
 vizDlg.addEventListener("close", vizReset);
 new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
-$("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
+$("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); viz.n = 12; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 
-// Filtro "Da Casa ✓": só os profissionais de confiança da comunidade
-$("vizCasa").addEventListener("click", function(){
-  viz.casa = !viz.casa; this.setAttribute("aria-pressed", viz.casa); renderFridge();
-});
+// Filtros: estado, cidade, assunto e "Da Casa ✓". A lista mostra 12 por vez ("Mostrar mais").
+Object.keys(UFS).forEach(function(u){ var o = h("option", null, UFS[u] + " (" + u + ")"); o.value = u; $("vizUf").appendChild(o); var o2 = h("option", null, u); o2.value = u; $("i-uf").appendChild(o2); });
+["Saúde","Família","Fé","Lazer","Comer","Hospedagem","Casa","Outros"].forEach(function(g){ var o = h("option", null, g); o.value = g; $("vizGrupo").appendChild(o); });
+function vizCidades(){
+  var sel = $("vizCidade"), set = {}; sel.innerHTML = ""; var o0 = h("option", null, "Todas as cidades"); o0.value = ""; sel.appendChild(o0);
+  fridgeItems().forEach(function(p){ var l = vizLoc(p); if (l.uf === viz.uf && l.cidade) set[l.cidade] = 1; });
+  Object.keys(set).sort(function(a, b){ return a.localeCompare(b, "pt-BR"); }).forEach(function(c){ var o = h("option", null, c); o.value = c; sel.appendChild(o); });
+  sel.disabled = !viz.uf; sel.value = viz.cidade;
+}
+function vizAplicar(){
+  viz.n = 12; renderFridge();
+  $("lzUf").value = viz.uf; $("lzCidade").value = viz.cidade;   // os lugares indicados pelas famílias seguem o mesmo estado e cidade
+  if (typeof loadLazer === "function") loadLazer(true);
+  var lzOn = !viz.casa && (!viz.grupo || viz.grupo === "Lazer"); $("lzList").hidden = !lzOn; $("lzMore").hidden = !lzOn || !lz.more;
+}
+$("vizUf").addEventListener("change", function(){ viz.uf = this.value; viz.cidade = ""; vizCidades(); vizAplicar(); });
+$("vizCidade").addEventListener("change", function(){ viz.cidade = this.value; vizAplicar(); });
+$("vizGrupo").addEventListener("change", function(){ viz.grupo = this.value; vizAplicar(); });
+$("vizCasa").addEventListener("click", function(){ viz.casa = !viz.casa; this.setAttribute("aria-pressed", viz.casa); vizAplicar(); });
+$("vizMais").addEventListener("click", function(){ viz.n += 12; renderFridge(); });

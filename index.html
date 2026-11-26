@@ -1409,6 +1409,12 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .lw-box{text-align:center}
 .home-sub{color:var(--muted);margin:2px 0 0}
 
+.viz-filtros{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 6px}
+.viz-filtros select{flex:1 1 140px;min-width:0;min-height:46px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font:inherit;font-size:16px;color:var(--ink)}
+.viz-filtros .chip{min-height:46px}
+.viz-count{margin:2px 2px 10px}
+#vizMais{margin:14px auto;display:block}
+
 </style>
 </head>
 <body>
@@ -1732,8 +1738,15 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
       <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
-      <div class="viz-dicas"><button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button></div>
+      <div class="viz-filtros">
+        <select id="vizUf" aria-label="Estado"><option value="">Todos os estados</option></select>
+        <select id="vizCidade" aria-label="Cidade" disabled><option value="">Todas as cidades</option></select>
+        <select id="vizGrupo" aria-label="Assunto"><option value="">Todos os assuntos</option></select>
+        <button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button>
+      </div>
+      <p class="viz-count hint" id="vizCount" role="status"></p>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
+      <button class="btn btn-ghost feed-more" type="button" id="vizMais" hidden>Mostrar mais</button>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
         <input id="lzCidade" type="hidden"><input id="lzUf" type="hidden">
@@ -1767,7 +1780,11 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
               <div class="field"><label for="i-cat">O que você indica?</label><select id="i-cat"><option value="Saúde">Saúde</option><option value="Fé e religião">Fé e religião</option><option value="Educação">Educação</option><option value="Família">Família</option><option value="Casa">Casa</option><option value="Outro">Outros</option></select></div>
               <div class="field"><label for="i-modo">Atendimento</label><select id="i-modo"><option>Presencial</option><option>Online</option><option>Online e presencial</option></select></div>
             </div>
-            <div class="field"><label for="i-onde">Onde fica</label><input id="i-onde" maxlength="140" placeholder="Cidade, bairro ou endereço da clínica"></div>
+            <div class="row2">
+              <div class="field"><label for="i-cidade">Cidade</label><input id="i-cidade" maxlength="60" placeholder="Ex.: Recife"></div>
+              <div class="field"><label for="i-uf">Estado</label><select id="i-uf"><option value="">Escolha</option></select></div>
+            </div>
+            <div class="field"><label for="i-onde">Bairro ou endereço (opcional)</label><input id="i-onde" maxlength="70" placeholder="Ex.: Boa Viagem, clínica na Av. Conselheiro Aguiar"></div>
             <div class="field"><label for="i-como">Como você conheceu</label><input id="i-como" maxlength="300" placeholder="Ex.: indicação de uma amiga, atendeu meu filho em 2025"></div>
             <fieldset class="field"><span class="legend">Plano de saúde</span>
               <div class="opts">
@@ -1979,6 +1996,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
   <button class="story-x sheet-x" type="button" id="anClose" aria-label="Fechar">×</button>
   <span class="label">Parceiros</span>
   <h3 id="anTitle">Quero anunciar na comunidade</h3>
+  <p class="hint">Primeiro um pedido simples. Quando a equipe aprovar, você recebe um link para cadastrar o seu anúncio (foto, link e o que quiser).</p>
   <form class="form" id="anForm" novalidate>
     <div class="row2">
       <div class="field"><label for="an-marca">Nome ou marca</label><input id="an-marca" maxlength="80" placeholder="Como quer aparecer"></div>
@@ -2373,14 +2391,100 @@ var PROS = [
 var GRUPO_VIZ = { "Fé e religião":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
   "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
   "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
+["Saúde","Família","Educação","Casa","Lazer","Cultura","Filmes e séries","Comer","Hospedagem","Praças e parques","Esporte","Fé e religião"].forEach(function(c){ if (!GRUPO_VIZ[c]) GRUPO_VIZ[c] = { "Saúde":"Saúde", "Família":"Família", "Educação":"Família", "Casa":"Casa", "Fé e religião":"Fé", "Comer":"Comer", "Hospedagem":"Hospedagem" }[c] || "Lazer"; });
 function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
-var viz = { q: "" };
+var viz = { q: "", uf: "", cidade: "", grupo: "", casa: false, n: 12 };
 var TAPE = { "Fé e religião":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };
+
+
+// Estados e lugares conhecidos de todo o Brasil (sugestões da Casa). Cada item: [categoria, nome, "Cidade, UF", texto curto].
+// Referências reais e bem conhecidas. Sempre conferir horários e valores nos canais oficiais antes de ir.
+var UFS = { AC:"Acre", AL:"Alagoas", AP:"Amapá", AM:"Amazonas", BA:"Bahia", CE:"Ceará", DF:"Distrito Federal", ES:"Espírito Santo", GO:"Goiás", MA:"Maranhão", MT:"Mato Grosso", MS:"Mato Grosso do Sul", MG:"Minas Gerais", PA:"Pará", PB:"Paraíba", PR:"Paraná", PE:"Pernambuco", PI:"Piauí", RJ:"Rio de Janeiro", RN:"Rio Grande do Norte", RS:"Rio Grande do Sul", RO:"Rondônia", RR:"Roraima", SC:"Santa Catarina", SP:"São Paulo", SE:"Sergipe", TO:"Tocantins" };
+var LUGARES_BR = [
+  ["Praças e parques","Parque Ambiental Chico Mendes","Rio Branco, AC","Área verde na cidade, boa para caminhar e passar a manhã com as crianças."],
+  ["Praças e parques","Praia de Pajuçara","Maceió, AL","Orla famosa, de onde saem os passeios às piscinas naturais."],
+  ["Lazer","Praia de Ponta Verde","Maceió, AL","Praia urbana com calçadão para caminhar em família."],
+  ["Cultura","Fortaleza de São José de Macapá","Macapá, AP","Fortaleza histórica à beira do Rio Amazonas, ótima para passear e conhecer a história."],
+  ["Lazer","Marco Zero do Equador","Macapá, AP","Monumento sobre a linha do Equador, um passeio curioso para as crianças."],
+  ["Cultura","Teatro Amazonas","Manaus, AM","Teatro histórico, símbolo de Manaus, com visitas guiadas."],
+  ["Comer","Mercado Adolpho Lisboa","Manaus, AM","Mercado histórico com frutas, peixes e comidas da região."],
+  ["Lazer","Morro de São Paulo","Cairu, BA","Vila com praias e passeios a pé, sem carros, tranquila para famílias."],
+  ["Lazer","Beach Park","Aquiraz, CE","Parque aquático famoso do Nordeste, para o dia todo."],
+  ["Lazer","Praia de Iracema","Fortaleza, CE","Orla com calçadão, Ponte dos Ingleses e vista para o pôr do sol."],
+  ["Cultura","Centro Dragão do Mar de Arte e Cultura","Fortaleza, CE","Espaço cultural com museu, cinema e planetário."],
+  ["Comer","Mercado Central de Fortaleza","Fortaleza, CE","Mercado com artesanato e lembranças do Ceará."],
+  ["Praças e parques","Parque da Cidade Sarah Kubitschek","Brasília, DF","Um dos maiores parques urbanos do mundo, com pistas, quadras e áreas de lazer."],
+  ["Cultura","Catedral Metropolitana de Brasília","Brasília, DF","Obra de Oscar Niemeyer, aberta para visitação."],
+  ["Lazer","Jardim Zoológico de Brasília","Brasília, DF","Passeio com bichos e áreas verdes para todas as idades."],
+  ["Lazer","Convento da Penha","Vila Velha, ES","Santuário no alto do morro, com vista para a baía."],
+  ["Praças e parques","Parque Moscoso","Vitória, ES","Parque tradicional no centro, com lago e sombra."],
+  ["Lazer","Praia de Camburi","Vitória, ES","Longa orla com calçadão e ciclovia."],
+  ["Praças e parques","Parque Flamboyant","Goiânia, GO","Parque urbano com pista de caminhada e áreas verdes."],
+  ["Praças e parques","Bosque dos Buritis","Goiânia, GO","Bosque no centro, bom para caminhar e passear com as crianças."],
+  ["Lazer","Zoológico de Goiânia","Goiânia, GO","Passeio com animais em meio à área verde."],
+  ["Cultura","Centro Histórico de São Luís","São Luís, MA","Casarões de azulejos, Patrimônio Cultural da Humanidade."],
+  ["Lazer","Lençóis Maranhenses","Barreirinhas, MA","Parque Nacional com dunas e lagoas, um dos cenários mais bonitos do país."],
+  ["Praças e parques","Parque Mãe Bonifácia","Cuiabá, MT","Parque urbano com trilhas e área verde."],
+  ["Lazer","Chapada dos Guimarães","Chapada dos Guimarães, MT","Cachoeiras, mirantes e trilhas a poucos quilômetros de Cuiabá."],
+  ["Lazer","Bioparque Pantanal","Campo Grande, MS","Um dos maiores aquários de água doce do mundo."],
+  ["Praças e parques","Parque das Nações Indígenas","Campo Grande, MS","Parque grande com pista, lago e espaço para brincar."],
+  ["Comer","Feira Central de Campo Grande","Campo Grande, MS","Feira com comidas típicas da região, como o sobá."],
+  ["Comer","Mercado Ver-o-Peso","Belém, PA","Mercado tradicional à beira da baía, com frutas, ervas e comidas do Pará."],
+  ["Lazer","Estação das Docas","Belém, PA","Galpões do antigo porto, hoje com restaurantes, lojas e vista para o rio."],
+  ["Praças e parques","Mangal das Garças","Belém, PA","Parque com borboletário, viveiro de aves e mirante."],
+  ["Lazer","Praia de Tambaú","João Pessoa, PB","Orla urbana com calçadão e vista bonita."],
+  ["Cultura","Estação Cabo Branco","João Pessoa, PB","Espaço de ciência, cultura e artes com vista para o mar."],
+  ["Praças e parques","Parque Barigui","Curitiba, PR","Parque querido dos curitibanos, com lago, pista e muita área verde."],
+  ["Praças e parques","Jardim Botânico de Curitiba","Curitiba, PR","Cartão-postal da cidade, com a estufa de vidro e jardins."],
+  ["Cultura","Ópera de Arame","Curitiba, PR","Teatro de estrutura tubular em meio a uma área verde."],
+  ["Praças e parques","Parque Tanguá","Curitiba, PR","Parque com túnel, cascata e mirante."],
+  ["Cultura","Centro Histórico de Olinda","Olinda, PE","Ladeiras, igrejas e casarios coloridos, Patrimônio da Humanidade."],
+  ["Lazer","Porto de Galinhas","Ipojuca, PE","Praia famosa pelas piscinas naturais, com passeios de jangada."],
+  ["Praças e parques","Parque Encontro dos Rios","Teresina, PI","Parque no encontro dos rios Parnaíba e Poti, com áreas de lazer."],
+  ["Lazer","Cristo Redentor","Rio de Janeiro, RJ","Cartão-postal do Brasil, no alto do Corcovado."],
+  ["Lazer","Pão de Açúcar","Rio de Janeiro, RJ","Passeio de bondinho com vista para a baía de Guanabara."],
+  ["Praças e parques","Jardim Botânico do Rio de Janeiro","Rio de Janeiro, RJ","Jardim enorme com palmeiras imperiais, bom para caminhar à sombra."],
+  ["Praças e parques","Parque Lage","Rio de Janeiro, RJ","Casarão com jardins aos pés do Corcovado, ótimo para um café."],
+  ["Lazer","Quinta da Boa Vista","Rio de Janeiro, RJ","Parque com jardim, lago e o zoológico, em São Cristóvão."],
+  ["Lazer","Praia de Ponta Negra","Natal, RN","Praia com o Morro do Careca e calçadão para passear."],
+  ["Praças e parques","Parque das Dunas","Natal, RN","Trilhas em meio à mata atlântica e dunas, no meio da cidade."],
+  ["Cultura","Forte dos Reis Magos","Natal, RN","Forte histórico à beira-mar, marco da fundação de Natal."],
+  ["Praças e parques","Parque Farroupilha (Redenção)","Porto Alegre, RS","Parque tradicional, com brechó e feirinha aos domingos."],
+  ["Cultura","Usina do Gasômetro","Porto Alegre, RS","Centro cultural à beira do Guaíba, conhecido pelo pôr do sol."],
+  ["Lazer","Mini Mundo","Gramado, RS","Parque com miniaturas de cidades e monumentos do mundo."],
+  ["Lazer","Lago Negro","Gramado, RS","Lago cercado de pinheiros, com pedalinhos e caminhos para passear."],
+  ["Cultura","Estrada de Ferro Madeira-Mamoré","Porto Velho, RO","Complexo ferroviário histórico, parte da história da Amazônia."],
+  ["Praças e parques","Parque Natural de Porto Velho","Porto Velho, RO","Área verde com trilhas e mata preservada."],
+  ["Praças e parques","Orla Taumanan","Boa Vista, RR","Orla à beira do Rio Branco, boa para passeios no fim da tarde."],
+  ["Praças e parques","Praça do Centro Cívico","Boa Vista, RR","Praça central famosa pelo desenho em formato de leque."],
+  ["Cultura","Ponte Hercílio Luz","Florianópolis, SC","Ponte pênsil, símbolo da cidade, aberta a pedestres."],
+  ["Lazer","Lagoa da Conceição","Florianópolis, SC","Lagoa cercada de dunas e restaurantes, com passeios de barco."],
+  ["Lazer","Beto Carrero World","Penha, SC","Parque temático de diversões para a família toda."],
+  ["Praças e parques","Parque Ibirapuera","São Paulo, SP","Parque mais famoso de São Paulo, com lago, museus e pistas."],
+  ["Cultura","MASP (Museu de Arte de São Paulo)","São Paulo, SP","Museu na Avenida Paulista, com um dos maiores acervos de arte da América Latina."],
+  ["Lazer","Zoológico de São Paulo","São Paulo, SP","Um dos maiores zoológicos do país, com áreas verdes."],
+  ["Comer","Mercado Municipal de São Paulo (Mercadão)","São Paulo, SP","Mercado tradicional, famoso pelo sanduíche de mortadela e pelas frutas."],
+  ["Lazer","Praia de Atalaia","Aracaju, SE","Orla com calçadão e a Passarela do Caranguejo."],
+  ["Lazer","Oceanário de Aracaju (Projeto Tamar)","Aracaju, SE","Aquário com tartarugas marinhas e peixes, bom para as crianças."],
+  ["Comer","Mercado Municipal Antônio Franco","Aracaju, SE","Mercado com artesanato e comidas típicas de Sergipe."],
+  ["Praças e parques","Parque Cesamar","Palmas, TO","Parque urbano com pista de caminhada e áreas de lazer."],
+  ["Lazer","Praia da Graciosa","Palmas, TO","Praia de água doce no lago, com orla para passear."],
+  ["Lazer","Jalapão","Mateiros, TO","Região de dunas, fervedouros e cachoeiras, um dos destinos de natureza do país."]
+];
+LUGARES_BR.forEach(function(x){
+  LUGARES.push({ cat: x[0], nome: x[1], oque: x[2], porque: "Sugestão da Casa: " + x[3] + " Confira horários e valores antes de ir.", mapa: true });
+});
+// Cidade e estado de um item ("Cidade, UF" em oque ou no fim de onde)
+function vizLoc(p){
+  var s = String(p.oque || ""), m = /^(.+),\s*([A-Z]{2})$/.exec(s);
+  if (!m || !UFS[m[2]]) { s = String(p.onde || ""); m = /(?:^|·\s*)([^·,]+),\s*([A-Z]{2})$/.exec(s); }
+  return m && UFS[m[2]] ? { cidade: m[1].trim(), uf: m[2] } : { cidade: "", uf: "" };
+}
 
 
 // Telas: cada área é uma tela (como num aplicativo). O endereço (#mesa, #mensagens...) escolhe a tela e a aba.
 var VIEWS = ["inicio", "prateleira", "mesa", "perfil", "mensagens", "indicacoes", "palestra", "painel"];
-var ALIAS = { dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
+var ALIAS = { anunciar: "inicio", dacasa: "prateleira", lazer: "indicacoes", quintal: "indicacoes", vizinhanca: "indicacoes", devocional: "inicio", novidades: "inicio", artigos: "inicio", textos: "inicio", stories: "mesa",
               feed: "mesa", mural: "mesa", comunidade: "mesa", postagens: "mesa", chat: "mesa", comentarios: "mesa", privado: "mensagens",
               casa: "indicacoes", cafe: "indicacoes", agendar: "indicacoes", cadeira: "indicacoes", profissional: "indicacoes", contato: "indicacoes", sobre: "inicio", palestras: "palestra", convite: "palestra", app: "inicio", aprendemos: "inicio", manifesto: "inicio" };
 var route = { view: "", sub: "" };
@@ -3008,6 +3112,7 @@ function openReader(a){
     act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
     act("btn-ghost", waLink('Oi! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com a equipe")
   );
+  foot.appendChild(igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }, "btn btn-sm btn-ghost"));
   var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa Grande"));
   cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
   foot.appendChild(cm);
@@ -3255,6 +3360,16 @@ auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") =
 // Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
 
+// Link para o parceiro aprovado: https://.../#anunciar abre o formulário do anúncio (ou o pedido, se ainda não for parceiro)
+var anQ = /^#anunciar/.test(location.hash);
+function anunciarHash(){
+  if (!anQ || !auth.user || !sb) return;
+  anQ = false; go("inicio/ofertas");
+  setTimeout(function(){ $("ofAnunciar").click(); }, 400);
+}
+window.addEventListener("hashchange", function(){ if (/^#anunciar/.test(location.hash)) { anQ = true; anunciarHash(); } });
+auth.on(function(){ setTimeout(anunciarHash, 600); });
+
 
 // Vizinhança: tela limpa (busca + lista). Ao tocar em "Indicar", a pessoa escolhe o assunto e aparece o formulário certo.
 var VIZ_OPCOES = [
@@ -3283,12 +3398,28 @@ $("vizClose").addEventListener("click", vizClose);
 vizDlg.addEventListener("click", function(e){ if (e.target === vizDlg) vizClose(); });
 vizDlg.addEventListener("close", vizReset);
 new MutationObserver(function(){ if (vizDlg.open && $("vizPick").hidden && $("indWrap").hidden && $("lzForm").hidden) vizClose(); }).observe($("lzForm"), { attributes: true, attributeFilter: ["hidden"] });
-$("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
+$("vizBusca").addEventListener("input", function(){ viz.q = this.value.trim().toLowerCase(); viz.n = 12; renderFridge(); if (typeof renderLazer === "function") renderLazer(); });
 
-// Filtro "Da Casa ✓": só os profissionais de confiança da comunidade
-$("vizCasa").addEventListener("click", function(){
-  viz.casa = !viz.casa; this.setAttribute("aria-pressed", viz.casa); renderFridge();
-});
+// Filtros: estado, cidade, assunto e "Da Casa ✓". A lista mostra 12 por vez ("Mostrar mais").
+Object.keys(UFS).forEach(function(u){ var o = h("option", null, UFS[u] + " (" + u + ")"); o.value = u; $("vizUf").appendChild(o); var o2 = h("option", null, u); o2.value = u; $("i-uf").appendChild(o2); });
+["Saúde","Família","Fé","Lazer","Comer","Hospedagem","Casa","Outros"].forEach(function(g){ var o = h("option", null, g); o.value = g; $("vizGrupo").appendChild(o); });
+function vizCidades(){
+  var sel = $("vizCidade"), set = {}; sel.innerHTML = ""; var o0 = h("option", null, "Todas as cidades"); o0.value = ""; sel.appendChild(o0);
+  fridgeItems().forEach(function(p){ var l = vizLoc(p); if (l.uf === viz.uf && l.cidade) set[l.cidade] = 1; });
+  Object.keys(set).sort(function(a, b){ return a.localeCompare(b, "pt-BR"); }).forEach(function(c){ var o = h("option", null, c); o.value = c; sel.appendChild(o); });
+  sel.disabled = !viz.uf; sel.value = viz.cidade;
+}
+function vizAplicar(){
+  viz.n = 12; renderFridge();
+  $("lzUf").value = viz.uf; $("lzCidade").value = viz.cidade;   // os lugares indicados pelas famílias seguem o mesmo estado e cidade
+  if (typeof loadLazer === "function") loadLazer(true);
+  var lzOn = !viz.casa && (!viz.grupo || viz.grupo === "Lazer"); $("lzList").hidden = !lzOn; $("lzMore").hidden = !lzOn || !lz.more;
+}
+$("vizUf").addEventListener("change", function(){ viz.uf = this.value; viz.cidade = ""; vizCidades(); vizAplicar(); });
+$("vizCidade").addEventListener("change", function(){ viz.cidade = this.value; vizAplicar(); });
+$("vizGrupo").addEventListener("change", function(){ viz.grupo = this.value; vizAplicar(); });
+$("vizCasa").addEventListener("click", function(){ viz.casa = !viz.casa; this.setAttribute("aria-pressed", viz.casa); vizAplicar(); });
+$("vizMais").addEventListener("click", function(){ viz.n += 12; renderFridge(); });
 
 
 function semAcento(t){ return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
@@ -3307,7 +3438,27 @@ function filterChips(groupId, onPick){
 var fridge = $("fridgeNotes");
 function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
-function fridgeItems(){ return INDICACOES.concat(LUGARES, fromMembers); }
+function fridgeItems(){
+  // ordem: Casa, indicações dos membros, lugares sugeridos. Sem duplicados: a primeira ocorrência vale; mesmo nome na mesma cidade conta como igual
+  var seen = {}, out = [];
+  INDICACOES.concat(fromMembers, LUGARES).forEach(function(p){
+    var l = vizLoc(p), k = semAcento(p.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(l.cidade) + "|" + l.uf;
+    if (seen[k]) return; seen[k] = 1; out.push(p);
+  });
+  return out;
+}
+function vizVisible(){
+  var q = semAcento(viz.q || "");
+  return fridgeItems().filter(function(p){
+    if (viz.casa && !p.selo) return false;
+    var l = vizLoc(p);
+    if (viz.uf && l.uf !== viz.uf) return false;
+    if (viz.cidade && l.cidade !== viz.cidade) return false;
+    if (viz.grupo && vizGroup(p.cat) !== viz.grupo) return false;
+    if (q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, l.cidade, UFS[l.uf] || "", l.uf].join(" ")).indexOf(q) < 0) return false;
+    return true;
+  });
+}
 function loadMemberInds(){
   if (!sb) return;
   sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -3318,15 +3469,17 @@ function loadMemberInds(){
         plano: x.plano === "plano" ? "Aceita plano de saúde: " + x.planos : "Atendimento particular", pend: !x.aprovado,
         whatsapp: d.length >= 10 && c.charAt(0) !== "@" ? d : "", instagram: c.charAt(0) === "@" ? c : "" };
     });
-    renderFridge();
+    renderFridge(); if (typeof vizCidades === "function") vizCidades();
   });
 }
 function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
-  fridgeItems().forEach(function(p){
-    if (viz.casa && !p.selo) return;
-    if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
+  var vis = vizVisible(), shown = vis.slice(0, viz.n);
+  $("vizCount").textContent = vis.length ? (shown.length < vis.length ? "Mostrando " + shown.length + " de " + vis.length + " indicações" : vis.length + (vis.length === 1 ? " indicação" : " indicações")) : "";
+  $("vizMais").hidden = shown.length >= vis.length;
+  if (!vis.length) { var vz0 = h("li", "empty card"); vz0.append(h("h3", null, "Nada por aqui ainda"), h("p", null, "Tente outro estado, cidade ou assunto. Conhece alguém ou algum lugar? Toque em Indicar.")); fridge.appendChild(vz0); }
+  shown.forEach(function(p){
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
@@ -3565,7 +3718,7 @@ function renderPost(p){
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.github.io/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
-  sh.style.marginLeft = "auto"; acts.appendChild(sh);
+  sh.style.marginLeft = "auto"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
@@ -3655,9 +3808,14 @@ indForm.addEventListener("submit", function(e){
   var st = $("indStatus");
   if ($("i-site").value) { setStatus(st, "Indicação enviada. Obrigado!", "ok"); return; }  // isca contra robôs
   var plano = document.querySelector('input[name="i-plano"]:checked').value;
-  var row = { nome: val("i-nome"), especialidade: val("i-esp"), categoria: $("i-cat").value, atendimento: $("i-modo").value, onde: val("i-onde"),
+  var row = { nome: val("i-nome"), especialidade: val("i-esp"), categoria: $("i-cat").value, atendimento: $("i-modo").value, onde: "",
               como_conheceu: val("i-como"), porque: val("i-porque"), contato: val("i-contato") || null, plano: plano, planos: plano === "plano" ? val("i-planos") : null };
-  if (row.nome.length < 2 || row.especialidade.length < 2 || row.onde.length < 2 || row.como_conheceu.length < 2 || row.porque.length < 2) return setStatus(st, "Preencha nome, especialidade, onde fica, como conheceu e por que indica.", "err");
+  var cidade = val("i-cidade"), uf = $("i-uf").value, ender = val("i-onde");
+  row.onde = (ender ? ender + " · " : "") + cidade + ", " + uf;
+  if (row.nome.length < 2 || row.especialidade.length < 2 || row.como_conheceu.length < 2 || row.porque.length < 2) return setStatus(st, "Preencha nome, especialidade, como conheceu e por que indica.", "err");
+  if (cidade.length < 2 || !uf) return setStatus(st, "Informe a cidade e o estado onde fica.", "err");
+  var chave = semAcento(row.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(cidade) + "|" + uf;
+  if (fridgeItems().some(function(p){ var l = vizLoc(p); return semAcento(p.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(l.cidade) + "|" + l.uf === chave; })) return setStatus(st, "Essa indicação já está na Vizinhança. Obrigado por lembrar!", "err");
   if (plano === "plano" && (row.planos || "").length < 2) return setStatus(st, "Diga qual plano de saúde o profissional aceita.", "err");
   if (!sb || !auth.user) return setStatus(st, "Entre com o Google para indicar.", "err");
   $("indSend").disabled = true; setStatus(st, "Enviando…");
@@ -4137,7 +4295,7 @@ function renderDestaque(){
     el.appendChild(h("p", "of-verse", quoteVerse(a.passage[0]) + " — " + a.passage[1]));
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
-    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"));
+    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
     var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
     acts.appendChild(more);
     el.appendChild(acts);
@@ -4311,7 +4469,7 @@ function renderPub(p, prefix){
   }
   var acts = h("div", "post-acts");
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ togglePubLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", !!liked);
-  acts.append(lk, actBtn("Comentar", "i-chat", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(pubShareText(p)), "i-share", "WhatsApp"));
+  acts.append(lk, actBtn("Comentar", "i-chat", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(pubShareText(p)), "i-share", "WhatsApp"), igBtn(function(){ return { tag: p.oficial ? "Da Casa" : "Prateleira", title: p.titulo || (p.texto || "").split("\n")[0].slice(0, 70) || "Publicação da comunidade", body: p.titulo ? (p.texto || "") : (p.texto || "").slice(70) }; }));
   el.appendChild(acts);
   if (pub.open[p.id] || cm.length) el.appendChild(renderPubCmts(p, cm, !!pub.open[p.id]));
   return el;
@@ -4460,6 +4618,7 @@ function loadAnunc(){
       var act = h("div", "confirm");
       if (a.whatsapp) { var w = h("a", "btn btn-ghost btn-sm", "WhatsApp"); w.href = "https://wa.me/" + a.whatsapp; w.target = "_blank"; w.rel = "noopener"; act.appendChild(w); }
       if (a.status !== "ativo") act.appendChild(btnAct("Ativar", set({ status: "ativo" })));
+      if (a.status === "ativo" && a.whatsapp) { var lk2 = h("a", "btn btn-wa btn-sm", "Enviar link do anúncio"); lk2.href = waLink("Olá, " + a.marca + "! O seu pedido para anunciar na *Café, Graça & Fralda* foi aprovado. 🎉\n\nPara cadastrar o seu anúncio (foto, link, descrição e o que quiser), entre por aqui e toque em *Quero anunciar*:\n" + SITE_URL + "#anunciar", a.whatsapp); lk2.target = "_blank"; lk2.rel = "noopener"; act.appendChild(lk2); }
       if (a.status === "ativo") { act.appendChild(btnAct(a.confiavel ? "Tirar confiável" : "Marcar confiável", set({ confiavel: !a.confiavel }))); act.appendChild(btnAct("Suspender", set({ status: "suspenso" }))); }
       if (a.status === "pendente") act.appendChild(btnAct("Recusar", set({ status: "recusado" })));
       el.append(body, act); box.appendChild(el);
@@ -4829,6 +4988,44 @@ auth.on(function(){ if (!auth.user) { lz.items = []; lz.likes = {}; lz.urls = {}
 var _hookViz = viewHooks.indicacoes;
 viewHooks.indicacoes = function(s){ if (_hookViz) _hookViz(s); if (auth.user) loadLazer(true); };
 auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
+
+
+// Compartilhar no Instagram: gera uma imagem (1080x1350) com a logo e o conteúdo. No celular abre o menu de compartilhar
+// (escolha Instagram: Feed ou Stories); no computador baixa a imagem e copia a legenda. Publicar sozinho no perfil exigiria a API da Meta (servidor).
+function igDesenhar(o, logo){
+  var W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H; var g = c.getContext("2d");
+  g.fillStyle = "#1D1A17"; g.fillRect(0, 0, W, H); g.fillStyle = "#E2A07C"; g.fillRect(0, 0, W, 10);
+  if (logo) g.drawImage(logo, W / 2 - 80, 80, 160, 151);
+  g.textAlign = "center"; g.fillStyle = "#E2A07C"; g.font = "600 28px Arial, sans-serif"; g.fillText(String(o.tag || "CAFÉ, GRAÇA & FRALDA").toUpperCase(), W / 2, 310);
+  g.fillStyle = "#F6EBDD"; var y = 420;
+  if (o.title) {
+    g.font = "600 70px Georgia, serif";
+    cartaoQuebra(g, o.title, 900).slice(0, 3).forEach(function(l){ g.fillText(l, W / 2, y); y += 84; });
+    g.font = "italic 40px Georgia, serif"; g.fillStyle = "#E9DCCB"; y += 40;
+  } else { g.font = "italic 56px Georgia, serif"; y = 470; }   // só texto: a frase vira o destaque
+  var lh = o.title ? 58 : 78;
+  cartaoQuebra(g, String(o.body || "").slice(0, 300), 860).slice(0, 9).forEach(function(l){ g.fillText(l, W / 2, y); y += lh; });
+  g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("Café, Graça & Fralda", W / 2, H - 120);
+  g.fillStyle = "#9d9388"; g.font = "400 28px Arial, sans-serif"; g.fillText("cafegracaefralda.github.io", W / 2, H - 76);
+  return c;
+}
+function igCompartilhar(o){
+  toast("Preparando a imagem…");
+  cartaoLogo().then(function(logo){
+    igDesenhar(o, logo).toBlob(function(blob){
+      if (!blob) return toast("Não foi possível gerar a imagem.");
+      var legenda = (o.title ? o.title + "\n\n" : "") + (o.body ? String(o.body).slice(0, 300) + "\n\n" : "") + "Café, Graça & Fralda · " + SITE_URL + "\n#cafegracaefralda #familia #fe";
+      var file = new File([blob], "cafe-graca-fralda.png", { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text: legenda }).catch(function(){}); return; }
+      var a = h("a"); a.href = URL.createObjectURL(blob); a.download = "cafe-graca-fralda.png"; document.body.appendChild(a); a.click(); a.remove();
+      copyText(legenda, "Imagem baixada e legenda copiada. Abra o Instagram, publique a imagem e cole a legenda.");
+    }, "image/png");
+  });
+}
+function igBtn(o, cls){
+  var b = h("button", cls || null); b.type = "button"; b.append(icon("i-ig"), document.createTextNode("Instagram"));
+  b.addEventListener("click", function(){ igCompartilhar(typeof o === "function" ? o() : o); }); return b;
+}
 
 
 // Instalar o app (PWA): um toque instala (Android/Chrome); no iPhone abre o passo a passo. A barra fica no topo e na tela de entrada.

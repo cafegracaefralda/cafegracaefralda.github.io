@@ -38,7 +38,7 @@ function renderDestaque(){
     el.appendChild(h("p", "of-verse", quoteVerse(a.passage[0]) + " — " + a.passage[1]));
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
-    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"));
+    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
     var more = h("button", null); more.type = "button"; more.append(icon("i-arrow"), document.createTextNode("Anteriores")); more.addEventListener("click", function(){ go("prateleira", "devocional"); });
     acts.appendChild(more);
     el.appendChild(acts);
@@ -212,7 +212,7 @@ function renderPub(p, prefix){
   }
   var acts = h("div", "post-acts");
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ togglePubLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", !!liked);
-  acts.append(lk, actBtn("Comentar", "i-chat", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(pubShareText(p)), "i-share", "WhatsApp"));
+  acts.append(lk, actBtn("Comentar", "i-chat", function(){ pub.open[p.id] = !pub.open[p.id]; renderPubs(); }), linkBtn("", "https://wa.me/?text=" + encodeURIComponent(pubShareText(p)), "i-share", "WhatsApp"), igBtn(function(){ return { tag: p.oficial ? "Da Casa" : "Prateleira", title: p.titulo || (p.texto || "").split("\n")[0].slice(0, 70) || "Publicação da comunidade", body: p.titulo ? (p.texto || "") : (p.texto || "").slice(70) }; }));
   el.appendChild(acts);
   if (pub.open[p.id] || cm.length) el.appendChild(renderPubCmts(p, cm, !!pub.open[p.id]));
   return el;

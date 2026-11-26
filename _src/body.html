@@ -314,8 +314,15 @@
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
       <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
-      <div class="viz-dicas"><button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button></div>
+      <div class="viz-filtros">
+        <select id="vizUf" aria-label="Estado"><option value="">Todos os estados</option></select>
+        <select id="vizCidade" aria-label="Cidade" disabled><option value="">Todas as cidades</option></select>
+        <select id="vizGrupo" aria-label="Assunto"><option value="">Todos os assuntos</option></select>
+        <button class="chip" type="button" id="vizCasa" aria-pressed="false">Da Casa ✓</button>
+      </div>
+      <p class="viz-count hint" id="vizCount" role="status"></p>
       <ul class="notes viz-list" id="fridgeNotes"></ul>
+      <button class="btn btn-ghost feed-more" type="button" id="vizMais" hidden>Mostrar mais</button>
       <div id="lazerGate" hidden></div>
       <div id="lazerApp" hidden>
         <input id="lzCidade" type="hidden"><input id="lzUf" type="hidden">
@@ -349,7 +356,11 @@
               <div class="field"><label for="i-cat">O que você indica?</label><select id="i-cat"><option value="Saúde">Saúde</option><option value="Fé e religião">Fé e religião</option><option value="Educação">Educação</option><option value="Família">Família</option><option value="Casa">Casa</option><option value="Outro">Outros</option></select></div>
               <div class="field"><label for="i-modo">Atendimento</label><select id="i-modo"><option>Presencial</option><option>Online</option><option>Online e presencial</option></select></div>
             </div>
-            <div class="field"><label for="i-onde">Onde fica</label><input id="i-onde" maxlength="140" placeholder="Cidade, bairro ou endereço da clínica"></div>
+            <div class="row2">
+              <div class="field"><label for="i-cidade">Cidade</label><input id="i-cidade" maxlength="60" placeholder="Ex.: Recife"></div>
+              <div class="field"><label for="i-uf">Estado</label><select id="i-uf"><option value="">Escolha</option></select></div>
+            </div>
+            <div class="field"><label for="i-onde">Bairro ou endereço (opcional)</label><input id="i-onde" maxlength="70" placeholder="Ex.: Boa Viagem, clínica na Av. Conselheiro Aguiar"></div>
             <div class="field"><label for="i-como">Como você conheceu</label><input id="i-como" maxlength="300" placeholder="Ex.: indicação de uma amiga, atendeu meu filho em 2025"></div>
             <fieldset class="field"><span class="legend">Plano de saúde</span>
               <div class="opts">
@@ -561,6 +572,7 @@
   <button class="story-x sheet-x" type="button" id="anClose" aria-label="Fechar">×</button>
   <span class="label">Parceiros</span>
   <h3 id="anTitle">Quero anunciar na comunidade</h3>
+  <p class="hint">Primeiro um pedido simples. Quando a equipe aprovar, você recebe um link para cadastrar o seu anúncio (foto, link e o que quiser).</p>
   <form class="form" id="anForm" novalidate>
     <div class="row2">
       <div class="field"><label for="an-marca">Nome ou marca</label><input id="an-marca" maxlength="80" placeholder="Como quer aparecer"></div>

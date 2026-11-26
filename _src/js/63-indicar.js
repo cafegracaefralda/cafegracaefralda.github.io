@@ -11,9 +11,14 @@ indForm.addEventListener("submit", function(e){
   var st = $("indStatus");
   if ($("i-site").value) { setStatus(st, "Indicação enviada. Obrigado!", "ok"); return; }  // isca contra robôs
   var plano = document.querySelector('input[name="i-plano"]:checked').value;
-  var row = { nome: val("i-nome"), especialidade: val("i-esp"), categoria: $("i-cat").value, atendimento: $("i-modo").value, onde: val("i-onde"),
+  var row = { nome: val("i-nome"), especialidade: val("i-esp"), categoria: $("i-cat").value, atendimento: $("i-modo").value, onde: "",
               como_conheceu: val("i-como"), porque: val("i-porque"), contato: val("i-contato") || null, plano: plano, planos: plano === "plano" ? val("i-planos") : null };
-  if (row.nome.length < 2 || row.especialidade.length < 2 || row.onde.length < 2 || row.como_conheceu.length < 2 || row.porque.length < 2) return setStatus(st, "Preencha nome, especialidade, onde fica, como conheceu e por que indica.", "err");
+  var cidade = val("i-cidade"), uf = $("i-uf").value, ender = val("i-onde");
+  row.onde = (ender ? ender + " · " : "") + cidade + ", " + uf;
+  if (row.nome.length < 2 || row.especialidade.length < 2 || row.como_conheceu.length < 2 || row.porque.length < 2) return setStatus(st, "Preencha nome, especialidade, como conheceu e por que indica.", "err");
+  if (cidade.length < 2 || !uf) return setStatus(st, "Informe a cidade e o estado onde fica.", "err");
+  var chave = semAcento(row.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(cidade) + "|" + uf;
+  if (fridgeItems().some(function(p){ var l = vizLoc(p); return semAcento(p.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(l.cidade) + "|" + l.uf === chave; })) return setStatus(st, "Essa indicação já está na Vizinhança. Obrigado por lembrar!", "err");
   if (plano === "plano" && (row.planos || "").length < 2) return setStatus(st, "Diga qual plano de saúde o profissional aceita.", "err");
   if (!sb || !auth.user) return setStatus(st, "Entre com o Google para indicar.", "err");
   $("indSend").disabled = true; setStatus(st, "Enviando…");

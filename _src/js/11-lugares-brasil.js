@@ -1,0 +1,83 @@
+// Estados e lugares conhecidos de todo o Brasil (sugestões da Casa). Cada item: [categoria, nome, "Cidade, UF", texto curto].
+// Referências reais e bem conhecidas. Sempre conferir horários e valores nos canais oficiais antes de ir.
+var UFS = { AC:"Acre", AL:"Alagoas", AP:"Amapá", AM:"Amazonas", BA:"Bahia", CE:"Ceará", DF:"Distrito Federal", ES:"Espírito Santo", GO:"Goiás", MA:"Maranhão", MT:"Mato Grosso", MS:"Mato Grosso do Sul", MG:"Minas Gerais", PA:"Pará", PB:"Paraíba", PR:"Paraná", PE:"Pernambuco", PI:"Piauí", RJ:"Rio de Janeiro", RN:"Rio Grande do Norte", RS:"Rio Grande do Sul", RO:"Rondônia", RR:"Roraima", SC:"Santa Catarina", SP:"São Paulo", SE:"Sergipe", TO:"Tocantins" };
+var LUGARES_BR = [
+  ["Praças e parques","Parque Ambiental Chico Mendes","Rio Branco, AC","Área verde na cidade, boa para caminhar e passar a manhã com as crianças."],
+  ["Praças e parques","Praia de Pajuçara","Maceió, AL","Orla famosa, de onde saem os passeios às piscinas naturais."],
+  ["Lazer","Praia de Ponta Verde","Maceió, AL","Praia urbana com calçadão para caminhar em família."],
+  ["Cultura","Fortaleza de São José de Macapá","Macapá, AP","Fortaleza histórica à beira do Rio Amazonas, ótima para passear e conhecer a história."],
+  ["Lazer","Marco Zero do Equador","Macapá, AP","Monumento sobre a linha do Equador, um passeio curioso para as crianças."],
+  ["Cultura","Teatro Amazonas","Manaus, AM","Teatro histórico, símbolo de Manaus, com visitas guiadas."],
+  ["Comer","Mercado Adolpho Lisboa","Manaus, AM","Mercado histórico com frutas, peixes e comidas da região."],
+  ["Lazer","Morro de São Paulo","Cairu, BA","Vila com praias e passeios a pé, sem carros, tranquila para famílias."],
+  ["Lazer","Beach Park","Aquiraz, CE","Parque aquático famoso do Nordeste, para o dia todo."],
+  ["Lazer","Praia de Iracema","Fortaleza, CE","Orla com calçadão, Ponte dos Ingleses e vista para o pôr do sol."],
+  ["Cultura","Centro Dragão do Mar de Arte e Cultura","Fortaleza, CE","Espaço cultural com museu, cinema e planetário."],
+  ["Comer","Mercado Central de Fortaleza","Fortaleza, CE","Mercado com artesanato e lembranças do Ceará."],
+  ["Praças e parques","Parque da Cidade Sarah Kubitschek","Brasília, DF","Um dos maiores parques urbanos do mundo, com pistas, quadras e áreas de lazer."],
+  ["Cultura","Catedral Metropolitana de Brasília","Brasília, DF","Obra de Oscar Niemeyer, aberta para visitação."],
+  ["Lazer","Jardim Zoológico de Brasília","Brasília, DF","Passeio com bichos e áreas verdes para todas as idades."],
+  ["Lazer","Convento da Penha","Vila Velha, ES","Santuário no alto do morro, com vista para a baía."],
+  ["Praças e parques","Parque Moscoso","Vitória, ES","Parque tradicional no centro, com lago e sombra."],
+  ["Lazer","Praia de Camburi","Vitória, ES","Longa orla com calçadão e ciclovia."],
+  ["Praças e parques","Parque Flamboyant","Goiânia, GO","Parque urbano com pista de caminhada e áreas verdes."],
+  ["Praças e parques","Bosque dos Buritis","Goiânia, GO","Bosque no centro, bom para caminhar e passear com as crianças."],
+  ["Lazer","Zoológico de Goiânia","Goiânia, GO","Passeio com animais em meio à área verde."],
+  ["Cultura","Centro Histórico de São Luís","São Luís, MA","Casarões de azulejos, Patrimônio Cultural da Humanidade."],
+  ["Lazer","Lençóis Maranhenses","Barreirinhas, MA","Parque Nacional com dunas e lagoas, um dos cenários mais bonitos do país."],
+  ["Praças e parques","Parque Mãe Bonifácia","Cuiabá, MT","Parque urbano com trilhas e área verde."],
+  ["Lazer","Chapada dos Guimarães","Chapada dos Guimarães, MT","Cachoeiras, mirantes e trilhas a poucos quilômetros de Cuiabá."],
+  ["Lazer","Bioparque Pantanal","Campo Grande, MS","Um dos maiores aquários de água doce do mundo."],
+  ["Praças e parques","Parque das Nações Indígenas","Campo Grande, MS","Parque grande com pista, lago e espaço para brincar."],
+  ["Comer","Feira Central de Campo Grande","Campo Grande, MS","Feira com comidas típicas da região, como o sobá."],
+  ["Comer","Mercado Ver-o-Peso","Belém, PA","Mercado tradicional à beira da baía, com frutas, ervas e comidas do Pará."],
+  ["Lazer","Estação das Docas","Belém, PA","Galpões do antigo porto, hoje com restaurantes, lojas e vista para o rio."],
+  ["Praças e parques","Mangal das Garças","Belém, PA","Parque com borboletário, viveiro de aves e mirante."],
+  ["Lazer","Praia de Tambaú","João Pessoa, PB","Orla urbana com calçadão e vista bonita."],
+  ["Cultura","Estação Cabo Branco","João Pessoa, PB","Espaço de ciência, cultura e artes com vista para o mar."],
+  ["Praças e parques","Parque Barigui","Curitiba, PR","Parque querido dos curitibanos, com lago, pista e muita área verde."],
+  ["Praças e parques","Jardim Botânico de Curitiba","Curitiba, PR","Cartão-postal da cidade, com a estufa de vidro e jardins."],
+  ["Cultura","Ópera de Arame","Curitiba, PR","Teatro de estrutura tubular em meio a uma área verde."],
+  ["Praças e parques","Parque Tanguá","Curitiba, PR","Parque com túnel, cascata e mirante."],
+  ["Cultura","Centro Histórico de Olinda","Olinda, PE","Ladeiras, igrejas e casarios coloridos, Patrimônio da Humanidade."],
+  ["Lazer","Porto de Galinhas","Ipojuca, PE","Praia famosa pelas piscinas naturais, com passeios de jangada."],
+  ["Praças e parques","Parque Encontro dos Rios","Teresina, PI","Parque no encontro dos rios Parnaíba e Poti, com áreas de lazer."],
+  ["Lazer","Cristo Redentor","Rio de Janeiro, RJ","Cartão-postal do Brasil, no alto do Corcovado."],
+  ["Lazer","Pão de Açúcar","Rio de Janeiro, RJ","Passeio de bondinho com vista para a baía de Guanabara."],
+  ["Praças e parques","Jardim Botânico do Rio de Janeiro","Rio de Janeiro, RJ","Jardim enorme com palmeiras imperiais, bom para caminhar à sombra."],
+  ["Praças e parques","Parque Lage","Rio de Janeiro, RJ","Casarão com jardins aos pés do Corcovado, ótimo para um café."],
+  ["Lazer","Quinta da Boa Vista","Rio de Janeiro, RJ","Parque com jardim, lago e o zoológico, em São Cristóvão."],
+  ["Lazer","Praia de Ponta Negra","Natal, RN","Praia com o Morro do Careca e calçadão para passear."],
+  ["Praças e parques","Parque das Dunas","Natal, RN","Trilhas em meio à mata atlântica e dunas, no meio da cidade."],
+  ["Cultura","Forte dos Reis Magos","Natal, RN","Forte histórico à beira-mar, marco da fundação de Natal."],
+  ["Praças e parques","Parque Farroupilha (Redenção)","Porto Alegre, RS","Parque tradicional, com brechó e feirinha aos domingos."],
+  ["Cultura","Usina do Gasômetro","Porto Alegre, RS","Centro cultural à beira do Guaíba, conhecido pelo pôr do sol."],
+  ["Lazer","Mini Mundo","Gramado, RS","Parque com miniaturas de cidades e monumentos do mundo."],
+  ["Lazer","Lago Negro","Gramado, RS","Lago cercado de pinheiros, com pedalinhos e caminhos para passear."],
+  ["Cultura","Estrada de Ferro Madeira-Mamoré","Porto Velho, RO","Complexo ferroviário histórico, parte da história da Amazônia."],
+  ["Praças e parques","Parque Natural de Porto Velho","Porto Velho, RO","Área verde com trilhas e mata preservada."],
+  ["Praças e parques","Orla Taumanan","Boa Vista, RR","Orla à beira do Rio Branco, boa para passeios no fim da tarde."],
+  ["Praças e parques","Praça do Centro Cívico","Boa Vista, RR","Praça central famosa pelo desenho em formato de leque."],
+  ["Cultura","Ponte Hercílio Luz","Florianópolis, SC","Ponte pênsil, símbolo da cidade, aberta a pedestres."],
+  ["Lazer","Lagoa da Conceição","Florianópolis, SC","Lagoa cercada de dunas e restaurantes, com passeios de barco."],
+  ["Lazer","Beto Carrero World","Penha, SC","Parque temático de diversões para a família toda."],
+  ["Praças e parques","Parque Ibirapuera","São Paulo, SP","Parque mais famoso de São Paulo, com lago, museus e pistas."],
+  ["Cultura","MASP (Museu de Arte de São Paulo)","São Paulo, SP","Museu na Avenida Paulista, com um dos maiores acervos de arte da América Latina."],
+  ["Lazer","Zoológico de São Paulo","São Paulo, SP","Um dos maiores zoológicos do país, com áreas verdes."],
+  ["Comer","Mercado Municipal de São Paulo (Mercadão)","São Paulo, SP","Mercado tradicional, famoso pelo sanduíche de mortadela e pelas frutas."],
+  ["Lazer","Praia de Atalaia","Aracaju, SE","Orla com calçadão e a Passarela do Caranguejo."],
+  ["Lazer","Oceanário de Aracaju (Projeto Tamar)","Aracaju, SE","Aquário com tartarugas marinhas e peixes, bom para as crianças."],
+  ["Comer","Mercado Municipal Antônio Franco","Aracaju, SE","Mercado com artesanato e comidas típicas de Sergipe."],
+  ["Praças e parques","Parque Cesamar","Palmas, TO","Parque urbano com pista de caminhada e áreas de lazer."],
+  ["Lazer","Praia da Graciosa","Palmas, TO","Praia de água doce no lago, com orla para passear."],
+  ["Lazer","Jalapão","Mateiros, TO","Região de dunas, fervedouros e cachoeiras, um dos destinos de natureza do país."]
+];
+LUGARES_BR.forEach(function(x){
+  LUGARES.push({ cat: x[0], nome: x[1], oque: x[2], porque: "Sugestão da Casa: " + x[3] + " Confira horários e valores antes de ir.", mapa: true });
+});
+// Cidade e estado de um item ("Cidade, UF" em oque ou no fim de onde)
+function vizLoc(p){
+  var s = String(p.oque || ""), m = /^(.+),\s*([A-Z]{2})$/.exec(s);
+  if (!m || !UFS[m[2]]) { s = String(p.onde || ""); m = /(?:^|·\s*)([^·,]+),\s*([A-Z]{2})$/.exec(s); }
+  return m && UFS[m[2]] ? { cidade: m[1].trim(), uf: m[2] } : { cidade: "", uf: "" };
+}

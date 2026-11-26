@@ -203,6 +203,7 @@ var PROS = [
 var GRUPO_VIZ = { "Fé e religião":"Fé", "Saúde dos pequenos":"Saúde", "Gestação e bebê":"Saúde", "Mente e emoções":"Saúde", "Desenvolvimento":"Saúde",
   "Casamento":"Família", "Escolas e creches":"Família", "Passeios e lazer":"Lazer", "Praças e parques":"Lazer", "Restaurantes e cafés":"Comer", "Hotéis e pousadas":"Hospedagem", "Serviços para a casa":"Casa",
   "Parque e natureza":"Lazer", "Restaurante e café":"Comer", "Espaço kids":"Lazer", "Passeio e cultura":"Lazer", "Esporte":"Lazer", "Evento":"Lazer" };
+["Saúde","Família","Educação","Casa","Lazer","Cultura","Filmes e séries","Comer","Hospedagem","Praças e parques","Esporte","Fé e religião"].forEach(function(c){ if (!GRUPO_VIZ[c]) GRUPO_VIZ[c] = { "Saúde":"Saúde", "Família":"Família", "Educação":"Família", "Casa":"Casa", "Fé e religião":"Fé", "Comer":"Comer", "Hospedagem":"Hospedagem" }[c] || "Lazer"; });
 function vizGroup(cat){ return GRUPO_VIZ[cat] || "Outros"; }
-var viz = { q: "" };
+var viz = { q: "", uf: "", cidade: "", grupo: "", casa: false, n: 12 };
 var TAPE = { "Fé e religião":"#8E4A6E", "Hotéis e pousadas":"#5B7A99", "Restaurantes e cafés":"#B65B3A", "Praças e parques":"#6E8B6B", "Passeios e lazer":"#D9A441", "Serviços para a casa":"#8A6E5A", "Escolas e creches":"#9C5A7A", "Saúde dos pequenos":"#B65B3A", "Mente e emoções":"#5B7A99", "Gestação e bebê":"#D9A441", "Desenvolvimento":"#6E8B6B", "Casamento":"#9C5A7A" };

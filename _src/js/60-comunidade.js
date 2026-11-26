@@ -14,7 +14,27 @@ function filterChips(groupId, onPick){
 var fridge = $("fridgeNotes");
 function seloEl(){ var s = h("span", "selo", "✓"); s.title = "Profissional da Casa: pessoa de confiança da comunidade"; s.setAttribute("aria-label", "Profissional da Casa"); return s; }
 var fridgeFilter = "all", fromMembers = [];
-function fridgeItems(){ return INDICACOES.concat(LUGARES, fromMembers); }
+function fridgeItems(){
+  // ordem: Casa, indicações dos membros, lugares sugeridos. Sem duplicados: a primeira ocorrência vale; mesmo nome na mesma cidade conta como igual
+  var seen = {}, out = [];
+  INDICACOES.concat(fromMembers, LUGARES).forEach(function(p){
+    var l = vizLoc(p), k = semAcento(p.nome).replace(/[^a-z0-9]/g, "") + "|" + semAcento(l.cidade) + "|" + l.uf;
+    if (seen[k]) return; seen[k] = 1; out.push(p);
+  });
+  return out;
+}
+function vizVisible(){
+  var q = semAcento(viz.q || "");
+  return fridgeItems().filter(function(p){
+    if (viz.casa && !p.selo) return false;
+    var l = vizLoc(p);
+    if (viz.uf && l.uf !== viz.uf) return false;
+    if (viz.cidade && l.cidade !== viz.cidade) return false;
+    if (viz.grupo && vizGroup(p.cat) !== viz.grupo) return false;
+    if (q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, l.cidade, UFS[l.uf] || "", l.uf].join(" ")).indexOf(q) < 0) return false;
+    return true;
+  });
+}
 function loadMemberInds(){
   if (!sb) return;
   sb.from("indicacoes_membros").select("id,autor,nome,categoria,especialidade,onde,atendimento,plano,planos,como_conheceu,porque,contato,aprovado").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -25,15 +45,17 @@ function loadMemberInds(){
         plano: x.plano === "plano" ? "Aceita plano de saúde: " + x.planos : "Atendimento particular", pend: !x.aprovado,
         whatsapp: d.length >= 10 && c.charAt(0) !== "@" ? d : "", instagram: c.charAt(0) === "@" ? c : "" };
     });
-    renderFridge();
+    renderFridge(); if (typeof vizCidades === "function") vizCidades();
   });
 }
 function renderFridge(filter){
   if (filter) fridgeFilter = filter; else filter = fridgeFilter;
   fridge.innerHTML = "";
-  fridgeItems().forEach(function(p){
-    if (viz.casa && !p.selo) return;
-    if (viz.q && semAcento([p.nome, p.oque, p.onde, p.porque, p.cat, p.papel, p.assunto, p.cidade].join(" ")).indexOf(semAcento(viz.q)) < 0) return;
+  var vis = vizVisible(), shown = vis.slice(0, viz.n);
+  $("vizCount").textContent = vis.length ? (shown.length < vis.length ? "Mostrando " + shown.length + " de " + vis.length + " indicações" : vis.length + (vis.length === 1 ? " indicação" : " indicações")) : "";
+  $("vizMais").hidden = shown.length >= vis.length;
+  if (!vis.length) { var vz0 = h("li", "empty card"); vz0.append(h("h3", null, "Nada por aqui ainda"), h("p", null, "Tente outro estado, cidade ou assunto. Conhece alguém ou algum lugar? Toque em Indicar.")); fridge.appendChild(vz0); }
+  shown.forEach(function(p){
     var li = h("li", "note"), tape = h("span", "tape"); tape.style.setProperty("--m", TAPE[p.cat] || "#B65B3A"); tape.setAttribute("aria-hidden", "true");
     var top = h("div", "note-top"); top.append(h("span", "label", p.cat));
     if (p.exemplo) top.append(h("span", "ex", "Exemplo"));
