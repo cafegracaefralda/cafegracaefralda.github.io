@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cafegracaefralda.github.io/sitemap.xml
+Sitemap: https://cafegracaefralda.com.br/sitemap.xml

@@ -33,8 +33,21 @@ function shrinkPhoto(file){
 function newUuid(){ return window.crypto && crypto.randomUUID ? crypto.randomUUID() : "xxxxxxxx-xxxx-4xxx-8xxx-xxxxxxxxxxxx".replace(/x/g, function(){ return (Math.random() * 16 | 0).toString(16); }); }
 // Publicar (estilo Instagram): foto -> legenda -> Compartilhar. Também dá para só escrever, ou só colocar um link.
 var postDlg = $("postDlg");
-function pdVer(){ $("pdPhoto").hidden = !feed.photo; $("pdAddFoto").hidden = !!feed.photo; }
-function clearPhoto(){ feed.photo = null; $("pdImg").removeAttribute("src"); pdVer(); }
+var MAX_FOTOS = 3;
+feed.photos = []; feed.pdf = null;   // fotos: [{ blob, url }]; pdf: { file, name } (só administração)
+function pdVer(){
+  var box = $("pdPhotos"); box.innerHTML = ""; box.hidden = !feed.photos.length;
+  feed.photos.forEach(function(it, i){
+    var w = h("div", "pd-th"), im = h("img"); im.src = it.url; im.alt = "Foto " + (i + 1); if (i === 0) im.id = "pdImg";
+    var x = h("button", null, "×"); x.type = "button"; x.setAttribute("aria-label", "Tirar a foto " + (i + 1));
+    x.addEventListener("click", function(){ URL.revokeObjectURL(it.url); feed.photos.splice(i, 1); pdVer(); });
+    w.append(im, x); box.appendChild(w);
+  });
+  $("pdAddFoto").hidden = feed.photos.length >= MAX_FOTOS;
+  $("pdAddFotoTx").textContent = feed.photos.length ? "Adicionar outra foto (" + feed.photos.length + "/" + MAX_FOTOS + ")" : "Adicionar foto (até " + MAX_FOTOS + ")";
+  $("pdAddPdf").hidden = !auth.admin; $("pdAddPdfTx").textContent = feed.pdf ? "PDF: " + feed.pdf.name + " (trocar)" : "Anexar PDF (só administração)";
+}
+function clearPhoto(){ feed.photos.forEach(function(it){ URL.revokeObjectURL(it.url); }); feed.photos = []; feed.pdf = null; pdVer(); }
 function abrirPost(opts){
   opts = opts || {};
   $("pdAv").textContent = initial(auth.name()); avTag($("pdAv"), uid());
@@ -45,15 +58,27 @@ function abrirPost(opts){
 }
 function pegarFoto(){ $("postFile").click(); }
 $("postFotoBtn").addEventListener("click", function(){ if (!auth.user) return; pegarFoto(); });
-$("pdAddFoto").addEventListener("click", pegarFoto); $("pdTrocar").addEventListener("click", pegarFoto);
-$("pdTirar").addEventListener("click", clearPhoto);
-$("pdClose").addEventListener("click", function(){ postDlg.close(); });
-$("postFile").addEventListener("change", function(){
+$("pdAddFoto").addEventListener("click", pegarFoto);
+$("pdAddPdf").addEventListener("click", function(){ $("postPdf").click(); });
+$("postPdf").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
   if (!f) return;
-  shrinkPhoto(f).then(function(blob){
-    feed.photo = blob; $("pdImg").src = URL.createObjectURL(blob); abrirPost({ foto: true }); $("pdTexto").focus();
-  }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
+  if (f.type !== "application/pdf") return toast("Escolha um arquivo PDF.");
+  if (f.size > 5 * 1024 * 1024) return toast("O PDF passa de 5 MB.");
+  feed.pdf = { file: f, name: String(f.name || "documento.pdf").replace(/\.pdf$/i, "").slice(0, 100) + ".pdf" }; pdVer();
+});
+$("pdClose").addEventListener("click", function(){ postDlg.close(); });
+$("postFile").addEventListener("change", function(){
+  var fs = Array.prototype.slice.call(this.files || [], 0, Math.max(0, MAX_FOTOS - feed.photos.length)); this.value = "";
+  if (!fs.length) { if (feed.photos.length >= MAX_FOTOS) toast("Máximo de " + MAX_FOTOS + " fotos por post."); return; }
+  var chain = Promise.resolve();
+  fs.forEach(function(f){
+    chain = chain.then(function(){
+      return shrinkPhoto(f).then(function(blob){ if (feed.photos.length < MAX_FOTOS) feed.photos.push({ blob: blob, url: URL.createObjectURL(blob) }); },
+        function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
+    });
+  });
+  chain.then(function(){ if (feed.photos.length) { abrirPost({ foto: true }); $("pdTexto").focus(); } });
 });
 // Link e áudio não entram na Mesa: são exclusivos de quem anuncia (Ofertas) e da Casa. Na Mesa só texto e foto.
 var TEM_LINK = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|br|io|app|me|ly)\b)/i;
@@ -61,16 +86,20 @@ function semLink(t, st){ if (TEM_LINK.test(t)) { setStatus(st, "Links são exclu
 function publicar(texto, st, done){
   if (!sb || !auth.user || feed.busy) return;
   feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
-  var path = null, up = Promise.resolve();
-  if (feed.photo) {
-    path = uid() + "/" + newUuid() + ".jpg";
-    up = sb.storage.from("mural").upload(path, feed.photo, { contentType: "image/jpeg", upsert: false });
-  }
-  up.then(function(u){
-    if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("posts").insert({ tipo: "conversa", texto: texto, foto: path }).select("id,user_id,nome,tipo,texto,foto,criado_em,editado_em").then(function(r){
+  var fotos = feed.photos.map(function(x){ return x.blob; }), pdf = feed.pdf, paths = [], pdfPath = null, todos = [];
+  function limpar(){ if (todos.length) sb.storage.from("mural").remove(todos); }
+  var ups = fotos.map(function(blob){
+    var path = uid() + "/" + newUuid() + ".jpg"; todos.push(path);
+    return sb.storage.from("mural").upload(path, blob, { contentType: "image/jpeg", upsert: false }).then(function(u){ if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; } paths.push(path); });
+  });
+  if (pdf && auth.admin) { pdfPath = uid() + "/" + newUuid() + ".pdf"; todos.push(pdfPath); ups.push(sb.storage.from("mural").upload(pdfPath, pdf.file, { contentType: "application/pdf", upsert: false }).then(function(u){ if (u && u.error) { var ef = new Error("foto"); ef.detail = u.error.message || ""; throw ef; } })); }
+  Promise.all(ups).then(function(){
+    var row = { tipo: "conversa", texto: texto }, novo = paths.length > 1 || !!pdfPath, cols = "id,user_id,nome,tipo,texto,foto,criado_em,editado_em";
+    if (paths.length) row.foto = paths[0];
+    if (novo) { if (paths.length) row.fotos = paths; if (pdfPath) { row.anexo = pdfPath; row.anexo_nome = pdf.name; } cols += ",fotos,anexo,anexo_nome"; }
+    return sb.from("posts").insert(row).select(cols).then(function(r){
       if (r.error || !r.data || !r.data.length) {
-        if (path) sb.storage.from("mural").remove([path]);
+        limpar();
         var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er;
       }
       return r.data[0];
@@ -80,6 +109,7 @@ function publicar(texto, st, done){
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
     toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
   }).catch(function(err){
+    if (err.message === "foto") limpar();
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
     setStatus(st, msg + (err.detail ? " (Detalhe técnico: " + err.detail + ")" : ""), "err"); toast(msg);
   }).then(function(){ feed.busy = false; $("postSend").disabled = false; $("pdEnviar").disabled = false; });
@@ -92,14 +122,14 @@ $("postForm").addEventListener("submit", function(e){
 });
 $("pdEnviar").addEventListener("click", function(){
   var t = $("pdTexto").value.trim(), st = $("pdStatus");
-  if (!t && !feed.photo) return setStatus(st, "Escreva uma legenda ou escolha uma foto.", "err");
+  if (!t && !feed.photos.length) return setStatus(st, "Escreva uma legenda ou escolha uma foto.", "err");
   if (!semLink(t, st)) return;
   publicar(t || "📷", st);
 });
 
 // Carregar a Mesa
 function signPhotos(posts){
-  var paths = posts.map(function(p){ return p.foto; }).filter(function(f){ return f && !feed.urls[f]; });
+  var paths = []; posts.forEach(function(p){ [p.foto].concat(p.fotos || [], [p.anexo]).forEach(function(f){ if (f && !feed.urls[f] && paths.indexOf(f) < 0) paths.push(f); }); });
   if (!paths.length) return Promise.resolve();
   return sb.storage.from("mural").createSignedUrls(paths, 3600).then(function(r){
     (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) feed.urls[x.path] = x.signedUrl; });
@@ -109,10 +139,14 @@ function loadFeed(reset){
   if (!sb || !auth.user) return;
   var tok = ++feed.tok, base = reset ? [] : feed.posts;
   if (reset) { feed.posts = []; feed.loaded = false; }
-  var q = sb.from("posts").select("id,user_id,nome,tipo,texto,foto,aprovado,criado_em,editado_em").order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
-  if (feed.seg) q = q.in("user_id", feed.seguindo.length ? feed.seguindo : ["00000000-0000-0000-0000-000000000000"]);
-  if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
-  q.then(function(r){
+  var COLS = "id,user_id,nome,tipo,texto,foto,aprovado,criado_em,editado_em";
+  function consulta(cols){
+    var q = sb.from("posts").select(cols).order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
+    if (feed.seg) q = q.in("user_id", feed.seguindo.length ? feed.seguindo : ["00000000-0000-0000-0000-000000000000"]);
+    if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
+    return q;
+  }
+  consulta(COLS + ",fotos,anexo,anexo_nome").then(function(r){ return r.error ? consulta(COLS) : r; }).then(function(r){
     if (!r.data || tok !== feed.tok) return;
     var fresh = r.data, ids = fresh.map(function(p){ return p.id; });
     feed.more = fresh.length === PAGE;
@@ -186,13 +220,23 @@ function renderPost(p){
   mw.append(mb, menu); top.appendChild(mw);
   var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
-  if (p.foto) {
-    var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
-    if (feed.urls[p.foto]) im.src = feed.urls[p.foto]; else im.hidden = true;
-    var iw = h("div", "post-img-wrap"), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart")); iw.append(im, hh);
+  var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
+  if (fl.length) {
+    var iw = h("div", "post-img-wrap post-imgs n" + fl.length), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart"));
+    fl.forEach(function(f, k){
+      var im = h("img", "post-img"); im.alt = "Foto " + (k + 1) + " publicada por " + p.nome; im.loading = "lazy";
+      if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true;
+      iw.appendChild(im);
+    });
+    iw.appendChild(hh);
     var lastTap = 0;
     iw.addEventListener("click", function(){ var n = Date.now(); if (n - lastTap < 320) { lastTap = 0; hh.classList.remove("pop"); void hh.offsetWidth; hh.classList.add("pop"); if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); } else lastTap = n; });
     el.appendChild(iw);
+  }
+  if (p.anexo && feed.urls[p.anexo]) {
+    var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer";
+    var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF"));
+    an.append(h("span", null, "📄"), at); el.appendChild(an);
   }
   var likes = feed.likes[p.id] || [], liked = likes.indexOf(uid()) > -1, cm = feed.cmts[p.id] || [];
   var cnt = h("div", "post-count");
@@ -204,7 +248,7 @@ function renderPost(p){
   var lk = actBtn(liked ? "Curtiu" : "Curtir", "i-heart", function(){ toggleLike(p); }, liked ? "liked" : ""); lk.setAttribute("aria-pressed", liked); lk.setAttribute("aria-label", liked ? "Descurtir" : "Curtir");
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
-  var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.github.io/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
+  var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.com.br/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
   sh.style.marginLeft = "auto"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
@@ -246,7 +290,8 @@ function toggleLike(p){
   else { l.push(uid()); renderFeed(); sb.from("post_curtidas").insert({ post_id: p.id }).then(function(r){ if (r.error) { var j = l.indexOf(uid()); if (j > -1) l.splice(j, 1); renderFeed(); } }); }
 }
 function deletePost(p){
-  var rm = p.foto ? sb.storage.from("mural").remove([p.foto]) : Promise.resolve();
+  var arqs = [p.foto].concat(p.fotos || [], [p.anexo]).filter(function(f, k, arr){ return f && arr.indexOf(f) === k; });
+  var rm = arqs.length ? sb.storage.from("mural").remove(arqs) : Promise.resolve();
   Promise.resolve(rm).then(function(){ return sb.from("posts").delete().eq("id", p.id); }).then(function(r){
     if (r && r.error) return toast("Não foi possível apagar.");
     feed.posts = feed.posts.filter(function(x){ return x.id !== p.id; }); renderFeed(); toast("Publicação apagada.");

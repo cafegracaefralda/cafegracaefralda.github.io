@@ -30,7 +30,7 @@ Se a briga começou na frente das crianças, as pazes também precisam acontecer
 📖 “Quando vocês ficarem irados, não pequem.” Apaguem a sua ira antes que o sol se ponha. (Efésios 4:26)
 
 Leia o devocional completo, com oração:
-https://cafegracaefralda.github.io/#devocional
+https://cafegracaefralda.com.br/#devocional
 
 ## Story (opcional)
 Repostar o slide-1 com a enquete: “Vocês já combinaram uma palavra de pausa?” Sim / Ainda não

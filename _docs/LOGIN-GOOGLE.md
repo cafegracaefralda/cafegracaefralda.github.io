@@ -17,7 +17,7 @@ Quem faz o login só mostra o **primeiro nome**. O e-mail nunca aparece para out
    - Salve. Depois, em **Público**, clique em **Publicar app** (assim qualquer pessoa pode entrar).
 4. Menu **Credenciais → Criar credenciais → ID do cliente OAuth**:
    - Tipo: **Aplicativo da Web**. Nome: `Site`.
-   - **Origens JavaScript autorizadas:** `https://cafegracaefralda.github.io`
+   - **Origens JavaScript autorizadas:** `https://cafegracaefralda.com.br`
    - **URIs de redirecionamento autorizados:** `https://ckzeechkxghhmoshgzyv.supabase.co/auth/v1/callback`
    - Clique em **Criar** e copie o **ID do cliente** e a **Chave secreta do cliente**.
 
@@ -25,8 +25,8 @@ Quem faz o login só mostra o **primeiro nome**. O e-mail nunca aparece para out
 1. No Supabase: **Authentication → Sign In / Providers → Google**.
 2. Ligue **Enable Sign in with Google**, cole o **Client ID** e o **Client Secret** e salve.
 3. Em **Authentication → URL Configuration**:
-   - **Site URL:** `https://cafegracaefralda.github.io`
-   - **Redirect URLs:** adicione `https://cafegracaefralda.github.io/**`
+   - **Site URL:** `https://cafegracaefralda.com.br`
+   - **Redirect URLs:** adicione `https://cafegracaefralda.com.br/**`
      (quando ligar um domínio próprio, adicione ele aqui também).
 4. Em **Authentication → Sign In / Providers**, deixe **desligado** o login por e-mail
    (só o Google fica ligado). Isso impede que alguém se passe por administrador.

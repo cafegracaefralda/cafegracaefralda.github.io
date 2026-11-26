@@ -5,7 +5,7 @@
   (se estiver ocupado: @cafe.graca.fralda, @cafegracaefralda.oficial ou @ocafegracaefralda)
 - **Nome (aparece na busca):** Café, Graça & Fralda | Fé e família
 - **Categoria:** Criador digital (conta profissional)
-- **Link:** https://cafegracaefralda.github.io
+- **Link:** https://cafegracaefralda.com.br
 - **Foto:** foto-perfil.png
 
 ## Bio (até 150 caracteres)

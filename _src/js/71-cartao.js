@@ -31,11 +31,11 @@ function cartaoDesenhar(x, logo){
   g.fillStyle = "#F6EBDD"; g.font = "italic 40px Georgia, serif"; y += 100;
   cartaoQuebra(g, "“" + String(x.porque || "").slice(0, 230) + "”", 860).slice(0, 5).forEach(function(l){ g.fillText(l, W / 2, y); y += 58; });
   g.fillStyle = "#9d9388"; g.font = "400 30px Arial, sans-serif"; g.fillText("— " + (x.autor || "um membro") + ", da nossa comunidade", W / 2, y + 20);
-  g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("cafegracaefralda.github.io", W / 2, H - 90);
+  g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("cafegracaefralda.com.br", W / 2, H - 90);
   return c;
 }
 function cartaoMensagem(x){
-  return "Olá, " + firstName(x.nome) + "! Tudo bem?\n\nAqui é da *Café, Graça & Fralda*, uma comunidade para todas as famílias. " + (x.autor ? "A " + x.autor + ", " : "Uma pessoa ") + "da nossa comunidade indicou o seu trabalho (" + x.especialidade + ") e a gente adorou conhecer.\n\nQueremos te convidar para uma *parceria* com a nossa comunidade. Posso te contar como funciona?\n\nConheça a casa: https://cafegracaefralda.github.io/";
+  return "Olá, " + firstName(x.nome) + "! Tudo bem?\n\nAqui é da *Café, Graça & Fralda*, uma comunidade para todas as famílias. " + (x.autor ? "A " + x.autor + ", " : "Uma pessoa ") + "da nossa comunidade indicou o seu trabalho (" + x.especialidade + ") e a gente adorou conhecer.\n\nQueremos te convidar para uma *parceria* com a nossa comunidade. Posso te contar como funciona?\n\nConheça a casa: https://cafegracaefralda.com.br/";
 }
 function abrirCartao(x){
   cartao.x = x; cartao.texto = cartaoMensagem(x); cartao.fone = cartaoFone(x.contato);

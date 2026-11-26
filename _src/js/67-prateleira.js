@@ -2,7 +2,7 @@
 var home = { items: [], more: false, loaded: false, tok: 0 };
 var pubFiltro = "all";
 var pub = { items: [], likes: {}, cmts: {}, open: {}, loaded: false, more: false, tok: 0, focus: "", file: null, busy: false };
-var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.github.io/#prateleira";
+var PUB_PAGE = 12, PUB_URL = "https://cafegracaefralda.com.br/#prateleira";
 var TIPO_OF = { aviso: "📣 Aviso", devocional: "📖 Devocional", evento: "📅 Evento", parceiro: "🤝 Parceiro" };
 var TIPO_PUB = { texto: "Publicação", foto: "📷 Foto", video: "🎬 Vídeo", audio: "🎧 Áudio", pdf: "📄 PDF", youtube: "▶️ YouTube", link: "🔗 Link" };
 

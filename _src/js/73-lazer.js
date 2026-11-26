@@ -40,7 +40,7 @@ $("lzOpen").addEventListener("click", function(){
 
 function mapsUrl(p){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome_local + (p.endereco ? ", " + p.endereco : "") + ", " + p.cidade + " - " + p.uf); }
 function lzShare(p){
-  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa Grande: https://cafegracaefralda.github.io/#lazer";
+  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa Grande: https://cafegracaefralda.com.br/#lazer";
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";

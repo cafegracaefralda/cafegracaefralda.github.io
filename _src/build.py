@@ -15,7 +15,7 @@ from datetime import date, datetime, timedelta
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "_src"
-BASE_URL = "https://cafegracaefralda.github.io/"
+BASE_URL = "https://cafegracaefralda.com.br/"
 TITLE = "Café, Graça & Fralda"
 HOME_TITLE = "Café, Graça & Fralda | Devocional de 5 minutos para pais e famílias"
 DESCRIPTION = ("Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, "

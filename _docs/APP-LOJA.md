@@ -7,7 +7,7 @@ O empacotamento exige as contas e a chave de assinatura do Denny, por isso é fe
 ## Android (Google Play)
 Custo: US$ 25, uma vez só. Uns 30 minutos, mais o prazo de aprovação do Google.
 1. Crie a conta em https://play.google.com/console/signup (conta pessoal; o Google pede um documento).
-2. Abra https://www.pwabuilder.com, cole `https://cafegracaefralda.github.io` e clique em **Start**.
+2. Abra https://www.pwabuilder.com, cole `https://cafegracaefralda.com.br` e clique em **Start**.
 3. Em **Package for stores → Android → Google Play**, deixe o nome **Café, Graça & Fralda**,
    o ID do pacote `io.github.cafegracaefralda` e gere o pacote. Guarde o arquivo da chave de assinatura que ele baixar.
 4. Para o app abrir sem barra de endereço, o PWABuilder entrega um trecho `assetlinks.json`.

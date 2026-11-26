@@ -1,4 +1,4 @@
-# Postagens do livro "Entre a Fralda e a Bíblia" (versão para o WhatsApp)
+# Postagens do livro "Entre o Café e a Fralda, tem Graça" (versão para o WhatsApp)
 
 Todas terminam com o link do site. Formatação do WhatsApp (*negrito*, _itálico_).
 
@@ -12,9 +12,9 @@ Deus cria. Os pais formam. Somente Deus salva.
 
 Quem entende a primeira respeita o filho como obra única de Deus. Quem entende a segunda assume a responsabilidade diária de ensinar e corrigir sem terceirizar. Quem entende a terceira consegue encostar a cabeça no travesseiro e dormir em paz.
 
-_Do livro Entre a Fralda e a Bíblia_
+_Do livro Entre o Café e a Fralda, tem Graça_
 
-https://cafegracaefralda.github.io
+https://cafegracaefralda.com.br
 
 ---
 
@@ -30,9 +30,9 @@ Antes da bronca, passe por três perguntas:
 
 Primeiro acolha o sentimento. Depois ajude a pensar e firme o limite.
 
-_Do livro Entre a Fralda e a Bíblia_
+_Do livro Entre o Café e a Fralda, tem Graça_
 
-https://cafegracaefralda.github.io
+https://cafegracaefralda.com.br
 
 ---
 
@@ -44,9 +44,9 @@ Mas o freio do cérebro ainda está amadurecendo. Isso não é maldade: é um "e
 
 Um passo para hoje: escolha uma situação em que você se frustra (hora de dormir, guardar brinquedos, esperar a vez), divida em passos pequenos e avise antes da transição. A previsibilidade diminui a ansiedade.
 
-_Do livro Entre a Fralda e a Bíblia_
+_Do livro Entre o Café e a Fralda, tem Graça_
 
-https://cafegracaefralda.github.io
+https://cafegracaefralda.com.br
 
 ---
 
@@ -58,9 +58,9 @@ Quando a correção vira luta física, o cérebro da criança fica preso no modo
 
 Um termômetro para hoje, antes de dormir: "Minha última correção produziu medo, conformidade mecânica ou compreensão?" Se foi só medo, amanhã comece pedindo perdão e conversando de novo.
 
-_Do livro Entre a Fralda e a Bíblia_
+_Do livro Entre o Café e a Fralda, tem Graça_
 
-https://cafegracaefralda.github.io
+https://cafegracaefralda.com.br
 
 ---
 
@@ -72,7 +72,7 @@ A regra das duas frases: respire fundo e use, no máximo, duas frases curtas. Um
 
 Quando o erro gera reparação, a criança aprende. Quando só gera humilhação, ela aprende a esconder.
 
-_Do livro Entre a Fralda e a Bíblia_
+_Do livro Entre o Café e a Fralda, tem Graça_
 
-https://cafegracaefralda.github.io
+https://cafegracaefralda.com.br
 

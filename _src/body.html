@@ -222,7 +222,7 @@
                     </div>
                   </div>
                 </div>
-                <input type="file" id="postFile" accept="image/*" hidden>
+                <input type="file" id="postFile" accept="image/*" multiple hidden>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
               <div class="feed-tabs" id="feedTabs" role="group" aria-label="Mesa"><button class="chip" type="button" aria-pressed="true" data-f="todos">Todos</button><button class="chip" type="button" aria-pressed="false" data-f="seg">Seguindo</button></div>
@@ -621,8 +621,10 @@
 <dialog class="sheet-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
   <button class="story-x sheet-x" type="button" id="pdClose" aria-label="Fechar">×</button>
   <h3 id="pdTitle">Nova publicação</h3>
-  <div class="pd-photo" id="pdPhoto" hidden><img alt="Prévia da foto" id="pdImg"><button type="button" class="pd-trocar" id="pdTrocar">Trocar foto</button><button type="button" class="pd-tirar" id="pdTirar" aria-label="Tirar foto">×</button></div>
-  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg>Adicionar foto</button>
+  <div class="pd-photos" id="pdPhotos" hidden></div>
+  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
+  <button class="btn btn-ghost btn-block" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
+  <input type="file" id="postPdf" accept="application/pdf" hidden>
   <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
   <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
   <p class="status" id="pdStatus" role="status"></p>

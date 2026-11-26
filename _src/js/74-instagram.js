@@ -14,7 +14,7 @@ function igDesenhar(o, logo){
   var lh = o.title ? 58 : 78;
   cartaoQuebra(g, String(o.body || "").slice(0, 300), 860).slice(0, 9).forEach(function(l){ g.fillText(l, W / 2, y); y += lh; });
   g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("Café, Graça & Fralda", W / 2, H - 120);
-  g.fillStyle = "#9d9388"; g.font = "400 28px Arial, sans-serif"; g.fillText("cafegracaefralda.github.io", W / 2, H - 76);
+  g.fillStyle = "#9d9388"; g.font = "400 28px Arial, sans-serif"; g.fillText("cafegracaefralda.com.br", W / 2, H - 76);
   return c;
 }
 function igCompartilhar(o){

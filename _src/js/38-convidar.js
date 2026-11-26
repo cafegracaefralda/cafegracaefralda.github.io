@@ -1,5 +1,5 @@
 // Convidar amigos e conhecidos pelo WhatsApp: a pessoa digita o número e a conversa abre com o convite pronto.
-var SITE_URL = "https://cafegracaefralda.github.io/";
+var SITE_URL = "https://cafegracaefralda.com.br/";
 function foneBR(v){
   var d = String(v || "").replace(/\D/g, "").replace(/^0+/, "");
   if (d.length === 10 || d.length === 11) d = "55" + d;

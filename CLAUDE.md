@@ -1,6 +1,6 @@
 # Café, Graça & Fralda
 
-Site e app (PWA) de Denny Silva: fé e família na vida real. Publicado em https://cafegracaefralda.github.io pelo GitHub Pages (branch `main`, pasta raiz). O Denny pede as mudanças pelo chat; ele não edita código.
+Site e app (PWA) de Denny Silva: fé e família na vida real. Publicado em https://cafegracaefralda.com.br pelo GitHub Pages (branch `main`, pasta raiz). O Denny pede as mudanças pelo chat; ele não edita código.
 
 ## Como mudar e publicar
 1. Edite os arquivos de `_src/` (nunca `index.html` nem `sw.js`, que são gerados):
@@ -17,7 +17,7 @@ Mudanças de texto pequenas podem ser publicadas direto. Mudanças de layout, se
 ## Revisão da versão do WhatsApp (sempre)
 Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão para o WhatsApp, revisada antes de entregar:
 - Formatação do WhatsApp: `*negrito*`, `_itálico_`, parágrafos curtos, sem títulos markdown nem tabelas.
-- Começa com o gancho, traz o versículo com a referência e termina com o link do site (`https://cafegracaefralda.github.io/#devocional`).
+- Começa com o gancho, traz o versículo com a referência e termina com o link do site (`https://cafegracaefralda.com.br/#devocional`).
 - Confira o link, o nome do Denny e o tom (acolhedor, sem pregação). Mensagens do site (`data-wa` e `waLink`) devem apontar para `5581992702353`.
 - O Canal do WhatsApp aceita texto longo, mas o começo precisa convencer a abrir o link.
 
@@ -47,7 +47,7 @@ Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão pa
 
 ## Conversas privadas e SEO
 - Mensagens privadas (tela Mensagens, em tempo real) e botão "Chamar no privado" nos posts da Mesa Grande, mais "Quem está na mesa" e busca por nome. Só os dois participantes leem (nem o painel). Tem bloquear, denunciar (WhatsApp do Denny), desligar recebimento e limite de 20 msg/min. Esquema em `_docs/supabase-v3-privado.sql` (rodar uma vez no SQL Editor depois do v2).
-- SEO: título/descrição/JSON-LD vêm do `build.py`. Depois de publicar, enviar `https://cafegracaefralda.github.io/sitemap.xml` no Google Search Console (https://search.google.com/search-console). Novo devocional em `DEVOS` ganha página própria sozinho no build.
+- SEO: título/descrição/JSON-LD vêm do `build.py`. Depois de publicar, enviar `https://cafegracaefralda.com.br/sitemap.xml` no Google Search Console (https://search.google.com/search-console). Novo devocional em `DEVOS` ganha página própria sozinho no build.
 - Mesa Grande (menu Mesa Grande, `#mesa`): feed com tipos (conversa, indicação, desabafo, pedido de oração, gratidão), foto, curtir, comentar, denunciar. Só para quem entrou (nada público nem indexado). Fotos num bucket privado `mural` (JPEG reduzido no navegador, sem dados de localização, link temporário). 3 denúncias escondem o post; o Denny apaga qualquer um. Esquema em `_docs/supabase-v4-mural.sql` (rodar depois do v2 e v3).
 - Indicações dos membros: formulário na aba Indicações (nome, especialidade, assunto, onde fica, como conheceu, plano de saúde ou particular, por que indica, contato). Só logado envia; fica em análise até o Denny aprovar em Painel > Moderação. Esquema em `_docs/supabase-v5-indicacoes.sql`.
 - Notificações (sininho no topo): avisa comentário, curtida e mensagem privada; criadas por gatilhos no banco. Arquivos no privado: foto e áudio até 5 MB, bucket privado `privado`. Esquema em `_docs/supabase-v6-notificacoes.sql` (rodar depois do v2, v3 e v4; também liga o tempo real). Aviso do navegador só funciona com o site aberto; push com o app fechado exigiria servidor extra (não feito).
@@ -72,6 +72,10 @@ Todo conteúdo novo (devocional, post, aviso, convite) precisa de uma versão pa
 - Rede social 2: convite do primeiro post (`36-primeiro-post.js`, toda visita até postar), seguir pessoas (perfil + aba Seguindo na Mesa), curtir story, arrastar e pausar na hora no story, avisos do celular para Casa/menções enquanto o app está aberto ou em segundo plano (service worker; push com app fechado exige servidor), barreira de nudez no aparelho antes de enviar qualquer foto (`37-nsfw.js`, modelo nsfwjs via CDN; se não carregar, segue sem análise e valem as denúncias). Logo nova: xícara com cruz e aba de fralda.
 - Mesa estilo Instagram (`rede-social-3`): foto de perfil clicável leva ao perfil (`avLink` em `34-avatares.js`); publicar = foto -> legenda -> Compartilhar na janela `#postDlg` (foto, legenda e link opcionais; o link vai no fim do texto e vira clicável via `linkify`); toque duplo na foto curte; "ver mais" em legendas longas; Compartilhar no WhatsApp; busca de pessoas no topo da Mesa. Convite: `38-convidar.js` (`#inviteDlg`: digita o WhatsApp, abre wa.me/55número com a mensagem pronta; não envia sozinho, a pessoa toca em enviar. Envio automático exigiria a API paga do WhatsApp Business). Sem mudança de SQL.
 - Vizinhança do Brasil (`rede-social-5`): filtros Estado (27 UFs), Cidade (depende do estado), Assunto e "Da Casa ✓", busca sem acento (cidade, estado, nome, especialidade); lista paginada de 12 em 12 ("Mostrar mais", com contagem); sem itens duplicados (mesmo nome + cidade + UF; vale a Casa, depois membros, depois lugares). Lugares do Brasil inteiro em `11-lugares-brasil.js` (`UFS`, `LUGARES_BR`, `vizLoc`); indicar pede Cidade + Estado e grava `onde` como "Bairro · Cidade, UF" (sem SQL novo) e recusa indicação repetida.
-- Anunciar em duas etapas, tudo no site: 1) pedido simples (`#anDlg`); 2) depois de aprovar em Painel > Anunciantes ("Ativar"), o botão "Enviar link do anúncio" manda pelo WhatsApp o link `https://cafegracaefralda.github.io/#anunciar`, que abre o formulário do anúncio (foto, link, preço, cupom). Sem SQL novo.
+- Anunciar em duas etapas, tudo no site: 1) pedido simples (`#anDlg`); 2) depois de aprovar em Painel > Anunciantes ("Ativar"), o botão "Enviar link do anúncio" manda pelo WhatsApp o link `https://cafegracaefralda.com.br/#anunciar`, que abre o formulário do anúncio (foto, link, preço, cupom). Sem SQL novo.
 - Instagram: botão "Instagram" nos posts (Mesa, A Casa, devocional) gera imagem 1080x1350 com a logo (`74-instagram.js`); no celular abre o menu de compartilhar com a imagem, no computador baixa a imagem e copia a legenda. Publicar sozinho no perfil exigiria a API da Meta (conta profissional + servidor); não feito.
 - Mesa só com texto e foto: link e áudio são exclusivos de quem anuncia (Ofertas) e da Casa. Na Mesa, texto ou comentário com link (`TEM_LINK` em `62-mural.js`) é recusado e links antigos aparecem como texto simples. Mensagens privadas continuam livres.
+- Domínio próprio: https://cafegracaefralda.com.br (arquivo `CNAME` na raiz; `BASE_URL` no `build.py`; `SITE_URL` em `38-convidar.js`). Supabase (Site URL e Redirect URLs) e Google (origens JavaScript) precisam ter o domínio novo.
+- Mesa: até 3 fotos por post (`fotos text[]`) e, só para administração, anexo em PDF (`anexo`, `anexo_nome`): `_docs/supabase-v20-posts-3-fotos.sql` (rodar antes de usar). O site continua funcionando sem o v20 (1 foto). `_docs/supabase-v20b-limpar-posts.sql` apaga TODOS os posts do site (uso único, sem volta).
+- O livro chama-se "Entre o Café e a Fralda, tem Graça" (Denny Silva; lema "Deus cria. Os pais formam. Somente Deus salva."). Os posts antigos do v16 citavam um título errado.
+- Textos de surpresa ou presentes da família NÃO entram no repositório (ele é público).
