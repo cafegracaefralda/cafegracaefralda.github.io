@@ -242,6 +242,8 @@
                     <textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
                     <div class="cbox-bar">
                       <button class="cbtn" type="button" id="postFotoBtn" title="Foto" aria-label="Adicionar foto"><svg><use href="#i-photo"/></svg></button>
+                      <button class="cbtn" type="button" id="postLinkBtn" title="Link" aria-label="Adicionar link" data-admin hidden><svg><use href="#i-link"/></svg></button>
+                      <button class="cbtn" type="button" id="postPdfBtn" title="PDF" aria-label="Anexar PDF" data-admin hidden><svg><use href="#i-file"/></svg></button>
                       <button class="btn btn-terra btn-sm cbtn-send" id="postSend" type="submit">Publicar</button>
                     </div>
                   </div>
@@ -340,7 +342,7 @@
   <section class="view" id="v-indicacoes" data-view="indicacoes">
     <div class="wrap">
       <div class="viz-top"><h2>Vizinhança</h2><button class="btn btn-terra btn-sm" type="button" id="vizNova"><svg><use href="#i-plus"/></svg>Indicar</button></div>
-      <input id="vizBusca" class="viz-busca" type="search" placeholder="Busque um especialista, uma cidade ou um nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
+      <input id="vizBusca" class="viz-busca" type="search" placeholder="Especialista, cidade ou nome" maxlength="60" aria-label="Buscar por especialista, cidade ou nome">
       <div class="viz-filtros">
         <select id="vizUf" aria-label="Estado"><option value="">Todos os estados</option></select>
         <select id="vizCidade" aria-label="Cidade" disabled><option value="">Todas as cidades</option></select>

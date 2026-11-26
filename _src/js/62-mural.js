@@ -59,6 +59,11 @@ function abrirPost(opts){
 function pegarFoto(){ $("postFile").click(); }
 $("postFotoBtn").addEventListener("click", function(){ if (!auth.user) return; pegarFoto(); });
 $("pdAddFoto").addEventListener("click", pegarFoto);
+// Administração: link e PDF também direto na caixa da Mesa, junto com as fotos, na mesma postagem
+function mesaAdmin(){ ["postLinkBtn", "postPdfBtn"].forEach(function(i){ $(i).hidden = !(auth.user && auth.admin); }); }
+auth.on(mesaAdmin); mesaAdmin();
+$("postLinkBtn").addEventListener("click", function(){ abrirPost({ foto: true }); $("pdLinkRow").hidden = false; $("pdLink").focus(); });
+$("postPdfBtn").addEventListener("click", function(){ abrirPost({ foto: true }); $("postPdf").click(); });
 $("pdAddPdf").addEventListener("click", function(){ $("postPdf").click(); });
 $("postPdf").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = "";
@@ -253,7 +258,7 @@ function renderPost(p){
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.com.br/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
-  sh.style.marginLeft = "auto"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }), sh);
+  sh.classList.add("sh-b"); sh.setAttribute("aria-label", "Compartilhar no WhatsApp"); sh.title = "Compartilhar no WhatsApp"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }, "ig-b"), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;

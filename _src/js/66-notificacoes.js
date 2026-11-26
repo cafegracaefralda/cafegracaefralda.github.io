@@ -5,7 +5,7 @@ var bellBtn = $("bellBtn"), bellPanel = $("bellPanel");
 function notifText(n){
   if (n.tipo === "comentario") return [n.de_nome + " comentou", n.resumo ? "“" + n.resumo + "”" : "no seu post"];
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
-  if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
+  if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Casa", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
   if (n.tipo === "seguir") return [n.de_nome + " começou a seguir você", ""];
   if (n.tipo === "story_curtida") return [n.de_nome + " curtiu o seu story", ""];

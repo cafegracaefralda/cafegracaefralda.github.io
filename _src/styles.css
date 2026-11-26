@@ -1436,3 +1436,12 @@ header.top .logo{gap:0}
 header.top .logo .logo-mark{width:42px;height:42px}
 .mesa-main .stories{margin-top:0}
 .mesa-find{margin-top:10px}
+
+/* ações do post numa linha só (como no Instagram): Instagram e WhatsApp viram ícones */
+.post-acts{flex-wrap:nowrap}
+.post-acts button,.post-acts a{white-space:nowrap}
+.post-acts .ig-b,.post-acts .sh-b{font-size:0;gap:0;padding:7px 10px;min-width:44px;justify-content:center}
+.post-acts .ig-b svg,.post-acts .sh-b svg{width:20px;height:20px}
+.mesa-main .post-acts{display:flex;justify-content:space-between;grid-template-columns:none;gap:0;padding:4px 6px}
+.mesa-main .post-acts button,.mesa-main .post-acts a{padding:9px 8px;font-size:13.5px}
+.mesa-main .post-acts .ig-b,.mesa-main .post-acts .sh-b{font-size:0;padding:9px 10px}

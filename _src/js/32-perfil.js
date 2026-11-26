@@ -44,7 +44,7 @@ function loadPerfil(){
     (rs[3].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("🌳", "Quintal", x.nome_local + " · " + x.cidade + "/" + x.uf, x.criado_em, "#lazer") }); });
     itens.sort(function(a, b){ return a.t < b.t ? 1 : -1; });
     $("pfStats").innerHTML = ""; var n = h("span", null); n.append(h("b", null, String(itens.length)), document.createTextNode(itens.length === 1 ? " publicação" : " publicações")); $("pfStats").appendChild(n);
-    if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa, na Prateleira e no Quintal aparece aqui." : "")); $("pfGrid").appendChild(e); }
+    if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa Grande aparece aqui." : "")); $("pfGrid").appendChild(e); }
     itens.forEach(function(i){ $("pfGrid").appendChild(i.el); });
   });
 }

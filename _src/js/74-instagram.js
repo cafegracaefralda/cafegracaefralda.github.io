@@ -32,5 +32,5 @@ function igCompartilhar(o){
 }
 function igBtn(o, cls){
   var b = h("button", cls || null); b.type = "button"; b.append(icon("i-ig"), document.createTextNode("Instagram"));
-  b.addEventListener("click", function(){ igCompartilhar(typeof o === "function" ? o() : o); }); return b;
+  b.setAttribute("aria-label", "Compartilhar no Instagram"); b.addEventListener("click", function(){ igCompartilhar(typeof o === "function" ? o() : o); }); return b;
 }
