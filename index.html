@@ -1344,6 +1344,10 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .edit-bar{display:flex;gap:8px}
 .dm-edit{font-size:11px;margin-left:8px;color:var(--muted)}
 
+/* Foto de perfil: sempre preenche o círculo (o fundo de alguns avatares é um atalho "background" que zerava o tamanho) */
+.avatar.has-img,[data-av].has-img{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important}
+.stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
+
 </style>
 </head>
 <body>
