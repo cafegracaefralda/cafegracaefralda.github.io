@@ -19,6 +19,7 @@ function editarInline(alvo, atual, max, salvar){
 }
 // Atualiza uma linha (texto) e devolve { error } ou aplica o resultado
 function salvarTexto(tabela, id, v, aplicar){
+  if ((tabela === "posts" || tabela === "post_comentarios") && typeof TEM_LINK !== "undefined" && TEM_LINK.test(v)) { toast("Links são exclusivos de quem anuncia."); return Promise.resolve({ error: { message: "link" } }); }
   return sb.from(tabela).update({ texto: v }).eq("id", id).select("id,texto,editado_em").then(function(r){
     if (r.error || !r.data || !r.data.length) return { error: r.error || { message: "x" } };
     aplicar(r.data[0]); return {};

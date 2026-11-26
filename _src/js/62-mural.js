@@ -41,11 +41,10 @@ function abrirPost(opts){
   var t = $("postText").value.trim(); if (t && !$("pdTexto").value) $("pdTexto").value = t;
   pdVer(); setStatus($("pdStatus"), "");
   if (!postDlg.open) postDlg.showModal();
-  if (opts.link) $("pdLink").focus(); else if (!opts.foto) $("pdTexto").focus();
+  if (!opts.foto) $("pdTexto").focus();
 }
 function pegarFoto(){ $("postFile").click(); }
 $("postFotoBtn").addEventListener("click", function(){ if (!auth.user) return; pegarFoto(); });
-$("postLinkBtn").addEventListener("click", function(){ if (!auth.user) return; abrirPost({ link: true }); });
 $("pdAddFoto").addEventListener("click", pegarFoto); $("pdTrocar").addEventListener("click", pegarFoto);
 $("pdTirar").addEventListener("click", clearPhoto);
 $("pdClose").addEventListener("click", function(){ postDlg.close(); });
@@ -56,11 +55,9 @@ $("postFile").addEventListener("change", function(){
     feed.photo = blob; $("pdImg").src = URL.createObjectURL(blob); abrirPost({ foto: true }); $("pdTexto").focus();
   }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
 });
-function linkOk(u){
-  u = String(u || "").trim(); if (!u) return "";
-  if (!/^https?:\/\//i.test(u)) u = "https://" + u;
-  try { var x = new URL(u); return /\./.test(x.hostname) ? x.href : null; } catch (e) { return null; }
-}
+// Link e áudio não entram na Mesa: são exclusivos de quem anuncia (Ofertas) e da Casa. Na Mesa só texto e foto.
+var TEM_LINK = /(https?:\/\/|www\.|\b[a-z0-9-]+\.(com|net|org|br|io|app|me|ly)\b)/i;
+function semLink(t, st){ if (TEM_LINK.test(t)) { setStatus(st, "Links são exclusivos de quem anuncia. Na Mesa, conte com as suas palavras. 😉", "err"); return false; } return true; }
 function publicar(texto, st, done){
   if (!sb || !auth.user || feed.busy) return;
   feed.busy = true; $("postSend").disabled = true; $("pdEnviar").disabled = true;
@@ -79,7 +76,7 @@ function publicar(texto, st, done){
       return r.data[0];
     });
   }).then(function(p){
-    $("postText").value = ""; $("pdTexto").value = ""; $("pdLink").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
+    $("postText").value = ""; $("pdTexto").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
     toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
   }).catch(function(err){
@@ -90,14 +87,14 @@ function publicar(texto, st, done){
 $("postForm").addEventListener("submit", function(e){
   e.preventDefault();
   var texto = $("postText").value.trim(); if (!texto) return;
+  if (!semLink(texto, $("postStatus"))) return;
   publicar(texto, $("postStatus"));
 });
 $("pdEnviar").addEventListener("click", function(){
-  var t = $("pdTexto").value.trim(), l = linkOk($("pdLink").value), st = $("pdStatus");
-  if (l === null) return setStatus(st, "Esse link não parece certo. Confira o endereço.", "err");
-  if (!t && !feed.photo && !l) return setStatus(st, "Escreva uma legenda, escolha uma foto ou cole um link.", "err");
-  var texto = (t + (l ? (t ? "\n\n" : "") + l : "")).trim() || "📷";
-  publicar(texto, st);
+  var t = $("pdTexto").value.trim(), st = $("pdStatus");
+  if (!t && !feed.photo) return setStatus(st, "Escreva uma legenda ou escolha uma foto.", "err");
+  if (!semLink(t, st)) return;
+  publicar(t || "📷", st);
 });
 
 // Carregar a Mesa
@@ -187,7 +184,7 @@ function renderPost(p){
   if (!mine) { var rep = h("button", null, "Denunciar"); rep.type = "button"; rep.addEventListener("click", function(){ menu.hidden = true; reportPost(p); }); menu.appendChild(rep); }
   mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; });
   mw.append(mb, menu); top.appendChild(mw);
-  var ptx = h("p", "post-text"); ptx.appendChild(linkify(richText(p.texto))); el.append(top, ptx);
+  var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
   if (p.foto) {
     var im = h("img", "post-img"); im.alt = "Foto publicada por " + p.nome; im.loading = "lazy";
@@ -231,7 +228,7 @@ function renderCmts(p, cm, open){
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
     var send = h("button", "cm-send", "↑"); send.type = "submit"; send.setAttribute("aria-label", "Enviar comentário"); f.append(avSpan(uid(), auth.name(), "avatar me-av"), inp, send);
     f.addEventListener("submit", function(e){
-      e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
+      e.preventDefault(); var t = inp.value.trim(); if (!t) return; if (TEM_LINK.test(t)) return toast("Links são exclusivos de quem anuncia."); send.disabled = true;
       sb.from("post_comentarios").insert({ post_id: p.id, texto: t }).select("id,post_id,user_id,nome,texto,criado_em,editado_em").then(function(r){
         if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
         feed.cmts[p.id].push(r.data[0]); renderFeed();
