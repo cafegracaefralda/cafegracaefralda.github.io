@@ -49,7 +49,7 @@ storyInput.addEventListener("change", function(){
   var f = storyInput.files && storyInput.files[0]; storyInput.value = ""; if (!f) return;
   shrinkPhoto(f).then(function(blob){
     stories.file = blob; $("storyNewImg").src = URL.createObjectURL(blob); $("storyCap").value = ""; $("storyNew").showModal();
-  }, function(){ toast("Não consegui usar essa foto."); });
+  }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("storyNewClose").addEventListener("click", function(){ $("storyNew").close(); stories.file = null; });
 $("storyPost").addEventListener("click", function(){
@@ -83,6 +83,7 @@ function showStory(){
     var dmb = h("button", "btn btn-terra btn-sm", "Responder no privado"); dmb.type = "button"; dmb.addEventListener("click", function(){ closeStory(); openDm(g.user_id, g.nome); });
     acts.appendChild(dmb);
   }
+  likeBtn(s, acts, g.user_id === uid());
   if (!dlg.open) dlg.showModal();
   stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); setPauseIcon(false);
   stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, STORY_MS);
@@ -96,8 +97,9 @@ function nextStory(){
 }
 function prevStory(){ if (stories.idx > 0) { stories.idx--; showStory(); } else showStory(); }
 function closeStory(){ clearTimeout(stories.timer); stories.cur = null; var d = $("storyView"); if (d.open) d.close(); }
-$("storyNext").addEventListener("click", nextStory);
-$("storyPrev").addEventListener("click", prevStory);
+var swiped = false;
+$("storyNext").addEventListener("click", function(){ if (!swiped) nextStory(); });
+$("storyPrev").addEventListener("click", function(){ if (!swiped) prevStory(); });
 $("storyViewClose").addEventListener("click", closeStory);
 $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer); });
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
@@ -120,3 +122,30 @@ var holdT = null, held = false;
 $("storyView").querySelector(".story-img-wrap").addEventListener("pointerdown", function(){ held = false; holdT = setTimeout(function(){ held = true; pauseStory(true); }, 220); });
 ["pointerup", "pointercancel", "pointerleave"].forEach(function(ev){ $("storyView").querySelector(".story-img-wrap").addEventListener(ev, function(){ clearTimeout(holdT); if (held) { held = false; pauseStory(false); } }); });
 document.addEventListener("keydown", function(e){ if ($("storyView").open && (e.key === " " || e.key === "p")) { e.preventDefault(); pauseStory(!stories.paused); } });
+
+// Curtir story (o coração aparece para todos; o dono vê quantas curtidas teve)
+function likeBtn(story, acts, dono){
+  var b = h("button", "story-like"); b.type = "button"; b.setAttribute("aria-label", dono ? "Curtidas do story" : "Curtir story");
+  var n = 0, liked = false, busy = false;
+  function pinta(){ b.innerHTML = ""; b.classList.toggle("on", liked); b.append(h("span", "heart", liked ? "♥" : "♡")); if (n || dono) b.appendChild(h("small", null, String(n))); }
+  pinta(); acts.appendChild(b);
+  sb.from("stories_curtidas").select("user_id").eq("story_id", story.id).then(function(r){ var l = r.data || []; n = l.length; liked = l.some(function(x){ return x.user_id === uid(); }); pinta(); });
+  if (dono) return;
+  b.addEventListener("click", function(){
+    if (busy) return; busy = true;
+    var q = liked ? sb.from("stories_curtidas").delete().eq("story_id", story.id).eq("user_id", uid()) : sb.from("stories_curtidas").insert({ story_id: story.id });
+    q.then(function(r){ busy = false; if (r.error) return toast("Não foi possível curtir agora."); liked = !liked; n += liked ? 1 : -1; pinta(); });
+  });
+}
+// Arrastar para o lado: direita volta, esquerda avança
+(function(){
+  var wrap = $("storyView").querySelector(".story-img-wrap"), x0 = 0, y0 = 0, down = false;
+  wrap.addEventListener("pointerdown", function(e){ down = true; x0 = e.clientX; y0 = e.clientY; });
+  wrap.addEventListener("pointermove", function(e){ if (down && Math.abs(e.clientX - x0) > 12) clearTimeout(holdT); });
+  wrap.addEventListener("pointerup", function(e){
+    if (!down) return; down = false;
+    var dx = e.clientX - x0, dy = e.clientY - y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; setTimeout(function(){ swiped = false; }, 120); if (dx > 0) prevStory(); else nextStory(); }
+  });
+  wrap.addEventListener("pointercancel", function(){ down = false; });
+})();

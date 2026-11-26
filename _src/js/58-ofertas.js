@@ -71,7 +71,7 @@ $("anForm").addEventListener("submit", function(e){
 });
 $("of-foto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(b){ of.file = b; $("of-foto-nome").textContent = "📷 Foto pronta"; }, function(){ of.file = null; toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(b){ of.file = b; $("of-foto-nome").textContent = "📷 Foto pronta"; }, function(e){ if (e && e.message === "nsfw") { of.file = null; return; } of.file = null; toast("Não consegui usar essa foto."); });
 });
 $("ofForm").addEventListener("submit", function(e){
   e.preventDefault();

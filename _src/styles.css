@@ -1300,7 +1300,30 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .ios-safari{margin:0;color:#A63D2F;font-weight:600}
 .ios-arrow{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);font-size:34px;color:#0A84FF;font-weight:700;animation:iosb 1s ease-in-out infinite}
 @keyframes iosb{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+.stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
+
+/* Editar texto (até 5 minutos) */
+.edit-box{display:grid;gap:8px;padding:0 14px 10px}
+.post-cmt .edit-box,.bubble .edit-box{padding:0}
+.edit-box textarea{width:100%;font-size:16px;border-radius:14px;border:1px solid var(--terra);background:#fff;padding:10px 12px;resize:vertical}
+.edit-bar{display:flex;gap:8px}
+.dm-edit{font-size:11px;margin-left:8px;color:var(--muted)}
 
 /* Foto de perfil: sempre preenche o círculo (o fundo de alguns avatares é um atalho "background" que zerava o tamanho) */
 .avatar.has-img,[data-av].has-img{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important}
 .stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
+
+.aviso-bar{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:900;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#1D1A17;color:#F6EBDD;border-radius:16px;padding:12px 14px;box-shadow:0 18px 40px -16px rgba(0,0,0,.6);font-size:14.5px}
+.aviso-bar span{flex:1 1 200px}
+.aviso-bar .link{color:#F6EBDD;opacity:.8}
+@media (min-width:1100px){.aviso-bar{left:auto;right:20px;bottom:20px;max-width:420px}}
+
+/* Story: pausa imediata da barra, curtir */
+#storyView.paused .bar.run i{animation-play-state:paused!important}
+.story-img-wrap{touch-action:pan-y}
+.story-like{display:inline-flex;align-items:center;gap:6px;min-width:44px;height:44px;padding:0 14px;border-radius:999px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:20px;cursor:pointer;margin-left:auto}
+.story-like.on .heart{color:#FF5A6E}
+.story-like small{font-size:13px;font-weight:600}
+
+.feed-tabs{display:flex;gap:8px;padding:0 2px}
+.pf-seg{margin-left:10px}

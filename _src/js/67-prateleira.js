@@ -58,7 +58,7 @@ function pubSetFile(f){ pub.file = f; pubClearLink(); $("pubAttachName").textCon
 function sizeTxt(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
 $("pubFoto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(){ toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("pubVideo").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
@@ -100,7 +100,7 @@ $("pubForm").addEventListener("submit", function(e){
   if (file) { path = uid() + "/" + newUuid() + "." + file.ext; row.arquivo = path; row.arquivo_nome = String(file.name).slice(0, 120); up = sb.storage.from("prateleira").upload(path, file.blob, { contentType: file.type, upsert: false }); }
   up.then(function(u){
     if (u && u.error) { var ef = new Error("arquivo"); ef.detail = u.error.message || ""; throw ef; }
-    return sb.from("pubs").insert(row).select("id,user_id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em");
+    return sb.from("pubs").insert(row).select("id,user_id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em,editado_em");
   }).then(function(r){
     if (r.error || !r.data || !r.data.length) { if (path) sb.storage.from("prateleira").remove([path]); var er = new Error(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "rapido" : "post"); er.detail = r.error ? (r.error.message || r.error.code || "") : "sem resposta"; throw er; }
     var p = r.data[0]; pub.items.unshift(p); if (p.oficial) home.items.unshift(p); pub.likes[p.id] = []; pub.cmts[p.id] = []; renderPubs();
@@ -116,7 +116,7 @@ function fetchPubs(st, reset, soOficial){
   if (!sb) { renderPubs(); return; }
   var tok = ++st.tok, base = reset ? [] : st.items;
   if (reset) { st.items = []; st.loaded = false; }
-  var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em" + (auth.user ? ",user_id" : "");
+  var cols = "id,autor,oficial,tipo,titulo,texto,arquivo,arquivo_nome,youtube,link,link_texto,fixado,aprovado,criado_em,editado_em" + (auth.user ? ",user_id" : "");
   var q = sb.from("pubs").select(cols).order("fixado", { ascending: false }).order("criado_em", { ascending: false }).range(base.length, base.length + PUB_PAGE - 1);
   if (soOficial) q = q.eq("oficial", true);
   q.then(function(r){
@@ -126,7 +126,7 @@ function fetchPubs(st, reset, soOficial){
     if (!ids.length) { st.loaded = true; renderPubs(); return; }
     return Promise.all([
       sb.from("pub_curtidas").select(auth.user ? "pub_id,user_id" : "pub_id").in("pub_id", ids),
-      sb.from("pub_comentarios").select(auth.user ? "id,pub_id,user_id,nome,texto,criado_em" : "id,pub_id,nome,texto,criado_em").in("pub_id", ids).order("criado_em", { ascending: true })
+      sb.from("pub_comentarios").select(auth.user ? "id,pub_id,user_id,nome,texto,criado_em,editado_em" : "id,pub_id,nome,texto,criado_em").in("pub_id", ids).order("criado_em", { ascending: true })
     ]).then(function(x){
       if (tok !== st.tok) return;
       fresh.forEach(function(q2){ pub.likes[q2.id] = []; pub.cmts[q2.id] = []; });
@@ -183,6 +183,7 @@ function renderPubs(){
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
   renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
   if (home.items.length) renderList($("homeList"), home, "home-", ["", ""]); else $("homeList").innerHTML = "";
+  if (home.focus) { var he = $("home-pub-" + home.focus); if (he) { home.focus = ""; he.classList.add("focus"); he.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ he.classList.remove("focus"); }, 2500); } }
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
 function renderPub(p, prefix){
@@ -194,6 +195,7 @@ function renderPub(p, prefix){
   var mw = h("div", "pmenu-wrap"), mb = h("button", "pmore", "⋯"); mb.type = "button"; mb.setAttribute("aria-label", "Mais opções"); mb.setAttribute("aria-haspopup", "true");
   var menu = h("div", "pmenu"); menu.hidden = true;
   function mi(label, fn){ var b = h("button", null, label); b.type = "button"; b.addEventListener("click", function(){ menu.hidden = true; fn(); }); menu.appendChild(b); }
+  if (mine && !p.oficial && p.texto && podeEditar(p.criado_em)) mi("Editar", function(){ var alvo = el.querySelector(".post-text"); if (alvo) editarInline(alvo, p.texto, 2000, function(v){ return salvarTexto("pubs", p.id, v, function(n){ p.texto = n.texto; p.editado_em = n.editado_em; renderPubs(); }); }); });
   if (mine || auth.admin) mi("Apagar", function(){ if (confirm("Apagar esta publicação?")) deletePub(p); });
   if (auth.admin) { mi(p.fixado ? "Desafixar" : "Fixar no topo", function(){ sb.from("pubs").update({ fixado: !p.fixado }).eq("id", p.id).then(reloadPubs); }); if (p.aprovado === false) mi("Mostrar de novo", function(){ sb.from("pubs").update({ aprovado: true }).eq("id", p.id).then(reloadPubs); }); }
   if (!mine && auth.user) mi("Denunciar", function(){ reportPub(p); });
@@ -220,7 +222,8 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em)));
+    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
+    if (auth.user && c.user_id === uid() && podeEditar(c.criado_em)) { var ce = h("button", "link", "Editar"); ce.type = "button"; ce.addEventListener("click", function(){ editarInline(pp, c.texto, 600, function(v){ return salvarTexto("pub_comentarios", c.id, v, function(n){ c.texto = n.texto; c.editado_em = n.editado_em; renderPubs(); }); }); }); pp.appendChild(ce); }
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
       d.addEventListener("click", function(){ sb.from("pub_comentarios").delete().eq("id", c.id).then(function(r){ if (r.error) return toast("Não foi possível apagar."); pub.cmts[p.id] = pub.cmts[p.id].filter(function(x){ return x.id !== c.id; }); renderPubs(); }); });
@@ -234,7 +237,7 @@ function renderPubCmts(p, cm, open){
     var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
     f.addEventListener("submit", function(e){
       e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
-      sb.from("pub_comentarios").insert({ pub_id: p.id, texto: t }).select("id,pub_id,user_id,nome,texto,criado_em").then(function(r){
+      sb.from("pub_comentarios").insert({ pub_id: p.id, texto: t }).select("id,pub_id,user_id,nome,texto,criado_em,editado_em").then(function(r){
         if (r.error || !r.data || !r.data.length) { send.disabled = false; return toast(String(r.error && r.error.message || "").indexOf("muito_rapido") > -1 ? "Calma! Muitos comentários em pouco tempo." : "Não foi possível comentar agora."); }
         pub.cmts[p.id].push(r.data[0]); renderPubs();
       });

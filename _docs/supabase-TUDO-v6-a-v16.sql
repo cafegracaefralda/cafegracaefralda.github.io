@@ -1060,3 +1060,20 @@ begin
 end $$;
 drop trigger if exists notif_status_anunciante_t on public.anunciantes;
 create trigger notif_status_anunciante_t after update on public.anunciantes for each row execute function public.notif_status_anunciante();
+
+-- Avisa TODOS os membros no sininho sempre que A Casa (conta oficial) publicar algo.
+alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
+
+create or replace function public.notif_casa_publicacao()
+returns trigger language plpgsql security definer set search_path = public as $$
+begin
+  if new.oficial and new.aprovado then
+    insert into public.notificacoes (user_id, tipo, de_nome, pub_id, resumo)
+    select p.user_id, 'casa', 'Café, Graça & Fralda', new.id, left(coalesce(nullif(new.titulo, ''), new.texto), 120)
+    from public.perfis p where p.user_id <> new.user_id;
+  end if;
+  return new;
+end $$;
+drop trigger if exists zz_notif_casa_t on public.pubs;
+create trigger zz_notif_casa_t after insert on public.pubs for each row execute function public.notif_casa_publicacao();

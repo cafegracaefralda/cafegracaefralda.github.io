@@ -218,6 +218,7 @@
                 </div>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
+              <div class="feed-tabs" id="feedTabs" role="group" aria-label="Mesa"><button class="chip" type="button" aria-pressed="true" data-f="todos">Todos</button><button class="chip" type="button" aria-pressed="false" data-f="seg">Seguindo</button></div>
               <div class="feed-list" id="feedList" aria-live="polite"></div>
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
@@ -240,7 +241,7 @@
           <p class="muted" id="pfCidade" hidden></p>
           <p id="pfBio" hidden></p>
           <div class="perfil-stats" id="pfStats"></div>
-          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
+          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-terra btn-sm" type="button" id="pfFollow" hidden>Seguir</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
         </div>
       </div>
       <div class="pf-grid" id="pfGrid" aria-live="polite"></div>
@@ -599,6 +600,15 @@
     <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
     <p class="status" id="ofStatus" role="status"></p>
   </form>
+</div></dialog>
+<dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
+  <span class="label">Bem-vindo à mesa</span>
+  <h3 id="pmTitle">Faça o seu primeiro post</h3>
+  <p>Se apresente para a comunidade: seu nome, de onde você é e o que te trouxe aqui.</p>
+  <textarea id="pmTexto" maxlength="600" rows="4" aria-label="Seu primeiro post"></textarea>
+  <button class="btn btn-terra btn-block" type="button" id="pmPublicar">Publicar na Mesa</button>
+  <p class="status" id="pmStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>

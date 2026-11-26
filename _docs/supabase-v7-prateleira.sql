@@ -102,7 +102,7 @@ grant execute on function public.pub_visivel(uuid) to anon, authenticated;
 -- Avisos do sininho (curtida e comentário em publicação)
 alter table public.notificacoes add column if not exists pub_id uuid references public.pubs (id) on delete cascade;
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa', 'seguir', 'story_curtida'));
 
 create or replace function public.notif_pub_comentario()
 returns trigger language plpgsql security definer set search_path = public as $$

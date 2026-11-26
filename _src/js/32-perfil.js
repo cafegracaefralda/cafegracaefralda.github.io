@@ -19,7 +19,7 @@ function loadPerfil(){
   var id = pfTarget(), tok = ++pf.tok; pf.id = id;
   var mine = id === uid();
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
-  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine;
+  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine; $("pfFollow").hidden = mine; pfSeguidores(id, mine);
   Promise.all([
     sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
@@ -60,7 +60,7 @@ $("pfEdit").addEventListener("click", function(){
 $("pfDlgClose").addEventListener("click", function(){ $("pfDlg").close(); });
 $("pfFoto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ pf.file = blob; pfFillAvatar($("pfEditAv"), "", URL.createObjectURL(blob)); }, function(){ toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(blob){ pf.file = blob; pfFillAvatar($("pfEditAv"), "", URL.createObjectURL(blob)); }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("pfSave").addEventListener("click", function(){
   var st = $("pfStatus"), nome = val("pf-nome").replace(/\s+/g, " ");
@@ -81,4 +81,29 @@ $("pfShare").addEventListener("click", function(){
   var url = location.origin + location.pathname + "#perfil/" + uid();
   var txt = "Venha me conhecer na comunidade Café, Graça & Fralda: " + url;
   window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener");
+});
+
+// Seguir: contagens e botão
+var pfSeg = { id: "", segue: false };
+function pfSeguidores(id, mine){
+  pfSeg.id = id;
+  Promise.all([
+    sb.from("seguidores").select("seguidor", { count: "exact", head: true }).eq("seguido", id),
+    sb.from("seguidores").select("seguido", { count: "exact", head: true }).eq("seguidor", id),
+    mine ? Promise.resolve({ data: [] }) : sb.from("seguidores").select("seguido").eq("seguidor", uid()).eq("seguido", id)
+  ]).then(function(r){
+    if (pfSeg.id !== id) return;
+    pfSeg.segue = !!(r[2].data && r[2].data.length); pfSeg.nSeg = r[0].count || 0; pfSeg.nSig = r[1].count || 0;
+    setTimeout(pfPintaSeg, 400);
+  });
+}
+function pfPintaSeg(){
+  var st = $("pfStats"), sp = st.querySelector(".pf-seg"); if (sp) sp.remove();
+  sp = h("span", "pf-seg"); sp.append(h("b", null, String(pfSeg.nSeg || 0)), document.createTextNode(" seguidores · "), h("b", null, String(pfSeg.nSig || 0)), document.createTextNode(" seguindo")); st.appendChild(sp);
+  $("pfFollow").textContent = pfSeg.segue ? "Seguindo" : "Seguir"; $("pfFollow").classList.toggle("btn-ghost", pfSeg.segue); $("pfFollow").classList.toggle("btn-terra", !pfSeg.segue);
+}
+$("pfFollow").addEventListener("click", function(){
+  var id = pfSeg.id; if (!id || id === uid()) return; $("pfFollow").disabled = true;
+  var q = pfSeg.segue ? sb.from("seguidores").delete().eq("seguidor", uid()).eq("seguido", id) : sb.from("seguidores").insert({ seguido: id });
+  q.then(function(r){ $("pfFollow").disabled = false; if (r.error) return toast("Não foi possível agora."); pfSeg.segue = !pfSeg.segue; pfSeg.nSeg = (pfSeg.nSeg || 0) + (pfSeg.segue ? 1 : -1); pfPintaSeg(); });
 });

@@ -1,6 +1,6 @@
 // Service worker do Café, Graça & Fralda: faz o site abrir como app e funcionar sem internet.
 // Gerado por _src/build.py; a versão muda a cada publicação para os celulares baixarem a novidade.
-const CACHE = "cgf-8db64e09f7";
+const CACHE = "cgf-f317680636";
 const CORE = [
   "./",
   "index.html",
@@ -54,4 +54,14 @@ self.addEventListener("fetch", (event) => {
     );
   }
   // Demais endereços (WhatsApp, Supabase, Google) seguem direto para a internet.
+});
+
+// Toque no aviso: abre (ou traz para frente) o app no lugar certo.
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const alvo = (event.notification.data && event.notification.data.url) || "./";
+  event.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((lista) => {
+    for (const c of lista) { if ("focus" in c) { c.navigate && c.navigate(alvo); return c.focus(); } }
+    return self.clients.openWindow(alvo);
+  }));
 });
