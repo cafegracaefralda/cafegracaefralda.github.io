@@ -1379,3 +1379,6 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .viz-filtros .chip{min-height:46px}
 .viz-count{margin:2px 2px 10px}
 #vizMais{margin:14px auto;display:block}
+
+.file-pdf{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:10px 14px;color:var(--ink);text-decoration:none;max-width:260px}
+.file-pdf span{grid-row:span 2;font-size:26px}.file-pdf b{font-size:14.5px;overflow-wrap:anywhere}.file-pdf small{color:var(--muted)}

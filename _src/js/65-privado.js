@@ -56,16 +56,20 @@ function renderDmTools(){
 }
 
 // Foto e áudio
+var AUDIO_VIDA = 72 * 3600 * 1000;   // o áudio some 72 horas depois de enviado
+function audioVencido(m){ return m.arquivo_tipo === "audio" && Date.now() - new Date(m.criado_em).getTime() > AUDIO_VIDA; }
 function fileView(m){
+  if (audioVencido(m)) return h("p", "file-off", "🎙️ Áudio expirado (some em 72 h)");
   var url = dm.urls[m.arquivo];
   if (!url) return h("p", "file-off", "Arquivo indisponível");
   if (m.arquivo_tipo === "audio") { var au = h("audio", "audio-msg"); au.controls = true; au.preload = "none"; au.src = url; return au; }
+  if (m.arquivo_tipo === "pdf") { var pa = h("a", "file-pdf"); pa.href = url; pa.target = "_blank"; pa.rel = "noopener noreferrer"; pa.append(h("span", null, "📄"), h("b", null, m.arquivo_nome || "Documento.pdf"), h("small", null, "Toque para abrir")); return pa; }
   var a = h("a", "file-a"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
   var im = h("img", "file-img"); im.src = url; im.alt = "Foto enviada"; im.loading = "lazy"; a.appendChild(im);
   return a;
 }
 function signDm(msgs){
-  var paths = msgs.map(function(m){ return m.arquivo; }).filter(function(x){ return x && !dm.urls[x]; });
+  var paths = msgs.filter(function(m){ return !audioVencido(m); }).map(function(m){ return m.arquivo; }).filter(function(x){ return x && !dm.urls[x]; });
   if (!paths.length || !sb) return Promise.resolve();
   return sb.storage.from("privado").createSignedUrls(paths, 3600).then(function(r){ (r.data || []).forEach(function(x){ if (x.signedUrl && x.path) dm.urls[x.path] = x.signedUrl; }); }, function(){});
 }
@@ -165,6 +169,14 @@ $("dmFile").addEventListener("change", function(){
     $("dmAttachName").textContent = "Foto · " + niceSize(blob.size); $("dmAttach").hidden = false;
   }, function(){ toast("Envie uma foto (JPEG ou PNG). Vídeo não é aceito."); });
 });
+$("dmPdf").addEventListener("change", function(){
+  var f = this.files && this.files[0]; this.value = "";
+  if (!f) return;
+  if (f.type !== "application/pdf") return toast("Envie um arquivo PDF.");
+  if (f.size > 5 * 1024 * 1024) return toast("O PDF é grande demais (máximo 5 MB).");
+  dmFile = { blob: f, kind: "pdf", ext: "pdf", type: "application/pdf", name: String(f.name || "documento.pdf").slice(0, 110) };
+  $("dmAttachName").textContent = "PDF · " + niceSize(f.size); $("dmAttach").hidden = false;
+});
 $("dmAttachDel").addEventListener("click", dmClearFile);
 
 function sendDm(texto, file){
@@ -213,6 +225,7 @@ $("dmEmoji").addEventListener("click", function(e){ e.stopPropagation(); $("emoj
 document.addEventListener("click", function(e){ if (!$("emojiPop").hidden && !$("emojiPop").contains(e.target)) $("emojiPop").hidden = true; });
 
 // Áudio (gravação pelo navegador, até 2 minutos)
+var AUDIO_MAX = 60;
 var rec = { mr: null, chunks: [], stream: null, t0: 0, timer: null };
 var AUDIO_EXT = { "audio/webm": "webm", "audio/ogg": "ogg", "audio/mp4": "m4a", "audio/mpeg": "mp3" };
 function recUi(on){ $("dmRec").hidden = !on; $("dmMic").hidden = on; }
@@ -239,12 +252,13 @@ $("dmMic").addEventListener("click", function(){
   navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
     var mime = ["audio/webm;codecs=opus", "audio/webm", "audio/ogg;codecs=opus", "audio/mp4"].filter(function(t){ return MediaRecorder.isTypeSupported(t); })[0];
     rec.stream = stream; rec.chunks = [];
-    rec.mr = mime ? new MediaRecorder(stream, { mimeType: mime }) : new MediaRecorder(stream);
+    var opt = { audioBitsPerSecond: 24000 }; if (mime) opt.mimeType = mime;   // voz leve: 1 minuto fica em torno de 200 KB
+    rec.mr = new MediaRecorder(stream, opt);
     rec.mr.ondataavailable = function(e){ if (e.data && e.data.size) rec.chunks.push(e.data); };
-    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00";
+    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00 / 1:00";
     rec.timer = setInterval(function(){
-      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0");
-      if (s >= 120) recFinish(true);
+      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0") + " / 1:00";
+      if (s >= AUDIO_MAX) recFinish(true);
     }, 500);
   }, function(){ toast("Permita o microfone para gravar um áudio."); });
 });
@@ -276,7 +290,7 @@ function subRealtime(){
 function unsubRealtime(){ try { if (dm.channel && sb) sb.removeChannel(dm.channel); } catch(e){} dm.channel = null; }
 
 function startDm(){
-  stopDm(); loadConvs().then(function(){ renderDmMsgs(true); }); loadPeople();
+  stopDm(); setTimeout(function(){ if (typeof dmLimparAudios === "function") dmLimparAudios(); }, 1500); loadConvs().then(function(){ renderDmMsgs(true); }); loadPeople();
   sb.from("perfis").select("aceita_dm").eq("user_id", me()).maybeSingle().then(function(r){ if (r.data) $("dmAccept").checked = r.data.aceita_dm !== false; });
   dm.timer = setInterval(function(){ if (!document.hidden) { loadConvs(); loadDmMsgs(false); } }, 6000);
 }
@@ -303,3 +317,19 @@ auth.on(function(){
   }
 });
 renderDmMsgs(true);
+
+// Limpeza dos áudios com mais de 72 horas (arquivo e mensagem): roda quando a pessoa abre as Mensagens
+var limpando = false;
+function dmLimparAudios(){
+  if (limpando || !sb || !auth.user) return; limpando = true;
+  sb.rpc("dm_audios_vencidos").then(function(r){
+    var paths = (r && r.data) || [];
+    if (!paths.length) return;
+    return sb.storage.from("privado").remove(paths).then(function(x){
+      if (x && x.error) return;
+      return sb.rpc("dm_expirar_audios").then(function(){ if (dm.current) loadDmMsgs(true); });
+    });
+  }).catch(function(){}).then(function(){ limpando = false; });
+}
+var _hookMsgs = viewHooks.mensagens;
+viewHooks.mensagens = function(a){ if (_hookMsgs) _hookMsgs(a); dmLimparAudios(); };

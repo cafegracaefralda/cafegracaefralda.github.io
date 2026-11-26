@@ -292,11 +292,13 @@
           <div class="msgs" id="dmMsgs" aria-live="polite"></div>
           <div class="dm-compose" id="dmCompose" hidden>
             <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
-            <div class="dm-rec" id="dmRec" hidden><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime">0:00</span><span class="grow">Gravando áudio…</span><button class="link" type="button" id="dmRecCancel">Cancelar</button><button class="btn btn-terra btn-sm" type="button" id="dmRecSend">Enviar áudio</button></div>
+            <div class="dm-rec" id="dmRec" hidden><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime">0:00</span><span class="grow">Gravando áudio… (máx. 1:00)</span><button class="link" type="button" id="dmRecCancel">Cancelar</button><button class="btn btn-terra btn-sm" type="button" id="dmRecSend">Enviar áudio</button></div>
             <div class="emoji-pop" id="emojiPop" hidden></div>
             <form class="composer" id="dmComposer" autocomplete="off">
               <label class="hand-btn" for="dmFile" title="Enviar foto" aria-label="Enviar foto"><svg><use href="#i-photo"/></svg></label>
               <input type="file" id="dmFile" accept="image/*" hidden>
+              <label class="hand-btn" for="dmPdf" title="Enviar PDF" aria-label="Enviar PDF"><svg><use href="#i-file"/></svg></label>
+              <input type="file" id="dmPdf" accept="application/pdf" hidden>
               <button class="hand-btn" type="button" id="dmEmoji" title="Emojis" aria-label="Emojis">🙂</button>
               <input id="dmText" placeholder="Mensagem…" maxlength="1000" aria-label="Mensagem privada">
               <button class="hand-btn" type="button" id="dmMic" title="Gravar áudio" aria-label="Gravar áudio"><svg><use href="#i-mic"/></svg></button>
