@@ -745,10 +745,10 @@ label.hand-btn{cursor:pointer}
 .dm-rec .grow{flex:1;color:var(--muted)}
 .rec-dot{width:11px;height:11px;border-radius:50%;background:#D64545;animation:pulse 1.1s infinite}
 @keyframes pulse{50%{opacity:.25}}
-.emoji-pop{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin:8px 16px 0;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 34px -16px rgba(29,26,23,.35);max-height:190px;overflow-y:auto}
-.emoji-pop button{background:none;border:0;font-size:24px;line-height:1;padding:6px;border-radius:10px;cursor:pointer}
+.emoji-pop{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));min-width:0;gap:2px;margin:8px 16px 0;padding:10px;background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 34px -16px rgba(29,26,23,.35);max-height:190px;overflow-y:auto}
+.emoji-pop button{background:none;border:0;font-size:24px;line-height:1;padding:6px 0;min-width:0;border-radius:10px;cursor:pointer}
 .emoji-pop button:hover{background:var(--bg)}
-.dm .composer{grid-template-columns:auto auto minmax(0,1fr) auto auto}
+.dm .composer{grid-template-columns:auto auto auto minmax(0,1fr) auto auto}   /* foto, PDF, emoji, texto, microfone, enviar */
 .audio-msg{display:block;width:240px;max-width:100%;height:40px;margin:4px 0 6px}
 .chat.dm{grid-template-columns:300px minmax(0,1fr)}
 @media (max-width:760px){.chat.dm{grid-template-columns:1fr}}
@@ -966,8 +966,12 @@ label.hand-btn{cursor:pointer}
 }
 @media (max-width:1099px){.wa-float{display:none}}
 @media (max-width:760px){
-  .dm .composer{gap:6px;padding:8px 10px}
+  .dm .composer{gap:6px;padding:8px 10px;grid-template-columns:auto auto auto minmax(0,1fr) auto auto}
   .dm .composer .hand-btn,.dm .composer .btn-terra{width:44px;height:44px}
+  /* celular: a caixa de texto ocupa a linha de cima; os botões ficam na de baixo */
+  .dm .composer #dmText{grid-column:1/-1;grid-row:1}
+  .dm .composer #dmMic{grid-column:5}
+  .dm .composer #dmSend{grid-column:6}
 }
 
 /* Cadastro (WhatsApp) e Parcerias */
@@ -1421,6 +1425,10 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .pm-next{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px;margin-top:4px}
 .pm-next b{font-size:14px;color:var(--muted)}
 #pfLink a{color:var(--terra);font-weight:600;overflow-wrap:anywhere}
+
+.dm-compose,.dm-compose .composer{min-width:0;max-width:100%}
+/* conversa aberta: o aviso de notificações não fica por cima do campo de mensagem */
+body.dm-thread .aviso-bar{display:none!important}
 
 </style>
 </head>
