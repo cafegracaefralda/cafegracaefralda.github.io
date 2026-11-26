@@ -4,7 +4,7 @@ var TIPOS = [
   { id: "oracao", nome: "Oração", em: "🙏" }, { id: "gratidao", nome: "Gratidão", em: "✨" }
 ];
 var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.em + " " + t.nome; });
-var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
+var feed = { seg: false, seguindo: [], tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
 var PAGE = 15;
 
 // Convites para publicar (um por visita, sempre com o nome da pessoa)
@@ -24,7 +24,7 @@ function shrinkPhoto(file){
       c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
       var ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
       URL.revokeObjectURL(url);
-      c.toBlob(function(b){ if (b && b.size <= 3 * 1024 * 1024) resolve(b); else reject(new Error("tamanho")); }, "image/jpeg", 0.82);
+      nsfwGuard(c).then(function(){ c.toBlob(function(b){ if (b && b.size <= 3 * 1024 * 1024) resolve(b); else reject(new Error("tamanho")); }, "image/jpeg", 0.82); }, reject);
     };
     img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("tipo")); };
     img.src = url;
@@ -37,7 +37,7 @@ $("postFile").addEventListener("change", function(){
   shrinkPhoto(f).then(function(blob){
     feed.photo = blob;
     $("postPhotoImg").src = URL.createObjectURL(blob); $("postPhoto").hidden = false;
-  }, function(){ toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
+  }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
 });
 function clearPhoto(){ feed.photo = null; $("postPhoto").hidden = true; $("postPhotoImg").removeAttribute("src"); }
 $("postPhotoDel").addEventListener("click", clearPhoto);
@@ -85,6 +85,7 @@ function loadFeed(reset){
   var tok = ++feed.tok, base = reset ? [] : feed.posts;
   if (reset) { feed.posts = []; feed.loaded = false; }
   var q = sb.from("posts").select("id,user_id,nome,tipo,texto,foto,aprovado,criado_em,editado_em").order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
+  if (feed.seg) q = q.in("user_id", feed.seguindo.length ? feed.seguindo : ["00000000-0000-0000-0000-000000000000"]);
   if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
   q.then(function(r){
     if (!r.data || tok !== feed.tok) return;
@@ -233,3 +234,14 @@ viewHooks.mesa = function(sub){
   loadMembers(); if (typeof loadStories === "function") loadStories();
 };
 auth.on(function(){ if (auth.user && isShown("mesa")) viewHooks.mesa(currentSub("mesa")); });
+
+// Abas da Mesa: Todos | Seguindo
+$$("#feedTabs .chip").forEach(function(b){
+  b.addEventListener("click", function(){
+    var seg = b.getAttribute("data-f") === "seg";
+    $$("#feedTabs .chip").forEach(function(x){ x.setAttribute("aria-pressed", x === b); });
+    feed.seg = seg;
+    if (!seg) return loadFeed(true);
+    sb.from("seguidores").select("seguido").eq("seguidor", uid()).then(function(r){ feed.seguindo = (r.data || []).map(function(x){ return x.seguido; }); loadFeed(true); });
+  });
+});

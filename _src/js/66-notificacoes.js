@@ -7,6 +7,8 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "seguir") return [n.de_nome + " começou a seguir você", ""];
+  if (n.tipo === "story_curtida") return [n.de_nome + " curtiu o seu story", ""];
   if (n.tipo === "casa") return ["📣 Novidade da Casa", n.resumo || ""];
   if (n.tipo === "pedido") return ["🤝 Parceria", n.resumo];
   if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
@@ -43,9 +45,13 @@ function loadNotifs(){
 }
 function browserNotify(n, count){
   try {
-    if (!("Notification" in window) || Notification.permission !== "granted" || !document.hidden) return;
-    var t = notifText(n);
-    new Notification("Café, Graça & Fralda", { body: count > 1 ? count + " novidades na mesa" : t[0] + (t[1] ? ": " + t[1] : ""), icon: "icons/icon-192.png", tag: "cgf" });
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    var t = notifText(n), titulo = n.tipo === "casa" ? "📣 Novidade da Casa" : n.tipo === "mencao" ? "Você foi mencionado(a)" : "Café, Graça & Fralda";
+    var corpo = count > 1 ? count + " novidades na comunidade" : (n.tipo === "casa" || n.tipo === "mencao" ? (t[1] || t[0]) : t[0] + (t[1] ? ": " + t[1] : ""));
+    var opt = { body: corpo, icon: "icons/icon-192.png", badge: "icons/favicon-32.png", tag: "cgf-" + (count > 1 ? "varios" : n.id), data: { url: "./" + (n.tipo === "casa" ? "#inicio" : "#mesa") } };
+    // No celular só o service worker consegue mostrar o aviso na tela
+    if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistration().then(function(reg){ if (reg && reg.showNotification) reg.showNotification(titulo, opt); else new Notification(titulo, opt); }).catch(function(){ new Notification(titulo, opt); });
+    else new Notification(titulo, opt);
   } catch(e){}
 }
 function markRead(ids){
@@ -93,4 +99,19 @@ auth.on(function(){
     loadNotifs();
     notif.timer = setInterval(function(){ if (!document.hidden || ("Notification" in window && Notification.permission === "granted")) loadNotifs(); }, 30000);
   }
+});
+
+// Convite para ligar os avisos do celular (Casa e menções): aparece uma vez por visita até a pessoa decidir
+var pedidoAviso = false;
+auth.on(function(){
+  if (!auth.user || pedidoAviso || !("Notification" in window) || Notification.permission !== "default") return;
+  pedidoAviso = true;
+  setTimeout(function(){
+    if (Notification.permission !== "default" || !auth.user) return;
+    var bar = h("div", "aviso-bar"); bar.append(h("span", null, "🔔 Receber avisos da Casa e quando te mencionarem?"));
+    var yes = h("button", "btn btn-terra btn-sm", "Ativar"), no = h("button", "link", "Agora não"); yes.type = no.type = "button";
+    yes.addEventListener("click", function(){ bar.remove(); try { Notification.requestPermission().then(function(r){ pushBtn(); if (r === "granted") toast("Avisos ligados."); }); } catch(e){} });
+    no.addEventListener("click", function(){ bar.remove(); });
+    bar.append(yes, no); document.body.appendChild(bar);
+  }, 4000);
 });

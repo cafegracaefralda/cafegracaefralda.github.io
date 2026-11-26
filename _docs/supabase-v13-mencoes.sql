@@ -3,7 +3,7 @@
 -- Quem escreve "@Nome" (o nome que a pessoa escolheu no perfil) avisa essa pessoa pelo sininho. Não avisa a si mesma.
 
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa', 'seguir', 'story_curtida'));
 
 create or replace function public.notif_mencao()
 returns trigger language plpgsql security definer set search_path = public as $$

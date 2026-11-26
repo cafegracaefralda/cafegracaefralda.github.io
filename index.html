@@ -1348,14 +1348,26 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
 .avatar.has-img,[data-av].has-img{background-size:cover!important;background-position:center!important;background-repeat:no-repeat!important;color:transparent!important}
 .stories .person .ring>span.has-img{color:transparent!important;background-size:cover!important;background-position:center!important}
 
+.aviso-bar{position:fixed;left:12px;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:900;display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#1D1A17;color:#F6EBDD;border-radius:16px;padding:12px 14px;box-shadow:0 18px 40px -16px rgba(0,0,0,.6);font-size:14.5px}
+.aviso-bar span{flex:1 1 200px}
+.aviso-bar .link{color:#F6EBDD;opacity:.8}
+@media (min-width:1100px){.aviso-bar{left:auto;right:20px;bottom:20px;max-width:420px}}
+
+/* Story: pausa imediata da barra, curtir */
+#storyView.paused .bar.run i{animation-play-state:paused!important}
+.story-img-wrap{touch-action:pan-y}
+.story-like{display:inline-flex;align-items:center;gap:6px;min-width:44px;height:44px;padding:0 14px;border-radius:999px;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:20px;cursor:pointer;margin-left:auto}
+.story-like.on .heart{color:#FF5A6E}
+.story-like small{font-size:13px;font-weight:600}
+
+.feed-tabs{display:flex;gap:8px;padding:0 2px}
+.pf-seg{margin-left:10px}
+
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="logo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7.9c-1.2-.9-2.9-1.7-2.9-3.3a1.65 1.65 0 0 1 2.9-1.1 1.65 1.65 0 0 1 2.9 1.1c0 1.6-1.7 2.4-2.9 3.3Z"/>
- <path d="M5.2 11.2h11.2v3.1a5.6 5.6 0 0 1-5.6 5.6 5.6 5.6 0 0 1-5.6-5.6v-3.1Z"/>
- <path d="M16.4 12.2h.9a2.1 2.1 0 0 1 0 4.2h-1.2"/>
- <path d="M3.6 21.4h14.4"/></g></symbol>
+  <symbol id="logo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.2v5.6M9.5 4.7h5" opacity=".85"/><path d="M4.6 11h14.8l-1.2 3.9c-.7 2.5-3 4.1-6.2 4.1s-5.5-1.6-6.2-4.1L4.6 11Z"/><path d="M19 12.2h.7a2.1 2.1 0 0 1 0 4.2h-1.5"/><path d="M5.1 12.2H4.3a1.1 1.1 0 0 0 0 2.2h1.2"/><path d="M7 21.4h10"/></g></symbol>
 
   <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.26 8.26 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.14.16-.29.18-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></symbol>
   <symbol id="i-ig" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/></g><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></symbol>
@@ -1575,6 +1587,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
                 </div>
                 <p class="status" id="postStatus" role="status"></p>
               </form>
+              <div class="feed-tabs" id="feedTabs" role="group" aria-label="Mesa"><button class="chip" type="button" aria-pressed="true" data-f="todos">Todos</button><button class="chip" type="button" aria-pressed="false" data-f="seg">Seguindo</button></div>
               <div class="feed-list" id="feedList" aria-live="polite"></div>
               <button class="btn btn-ghost feed-more" type="button" id="feedMore" hidden>Ver mais</button>
             </div>
@@ -1597,7 +1610,7 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
           <p class="muted" id="pfCidade" hidden></p>
           <p id="pfBio" hidden></p>
           <div class="perfil-stats" id="pfStats"></div>
-          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
+          <div class="perfil-acts"><button class="btn btn-terra btn-sm" type="button" id="pfEdit" hidden>Editar perfil</button><button class="btn btn-terra btn-sm" type="button" id="pfFollow" hidden>Seguir</button><button class="btn btn-ghost btn-sm" type="button" id="pfMsg" hidden>Mensagem</button><button class="btn btn-wa btn-sm" type="button" id="pfShare" hidden><svg><use href="#i-wa"/></svg>Compartilhar perfil</button></div>
         </div>
       </div>
       <div class="pf-grid" id="pfGrid" aria-live="polite"></div>
@@ -1956,6 +1969,15 @@ body[data-view="perfil"]{background:linear-gradient(180deg,#F7E3D3 0,#F3E8DA 420
     <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
     <p class="status" id="ofStatus" role="status"></p>
   </form>
+</div></dialog>
+<dialog class="sheet-dlg" id="primeiroDlg" aria-labelledby="pmTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="pmClose" aria-label="Fechar">×</button>
+  <span class="label">Bem-vindo à mesa</span>
+  <h3 id="pmTitle">Faça o seu primeiro post</h3>
+  <p>Se apresente para a comunidade: seu nome, de onde você é e o que te trouxe aqui.</p>
+  <textarea id="pmTexto" maxlength="600" rows="4" aria-label="Seu primeiro post"></textarea>
+  <button class="btn btn-terra btn-block" type="button" id="pmPublicar">Publicar na Mesa</button>
+  <p class="status" id="pmStatus" role="status"></p>
 </div></dialog>
 <dialog class="sheet-dlg" id="contatoDlg" aria-labelledby="ctTitle"><div class="sheet-box">
   <span class="label">Bem-vindo à mesa</span>
@@ -2484,7 +2506,7 @@ function loadPerfil(){
   var id = pfTarget(), tok = ++pf.tok; pf.id = id;
   var mine = id === uid();
   $("pfNome").textContent = "Carregando…"; $("pfGrid").innerHTML = ""; $("pfStats").textContent = "";
-  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine;
+  $("pfEdit").hidden = !mine; $("pfMsg").hidden = mine; $("pfShare").hidden = !mine; $("pfFollow").hidden = mine; pfSeguidores(id, mine);
   Promise.all([
     sb.from("perfis").select("user_id,nome,apelido,bio,cidade,avatar").eq("user_id", id).maybeSingle(),
     sb.from("posts").select("id,tipo,texto,criado_em").eq("user_id", id).order("criado_em", { ascending: false }).limit(30),
@@ -2525,7 +2547,7 @@ $("pfEdit").addEventListener("click", function(){
 $("pfDlgClose").addEventListener("click", function(){ $("pfDlg").close(); });
 $("pfFoto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ pf.file = blob; pfFillAvatar($("pfEditAv"), "", URL.createObjectURL(blob)); }, function(){ toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(blob){ pf.file = blob; pfFillAvatar($("pfEditAv"), "", URL.createObjectURL(blob)); }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("pfSave").addEventListener("click", function(){
   var st = $("pfStatus"), nome = val("pf-nome").replace(/\s+/g, " ");
@@ -2546,6 +2568,31 @@ $("pfShare").addEventListener("click", function(){
   var url = location.origin + location.pathname + "#perfil/" + uid();
   var txt = "Venha me conhecer na comunidade Café, Graça & Fralda: " + url;
   window.open("https://wa.me/?text=" + encodeURIComponent(txt), "_blank", "noopener");
+});
+
+// Seguir: contagens e botão
+var pfSeg = { id: "", segue: false };
+function pfSeguidores(id, mine){
+  pfSeg.id = id;
+  Promise.all([
+    sb.from("seguidores").select("seguidor", { count: "exact", head: true }).eq("seguido", id),
+    sb.from("seguidores").select("seguido", { count: "exact", head: true }).eq("seguidor", id),
+    mine ? Promise.resolve({ data: [] }) : sb.from("seguidores").select("seguido").eq("seguidor", uid()).eq("seguido", id)
+  ]).then(function(r){
+    if (pfSeg.id !== id) return;
+    pfSeg.segue = !!(r[2].data && r[2].data.length); pfSeg.nSeg = r[0].count || 0; pfSeg.nSig = r[1].count || 0;
+    setTimeout(pfPintaSeg, 400);
+  });
+}
+function pfPintaSeg(){
+  var st = $("pfStats"), sp = st.querySelector(".pf-seg"); if (sp) sp.remove();
+  sp = h("span", "pf-seg"); sp.append(h("b", null, String(pfSeg.nSeg || 0)), document.createTextNode(" seguidores · "), h("b", null, String(pfSeg.nSig || 0)), document.createTextNode(" seguindo")); st.appendChild(sp);
+  $("pfFollow").textContent = pfSeg.segue ? "Seguindo" : "Seguir"; $("pfFollow").classList.toggle("btn-ghost", pfSeg.segue); $("pfFollow").classList.toggle("btn-terra", !pfSeg.segue);
+}
+$("pfFollow").addEventListener("click", function(){
+  var id = pfSeg.id; if (!id || id === uid()) return; $("pfFollow").disabled = true;
+  var q = pfSeg.segue ? sb.from("seguidores").delete().eq("seguidor", uid()).eq("seguido", id) : sb.from("seguidores").insert({ seguido: id });
+  q.then(function(r){ $("pfFollow").disabled = false; if (r.error) return toast("Não foi possível agora."); pfSeg.segue = !pfSeg.segue; pfSeg.nSeg = (pfSeg.nSeg || 0) + (pfSeg.segue ? 1 : -1); pfPintaSeg(); });
 });
 
 
@@ -2687,6 +2734,69 @@ function salvarTexto(tabela, id, v, aplicar){
   return sb.from(tabela).update({ texto: v }).eq("id", id).select("id,texto,editado_em").then(function(r){
     if (r.error || !r.data || !r.data.length) return { error: r.error || { message: "x" } };
     aplicar(r.data[0]); return {};
+  });
+}
+
+
+// Primeiro post: toda vez que entrar, até a pessoa publicar o primeiro, aparece o convite para se apresentar.
+var pmFeito = false;
+function pmTentar(tentativa){
+  if (pmFeito || !auth.user || !sb) return;
+  if (navigator.webdriver && !window.__forcaPrimeiroPost) return;  // testes automáticos não são interrompidos
+  if ($("contatoDlg").open || $("pfDlg").open) { if (tentativa < 12) setTimeout(function(){ pmTentar(tentativa + 1); }, 2500); return; }
+  pmFeito = true;
+  Promise.all([
+    sb.from("posts").select("id", { count: "exact", head: true }).eq("user_id", auth.user.id),
+    sb.from("pubs").select("id", { count: "exact", head: true }).eq("user_id", auth.user.id).eq("oficial", false)
+  ]).then(function(r){
+    if ((r[0].count || 0) + (r[1].count || 0) > 0 || r[0].error) return;
+    var nome = firstName(auth.name());
+    $("pmTexto").value = "Oi, eu sou " + nome + ", de ____. Vim conhecer a comunidade e estou feliz de estar aqui. ☕";
+    setStatus($("pmStatus"), ""); $("primeiroDlg").showModal();
+  });
+}
+auth.on(function(){ if (auth.user) setTimeout(function(){ pmTentar(0); }, 3500); else pmFeito = false; });
+$("pmClose").addEventListener("click", function(){ $("primeiroDlg").close(); });
+$("pmPublicar").addEventListener("click", function(){
+  var t = $("pmTexto").value.trim(), st = $("pmStatus");
+  if (t.length < 3) return setStatus(st, "Escreva uma frase para se apresentar.", "err");
+  if (/____/.test(t)) return setStatus(st, "Complete de onde você é (troque os traços).", "err");
+  $("pmPublicar").disabled = true; setStatus(st, "Publicando…");
+  sb.from("posts").insert({ tipo: "conversa", texto: t }).then(function(r){
+    $("pmPublicar").disabled = false;
+    if (r.error) return setStatus(st, "Não foi possível publicar agora. Tente de novo.", "err");
+    $("primeiroDlg").close(); toast("Primeiro post publicado! Bem-vinda(o) à mesa."); go("mesa"); if (typeof loadFeed === "function") loadFeed(true);
+  });
+});
+
+
+// Barreira de nudez no próprio aparelho: a foto é analisada ANTES de sair do celular (nada é enviado para terceiros).
+// Carrega o modelo só na primeira foto. Se não conseguir carregar (sem internet/bloqueio), segue sem a análise e a moderação por denúncia continua valendo.
+var nsfw = { model: null, loading: null, falhou: false };
+function nsfwCarregaScript(src){
+  return new Promise(function(ok, erro){ var s = document.createElement("script"); s.src = src; s.async = true; s.crossOrigin = "anonymous"; s.onload = ok; s.onerror = erro; document.head.appendChild(s); });
+}
+function nsfwModelo(){
+  if (nsfw.model) return Promise.resolve(nsfw.model);
+  if (nsfw.falhou) return Promise.resolve(null);
+  if (!nsfw.loading) nsfw.loading = Promise.race([
+    nsfwCarregaScript("https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js").then(function(){ return nsfwCarregaScript("https://cdn.jsdelivr.net/npm/nsfwjs@2.4.2/dist/nsfwjs.min.js"); }).then(function(){ return window.nsfwjs.load(); }),
+    new Promise(function(_, no){ setTimeout(function(){ no(new Error("tempo")); }, 20000); })
+  ]).then(function(m){ nsfw.model = m; return m; }).catch(function(){ nsfw.falhou = true; return null; });
+  return nsfw.loading;
+}
+function nsfwBloqueia(previsoes){
+  var p = {}; previsoes.forEach(function(x){ p[x.className] = x.probability; });
+  return (p.Porn || 0) > 0.45 || (p.Hentai || 0) > 0.45 || (p.Sexy || 0) > 0.8;
+}
+// Devolve uma Promise que resolve se a imagem pode seguir e rejeita (nsfw) se parecer conteúdo adulto
+function nsfwGuard(canvas){
+  var analisar = window.__nsfwStub ? Promise.resolve(window.__nsfwStub) : nsfwModelo().then(function(m){ return m && { classify: function(c){ return m.classify(c); } }; });
+  return analisar.then(function(m){
+    if (!m) return;
+    return Promise.resolve(m.classify(canvas)).then(function(pr){
+      if (nsfwBloqueia(pr)) { toast("Essa imagem parece ter conteúdo adulto e não pode ser enviada. Aqui é uma comunidade de famílias."); throw new Error("nsfw"); }
+    });
   });
 }
 
@@ -2934,7 +3044,7 @@ $("anForm").addEventListener("submit", function(e){
 });
 $("of-foto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(b){ of.file = b; $("of-foto-nome").textContent = "📷 Foto pronta"; }, function(){ of.file = null; toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(b){ of.file = b; $("of-foto-nome").textContent = "📷 Foto pronta"; }, function(e){ if (e && e.message === "nsfw") { of.file = null; return; } of.file = null; toast("Não consegui usar essa foto."); });
 });
 $("ofForm").addEventListener("submit", function(e){
   e.preventDefault();
@@ -3063,7 +3173,7 @@ var TIPOS = [
   { id: "oracao", nome: "Oração", em: "🙏" }, { id: "gratidao", nome: "Gratidão", em: "✨" }
 ];
 var TIPO_NOME = {}; TIPOS.forEach(function(t){ TIPO_NOME[t.id] = t.em + " " + t.nome; });
-var feed = { tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
+var feed = { seg: false, seguindo: [], tipo: "conversa", filtro: "all", posts: [], likes: {}, cmts: {}, urls: {}, open: {}, loaded: false, more: false, photo: null, busy: false, tok: 0, focus: "", members: [] };
 var PAGE = 15;
 
 // Convites para publicar (um por visita, sempre com o nome da pessoa)
@@ -3083,7 +3193,7 @@ function shrinkPhoto(file){
       c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
       var ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); ctx.drawImage(img, 0, 0, c.width, c.height);
       URL.revokeObjectURL(url);
-      c.toBlob(function(b){ if (b && b.size <= 3 * 1024 * 1024) resolve(b); else reject(new Error("tamanho")); }, "image/jpeg", 0.82);
+      nsfwGuard(c).then(function(){ c.toBlob(function(b){ if (b && b.size <= 3 * 1024 * 1024) resolve(b); else reject(new Error("tamanho")); }, "image/jpeg", 0.82); }, reject);
     };
     img.onerror = function(){ URL.revokeObjectURL(url); reject(new Error("tipo")); };
     img.src = url;
@@ -3096,7 +3206,7 @@ $("postFile").addEventListener("change", function(){
   shrinkPhoto(f).then(function(blob){
     feed.photo = blob;
     $("postPhotoImg").src = URL.createObjectURL(blob); $("postPhoto").hidden = false;
-  }, function(){ toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
+  }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto. Escolha uma imagem menor."); });
 });
 function clearPhoto(){ feed.photo = null; $("postPhoto").hidden = true; $("postPhotoImg").removeAttribute("src"); }
 $("postPhotoDel").addEventListener("click", clearPhoto);
@@ -3144,6 +3254,7 @@ function loadFeed(reset){
   var tok = ++feed.tok, base = reset ? [] : feed.posts;
   if (reset) { feed.posts = []; feed.loaded = false; }
   var q = sb.from("posts").select("id,user_id,nome,tipo,texto,foto,aprovado,criado_em,editado_em").order("criado_em", { ascending: false }).range(base.length, base.length + PAGE - 1);
+  if (feed.seg) q = q.in("user_id", feed.seguindo.length ? feed.seguindo : ["00000000-0000-0000-0000-000000000000"]);
   if (feed.filtro !== "all") q = q.eq("tipo", feed.filtro);
   q.then(function(r){
     if (!r.data || tok !== feed.tok) return;
@@ -3292,6 +3403,17 @@ viewHooks.mesa = function(sub){
   loadMembers(); if (typeof loadStories === "function") loadStories();
 };
 auth.on(function(){ if (auth.user && isShown("mesa")) viewHooks.mesa(currentSub("mesa")); });
+
+// Abas da Mesa: Todos | Seguindo
+$$("#feedTabs .chip").forEach(function(b){
+  b.addEventListener("click", function(){
+    var seg = b.getAttribute("data-f") === "seg";
+    $$("#feedTabs .chip").forEach(function(x){ x.setAttribute("aria-pressed", x === b); });
+    feed.seg = seg;
+    if (!seg) return loadFeed(true);
+    sb.from("seguidores").select("seguido").eq("seguidor", uid()).then(function(r){ feed.seguindo = (r.data || []).map(function(x){ return x.seguido; }); loadFeed(true); });
+  });
+});
 
 
 // Indicar um profissional (membros logados). A indicação só aparece no site depois que a equipe aprova.
@@ -3639,6 +3761,8 @@ function notifText(n){
   if (n.tipo === "curtida") return [n.de_nome + " curtiu o seu post", ""];
   if (n.tipo === "pub_comentario") return [n.de_nome + " comentou na Prateleira", n.resumo ? "“" + n.resumo + "”" : ""];
   if (n.tipo === "pub_curtida") return [n.de_nome + " curtiu a sua publicação", ""];
+  if (n.tipo === "seguir") return [n.de_nome + " começou a seguir você", ""];
+  if (n.tipo === "story_curtida") return [n.de_nome + " curtiu o seu story", ""];
   if (n.tipo === "casa") return ["📣 Novidade da Casa", n.resumo || ""];
   if (n.tipo === "pedido") return ["🤝 Parceria", n.resumo];
   if (n.tipo === "mencao") return [n.de_nome + " mencionou você", n.resumo ? "“" + n.resumo + "”" : ""];
@@ -3675,9 +3799,13 @@ function loadNotifs(){
 }
 function browserNotify(n, count){
   try {
-    if (!("Notification" in window) || Notification.permission !== "granted" || !document.hidden) return;
-    var t = notifText(n);
-    new Notification("Café, Graça & Fralda", { body: count > 1 ? count + " novidades na mesa" : t[0] + (t[1] ? ": " + t[1] : ""), icon: "icons/icon-192.png", tag: "cgf" });
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    var t = notifText(n), titulo = n.tipo === "casa" ? "📣 Novidade da Casa" : n.tipo === "mencao" ? "Você foi mencionado(a)" : "Café, Graça & Fralda";
+    var corpo = count > 1 ? count + " novidades na comunidade" : (n.tipo === "casa" || n.tipo === "mencao" ? (t[1] || t[0]) : t[0] + (t[1] ? ": " + t[1] : ""));
+    var opt = { body: corpo, icon: "icons/icon-192.png", badge: "icons/favicon-32.png", tag: "cgf-" + (count > 1 ? "varios" : n.id), data: { url: "./" + (n.tipo === "casa" ? "#inicio" : "#mesa") } };
+    // No celular só o service worker consegue mostrar o aviso na tela
+    if ("serviceWorker" in navigator) navigator.serviceWorker.getRegistration().then(function(reg){ if (reg && reg.showNotification) reg.showNotification(titulo, opt); else new Notification(titulo, opt); }).catch(function(){ new Notification(titulo, opt); });
+    else new Notification(titulo, opt);
   } catch(e){}
 }
 function markRead(ids){
@@ -3725,6 +3853,21 @@ auth.on(function(){
     loadNotifs();
     notif.timer = setInterval(function(){ if (!document.hidden || ("Notification" in window && Notification.permission === "granted")) loadNotifs(); }, 30000);
   }
+});
+
+// Convite para ligar os avisos do celular (Casa e menções): aparece uma vez por visita até a pessoa decidir
+var pedidoAviso = false;
+auth.on(function(){
+  if (!auth.user || pedidoAviso || !("Notification" in window) || Notification.permission !== "default") return;
+  pedidoAviso = true;
+  setTimeout(function(){
+    if (Notification.permission !== "default" || !auth.user) return;
+    var bar = h("div", "aviso-bar"); bar.append(h("span", null, "🔔 Receber avisos da Casa e quando te mencionarem?"));
+    var yes = h("button", "btn btn-terra btn-sm", "Ativar"), no = h("button", "link", "Agora não"); yes.type = no.type = "button";
+    yes.addEventListener("click", function(){ bar.remove(); try { Notification.requestPermission().then(function(r){ pushBtn(); if (r === "granted") toast("Avisos ligados."); }); } catch(e){} });
+    no.addEventListener("click", function(){ bar.remove(); });
+    bar.append(yes, no); document.body.appendChild(bar);
+  }, 4000);
 });
 
 
@@ -3788,7 +3931,7 @@ function pubSetFile(f){ pub.file = f; pubClearLink(); $("pubAttachName").textCon
 function sizeTxt(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
 $("pubFoto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(){ toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("pubVideo").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
@@ -4178,7 +4321,7 @@ storyInput.addEventListener("change", function(){
   var f = storyInput.files && storyInput.files[0]; storyInput.value = ""; if (!f) return;
   shrinkPhoto(f).then(function(blob){
     stories.file = blob; $("storyNewImg").src = URL.createObjectURL(blob); $("storyCap").value = ""; $("storyNew").showModal();
-  }, function(){ toast("Não consegui usar essa foto."); });
+  }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("storyNewClose").addEventListener("click", function(){ $("storyNew").close(); stories.file = null; });
 $("storyPost").addEventListener("click", function(){
@@ -4212,6 +4355,7 @@ function showStory(){
     var dmb = h("button", "btn btn-terra btn-sm", "Responder no privado"); dmb.type = "button"; dmb.addEventListener("click", function(){ closeStory(); openDm(g.user_id, g.nome); });
     acts.appendChild(dmb);
   }
+  likeBtn(s, acts, g.user_id === uid());
   if (!dlg.open) dlg.showModal();
   stories.left = STORY_MS; stories.paused = false; dlg.classList.remove("paused"); setPauseIcon(false);
   stories.t0 = Date.now(); stories.timer = setTimeout(nextStory, STORY_MS);
@@ -4225,8 +4369,9 @@ function nextStory(){
 }
 function prevStory(){ if (stories.idx > 0) { stories.idx--; showStory(); } else showStory(); }
 function closeStory(){ clearTimeout(stories.timer); stories.cur = null; var d = $("storyView"); if (d.open) d.close(); }
-$("storyNext").addEventListener("click", nextStory);
-$("storyPrev").addEventListener("click", prevStory);
+var swiped = false;
+$("storyNext").addEventListener("click", function(){ if (!swiped) nextStory(); });
+$("storyPrev").addEventListener("click", function(){ if (!swiped) prevStory(); });
 $("storyViewClose").addEventListener("click", closeStory);
 $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer); });
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
@@ -4249,6 +4394,33 @@ var holdT = null, held = false;
 $("storyView").querySelector(".story-img-wrap").addEventListener("pointerdown", function(){ held = false; holdT = setTimeout(function(){ held = true; pauseStory(true); }, 220); });
 ["pointerup", "pointercancel", "pointerleave"].forEach(function(ev){ $("storyView").querySelector(".story-img-wrap").addEventListener(ev, function(){ clearTimeout(holdT); if (held) { held = false; pauseStory(false); } }); });
 document.addEventListener("keydown", function(e){ if ($("storyView").open && (e.key === " " || e.key === "p")) { e.preventDefault(); pauseStory(!stories.paused); } });
+
+// Curtir story (o coração aparece para todos; o dono vê quantas curtidas teve)
+function likeBtn(story, acts, dono){
+  var b = h("button", "story-like"); b.type = "button"; b.setAttribute("aria-label", dono ? "Curtidas do story" : "Curtir story");
+  var n = 0, liked = false, busy = false;
+  function pinta(){ b.innerHTML = ""; b.classList.toggle("on", liked); b.append(h("span", "heart", liked ? "♥" : "♡")); if (n || dono) b.appendChild(h("small", null, String(n))); }
+  pinta(); acts.appendChild(b);
+  sb.from("stories_curtidas").select("user_id").eq("story_id", story.id).then(function(r){ var l = r.data || []; n = l.length; liked = l.some(function(x){ return x.user_id === uid(); }); pinta(); });
+  if (dono) return;
+  b.addEventListener("click", function(){
+    if (busy) return; busy = true;
+    var q = liked ? sb.from("stories_curtidas").delete().eq("story_id", story.id).eq("user_id", uid()) : sb.from("stories_curtidas").insert({ story_id: story.id });
+    q.then(function(r){ busy = false; if (r.error) return toast("Não foi possível curtir agora."); liked = !liked; n += liked ? 1 : -1; pinta(); });
+  });
+}
+// Arrastar para o lado: direita volta, esquerda avança
+(function(){
+  var wrap = $("storyView").querySelector(".story-img-wrap"), x0 = 0, y0 = 0, down = false;
+  wrap.addEventListener("pointerdown", function(e){ down = true; x0 = e.clientX; y0 = e.clientY; });
+  wrap.addEventListener("pointermove", function(e){ if (down && Math.abs(e.clientX - x0) > 12) clearTimeout(holdT); });
+  wrap.addEventListener("pointerup", function(e){
+    if (!down) return; down = false;
+    var dx = e.clientX - x0, dy = e.clientY - y0;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { swiped = true; setTimeout(function(){ swiped = false; }, 120); if (dx > 0) prevStory(); else nextStory(); }
+  });
+  wrap.addEventListener("pointercancel", function(){ down = false; });
+})();
 
 
 // Lazer em família: lugares para levar as crianças, indicados pelas famílias, sempre com a cidade (o site é do Brasil inteiro).
@@ -4336,7 +4508,7 @@ function toggleLzLike(p){
 /* ---------- Indicar um lugar ---------- */
 $("lz-foto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(b){ lz.file = b; $("lz-foto-nome").textContent = "📷 Foto pronta"; }, function(){ lz.file = null; $("lz-foto-nome").textContent = ""; toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(b){ lz.file = b; $("lz-foto-nome").textContent = "📷 Foto pronta"; }, function(e){ if (e && e.message === "nsfw") { lz.file = null; return; } lz.file = null; $("lz-foto-nome").textContent = ""; toast("Não consegui usar essa foto."); });
 });
 $("lzForm").addEventListener("submit", function(e){
   e.preventDefault();

@@ -157,7 +157,7 @@ grant execute on function public.oferta_clique(uuid) to authenticated;
 
 -- 6. Alertas para a administração
 alter table public.notificacoes drop constraint if exists notificacoes_tipo_check;
-alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa'));
+alter table public.notificacoes add constraint notificacoes_tipo_check check (tipo in ('comentario', 'curtida', 'dm', 'pub_comentario', 'pub_curtida', 'alerta', 'aviso', 'mencao', 'pedido', 'casa', 'seguir', 'story_curtida'));
 
 create table if not exists public.alertas (
   id uuid primary key default gen_random_uuid(),

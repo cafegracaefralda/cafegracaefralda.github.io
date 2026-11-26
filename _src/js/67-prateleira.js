@@ -58,7 +58,7 @@ function pubSetFile(f){ pub.file = f; pubClearLink(); $("pubAttachName").textCon
 function sizeTxt(n){ return n > 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
 $("pubFoto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(){ toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(blob){ pubSetFile({ blob: blob, kind: "foto", ext: "jpg", type: "image/jpeg", name: "foto.jpg", label: "📷 Foto · " + sizeTxt(blob.size) }); }, function(e){ if (e && e.message === "nsfw") return; toast("Não consegui usar essa foto."); });
 });
 $("pubVideo").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;

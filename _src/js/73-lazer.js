@@ -83,7 +83,7 @@ function toggleLzLike(p){
 /* ---------- Indicar um lugar ---------- */
 $("lz-foto").addEventListener("change", function(){
   var f = this.files && this.files[0]; this.value = ""; if (!f) return;
-  shrinkPhoto(f).then(function(b){ lz.file = b; $("lz-foto-nome").textContent = "📷 Foto pronta"; }, function(){ lz.file = null; $("lz-foto-nome").textContent = ""; toast("Não consegui usar essa foto."); });
+  shrinkPhoto(f).then(function(b){ lz.file = b; $("lz-foto-nome").textContent = "📷 Foto pronta"; }, function(e){ if (e && e.message === "nsfw") { lz.file = null; return; } lz.file = null; $("lz-foto-nome").textContent = ""; toast("Não consegui usar essa foto."); });
 });
 $("lzForm").addEventListener("submit", function(e){
   e.preventDefault();
