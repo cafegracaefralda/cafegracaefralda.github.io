@@ -4,7 +4,7 @@ function avTag(el, userId){ if (!el) return el; if (userId) el.setAttribute("dat
 function avSpan(userId, nome, cls){ var s = h("span", cls || "avatar", initial(nome)); return avTag(s, userId); }
 function avPaint(root){
   $$("[data-av]", root || document).forEach(function(el){
-    var u = av.map[el.getAttribute("data-av")];
+    var u = av.map[el.getAttribute("data-av")]; if (el.classList.contains("av-link")) el.classList.toggle("has-story", !!storyDe(el.getAttribute("data-av")));
     if (u) { el.style.backgroundImage = 'url("' + u + '")'; el.classList.add("has-img"); }
     else { el.style.backgroundImage = ""; el.classList.remove("has-img"); }
   });
@@ -34,10 +34,11 @@ new MutationObserver(function(muts){
 auth.on(function(){ if (!auth.user) { av.map = {}; } avSoon(); });
 
 // Foto de perfil clicável (como no Instagram): leva ao perfil da pessoa
+function storyDe(id){ return (typeof stories !== "undefined" && stories.groups) ? stories.groups.filter(function(g){ return g.user_id === id; })[0] : null; }
 function avLink(userId, nome, cls){
   var s = avSpan(userId, nome, cls); if (!userId) return s;
   s.classList.add("av-link"); s.setAttribute("role", "link"); s.tabIndex = 0; s.setAttribute("aria-label", "Ver perfil de " + nome);
-  var ir = function(e){ e.stopPropagation(); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
+  var ir = function(e){ e.stopPropagation(); var g = storyDe(userId); if (g && typeof openStory === "function") return openStory(g); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
   s.addEventListener("click", ir); s.addEventListener("keydown", function(e){ if (e.key === "Enter") ir(e); });
   return s;
 }

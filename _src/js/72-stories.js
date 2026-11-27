@@ -104,7 +104,10 @@ $("storyViewClose").addEventListener("click", closeStory);
 $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer); });
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
 document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
-auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
+auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } else if (!stories.groups.length) loadStories(); });
+// tocar no nome de quem está no story abre o perfil
+$("storyNm").style.cursor = "pointer";
+$("storyNm").addEventListener("click", function(){ var g = stories.cur; if (!g) return; $("storyViewClose").click(); go("perfil" + (g.user_id === uid() ? "" : "/" + g.user_id)); });
 
 var ICO_PAUSE = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>';
 var ICO_PLAY = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10-6.5a1 1 0 0 0 0-1.8l-10-6.5A1 1 0 0 0 8 5.5Z" fill="currentColor"/></svg>';

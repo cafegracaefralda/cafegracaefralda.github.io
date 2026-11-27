@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Café, Graça &amp; Fralda | Devocional de 5 minutos para pais e famílias</title>
-<meta name="description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
+<meta name="description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
 <meta name="keywords" content="devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, comunidade de famílias, lazer em família">
 <meta name="author" content="Café, Graça &amp; Fralda">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
@@ -21,14 +21,14 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:site_name" content="Café, Graça &amp; Fralda">
 <meta property="og:title" content="Café, Graça &amp; Fralda · Entre o café e a fralda, tem graça.">
-<meta property="og:description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
+<meta property="og:description" content="Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa com stories, lazer em família por cidade, indicações de confiança e fé na vida real.">
 <meta property="og:url" content="https://cafegracaefralda.com.br/">
 <meta property="og:image" content="https://cafegracaefralda.com.br/icons/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Uma família sorrindo, com a frase: Entre o café e a fralda, tem graça.">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://cafegracaefralda.com.br/#site", "url": "https://cafegracaefralda.com.br/", "name": "Café, Graça & Fralda", "inLanguage": "pt-BR", "description": "Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.", "publisher": {"@id": "https://cafegracaefralda.com.br/#org"}}, {"@type": "Organization", "@id": "https://cafegracaefralda.com.br/#org", "name": "Café, Graça & Fralda", "url": "https://cafegracaefralda.com.br/", "description": "Comunidade de famílias de todo o Brasil: fé e família na vida real."}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://cafegracaefralda.com.br/#site", "url": "https://cafegracaefralda.com.br/", "name": "Café, Graça & Fralda", "inLanguage": "pt-BR", "description": "Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, Mesa com stories, lazer em família por cidade, indicações de confiança e fé na vida real.", "publisher": {"@id": "https://cafegracaefralda.com.br/#org"}}, {"@type": "Organization", "@id": "https://cafegracaefralda.com.br/#org", "name": "Café, Graça & Fralda", "url": "https://cafegracaefralda.com.br/", "description": "Comunidade de famílias de todo o Brasil: fé e família na vida real."}]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
@@ -1481,6 +1481,54 @@ header.top .logo .logo-mark{width:42px;height:42px}
 .mesa-main .post-acts button,.mesa-main .post-acts a{padding:9px 8px;font-size:13.5px}
 .mesa-main .post-acts .ig-b,.mesa-main .post-acts .sh-b{font-size:0;padding:9px 10px}
 
+/* ---------- estilo Instagram: topo com + e busca, Mesa sem caixas, tela de postar que cabe inteira ---------- */
+.hdr-ic{width:44px;height:44px;border-radius:50%;border:0;background:none;color:var(--ink);display:grid;place-items:center;cursor:pointer}
+.hdr-ic[hidden]{display:none}
+.hdr-ic svg{width:26px;height:26px}
+.hdr-ic:hover{background:var(--sand)}
+.search-pop{position:fixed;left:0;right:0;top:var(--hdrh,72px);z-index:60;background:var(--surface,#fff);border-bottom:1px solid var(--line);box-shadow:0 18px 30px -18px rgba(29,26,23,.4);padding:10px 12px;display:flex;gap:8px;align-items:flex-start}
+.search-pop[hidden]{display:none}
+.search-pop .find-box{flex:1;min-width:0;position:relative}
+.search-pop .find-list{max-height:55dvh}
+.mesa-main .compose{padding:8px 12px}
+.mesa-main .compose-top textarea{min-height:44px;padding:11px 14px}
+.mesa-main .compose-top .avatar{width:36px;height:36px;font-size:17px}
+.mesa-main .cbox-bar{padding:0 6px 4px}
+.mesa-main .stories{border-radius:0;border-top:0}
+
+/* tela "Nova publicação": cabe inteira (cabeçalho fixo + corpo que rola só se precisar) */
+dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
+.pd-box{padding:0!important;gap:0!important;max-height:min(92dvh,640px);display:flex!important;flex-direction:column;overflow:hidden}
+.pd-head{display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:4px;padding:6px 10px;border-bottom:1px solid var(--line)}
+.pd-head h3{font-size:17px!important;font-family:var(--sans);font-weight:700;text-align:center;margin:0}
+.pd-x{width:44px;height:44px;border:0;background:none;font-size:20px;cursor:pointer;color:var(--ink)}
+.pd-go{border:0;background:none;color:var(--terra);font:inherit;font-weight:700;font-size:16px;padding:0 10px;min-height:44px;cursor:pointer}
+.pd-go:disabled{opacity:.45}
+.pd-body{padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;overflow-y:auto}
+.pd-cap textarea{min-height:76px;resize:none;border:0;padding:6px 4px}
+.pd-photos{grid-template-columns:repeat(3,1fr);gap:6px}
+.pd-th{aspect-ratio:1}
+.pd-rows{display:grid;border-top:1px solid var(--line)}
+.pd-row{display:flex;align-items:center;gap:12px;min-height:48px;padding:0 4px;border:0;border-bottom:1px solid var(--line);background:none;font:inherit;font-size:15.5px;color:var(--ink);text-align:left;cursor:pointer;width:100%}
+.pd-row[hidden]{display:none}
+.pd-row svg{width:22px;height:22px;color:var(--terra);flex:none}
+.pd-row.pd-link{padding:0 4px;border-radius:0;cursor:text}
+.pd-row.pd-link input{flex:1;min-width:0;border:0;background:none;font-size:16px;min-height:46px;outline:0}
+
+/* gravando áudio: uma linha, sem quebrar */
+.dm-rec{display:flex;align-items:center;gap:10px;margin:8px 12px 0;padding:6px 6px 6px 8px;background:#FDECEC;border-radius:999px;font-size:15px;flex-wrap:nowrap}
+.dm-rec .rec-x{width:40px;height:40px;border:0;border-radius:50%;background:none;color:var(--muted);font-size:18px;cursor:pointer}
+.dm-rec .rec-time{font-variant-numeric:tabular-nums;font-weight:700;min-width:34px}
+.dm-rec .rec-bar{flex:1;height:5px;border-radius:999px;background:rgba(29,26,23,.12);overflow:hidden;min-width:30px}
+.dm-rec .rec-bar i{display:block;height:100%;width:0;background:#D64545;border-radius:999px;transition:width .5s linear}
+.dm-rec .rec-max{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.dm-rec .rec-send{width:42px;height:42px;border:0;border-radius:50%;background:var(--blue,#44688A);color:#fff;display:grid;place-items:center;cursor:pointer;flex:none}
+.dm-rec .rec-send svg{width:20px;height:20px}
+
+.av-link.has-story{box-shadow:0 0 0 2px var(--surface,#fff),0 0 0 4px var(--terra)}
+#dmTitle:hover{text-decoration:underline}
+@media (max-width:760px){ #postForm{display:none} .feed-tabs{margin-top:6px} }
+
 </style>
 </head>
 <body>
@@ -1514,6 +1562,7 @@ header.top .logo .logo-mark{width:42px;height:42px}
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></g></symbol>
@@ -1530,6 +1579,8 @@ header.top .logo .logo-mark{width:42px;height:42px}
     
     <div class="top-actions">
       <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <button class="hdr-ic" type="button" id="hdrNew" data-auth="in" aria-label="Nova publicação" hidden><svg><use href="#i-plus"/></svg></button>
+      <button class="hdr-ic" type="button" id="hdrSearch" data-auth="in" aria-label="Buscar pessoas" aria-expanded="false" hidden><svg><use href="#i-search"/></svg></button>
       <div class="bell-wrap" data-auth="in" hidden>
         <button class="bell" type="button" id="bellBtn" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg><use href="#i-bell"/></svg><span class="bell-n" id="bellN" hidden>0</span></button>
         <div class="bell-panel" id="bellPanel" hidden>
@@ -1555,10 +1606,14 @@ header.top .logo .logo-mark{width:42px;height:42px}
     </div>
   </div>
 </header>
+<div class="search-pop" id="searchPop" hidden>
+  <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
+  <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
+</div>
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-      <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
+      <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
       <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
@@ -1587,11 +1642,11 @@ header.top .logo .logo-mark{width:42px;height:42px}
     <div class="wrap">
       <h1 class="sr-only">Café, Graça &amp; Fralda: entre o café e a fralda, tem graça.</h1>
       <div class="seg" role="tablist" aria-label="A Casa">
-        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Da Casa</button>
+        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Novidades</button>
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head" hidden><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <form class="card compose" id="casaForm" autocomplete="off" hidden>
         <div class="compose-top"><span class="avatar" id="casaAv">A</span>
@@ -1706,13 +1761,13 @@ header.top .logo .logo-mark{width:42px;height:42px}
   <section class="view" id="v-mesa" data-view="mesa">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Mesa Grande</span>
-        <h2>Mesa Grande</h2>
+        <span class="label">Mesa</span>
+        <h2>Mesa</h2>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
-          <span class="label">Mesa Grande</span>
-          <h3>A Mesa Grande é só para quem senta à mesa</h3>
+          <span class="label">Mesa</span>
+          <h3>A Mesa é só para quem senta à mesa</h3>
           <p>Conte o dia, poste fotos e stories, indique lugares para ir em família, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
@@ -1722,14 +1777,10 @@ header.top .logo .logo-mark{width:42px;height:42px}
           <div class="mesa-layout">
             <div class="mesa-main">
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
-              <div class="mesa-find">
-                <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
-                <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
-              </div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span>
                   <div class="cbox">
-                    <textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
+                    <textarea id="postText" maxlength="1500" rows="1" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
                     <div class="cbox-bar">
                       <button class="cbtn" type="button" id="postFotoBtn" title="Foto" aria-label="Adicionar foto"><svg><use href="#i-photo"/></svg></button>
                       <button class="cbtn" type="button" id="postLinkBtn" title="Link" aria-label="Adicionar link" data-admin hidden><svg><use href="#i-link"/></svg></button>
@@ -1810,7 +1861,7 @@ header.top .logo .logo-mark{width:42px;height:42px}
           <div class="msgs" id="dmMsgs" aria-live="polite"></div>
           <div class="dm-compose" id="dmCompose" hidden>
             <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
-            <div class="dm-rec" id="dmRec" hidden><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime">0:00</span><span class="grow">Gravando áudio… (máx. 1:00)</span><button class="link" type="button" id="dmRecCancel">Cancelar</button><button class="btn btn-terra btn-sm" type="button" id="dmRecSend">Enviar áudio</button></div>
+            <div class="dm-rec" id="dmRec" hidden><button type="button" class="rec-x" id="dmRecCancel" aria-label="Cancelar gravação">✕</button><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime" class="rec-time">0:00</span><span class="rec-bar" aria-hidden="true"><i id="dmRecProg"></i></span><span class="rec-max">1:00</span><button type="button" class="rec-send" id="dmRecSend" aria-label="Enviar áudio"><svg><use href="#i-send"/></svg></button></div>
             <div class="emoji-pop" id="emojiPop" hidden></div>
             <form class="composer" id="dmComposer" autocomplete="off">
               <label class="hand-btn" for="dmFile" title="Enviar foto" aria-label="Enviar foto"><svg><use href="#i-photo"/></svg></label>
@@ -2134,17 +2185,19 @@ header.top .logo .logo-mark{width:42px;height:42px}
     <p class="status" id="ofStatus" role="status"></p>
   </form>
 </div></dialog>
-<dialog class="sheet-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
-  <button class="story-x sheet-x" type="button" id="pdClose" aria-label="Fechar">×</button>
-  <h3 id="pdTitle">Nova publicação</h3>
-  <div class="pd-photos" id="pdPhotos" hidden></div>
-  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
-  <button class="btn btn-ghost btn-block" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
-  <input type="file" id="postPdf" accept="application/pdf" hidden>
-  <div class="pd-link" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (começa com https://) — só administração" aria-label="Link"></div>
-  <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
-  <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
-  <p class="status" id="pdStatus" role="status"></p>
+<dialog class="sheet-dlg pd-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
+  <div class="pd-head"><button class="pd-x" type="button" id="pdClose" aria-label="Cancelar">✕</button><h3 id="pdTitle">Nova publicação</h3><button class="pd-go" type="button" id="pdEnviar">Compartilhar</button></div>
+  <div class="pd-body">
+    <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="3" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
+    <div class="pd-photos" id="pdPhotos" hidden></div>
+    <div class="pd-rows">
+      <button class="pd-row" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
+      <button class="pd-row" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
+      <div class="pd-link pd-row" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (https://…)" aria-label="Link"></div>
+    </div>
+    <input type="file" id="postPdf" accept="application/pdf" hidden>
+    <p class="status" id="pdStatus" role="status"></p>
+  </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="inviteDlg" aria-labelledby="ivTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="ivClose" aria-label="Fechar">×</button>
@@ -2831,12 +2884,12 @@ function loadPerfil(){
     pfFillAvatar($("pfAv"), nome, "");
     pfSign(p.avatar).then(function(u){ if (tok === pf.tid || tok === pf.tok) pfFillAvatar($("pfAv"), nome, u); });
     var itens = [];
-    (rs[1].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("☕", "Mesa Grande", x.texto, x.criado_em, "#mesa") }); });
+    (rs[1].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("☕", "Mesa", x.texto, x.criado_em, "#mesa") }); });
     (rs[2].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("📚", (TIPO_PUB[x.tipo] || "Prateleira").replace(/^\S+\s/, ""), x.titulo || x.texto, x.criado_em, "#prateleira") }); });
     (rs[3].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("🌳", "Quintal", x.nome_local + " · " + x.cidade + "/" + x.uf, x.criado_em, "#lazer") }); });
     itens.sort(function(a, b){ return a.t < b.t ? 1 : -1; });
     $("pfStats").innerHTML = ""; var n = h("span", null); n.append(h("b", null, String(itens.length)), document.createTextNode(itens.length === 1 ? " publicação" : " publicações")); $("pfStats").appendChild(n);
-    if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa Grande aparece aqui." : "")); $("pfGrid").appendChild(e); }
+    if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa aparece aqui." : "")); $("pfGrid").appendChild(e); }
     itens.forEach(function(i){ $("pfGrid").appendChild(i.el); });
   });
 }
@@ -2939,7 +2992,7 @@ function richText(txt){
 // Lista de sugestões ao digitar @
 var mnPop = h("div", "mention-pop"); mnPop.hidden = true; mnPop.setAttribute("role", "listbox"); document.body.appendChild(mnPop);
 function mnClose(){ mnPop.hidden = true; mn.target = null; }
-function mnField(el){ return !!el && (el.id === "postText" || el.id === "pubText" || (el.closest && !!el.closest(".post-cmt-form"))); }
+function mnField(el){ return !!el && (el.id === "postText" || el.id === "pubText" || el.id === "pdTexto" || el.id === "casaTexto" || (el.closest && !!el.closest(".post-cmt-form"))); }
 function mnPick(n){
   var el = mn.target; if (!el) return;
   var pos = el.selectionStart, before = el.value.slice(0, pos), after = el.value.slice(pos);
@@ -2961,6 +3014,7 @@ function mnShow(el, q){
     b.addEventListener("touchstart", function(e){ e.preventDefault(); mnPick(n); }, { passive: false });
     mnPop.appendChild(b);
   });
+  var dlg = el.closest && el.closest("dialog[open]"); var alvo = dlg || document.body; if (mnPop.parentNode !== alvo) alvo.appendChild(mnPop);   // dentro da tela de postar, a lista precisa ficar por cima
   var r = el.getBoundingClientRect(); mnPop.hidden = false;
   var w = Math.min(280, window.innerWidth - 24), left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
   mnPop.style.width = w + "px"; mnPop.style.left = left + "px";
@@ -2989,7 +3043,7 @@ function avTag(el, userId){ if (!el) return el; if (userId) el.setAttribute("dat
 function avSpan(userId, nome, cls){ var s = h("span", cls || "avatar", initial(nome)); return avTag(s, userId); }
 function avPaint(root){
   $$("[data-av]", root || document).forEach(function(el){
-    var u = av.map[el.getAttribute("data-av")];
+    var u = av.map[el.getAttribute("data-av")]; if (el.classList.contains("av-link")) el.classList.toggle("has-story", !!storyDe(el.getAttribute("data-av")));
     if (u) { el.style.backgroundImage = 'url("' + u + '")'; el.classList.add("has-img"); }
     else { el.style.backgroundImage = ""; el.classList.remove("has-img"); }
   });
@@ -3019,10 +3073,11 @@ new MutationObserver(function(muts){
 auth.on(function(){ if (!auth.user) { av.map = {}; } avSoon(); });
 
 // Foto de perfil clicável (como no Instagram): leva ao perfil da pessoa
+function storyDe(id){ return (typeof stories !== "undefined" && stories.groups) ? stories.groups.filter(function(g){ return g.user_id === id; })[0] : null; }
 function avLink(userId, nome, cls){
   var s = avSpan(userId, nome, cls); if (!userId) return s;
   s.classList.add("av-link"); s.setAttribute("role", "link"); s.tabIndex = 0; s.setAttribute("aria-label", "Ver perfil de " + nome);
-  var ir = function(e){ e.stopPropagation(); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
+  var ir = function(e){ e.stopPropagation(); var g = storyDe(userId); if (g && typeof openStory === "function") return openStory(g); go("perfil" + (userId === uid() ? "" : "/" + userId)); };
   s.addEventListener("click", ir); s.addEventListener("keydown", function(e){ if (e.key === "Enter") ir(e); });
   return s;
 }
@@ -3222,7 +3277,7 @@ function openReader(a){
     act("btn-ghost", waLink('Oi! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com a equipe")
   );
   foot.appendChild(igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }, "btn btn-sm btn-ghost"));
-  var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa Grande"));
+  var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa"));
   cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
   foot.appendChild(cm);
   readerBody.appendChild(foot);
@@ -3617,7 +3672,7 @@ viewHooks.indicacoes = function(){ loadMemberInds(); };
 auth.on(function(){ if (isShown("indicacoes")) loadMemberInds(); });
 
 
-// Mesa Grande: o cantinho das famílias (posts com foto, curtidas e comentários). Só para quem entrou com o Google.
+// Mesa: o cantinho das famílias (posts com foto, curtidas e comentários). Só para quem entrou com o Google.
 var TIPOS = [
   { id: "conversa", nome: "Papo de mesa", em: "☕" }, { id: "indicacao", nome: "Indicação", em: "💡" }, { id: "desabafo", nome: "Desabafo", em: "🫶" },
   { id: "oracao", nome: "Oração", em: "🙏" }, { id: "gratidao", nome: "Gratidão", em: "✨" }
@@ -3692,6 +3747,7 @@ $("postPdf").addEventListener("change", function(){
   feed.pdf = { file: f, name: String(f.name || "documento.pdf").replace(/\.pdf$/i, "").slice(0, 100) + ".pdf" }; pdVer();
 });
 $("pdClose").addEventListener("click", function(){ postDlg.close(); });
+$("hdrNew").addEventListener("click", function(){ if (!auth.user) return; abrirPost({}); });
 $("postFile").addEventListener("change", function(){
   var fs = Array.prototype.slice.call(this.files || [], 0, Math.max(0, MAX_FOTOS - feed.photos.length)); this.value = "";
   if (!fs.length) { if (feed.photos.length >= MAX_FOTOS) toast("Máximo de " + MAX_FOTOS + " fotos por post."); return; }
@@ -3731,7 +3787,7 @@ function publicar(texto, st, done){
   }).then(function(p){
     $("postText").value = ""; $("pdTexto").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
+    toast("Publicado na Mesa."); setStatus($("postStatus"), "");
   }).catch(function(err){
     if (err.message === "foto") limpar();
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
@@ -3877,7 +3933,7 @@ function renderPost(p){
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.com.br/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
-  sh.classList.add("sh-b"); sh.setAttribute("aria-label", "Compartilhar no WhatsApp"); sh.title = "Compartilhar no WhatsApp"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }, "ig-b"), sh);
+  sh.classList.add("sh-b"); sh.setAttribute("aria-label", "Compartilhar no WhatsApp"); sh.title = "Compartilhar no WhatsApp"; acts.append(igBtn({ tag: "Mesa", title: "", body: String(p.texto || "").slice(0, 280) }, "ig-b"), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
@@ -3887,7 +3943,7 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
+    pp.append(nameLink(c.user_id === uid() ? "Você" : c.nome, c.user_id), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
     if (c.user_id === uid() && podeEditar(c.criado_em)) { var ce = h("button", "link", "Editar"); ce.type = "button"; ce.addEventListener("click", function(){ editarInline(pp, c.texto, 600, function(v){ return salvarTexto("post_comentarios", c.id, v, function(n){ c.texto = n.texto; c.editado_em = n.editado_em; renderFeed(); }); }); }); pp.appendChild(ce); }
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
@@ -3953,6 +4009,16 @@ $$("#feedTabs .chip").forEach(function(b){
     sb.from("seguidores").select("seguido").eq("seguidor", uid()).then(function(r){ feed.seguindo = (r.data || []).map(function(x){ return x.seguido; }); loadFeed(true); });
   });
 });
+
+// Busca de pessoas no topo (ícone de lupa), como no Instagram
+function hdrSearchSync(){ var on = !!auth.user; $("hdrNew").hidden = !on; $("hdrSearch").hidden = !on; if (!on) $("searchPop").hidden = true; }
+auth.on(hdrSearchSync); hdrSearchSync();
+$("hdrSearch").addEventListener("click", function(e){
+  e.stopPropagation(); var abrir = $("searchPop").hidden; $("searchPop").hidden = !abrir; $("hdrSearch").setAttribute("aria-expanded", abrir);
+  if (abrir) { var h0 = document.getElementById("top"); document.documentElement.style.setProperty("--hdrh", (h0 ? h0.getBoundingClientRect().bottom : 72) + "px"); loadMembers(); $("sideBusca").focus(); }
+});
+document.addEventListener("click", function(e){ var sp = $("searchPop"); if (!sp.hidden && !sp.contains(e.target) && e.target.id !== "hdrSearch" && !$("hdrSearch").contains(e.target)) { sp.hidden = true; $("hdrSearch").setAttribute("aria-expanded", "false"); } });
+window.addEventListener("hashchange", function(){ $("searchPop").hidden = true; });
 
 
 // Indicar um profissional (membros logados). A indicação só aparece no site depois que a equipe aprova.
@@ -4125,6 +4191,8 @@ function setHeader(c){
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
   $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; avTag($("dmAv"), c ? otherOf(c) : ""); $("dmAv").hidden = !c;
 }
+function dmAbrirPerfil(){ var c = dm.convs.filter(function(x){ return x.id === dm.current; })[0]; if (c) go("perfil/" + otherOf(c)); }
+$("dmTitle").style.cursor = "pointer"; $("dmAv").style.cursor = "pointer"; $("dmTitle").addEventListener("click", dmAbrirPerfil); $("dmAv").addEventListener("click", dmAbrirPerfil);
 function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";
   var c = dm.convs.filter(function(x){ return x.id === id; })[0];
@@ -4246,9 +4314,9 @@ $("dmMic").addEventListener("click", function(){
     var opt = { audioBitsPerSecond: 24000 }; if (mime) opt.mimeType = mime;   // voz leve: 1 minuto fica em torno de 200 KB
     rec.mr = new MediaRecorder(stream, opt);
     rec.mr.ondataavailable = function(e){ if (e.data && e.data.size) rec.chunks.push(e.data); };
-    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00 / 1:00";
+    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00"; $("dmRecProg").style.width = "0%";
     rec.timer = setInterval(function(){
-      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0") + " / 1:00";
+      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); $("dmRecProg").style.width = Math.min(100, s / AUDIO_MAX * 100) + "%";
       if (s >= AUDIO_MAX) recFinish(true);
     }, 500);
   }, function(){ toast("Permita o microfone para gravar um áudio."); });
@@ -4595,14 +4663,14 @@ function loadHomeMesa(){
     return signPhotos(r.data).then(function(){
       r.data.forEach(function(p){
         var el = h("article", "post oficial"), top = h("div", "post-top"), who = h("div", "grow");
-        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa Grande"));
+        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa"));
         top.append(avLink(null, p.nome), who); el.appendChild(top);
         var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
         var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
         if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
         if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
         if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
-        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa Grande"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
+        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
         box.appendChild(el);
       });
     });
@@ -4913,7 +4981,7 @@ $("copyPhones").addEventListener("click", function(){ copyText(panel.subs.map(fu
 
 
 // --- Alertas de linguagem, anunciantes e ofertas
-var ORIGEM_NOME = { posts: "Mesa Grande", post_comentarios: "Comentário na Mesa", pubs: "A Casa", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
+var ORIGEM_NOME = { posts: "Mesa", post_comentarios: "Comentário na Mesa", pubs: "A Casa", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
 function btnAct(txt, fn, cls){ var b = h("button", "btn btn-ghost btn-sm" + (cls ? " " + cls : ""), txt); b.type = "button"; b.addEventListener("click", fn); return b; }
 function loadAlertas(){
   sb.from("alertas").select("id,user_id,autor,origem,nivel,trecho,status,criado_em").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -4974,7 +5042,7 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Casa e na Mesa Grande.";
+  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Casa e na Mesa.";
   $("panelApp").hidden = false;
   if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else if (sub === "alertas") loadAlertas(); else if (sub === "anunciantes") loadAnunc(); else if (sub === "ofertas") loadOfertasAdm(); else loadSubs();
   if (sub !== "alertas") sb.from("alertas").select("id", { count: "exact", head: true }).eq("status", "aberto").then(function(c){ var n = $("alertaN"); n.textContent = c.count ? String(c.count) : ""; n.hidden = !c.count; });
@@ -5150,7 +5218,10 @@ $("storyViewClose").addEventListener("click", closeStory);
 $("storyView").addEventListener("close", function(){ clearTimeout(stories.timer); });
 $("storyView").addEventListener("click", function(e){ if (e.target === $("storyView")) closeStory(); });
 document.addEventListener("keydown", function(e){ if (!$("storyView").open) return; if (e.key === "ArrowRight") nextStory(); else if (e.key === "ArrowLeft") prevStory(); });
-auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } });
+auth.on(function(){ if (!auth.user) { stories.groups = []; stories.urls = {}; } else if (!stories.groups.length) loadStories(); });
+// tocar no nome de quem está no story abre o perfil
+$("storyNm").style.cursor = "pointer";
+$("storyNm").addEventListener("click", function(){ var g = stories.cur; if (!g) return; $("storyViewClose").click(); go("perfil" + (g.user_id === uid() ? "" : "/" + g.user_id)); });
 
 var ICO_PAUSE = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.2" fill="currentColor"/></svg>';
 var ICO_PLAY = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10-6.5a1 1 0 0 0 0-1.8l-10-6.5A1 1 0 0 0 8 5.5Z" fill="currentColor"/></svg>';
@@ -5239,7 +5310,7 @@ $("lzOpen").addEventListener("click", function(){
 
 function mapsUrl(p){ return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(p.nome_local + (p.endereco ? ", " + p.endereco : "") + ", " + p.cidade + " - " + p.uf); }
 function lzShare(p){
-  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa Grande: https://cafegracaefralda.com.br/#lazer";
+  return "📍 *" + p.nome_local + "* · " + p.cidade + "/" + p.uf + "\n" + p.categoria + " · " + p.idades + " · " + p.custo + "\n\n" + p.porque.slice(0, 240) + "\n\nMais lugares para ir em família na Mesa: https://cafegracaefralda.com.br/#lazer";
 }
 function renderLazer(){
   var box = $("lzList"); box.innerHTML = "";

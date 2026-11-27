@@ -24,6 +24,7 @@
   <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20.5S3.5 15.4 3.5 9.2A4.7 4.7 0 0 1 12 6.6a4.7 4.7 0 0 1 8.5 2.6c0 6.200-8.500 11.300-8.500 11.300Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
   <symbol id="i-diaper" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.4 6h15.2l-.5 4c-.5 3.6-2.4 5.9-5 7.2-1 .5-1.7 1.3-1.9 2.3h-2.4c-.2-1-.9-1.8-1.9-2.3-2.6-1.3-4.5-3.6-5-7.2L4.4 6Z"/><path d="M4.4 6H2.6a.9.9 0 0 0-.9.9v2.2a.9.9 0 0 0 .9.9h2M19.6 6h1.8a.9.9 0 0 1 .9.9v2.2a.9.9 0 0 1-.9.9h-2"/></g></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 8h16M4 16h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></g></symbol>
   <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
   <symbol id="i-share" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/></g></symbol>
@@ -40,6 +41,8 @@
     
     <div class="top-actions">
       <a class="btn btn-wa btn-sm btn-wa-top" data-wa="Oi! Vim pelo site Café, Graça & Fralda e queria conversar." href="https://wa.me/5581992702353" target="_blank" rel="noopener"><svg><use href="#i-wa"/></svg>WhatsApp</a>
+      <button class="hdr-ic" type="button" id="hdrNew" data-auth="in" aria-label="Nova publicação" hidden><svg><use href="#i-plus"/></svg></button>
+      <button class="hdr-ic" type="button" id="hdrSearch" data-auth="in" aria-label="Buscar pessoas" aria-expanded="false" hidden><svg><use href="#i-search"/></svg></button>
       <div class="bell-wrap" data-auth="in" hidden>
         <button class="bell" type="button" id="bellBtn" aria-haspopup="true" aria-expanded="false" aria-label="Notificações"><svg><use href="#i-bell"/></svg><span class="bell-n" id="bellN" hidden>0</span></button>
         <div class="bell-panel" id="bellPanel" hidden>
@@ -65,10 +68,14 @@
     </div>
   </div>
 </header>
+<div class="search-pop" id="searchPop" hidden>
+  <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
+  <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
+</div>
 
 <nav class="nav" id="nav" aria-label="Principal">
       <a href="#inicio" data-tab="inicio"><svg><use href="#i-home"/></svg><span>A Casa</span></a>
-      <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa Grande</span></a>
+      <a href="#mesa" data-tab="mesa"><svg><use href="#i-users"/></svg><span>Mesa</span></a>
       <a href="#mensagens" data-tab="mensagens"><svg><use href="#i-chat"/></svg><span>Mensagens</span><span class="badge-n js-dmbadge" hidden></span></a>
       <a href="#indicacoes" data-tab="indicacoes"><svg><use href="#i-star"/></svg><span>Vizinhança</span></a>
       <a href="#" id="navAnunciar"><svg><use href="#i-megaphone"/></svg><span>Anunciar na comunidade</span></a>
@@ -97,11 +104,11 @@
     <div class="wrap">
       <h1 class="sr-only">Café, Graça &amp; Fralda: entre o café e a fralda, tem graça.</h1>
       <div class="seg" role="tablist" aria-label="A Casa">
-        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Da Casa</button>
+        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Novidades</button>
         <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
       </div>
       <div data-sub-panel="postagens" class="on">
-      <div class="view-head home-head"><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
+      <div class="view-head home-head" hidden><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
         <form class="card compose" id="casaForm" autocomplete="off" hidden>
         <div class="compose-top"><span class="avatar" id="casaAv">A</span>
@@ -216,13 +223,13 @@
   <section class="view" id="v-mesa" data-view="mesa">
     <div class="wrap">
       <div class="view-head">
-        <span class="label">Mesa Grande</span>
-        <h2>Mesa Grande</h2>
+        <span class="label">Mesa</span>
+        <h2>Mesa</h2>
       </div>
       <div class="card" id="feedGate">
         <div class="gate">
-          <span class="label">Mesa Grande</span>
-          <h3>A Mesa Grande é só para quem senta à mesa</h3>
+          <span class="label">Mesa</span>
+          <h3>A Mesa é só para quem senta à mesa</h3>
           <p>Conte o dia, poste fotos e stories, indique lugares para ir em família, peça oração. Para proteger as famílias, a Mesa fica fechada a quem não entrou: nada aparece no Google, as fotos só abrem para membros e só o seu primeiro nome é mostrado.</p>
           <button class="btn btn-google js-login" type="button"><svg><use href="#i-google"/></svg>Entrar com o Google</button>
         </div>
@@ -232,14 +239,10 @@
           <div class="mesa-layout">
             <div class="mesa-main">
               <div class="stories" id="storiesRow" aria-label="Stories"></div>
-              <div class="mesa-find">
-                <div class="find-box"><input id="sideBusca" type="search" placeholder="Buscar pessoas pelo nome" maxlength="40" autocomplete="off" aria-label="Buscar pessoas pelo nome"><div id="sidePeople" class="find-list"></div></div>
-                <button class="btn btn-ghost btn-sm find-inv" type="button" data-invite><svg><use href="#i-plus"/></svg><span>Convidar</span></button>
-              </div>
               <form class="card compose" id="postForm" autocomplete="off">
                 <div class="compose-top"><span class="avatar" id="postAv">A</span>
                   <div class="cbox">
-                    <textarea id="postText" maxlength="1500" rows="2" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
+                    <textarea id="postText" maxlength="1500" rows="1" placeholder="Compartilhe algo com a nossa comunidade…" aria-label="Publicação"></textarea>
                     <div class="cbox-bar">
                       <button class="cbtn" type="button" id="postFotoBtn" title="Foto" aria-label="Adicionar foto"><svg><use href="#i-photo"/></svg></button>
                       <button class="cbtn" type="button" id="postLinkBtn" title="Link" aria-label="Adicionar link" data-admin hidden><svg><use href="#i-link"/></svg></button>
@@ -320,7 +323,7 @@
           <div class="msgs" id="dmMsgs" aria-live="polite"></div>
           <div class="dm-compose" id="dmCompose" hidden>
             <div class="dm-attach" id="dmAttach" hidden><span class="file-ic" aria-hidden="true">📎</span><span id="dmAttachName"></span><button class="link" type="button" id="dmAttachDel">Remover</button></div>
-            <div class="dm-rec" id="dmRec" hidden><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime">0:00</span><span class="grow">Gravando áudio… (máx. 1:00)</span><button class="link" type="button" id="dmRecCancel">Cancelar</button><button class="btn btn-terra btn-sm" type="button" id="dmRecSend">Enviar áudio</button></div>
+            <div class="dm-rec" id="dmRec" hidden><button type="button" class="rec-x" id="dmRecCancel" aria-label="Cancelar gravação">✕</button><span class="rec-dot" aria-hidden="true"></span><span id="dmRecTime" class="rec-time">0:00</span><span class="rec-bar" aria-hidden="true"><i id="dmRecProg"></i></span><span class="rec-max">1:00</span><button type="button" class="rec-send" id="dmRecSend" aria-label="Enviar áudio"><svg><use href="#i-send"/></svg></button></div>
             <div class="emoji-pop" id="emojiPop" hidden></div>
             <form class="composer" id="dmComposer" autocomplete="off">
               <label class="hand-btn" for="dmFile" title="Enviar foto" aria-label="Enviar foto"><svg><use href="#i-photo"/></svg></label>
@@ -644,17 +647,19 @@
     <p class="status" id="ofStatus" role="status"></p>
   </form>
 </div></dialog>
-<dialog class="sheet-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
-  <button class="story-x sheet-x" type="button" id="pdClose" aria-label="Fechar">×</button>
-  <h3 id="pdTitle">Nova publicação</h3>
-  <div class="pd-photos" id="pdPhotos" hidden></div>
-  <button class="btn btn-ghost btn-block" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
-  <button class="btn btn-ghost btn-block" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
-  <input type="file" id="postPdf" accept="application/pdf" hidden>
-  <div class="pd-link" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (começa com https://) — só administração" aria-label="Link"></div>
-  <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="4" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
-  <button class="btn btn-terra btn-block" type="button" id="pdEnviar">Compartilhar</button>
-  <p class="status" id="pdStatus" role="status"></p>
+<dialog class="sheet-dlg pd-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
+  <div class="pd-head"><button class="pd-x" type="button" id="pdClose" aria-label="Cancelar">✕</button><h3 id="pdTitle">Nova publicação</h3><button class="pd-go" type="button" id="pdEnviar">Compartilhar</button></div>
+  <div class="pd-body">
+    <div class="pd-cap"><span class="avatar" id="pdAv">A</span><textarea id="pdTexto" maxlength="1400" rows="3" placeholder="Escreva uma legenda…" aria-label="Legenda"></textarea></div>
+    <div class="pd-photos" id="pdPhotos" hidden></div>
+    <div class="pd-rows">
+      <button class="pd-row" type="button" id="pdAddFoto"><svg><use href="#i-photo"/></svg><span id="pdAddFotoTx">Adicionar foto (até 3)</span></button>
+      <button class="pd-row" type="button" id="pdAddPdf" hidden><svg><use href="#i-file"/></svg><span id="pdAddPdfTx">Anexar PDF (só administração)</span></button>
+      <div class="pd-link pd-row" id="pdLinkRow" hidden><svg><use href="#i-link"/></svg><input id="pdLink" type="url" inputmode="url" maxlength="400" placeholder="Link (https://…)" aria-label="Link"></div>
+    </div>
+    <input type="file" id="postPdf" accept="application/pdf" hidden>
+    <p class="status" id="pdStatus" role="status"></p>
+  </div>
 </div></dialog>
 <dialog class="sheet-dlg" id="inviteDlg" aria-labelledby="ivTitle"><div class="sheet-box">
   <button class="story-x sheet-x" type="button" id="ivClose" aria-label="Fechar">×</button>

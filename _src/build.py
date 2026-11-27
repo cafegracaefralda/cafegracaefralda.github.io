@@ -19,7 +19,7 @@ BASE_URL = "https://cafegracaefralda.com.br/"
 TITLE = "Café, Graça & Fralda"
 HOME_TITLE = "Café, Graça & Fralda | Devocional de 5 minutos para pais e famílias"
 DESCRIPTION = ("Comunidade de famílias de todo o Brasil: devocional de 5 minutos toda quarta, conversas privadas entre pais, "
-               "Mesa Grande com stories, lazer em família por cidade, indicações de confiança e fé na vida real.")
+               "Mesa com stories, lazer em família por cidade, indicações de confiança e fé na vida real.")
 KEYWORDS = "devocional para pais, devocional família, paternidade cristã, maternidade cristã, casamento cristão, criar filhos na fé, devocional de 5 minutos, comunidade de famílias, lazer em família"
 FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500'
@@ -235,7 +235,7 @@ def devo_page(i, d):
   <div class="actions">
     <a class="btn wa" href="https://wa.me/?text={urlquote(share)}" rel="noopener">Compartilhar no WhatsApp</a>
     <a class="btn" href="https://wa.me/{WA}?text={urlquote('Oi! Li o devocional ' + chr(34) + d['title'] + chr(34) + ' e queria conversar: ')}" rel="noopener">Conversar com a equipe</a>
-    <a class="btn dark" href="/#mesa">Conversar na Mesa Grande</a>
+    <a class="btn dark" href="/#mesa">Conversar na Mesa</a>
   </div>
   <p class="sig">Café, Graça &amp; Fralda</p>
 </article>

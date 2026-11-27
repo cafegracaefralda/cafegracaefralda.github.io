@@ -134,6 +134,8 @@ function setHeader(c){
   $("dmTitle").textContent = c ? dmName(otherOf(c)) : "Conversa de quarto";
   $("dmAv").textContent = c ? initial(dmName(otherOf(c))) : ""; avTag($("dmAv"), c ? otherOf(c) : ""); $("dmAv").hidden = !c;
 }
+function dmAbrirPerfil(){ var c = dm.convs.filter(function(x){ return x.id === dm.current; })[0]; if (c) go("perfil/" + otherOf(c)); }
+$("dmTitle").style.cursor = "pointer"; $("dmAv").style.cursor = "pointer"; $("dmTitle").addEventListener("click", dmAbrirPerfil); $("dmAv").addEventListener("click", dmAbrirPerfil);
 function openConv(id){
   dm.current = id; dm.msgs = []; dm.sig = "";
   var c = dm.convs.filter(function(x){ return x.id === id; })[0];
@@ -255,9 +257,9 @@ $("dmMic").addEventListener("click", function(){
     var opt = { audioBitsPerSecond: 24000 }; if (mime) opt.mimeType = mime;   // voz leve: 1 minuto fica em torno de 200 KB
     rec.mr = new MediaRecorder(stream, opt);
     rec.mr.ondataavailable = function(e){ if (e.data && e.data.size) rec.chunks.push(e.data); };
-    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00 / 1:00";
+    rec.mr.start(); rec.t0 = Date.now(); recUi(true); $("dmRecTime").textContent = "0:00"; $("dmRecProg").style.width = "0%";
     rec.timer = setInterval(function(){
-      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0") + " / 1:00";
+      var s = Math.floor((Date.now() - rec.t0) / 1000); $("dmRecTime").textContent = Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); $("dmRecProg").style.width = Math.min(100, s / AUDIO_MAX * 100) + "%";
       if (s >= AUDIO_MAX) recFinish(true);
     }, 500);
   }, function(){ toast("Permita o microfone para gravar um áudio."); });

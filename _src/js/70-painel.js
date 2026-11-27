@@ -53,7 +53,7 @@ $("copyPhones").addEventListener("click", function(){ copyText(panel.subs.map(fu
 
 
 // --- Alertas de linguagem, anunciantes e ofertas
-var ORIGEM_NOME = { posts: "Mesa Grande", post_comentarios: "Comentário na Mesa", pubs: "A Casa", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
+var ORIGEM_NOME = { posts: "Mesa", post_comentarios: "Comentário na Mesa", pubs: "A Casa", pub_comentarios: "Comentário na Casa", lazer: "Quintal" };
 function btnAct(txt, fn, cls){ var b = h("button", "btn btn-ghost btn-sm" + (cls ? " " + cls : ""), txt); b.type = "button"; b.addEventListener("click", fn); return b; }
 function loadAlertas(){
   sb.from("alertas").select("id,user_id,autor,origem,nivel,trecho,status,criado_em").order("criado_em", { ascending: false }).limit(60).then(function(r){
@@ -114,7 +114,7 @@ viewHooks.painel = function(sub){
   var note = $("panelNote");
   if (!auth.user) { note.textContent = "Entre com o Google para acessar o painel."; $("panelApp").hidden = true; return; }
   if (!auth.admin) { note.textContent = auth.name() ? "Esta área é só para a administração." : "Verificando o seu acesso…"; $("panelApp").hidden = true; return; }
-  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Casa e na Mesa Grande.";
+  note.textContent = "Inscritos nos devocionais, membros com WhatsApp e indicações enviadas. As publicações você modera direto na Casa e na Mesa.";
   $("panelApp").hidden = false;
   if (sub === "moderacao") loadMod(); else if (sub === "membros") loadMembros(); else if (sub === "alertas") loadAlertas(); else if (sub === "anunciantes") loadAnunc(); else if (sub === "ofertas") loadOfertasAdm(); else loadSubs();
   if (sub !== "alertas") sb.from("alertas").select("id", { count: "exact", head: true }).eq("status", "aberto").then(function(c){ var n = $("alertaN"); n.textContent = c.count ? String(c.count) : ""; n.hidden = !c.count; });

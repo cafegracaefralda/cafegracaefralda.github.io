@@ -148,14 +148,14 @@ function loadHomeMesa(){
     return signPhotos(r.data).then(function(){
       r.data.forEach(function(p){
         var el = h("article", "post oficial"), top = h("div", "post-top"), who = h("div", "grow");
-        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa Grande"));
+        who.append(h("b", null, p.nome || "Mesa"), h("small", null, ago(p.criado_em) + " · da Mesa"));
         top.append(avLink(null, p.nome), who); el.appendChild(top);
         var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
         var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
         if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
         if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
         if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
-        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa Grande"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
+        var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
         box.appendChild(el);
       });
     });

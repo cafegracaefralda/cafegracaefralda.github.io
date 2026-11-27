@@ -1,4 +1,4 @@
-// Mesa Grande: o cantinho das famílias (posts com foto, curtidas e comentários). Só para quem entrou com o Google.
+// Mesa: o cantinho das famílias (posts com foto, curtidas e comentários). Só para quem entrou com o Google.
 var TIPOS = [
   { id: "conversa", nome: "Papo de mesa", em: "☕" }, { id: "indicacao", nome: "Indicação", em: "💡" }, { id: "desabafo", nome: "Desabafo", em: "🫶" },
   { id: "oracao", nome: "Oração", em: "🙏" }, { id: "gratidao", nome: "Gratidão", em: "✨" }
@@ -73,6 +73,7 @@ $("postPdf").addEventListener("change", function(){
   feed.pdf = { file: f, name: String(f.name || "documento.pdf").replace(/\.pdf$/i, "").slice(0, 100) + ".pdf" }; pdVer();
 });
 $("pdClose").addEventListener("click", function(){ postDlg.close(); });
+$("hdrNew").addEventListener("click", function(){ if (!auth.user) return; abrirPost({}); });
 $("postFile").addEventListener("change", function(){
   var fs = Array.prototype.slice.call(this.files || [], 0, Math.max(0, MAX_FOTOS - feed.photos.length)); this.value = "";
   if (!fs.length) { if (feed.photos.length >= MAX_FOTOS) toast("Máximo de " + MAX_FOTOS + " fotos por post."); return; }
@@ -112,7 +113,7 @@ function publicar(texto, st, done){
   }).then(function(p){
     $("postText").value = ""; $("pdTexto").value = ""; clearPhoto(); if (postDlg.open) postDlg.close();
     if (feed.filtro === "all" || feed.filtro === p.tipo) { feed.posts.unshift(p); feed.likes[p.id] = []; feed.cmts[p.id] = []; signPhotos([p]).then(renderFeed); }
-    toast("Publicado na Mesa Grande."); setStatus($("postStatus"), "");
+    toast("Publicado na Mesa."); setStatus($("postStatus"), "");
   }).catch(function(err){
     if (err.message === "foto") limpar();
     var msg = err.message === "rapido" ? "Calma! Muitas publicações em pouco tempo." : err.message === "foto" ? "Não foi possível enviar a foto." : "Não foi possível publicar agora. Tente de novo.";
@@ -258,7 +259,7 @@ function renderPost(p){
   acts.append(lk, actBtn("Comentar", "i-chat", function(){ feed.open[p.id] = !feed.open[p.id]; renderFeed(); }));
   if (!mine) acts.appendChild(actBtn("Mensagem", "i-send", function(){ openDm(p.user_id, p.nome); }));
   var sh = actBtn("Compartilhar", "i-share", function(){ var tx = "Olha o que a " + (mine ? "gente" : firstName(p.nome)) + " compartilhou na Café, Graça & Fralda:\n\n" + String(p.texto || "").slice(0, 300) + "\n\nVem para a mesa: https://cafegracaefralda.com.br/"; window.open(waLink(tx, ""), "_blank", "noopener"); });
-  sh.classList.add("sh-b"); sh.setAttribute("aria-label", "Compartilhar no WhatsApp"); sh.title = "Compartilhar no WhatsApp"; acts.append(igBtn({ tag: "Mesa Grande", title: "", body: String(p.texto || "").slice(0, 280) }, "ig-b"), sh);
+  sh.classList.add("sh-b"); sh.setAttribute("aria-label", "Compartilhar no WhatsApp"); sh.title = "Compartilhar no WhatsApp"; acts.append(igBtn({ tag: "Mesa", title: "", body: String(p.texto || "").slice(0, 280) }, "ig-b"), sh);
   el.appendChild(acts);
   if (feed.open[p.id] || cm.length) el.appendChild(renderCmts(p, cm, !!feed.open[p.id]));
   return el;
@@ -268,7 +269,7 @@ function renderCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ feed.open[p.id] = true; renderFeed(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
+    pp.append(nameLink(c.user_id === uid() ? "Você" : c.nome, c.user_id), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
     if (c.user_id === uid() && podeEditar(c.criado_em)) { var ce = h("button", "link", "Editar"); ce.type = "button"; ce.addEventListener("click", function(){ editarInline(pp, c.texto, 600, function(v){ return salvarTexto("post_comentarios", c.id, v, function(n){ c.texto = n.texto; c.editado_em = n.editado_em; renderFeed(); }); }); }); pp.appendChild(ce); }
     if (open && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
@@ -334,3 +335,13 @@ $$("#feedTabs .chip").forEach(function(b){
     sb.from("seguidores").select("seguido").eq("seguidor", uid()).then(function(r){ feed.seguindo = (r.data || []).map(function(x){ return x.seguido; }); loadFeed(true); });
   });
 });
+
+// Busca de pessoas no topo (ícone de lupa), como no Instagram
+function hdrSearchSync(){ var on = !!auth.user; $("hdrNew").hidden = !on; $("hdrSearch").hidden = !on; if (!on) $("searchPop").hidden = true; }
+auth.on(hdrSearchSync); hdrSearchSync();
+$("hdrSearch").addEventListener("click", function(e){
+  e.stopPropagation(); var abrir = $("searchPop").hidden; $("searchPop").hidden = !abrir; $("hdrSearch").setAttribute("aria-expanded", abrir);
+  if (abrir) { var h0 = document.getElementById("top"); document.documentElement.style.setProperty("--hdrh", (h0 ? h0.getBoundingClientRect().bottom : 72) + "px"); loadMembers(); $("sideBusca").focus(); }
+});
+document.addEventListener("click", function(e){ var sp = $("searchPop"); if (!sp.hidden && !sp.contains(e.target) && e.target.id !== "hdrSearch" && !$("hdrSearch").contains(e.target)) { sp.hidden = true; $("hdrSearch").setAttribute("aria-expanded", "false"); } });
+window.addEventListener("hashchange", function(){ $("searchPop").hidden = true; });

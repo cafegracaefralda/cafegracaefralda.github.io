@@ -32,7 +32,7 @@ function richText(txt){
 // Lista de sugestões ao digitar @
 var mnPop = h("div", "mention-pop"); mnPop.hidden = true; mnPop.setAttribute("role", "listbox"); document.body.appendChild(mnPop);
 function mnClose(){ mnPop.hidden = true; mn.target = null; }
-function mnField(el){ return !!el && (el.id === "postText" || el.id === "pubText" || (el.closest && !!el.closest(".post-cmt-form"))); }
+function mnField(el){ return !!el && (el.id === "postText" || el.id === "pubText" || el.id === "pdTexto" || el.id === "casaTexto" || (el.closest && !!el.closest(".post-cmt-form"))); }
 function mnPick(n){
   var el = mn.target; if (!el) return;
   var pos = el.selectionStart, before = el.value.slice(0, pos), after = el.value.slice(pos);
@@ -54,6 +54,7 @@ function mnShow(el, q){
     b.addEventListener("touchstart", function(e){ e.preventDefault(); mnPick(n); }, { passive: false });
     mnPop.appendChild(b);
   });
+  var dlg = el.closest && el.closest("dialog[open]"); var alvo = dlg || document.body; if (mnPop.parentNode !== alvo) alvo.appendChild(mnPop);   // dentro da tela de postar, a lista precisa ficar por cima
   var r = el.getBoundingClientRect(); mnPop.hidden = false;
   var w = Math.min(280, window.innerWidth - 24), left = Math.max(12, Math.min(r.left, window.innerWidth - w - 12));
   mnPop.style.width = w + "px"; mnPop.style.left = left + "px";
