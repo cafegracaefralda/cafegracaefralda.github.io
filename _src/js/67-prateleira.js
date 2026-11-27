@@ -252,7 +252,7 @@ function renderPub(p, prefix){
   if (menu.childNodes.length) { mb.addEventListener("click", function(e){ e.stopPropagation(); var open = menu.hidden; $$(".pmenu").forEach(function(m2){ m2.hidden = true; }); menu.hidden = !open; }); mw.append(mb, menu); top.appendChild(mw); }
   el.appendChild(top);
   if (p.titulo) el.appendChild(h("h3", "pub-title", p.titulo));
-  if (p.texto) { var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx); }
+  if (p.texto) { var ptx = h("p", "post-text"); var fr = richText(p.texto); ptx.appendChild(p.oficial ? linkify(fr) : fr); el.appendChild(ptx); }
   if (p.oficial && p.tipo === "parceiro") el.appendChild(h("p", "ad-note", "Indicação de parceiro (publicidade). Confira sempre antes de contratar."));
   var m = mediaOf(p); if (m) el.appendChild(m);
   extrasOf(p).forEach(function(x){ el.appendChild(x); });
@@ -273,7 +273,7 @@ function renderPubCmts(p, cm, open){
   if (!open && cm.length > 1) { var all = h("button", "link", "Ver todos os " + cm.length + " comentários"); all.type = "button"; all.style.cssText = "font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;justify-self:start"; all.addEventListener("click", function(){ pub.open[p.id] = true; renderPubs(); }); box.appendChild(all); }
   list.forEach(function(c){
     var row = h("div", "post-cmt"), body = h("div"), pp = h("p");
-    pp.append(h("b", null, auth.user && c.user_id === uid() ? "Você" : c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
+    pp.append(c.user_id ? nameLink(auth.user && c.user_id === uid() ? "Você" : c.nome, c.user_id) : h("b", null, c.nome), richText(c.texto)); pp.appendChild(h("small", "c-time", ago(c.criado_em) + (c.editado_em ? " · editado" : "")));
     if (auth.user && c.user_id === uid() && podeEditar(c.criado_em)) { var ce = h("button", "link", "Editar"); ce.type = "button"; ce.addEventListener("click", function(){ editarInline(pp, c.texto, 600, function(v){ return salvarTexto("pub_comentarios", c.id, v, function(n){ c.texto = n.texto; c.editado_em = n.editado_em; renderPubs(); }); }); }); pp.appendChild(ce); }
     if (open && auth.user && (c.user_id === uid() || auth.admin)) {
       var d = h("button", "link", "Apagar"); d.type = "button";
@@ -285,7 +285,7 @@ function renderPubCmts(p, cm, open){
   if (open) {
     if (!auth.user) { var lg = h("p", "hint", "Entre com o Google para comentar."); box.appendChild(lg); return box; }
     var f = h("form", "post-cmt-form"), inp = h("input"); inp.placeholder = "Escreva um comentário…"; inp.maxLength = 600; inp.setAttribute("aria-label", "Comentário");
-    var send = h("button", "btn btn-terra btn-sm", "Enviar"); send.type = "submit"; f.append(inp, send);
+    var send = h("button", "cm-send", "↑"); send.type = "submit"; send.setAttribute("aria-label", "Enviar comentário"); f.append(avSpan(uid(), auth.name(), "avatar me-av"), inp, send);   // igual ao da Mesa
     f.addEventListener("submit", function(e){
       e.preventDefault(); var t = inp.value.trim(); if (!t) return; send.disabled = true;
       sb.from("pub_comentarios").insert({ pub_id: p.id, texto: t }).select("id,pub_id,user_id,nome,texto,criado_em,editado_em").then(function(r){
@@ -304,7 +304,8 @@ function togglePubLike(p){
   else { l.push(uid()); renderPubs(); sb.from("pub_curtidas").insert({ pub_id: p.id }).then(function(r){ if (r.error) { var j = l.indexOf(uid()); if (j > -1) l.splice(j, 1); renderPubs(); } }); }
 }
 function deletePub(p){
-  var rm = p.arquivo ? sb.storage.from("prateleira").remove([p.arquivo]) : Promise.resolve();
+  var arqs = [p.arquivo].concat(p.fotos || [], p.videos || [], p.docs || []).filter(function(f, k, arr){ return f && arr.indexOf(f) === k; });
+  var rm = arqs.length ? sb.storage.from("prateleira").remove(arqs) : Promise.resolve();
   Promise.resolve(rm).then(function(){ return sb.from("pubs").delete().eq("id", p.id); }).then(function(r){
     if (r && r.error) return toast("Não foi possível apagar.");
     pub.items = pub.items.filter(function(x){ return x.id !== p.id; }); home.items = home.items.filter(function(x){ return x.id !== p.id; }); renderPubs(); toast("Publicação apagada.");
