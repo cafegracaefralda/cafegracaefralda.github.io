@@ -228,7 +228,11 @@ function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
   renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
-  if (home.items.length) renderList($("homeList"), home, "home-", ["", ""]); else $("homeList").innerHTML = "";
+  // Novidades: postagens da Casa e anúncios aprovados, juntos (fixados primeiro, depois do mais novo para o mais antigo)
+  var hb = $("homeList"); hb.innerHTML = "";
+  var mix = home.items.map(function(p){ return { t: p.criado_em, f: p.fixado ? 1 : 0, pub: p }; }).concat((typeof of !== "undefined" ? of.items : []).map(function(o){ return { t: o.criado_em, f: 0, of: o }; }));
+  mix.sort(function(a2, b2){ return (b2.f - a2.f) || (a2.t < b2.t ? 1 : a2.t > b2.t ? -1 : 0); });
+  mix.forEach(function(x){ hb.appendChild(x.pub ? renderPub(x.pub, "home-") : ofCard(x.of)); });
   if (home.focus) { var he = $("home-pub-" + home.focus); if (he) { home.focus = ""; he.classList.add("focus"); he.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ he.classList.remove("focus"); }, 2500); } }
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }

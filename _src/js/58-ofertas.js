@@ -13,7 +13,7 @@ function loadOfertas(){
   var hoje = new Date().toISOString().slice(0, 10);
   sb.from("ofertas").select("id,user_id,marca,titulo,descricao,preco,cupom,link,foto,categoria,validade,status,criado_em").eq("status", "aprovada").gte("validade", hoje).order("criado_em", { ascending: false }).limit(60).then(function(r){
     of.items = r.data || []; of.loaded = true;
-    return ofSign(of.items).then(renderOfertas);
+    return ofSign(of.items).then(function(){ renderOfertas(); if (typeof renderPubs === "function") renderPubs(); });
   });
 }
 function ofCard(o){
@@ -97,8 +97,8 @@ $("ofForm").addEventListener("submit", function(e){
   });
 });
 var _hookInicio = viewHooks.inicio;
-viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
-auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
+viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (auth.user) loadOfertas(); };
+auth.on(function(){ if (auth.user && isShown("inicio")) loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
 // Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
@@ -107,7 +107,7 @@ $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("o
 var anQ = /^#anunciar/.test(location.hash);
 function anunciarHash(){
   if (!anQ || !auth.user || !sb) return;
-  anQ = false; go("inicio/ofertas");
+  anQ = false; go("inicio");
   setTimeout(function(){ $("ofAnunciar").click(); }, 400);
 }
 window.addEventListener("hashchange", function(){ if (/^#anunciar/.test(location.hash)) { anQ = true; anunciarHash(); } });

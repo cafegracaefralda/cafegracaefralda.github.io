@@ -103,10 +103,6 @@
   <section class="view" id="v-inicio" data-view="inicio">
     <div class="wrap">
       <h1 class="sr-only">Café, Graça &amp; Fralda: entre o café e a fralda, tem graça.</h1>
-      <div class="seg" role="tablist" aria-label="A Casa">
-        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Novidades</button>
-        <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
-      </div>
       <div data-sub-panel="postagens" class="on">
       <div class="view-head home-head" hidden><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
@@ -139,7 +135,7 @@
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
       </div>
       </div>
-      <div data-sub-panel="ofertas">
+      <div id="legacyOfertas" hidden>
         <div class="ofertas-bar"><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
         <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="of-grid" id="ofList" aria-live="polite"></div>

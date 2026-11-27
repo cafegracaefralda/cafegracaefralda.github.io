@@ -1493,3 +1493,6 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
 .av-link.has-story{box-shadow:0 0 0 2px var(--surface,#fff),0 0 0 4px var(--terra)}
 #dmTitle:hover{text-decoration:underline}
 @media (max-width:760px){ #postForm{display:none} .feed-tabs{margin-top:6px} }
+
+/* anúncios dentro de Novidades: mesma largura dos posts */
+#homeList .of-card{border-radius:0;margin:0;max-width:none;box-shadow:none;border-left:0;border-right:0}

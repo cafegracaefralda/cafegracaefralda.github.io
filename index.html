@@ -1529,6 +1529,9 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
 #dmTitle:hover{text-decoration:underline}
 @media (max-width:760px){ #postForm{display:none} .feed-tabs{margin-top:6px} }
 
+/* anúncios dentro de Novidades: mesma largura dos posts */
+#homeList .of-card{border-radius:0;margin:0;max-width:none;box-shadow:none;border-left:0;border-right:0}
+
 </style>
 </head>
 <body>
@@ -1641,10 +1644,6 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
   <section class="view" id="v-inicio" data-view="inicio">
     <div class="wrap">
       <h1 class="sr-only">Café, Graça &amp; Fralda: entre o café e a fralda, tem graça.</h1>
-      <div class="seg" role="tablist" aria-label="A Casa">
-        <button type="button" role="tab" data-sub="postagens" aria-selected="true">Novidades</button>
-        <button type="button" role="tab" data-sub="ofertas" aria-selected="false">Ofertas</button>
-      </div>
       <div data-sub-panel="postagens" class="on">
       <div class="view-head home-head" hidden><h2 id="homeOi">Bom ter você aqui ☕</h2><p class="home-sub">Um café, um versículo e a conversa da semana.</p><a class="btn btn-terra btn-sm" id="homePublicar" href="#inicio" hidden>Publicar na Casa</a></div>
       <div class="prat-wrap home-feed">
@@ -1677,7 +1676,7 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
         <button class="btn btn-ghost feed-more" type="button" id="homeMore" hidden>Ver mais</button>
       </div>
       </div>
-      <div data-sub-panel="ofertas">
+      <div id="legacyOfertas" hidden>
         <div class="ofertas-bar"><button class="btn btn-terra btn-sm" type="button" id="ofAnunciar">Quero anunciar</button></div>
         <div class="filters" id="ofFilters" role="group" aria-label="Filtrar ofertas"><button class="chip" aria-pressed="true" data-filter="all">Tudo</button><button class="chip" aria-pressed="false" data-filter="Bebê e criança">Bebê e criança</button><button class="chip" aria-pressed="false" data-filter="Casa">Casa</button><button class="chip" aria-pressed="false" data-filter="Mamãe">Mamãe</button><button class="chip" aria-pressed="false" data-filter="Educação">Educação</button><button class="chip" aria-pressed="false" data-filter="Livros e fé">Livros e fé</button><button class="chip" aria-pressed="false" data-filter="Serviços">Serviços</button><button class="chip" aria-pressed="false" data-filter="Outros">Outros</button></div>
         <div class="of-grid" id="ofList" aria-live="polite"></div>
@@ -3434,7 +3433,7 @@ function loadOfertas(){
   var hoje = new Date().toISOString().slice(0, 10);
   sb.from("ofertas").select("id,user_id,marca,titulo,descricao,preco,cupom,link,foto,categoria,validade,status,criado_em").eq("status", "aprovada").gte("validade", hoje).order("criado_em", { ascending: false }).limit(60).then(function(r){
     of.items = r.data || []; of.loaded = true;
-    return ofSign(of.items).then(renderOfertas);
+    return ofSign(of.items).then(function(){ renderOfertas(); if (typeof renderPubs === "function") renderPubs(); });
   });
 }
 function ofCard(o){
@@ -3518,8 +3517,8 @@ $("ofForm").addEventListener("submit", function(e){
   });
 });
 var _hookInicio = viewHooks.inicio;
-viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (sub === "ofertas" && auth.user) loadOfertas(); };
-auth.on(function(){ if (auth.user && isShown("inicio") && currentSub("inicio") === "ofertas") loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
+viewHooks.inicio = function(sub){ if (_hookInicio) _hookInicio(sub); if (auth.user) loadOfertas(); };
+auth.on(function(){ if (auth.user && isShown("inicio")) loadOfertas(); if (!auth.user) { of.items = []; of.loaded = false; } });
 
 // Menu "Anunciar na comunidade": mesmo fluxo do botão "Quero anunciar" (pedido e resposta dentro do site, sem WhatsApp)
 $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("ofAnunciar").click(); });
@@ -3528,7 +3527,7 @@ $("navAnunciar").addEventListener("click", function(e){ e.preventDefault(); $("o
 var anQ = /^#anunciar/.test(location.hash);
 function anunciarHash(){
   if (!anQ || !auth.user || !sb) return;
-  anQ = false; go("inicio/ofertas");
+  anQ = false; go("inicio");
   setTimeout(function(){ $("ofAnunciar").click(); }, 400);
 }
 window.addEventListener("hashchange", function(){ if (/^#anunciar/.test(location.hash)) { anQ = true; anunciarHash(); } });
@@ -4743,7 +4742,11 @@ function renderPubs(){
   $("pubMore").hidden = !pub.more; $("homeMore").hidden = !home.more;
   var vis = { items: pub.items.filter(function(p){ return pubFiltro === "all" || p.tipo === pubFiltro || (pubFiltro === "link" && p.tipo === "youtube"); }), loaded: pub.loaded };
   renderList($("pubList"), vis, "", ["Nada por aqui ainda", ""]);
-  if (home.items.length) renderList($("homeList"), home, "home-", ["", ""]); else $("homeList").innerHTML = "";
+  // Novidades: postagens da Casa e anúncios aprovados, juntos (fixados primeiro, depois do mais novo para o mais antigo)
+  var hb = $("homeList"); hb.innerHTML = "";
+  var mix = home.items.map(function(p){ return { t: p.criado_em, f: p.fixado ? 1 : 0, pub: p }; }).concat((typeof of !== "undefined" ? of.items : []).map(function(o){ return { t: o.criado_em, f: 0, of: o }; }));
+  mix.sort(function(a2, b2){ return (b2.f - a2.f) || (a2.t < b2.t ? 1 : a2.t > b2.t ? -1 : 0); });
+  mix.forEach(function(x){ hb.appendChild(x.pub ? renderPub(x.pub, "home-") : ofCard(x.of)); });
   if (home.focus) { var he = $("home-pub-" + home.focus); if (he) { home.focus = ""; he.classList.add("focus"); he.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ he.classList.remove("focus"); }, 2500); } }
   if (pub.focus) { var fe = $("pub-" + pub.focus); if (fe) { pub.focus = ""; fe.classList.add("focus"); fe.scrollIntoView({ behavior: "smooth", block: "center" }); setTimeout(function(){ fe.classList.remove("focus"); }, 2400); } }
 }
