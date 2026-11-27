@@ -43,7 +43,7 @@ function loadPerfil(){
     (rs[2].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("📚", (TIPO_PUB[x.tipo] || "Prateleira").replace(/^\S+\s/, ""), x.titulo || x.texto, x.criado_em, "#prateleira") }); });
     (rs[3].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("🌳", "Quintal", x.nome_local + " · " + x.cidade + "/" + x.uf, x.criado_em, "#lazer") }); });
     itens.sort(function(a, b){ return a.t < b.t ? 1 : -1; });
-    $("pfStats").innerHTML = ""; var n = h("span", null); n.append(h("b", null, String(itens.length)), document.createTextNode(itens.length === 1 ? " publicação" : " publicações")); $("pfStats").appendChild(n);
+    pfSeg.nPub = itens.length; pfPintaSeg();
     if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa aparece aqui." : "")); $("pfGrid").appendChild(e); }
     itens.forEach(function(i){ $("pfGrid").appendChild(i.el); });
   });
@@ -102,8 +102,11 @@ function pfSeguidores(id, mine){
   });
 }
 function pfPintaSeg(){
-  var st = $("pfStats"), sp = st.querySelector(".pf-seg"); if (sp) sp.remove();
-  sp = h("span", "pf-seg"); sp.append(h("b", null, String(pfSeg.nSeg || 0)), document.createTextNode(" seguidores · "), h("b", null, String(pfSeg.nSig || 0)), document.createTextNode(" seguindo")); st.appendChild(sp);
+  var st = $("pfStats"); st.innerHTML = "";
+  [["nPub", "publicações", null], ["nSeg", "seguidores", "seguidores"], ["nSig", "seguindo", "seguindo"]].forEach(function(c){
+    var b = h(c[2] ? "button" : "span", "pf-num"); if (c[2]) { b.type = "button"; b.addEventListener("click", function(){ pfAbrirLista(c[2]); }); }
+    b.append(h("b", null, String(pfSeg[c[0]] || 0)), h("small", null, c[1])); st.appendChild(b);
+  });
   $("pfFollow").textContent = pfSeg.segue ? "Seguindo" : "Seguir"; $("pfFollow").classList.toggle("btn-ghost", pfSeg.segue); $("pfFollow").classList.toggle("btn-terra", !pfSeg.segue);
 }
 $("pfFollow").addEventListener("click", function(){
@@ -111,3 +114,24 @@ $("pfFollow").addEventListener("click", function(){
   var q = pfSeg.segue ? sb.from("seguidores").delete().eq("seguidor", uid()).eq("seguido", id) : sb.from("seguidores").insert({ seguido: id });
   q.then(function(r){ $("pfFollow").disabled = false; if (r.error) return toast("Não foi possível agora."); pfSeg.segue = !pfSeg.segue; pfSeg.nSeg = (pfSeg.nSeg || 0) + (pfSeg.segue ? 1 : -1); pfPintaSeg(); });
 });
+
+// Lista de seguidores / de quem a pessoa segue
+function pfAbrirLista(tipo){
+  var id = pfSeg.id; if (!id) return;
+  var seguidores = tipo === "seguidores";
+  $("pfListTitle").textContent = seguidores ? "Seguidores" : "Seguindo"; var box = $("pfListBox"); box.innerHTML = ""; box.appendChild(h("p", "hint", "Carregando…")); $("pfListDlg").showModal();
+  sb.from("seguidores").select(seguidores ? "seguidor" : "seguido").eq(seguidores ? "seguido" : "seguidor", id).limit(200).then(function(r){
+    var ids = (r.data || []).map(function(x){ return seguidores ? x.seguidor : x.seguido; });
+    box.innerHTML = "";
+    if (!ids.length) { box.appendChild(h("p", "hint", seguidores ? "Ainda sem seguidores." : "Ainda não segue ninguém.")); return; }
+    return sb.from("perfis").select("user_id,nome,apelido").in("user_id", ids).then(function(p){
+      (p.data || []).forEach(function(x){
+        var nome = x.apelido || x.nome || "Alguém", b = h("button", "side-person"); b.type = "button";
+        var tx = h("span"); tx.append(h("b", null, nome), h("small", null, "Ver perfil")); b.append(avSpan(x.user_id, nome), tx);
+        b.addEventListener("click", function(){ $("pfListDlg").close(); go("perfil" + (x.user_id === uid() ? "" : "/" + x.user_id)); });
+        box.appendChild(b);
+      });
+    });
+  });
+}
+$("pfListClose").addEventListener("click", function(){ $("pfListDlg").close(); });

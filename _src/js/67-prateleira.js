@@ -38,7 +38,7 @@ function renderDestaque(){
     el.appendChild(h("p", "of-verse", quoteVerse(a.passage[0]) + " — " + a.passage[1]));
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
-    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
+    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ acao: "ler", title: a.title, body: a.passage[0] }));
     el.appendChild(acts);
   });
 }
@@ -152,7 +152,7 @@ function loadHomeMesa(){
         top.append(avLink(null, p.nome), who); el.appendChild(top);
         var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
         var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
-        if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
+        if (fl.length) el.appendChild(galeria(fl.map(function(f){ return feed.urls[f] || ""; }), "Foto"));
         if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
         if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
         var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
@@ -179,7 +179,7 @@ function ytBlock(p){
 function mediaOf(p){
   var url = p.arquivo ? pubFileUrl(p.arquivo) : "";
   if (p.youtube) return ytBlock(p);
-  if (p.arquivo && /\.jpg$/.test(p.arquivo)) { var im = h("img", "post-img"); im.src = url; im.alt = p.titulo || "Foto de " + p.autor; im.loading = "lazy"; return im; }
+  if (p.arquivo && /\.jpg$/.test(p.arquivo)) return galeria([url], p.titulo || "Foto de " + p.autor);
   if (p.arquivo && p.tipo !== "audio" && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
   if (p.arquivo && /\.(mp3|m4a|ogg|webm)$/.test(p.arquivo) && p.tipo === "audio") { var au = h("audio", "pub-audio"); au.controls = true; au.preload = "none"; au.src = url; return au; }
   if (p.arquivo && /\.pdf$/.test(p.arquivo)) {
@@ -196,11 +196,7 @@ function mediaOf(p){
 // Tudo junto na mesma postagem: fotos, vídeos, PDFs, e o link/arquivo que a mídia principal não mostrou
 function extrasOf(p){
   var out = [];
-  if (p.fotos && p.fotos.length) {
-    var g = h("div", "post-imgs n" + Math.min(p.fotos.length, 3));
-    p.fotos.forEach(function(f, k){ var im = h("img", "post-img"); im.src = pubFileUrl(f); im.alt = (p.titulo || "Foto") + " " + (k + 1); im.loading = "lazy"; g.appendChild(im); });
-    out.push(g);
-  }
+  if (p.fotos && p.fotos.length) out.push(galeria(p.fotos.map(pubFileUrl), p.titulo || "Foto"));
   if (p.videos && p.videos.length) {
     var vb = h("div", "pub-videos");
     p.videos.forEach(function(f){ var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = pubFileUrl(f); vb.appendChild(v); });

@@ -228,18 +228,7 @@ function renderPost(p){
   var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
   var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
-  if (fl.length) {
-    var iw = h("div", "post-img-wrap post-imgs n" + fl.length), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart"));
-    fl.forEach(function(f, k){
-      var im = h("img", "post-img"); im.alt = "Foto " + (k + 1) + " publicada por " + p.nome; im.loading = "lazy";
-      if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true;
-      iw.appendChild(im);
-    });
-    iw.appendChild(hh);
-    var lastTap = 0;
-    iw.addEventListener("click", function(){ var n = Date.now(); if (n - lastTap < 320) { lastTap = 0; hh.classList.remove("pop"); void hh.offsetWidth; hh.classList.add("pop"); if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); } else lastTap = n; });
-    el.appendChild(iw);
-  }
+  if (fl.length) el.appendChild(galeria(fl.map(function(f){ return feed.urls[f] || ""; }), "Foto publicada por " + p.nome, function(){ if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); }));
   if (p.anexo && feed.urls[p.anexo]) {
     var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer";
     var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF"));

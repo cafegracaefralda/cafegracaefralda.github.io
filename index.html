@@ -1532,6 +1532,39 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
 /* anúncios dentro de Novidades: mesma largura dos posts */
 #homeList .of-card{border-radius:0;margin:0;max-width:none;box-shadow:none;border-left:0;border-right:0}
 
+/* ---------- carrossel de fotos, visualizador, perfil, stories e alerta de mensagem ---------- */
+.gal{position:relative;overflow:hidden;background:#000}
+.gal-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gal-track::-webkit-scrollbar{display:none}
+.gal .post-img{flex:0 0 100%;width:100%;aspect-ratio:1/1;max-height:60dvh;object-fit:cover;scroll-snap-align:center;cursor:zoom-in;display:block;margin:0;border-radius:0;background:var(--sand)}
+.gal-count{position:absolute;right:10px;top:10px;background:rgba(29,26,23,.65);color:#fff;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px}
+.gal-dots{position:absolute;left:0;right:0;bottom:8px;display:flex;justify-content:center;gap:5px;pointer-events:none}
+.gal-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.55)}
+.gal-dots i.on{background:#fff}
+.gal-nav{position:absolute;top:50%;transform:translateY(-50%);width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;display:none}
+.gal-nav.prev{left:8px}.gal-nav.next{right:8px}
+@media (hover:hover) and (min-width:761px){.gal.multi:hover .gal-nav:not([hidden]){display:grid;place-items:center}}
+.gal .post-heart{z-index:2}
+.lb-dlg{border:0;padding:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+.lb-dlg::backdrop{background:#000}
+.lb-dlg img{position:absolute;inset:0;margin:auto;max-width:100%;max-height:100%;object-fit:contain}
+.lb-x{position:absolute;left:10px;top:calc(10px + env(safe-area-inset-top,0px));z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:20px;cursor:pointer}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:28px;cursor:pointer}
+.lb-nav.prev{left:10px}.lb-nav.next{right:10px}.lb-nav[hidden]{display:none}
+.lb-count{position:absolute;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;color:#fff;font-size:14px;z-index:3}
+.perfil-stats{display:flex;gap:0;margin:10px 0 4px}
+.pf-num{flex:1;display:grid;justify-items:center;gap:0;background:none;border:0;font:inherit;padding:6px 4px;color:var(--ink);cursor:default}
+button.pf-num{cursor:pointer;border-radius:12px}
+button.pf-num:hover{background:var(--sand)}
+.pf-num b{font-size:18px;color:var(--ink)}
+.pf-num small{font-size:12.5px;color:var(--muted)}
+.pf-list{display:grid;gap:4px;max-height:60dvh;overflow-y:auto}
+.stories{padding-left:6px!important;padding-right:6px!important;gap:10px!important}
+/* alerta de mensagem nova: bolinha azul bem visível */
+.js-dmbadge{background:#2F80ED!important;color:#fff!important;box-shadow:0 0 0 2px var(--surface,#fff);animation:dmpulse 1.8s ease-in-out infinite}
+@keyframes dmpulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+.tabbar .js-dmbadge,.nav .js-dmbadge{position:absolute}
+
 </style>
 </head>
 <body>
@@ -2183,6 +2216,12 @@ dialog.pd-dlg{width:min(520px,100%);max-height:100dvh;margin:auto}
     <button class="btn btn-terra btn-block" type="submit" id="ofSend">Enviar oferta</button>
     <p class="status" id="ofStatus" role="status"></p>
   </form>
+</div></dialog>
+<dialog class="lb-dlg" id="lbDlg" aria-label="Foto"><button class="lb-x" type="button" id="lbClose" aria-label="Fechar">✕</button><button class="lb-nav prev" type="button" id="lbPrev" aria-label="Foto anterior">‹</button><img id="lbImg" alt=""><button class="lb-nav next" type="button" id="lbNext" aria-label="Próxima foto">›</button><span class="lb-count" id="lbCount"></span></dialog>
+<dialog class="sheet-dlg" id="pfListDlg" aria-labelledby="pfListTitle"><div class="sheet-box">
+  <button class="story-x sheet-x" type="button" id="pfListClose" aria-label="Fechar">×</button>
+  <h3 id="pfListTitle">Seguidores</h3>
+  <div class="pf-list" id="pfListBox"></div>
 </div></dialog>
 <dialog class="sheet-dlg pd-dlg" id="postDlg" aria-labelledby="pdTitle"><div class="sheet-box pd-box">
   <div class="pd-head"><button class="pd-x" type="button" id="pdClose" aria-label="Cancelar">✕</button><h3 id="pdTitle">Nova publicação</h3><button class="pd-go" type="button" id="pdEnviar">Compartilhar</button></div>
@@ -2887,7 +2926,7 @@ function loadPerfil(){
     (rs[2].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("📚", (TIPO_PUB[x.tipo] || "Prateleira").replace(/^\S+\s/, ""), x.titulo || x.texto, x.criado_em, "#prateleira") }); });
     (rs[3].data || []).forEach(function(x){ itens.push({ t: x.criado_em, el: pfTile("🌳", "Quintal", x.nome_local + " · " + x.cidade + "/" + x.uf, x.criado_em, "#lazer") }); });
     itens.sort(function(a, b){ return a.t < b.t ? 1 : -1; });
-    $("pfStats").innerHTML = ""; var n = h("span", null); n.append(h("b", null, String(itens.length)), document.createTextNode(itens.length === 1 ? " publicação" : " publicações")); $("pfStats").appendChild(n);
+    pfSeg.nPub = itens.length; pfPintaSeg();
     if (!itens.length) { var e = h("div", "empty card"); e.append(h("h3", null, mine ? "Você ainda não publicou" : "Ainda sem publicações"), h("p", null, mine ? "Tudo o que você postar na Mesa aparece aqui." : "")); $("pfGrid").appendChild(e); }
     itens.forEach(function(i){ $("pfGrid").appendChild(i.el); });
   });
@@ -2946,8 +2985,11 @@ function pfSeguidores(id, mine){
   });
 }
 function pfPintaSeg(){
-  var st = $("pfStats"), sp = st.querySelector(".pf-seg"); if (sp) sp.remove();
-  sp = h("span", "pf-seg"); sp.append(h("b", null, String(pfSeg.nSeg || 0)), document.createTextNode(" seguidores · "), h("b", null, String(pfSeg.nSig || 0)), document.createTextNode(" seguindo")); st.appendChild(sp);
+  var st = $("pfStats"); st.innerHTML = "";
+  [["nPub", "publicações", null], ["nSeg", "seguidores", "seguidores"], ["nSig", "seguindo", "seguindo"]].forEach(function(c){
+    var b = h(c[2] ? "button" : "span", "pf-num"); if (c[2]) { b.type = "button"; b.addEventListener("click", function(){ pfAbrirLista(c[2]); }); }
+    b.append(h("b", null, String(pfSeg[c[0]] || 0)), h("small", null, c[1])); st.appendChild(b);
+  });
   $("pfFollow").textContent = pfSeg.segue ? "Seguindo" : "Seguir"; $("pfFollow").classList.toggle("btn-ghost", pfSeg.segue); $("pfFollow").classList.toggle("btn-terra", !pfSeg.segue);
 }
 $("pfFollow").addEventListener("click", function(){
@@ -2955,6 +2997,27 @@ $("pfFollow").addEventListener("click", function(){
   var q = pfSeg.segue ? sb.from("seguidores").delete().eq("seguidor", uid()).eq("seguido", id) : sb.from("seguidores").insert({ seguido: id });
   q.then(function(r){ $("pfFollow").disabled = false; if (r.error) return toast("Não foi possível agora."); pfSeg.segue = !pfSeg.segue; pfSeg.nSeg = (pfSeg.nSeg || 0) + (pfSeg.segue ? 1 : -1); pfPintaSeg(); });
 });
+
+// Lista de seguidores / de quem a pessoa segue
+function pfAbrirLista(tipo){
+  var id = pfSeg.id; if (!id) return;
+  var seguidores = tipo === "seguidores";
+  $("pfListTitle").textContent = seguidores ? "Seguidores" : "Seguindo"; var box = $("pfListBox"); box.innerHTML = ""; box.appendChild(h("p", "hint", "Carregando…")); $("pfListDlg").showModal();
+  sb.from("seguidores").select(seguidores ? "seguidor" : "seguido").eq(seguidores ? "seguido" : "seguidor", id).limit(200).then(function(r){
+    var ids = (r.data || []).map(function(x){ return seguidores ? x.seguidor : x.seguido; });
+    box.innerHTML = "";
+    if (!ids.length) { box.appendChild(h("p", "hint", seguidores ? "Ainda sem seguidores." : "Ainda não segue ninguém.")); return; }
+    return sb.from("perfis").select("user_id,nome,apelido").in("user_id", ids).then(function(p){
+      (p.data || []).forEach(function(x){
+        var nome = x.apelido || x.nome || "Alguém", b = h("button", "side-person"); b.type = "button";
+        var tx = h("span"); tx.append(h("b", null, nome), h("small", null, "Ver perfil")); b.append(avSpan(x.user_id, nome), tx);
+        b.addEventListener("click", function(){ $("pfListDlg").close(); go("perfil" + (x.user_id === uid() ? "" : "/" + x.user_id)); });
+        box.appendChild(b);
+      });
+    });
+  });
+}
+$("pfListClose").addEventListener("click", function(){ $("pfListDlg").close(); });
 
 
 // Menções: digite @ para escolher alguém da comunidade (posts e comentários). A pessoa mencionada recebe uma notificação (gatilho no banco).
@@ -3275,7 +3338,7 @@ function openReader(a){
     act("btn-wa", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar no WhatsApp"),
     act("btn-ghost", waLink('Oi! Li o devocional "' + a.title + '" e queria conversar: '), "i-wa", "Conversar com a equipe")
   );
-  foot.appendChild(igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }, "btn btn-sm btn-ghost"));
+  foot.appendChild(igBtn({ acao: "ler", title: a.title, body: a.passage[0] }, "btn btn-sm btn-ghost"));
   var cm = h("button", "btn btn-sm btn-ghost"); cm.type = "button"; cm.append(icon("i-users"), document.createTextNode("Conversar na Mesa"));
   cm.addEventListener("click", function(){ dlg.close(); go("mesa"); });
   foot.appendChild(cm);
@@ -3901,18 +3964,7 @@ function renderPost(p){
   var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.append(top, ptx);
   if (String(p.texto || "").length > 260) { ptx.style.cssText = "display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden"; var vm = h("button", "post-more", "ver mais"); vm.type = "button"; vm.style.margin = "-6px 16px 10px"; vm.addEventListener("click", function(){ ptx.style.cssText = ""; vm.remove(); }); el.appendChild(vm); }
   var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
-  if (fl.length) {
-    var iw = h("div", "post-img-wrap post-imgs n" + fl.length), hh = h("span", "post-heart"); hh.appendChild(icon("i-heart"));
-    fl.forEach(function(f, k){
-      var im = h("img", "post-img"); im.alt = "Foto " + (k + 1) + " publicada por " + p.nome; im.loading = "lazy";
-      if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true;
-      iw.appendChild(im);
-    });
-    iw.appendChild(hh);
-    var lastTap = 0;
-    iw.addEventListener("click", function(){ var n = Date.now(); if (n - lastTap < 320) { lastTap = 0; hh.classList.remove("pop"); void hh.offsetWidth; hh.classList.add("pop"); if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); } else lastTap = n; });
-    el.appendChild(iw);
-  }
+  if (fl.length) el.appendChild(galeria(fl.map(function(f){ return feed.urls[f] || ""; }), "Foto publicada por " + p.nome, function(){ if ((feed.likes[p.id] || []).indexOf(uid()) < 0) toggleLike(p); }));
   if (p.anexo && feed.urls[p.anexo]) {
     var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer";
     var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF"));
@@ -4552,7 +4604,7 @@ function renderDestaque(){
     el.appendChild(h("p", "of-verse", quoteVerse(a.passage[0]) + " — " + a.passage[1]));
     var acts = h("div", "post-acts");
     var read = h("button", null); read.type = "button"; read.append(icon("i-book"), document.createTextNode("Ler agora")); read.addEventListener("click", function(){ openReader(a); });
-    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ tag: "Devocional da semana", title: a.title, body: a.passage[0] + " — " + a.passage[1] }));
+    acts.append(read, linkBtn("", "https://wa.me/?text=" + encodeURIComponent(shareText(a)), "i-share", "Compartilhar"), igBtn({ acao: "ler", title: a.title, body: a.passage[0] }));
     el.appendChild(acts);
   });
 }
@@ -4666,7 +4718,7 @@ function loadHomeMesa(){
         top.append(avLink(null, p.nome), who); el.appendChild(top);
         var ptx = h("p", "post-text"); ptx.appendChild(richText(p.texto)); el.appendChild(ptx);
         var fl = p.fotos && p.fotos.length ? p.fotos : (p.foto ? [p.foto] : []);
-        if (fl.length) { var iw = h("div", "post-img-wrap post-imgs n" + fl.length); fl.forEach(function(f){ var im = h("img", "post-img"); im.alt = "Foto"; im.loading = "lazy"; if (feed.urls[f]) im.src = feed.urls[f]; else im.hidden = true; iw.appendChild(im); }); el.appendChild(iw); }
+        if (fl.length) el.appendChild(galeria(fl.map(function(f){ return feed.urls[f] || ""; }), "Foto"));
         if (p.anexo && feed.urls[p.anexo]) { var an = h("a", "post-anexo"); an.href = feed.urls[p.anexo]; an.target = "_blank"; an.rel = "noopener noreferrer"; var at = h("div"); at.append(h("b", null, p.anexo_nome || "Documento em PDF"), h("small", null, "Toque para abrir o PDF")); an.append(h("span", null, "📄"), at); el.appendChild(an); }
         if (p.link && /^https:\/\//.test(p.link)) { var lc = h("a", "post-anexo"); lc.href = p.link; lc.target = "_blank"; lc.rel = "noopener noreferrer nofollow"; var lt = h("div"); lt.append(h("b", null, p.link.replace(/^https:\/\/(www\.)?/, "").replace(/\/$/, "").slice(0, 50)), h("small", null, "Toque para abrir o link")); lc.append(h("span", null, "🔗"), lt); el.appendChild(lc); }
         var acts = h("div", "post-acts"), bt = h("button", null, "Ver na Mesa"); bt.type = "button"; bt.addEventListener("click", function(){ go("mesa"); }); acts.appendChild(bt); el.appendChild(acts);
@@ -4693,7 +4745,7 @@ function ytBlock(p){
 function mediaOf(p){
   var url = p.arquivo ? pubFileUrl(p.arquivo) : "";
   if (p.youtube) return ytBlock(p);
-  if (p.arquivo && /\.jpg$/.test(p.arquivo)) { var im = h("img", "post-img"); im.src = url; im.alt = p.titulo || "Foto de " + p.autor; im.loading = "lazy"; return im; }
+  if (p.arquivo && /\.jpg$/.test(p.arquivo)) return galeria([url], p.titulo || "Foto de " + p.autor);
   if (p.arquivo && p.tipo !== "audio" && /\.(mp4|webm)$/.test(p.arquivo)) { var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = url; return v; }
   if (p.arquivo && /\.(mp3|m4a|ogg|webm)$/.test(p.arquivo) && p.tipo === "audio") { var au = h("audio", "pub-audio"); au.controls = true; au.preload = "none"; au.src = url; return au; }
   if (p.arquivo && /\.pdf$/.test(p.arquivo)) {
@@ -4710,11 +4762,7 @@ function mediaOf(p){
 // Tudo junto na mesma postagem: fotos, vídeos, PDFs, e o link/arquivo que a mídia principal não mostrou
 function extrasOf(p){
   var out = [];
-  if (p.fotos && p.fotos.length) {
-    var g = h("div", "post-imgs n" + Math.min(p.fotos.length, 3));
-    p.fotos.forEach(function(f, k){ var im = h("img", "post-img"); im.src = pubFileUrl(f); im.alt = (p.titulo || "Foto") + " " + (k + 1); im.loading = "lazy"; g.appendChild(im); });
-    out.push(g);
-  }
+  if (p.fotos && p.fotos.length) out.push(galeria(p.fotos.map(pubFileUrl), p.titulo || "Foto"));
   if (p.videos && p.videos.length) {
     var vb = h("div", "pub-videos");
     p.videos.forEach(function(f){ var v = h("video", "pub-video"); v.controls = true; v.preload = "metadata"; v.setAttribute("playsinline", ""); v.src = pubFileUrl(f); vb.appendChild(v); });
@@ -5390,41 +5438,67 @@ viewHooks.indicacoes = function(s){ if (_hookViz) _hookViz(s); if (auth.user) lo
 auth.on(function(){ if (auth.user && isShown("indicacoes")) loadLazer(true); });
 
 
-// Compartilhar no Instagram: gera uma imagem (1080x1350) com a logo e o conteúdo. No celular abre o menu de compartilhar
-// (escolha Instagram: Feed ou Stories); no computador baixa a imagem e copia a legenda. Publicar sozinho no perfil exigiria a API da Meta (servidor).
-function igDesenhar(o, logo){
-  var W = 1080, H = 1350, c = document.createElement("canvas"); c.width = W; c.height = H; var g = c.getContext("2d");
-  g.fillStyle = "#1D1A17"; g.fillRect(0, 0, W, H); g.fillStyle = "#E2A07C"; g.fillRect(0, 0, W, 10);
-  if (logo) g.drawImage(logo, W / 2 - 80, 80, 160, 151);
-  g.textAlign = "center"; g.fillStyle = "#E2A07C"; g.font = "600 28px Arial, sans-serif"; g.fillText(String(o.tag || "CAFÉ, GRAÇA & FRALDA").toUpperCase(), W / 2, 310);
-  g.fillStyle = "#F6EBDD"; var y = 420;
-  if (o.title) {
-    g.font = "600 70px Georgia, serif";
-    cartaoQuebra(g, o.title, 900).slice(0, 3).forEach(function(l){ g.fillText(l, W / 2, y); y += 84; });
-    g.font = "italic 40px Georgia, serif"; g.fillStyle = "#E9DCCB"; y += 40;
-  } else { g.font = "italic 56px Georgia, serif"; y = 470; }   // só texto: a frase vira o destaque
-  var lh = o.title ? 58 : 78;
-  cartaoQuebra(g, String(o.body || "").slice(0, 300), 860).slice(0, 9).forEach(function(l){ g.fillText(l, W / 2, y); y += lh; });
-  g.fillStyle = "#E2A07C"; g.font = "600 34px Arial, sans-serif"; g.fillText("Café, Graça & Fralda", W / 2, H - 120);
-  g.fillStyle = "#9d9388"; g.font = "400 28px Arial, sans-serif"; g.fillText("cafegracaefralda.com.br", W / 2, H - 76);
-  return c;
-}
+// Compartilhar: "acabei de postar no Café, Graça & Fralda" + resumo + link do site (sem imagem).
+// No celular abre o menu de compartilhar (escolha Instagram, WhatsApp...); no computador copia o texto com o link.
 function igCompartilhar(o){
-  toast("Preparando a imagem…");
-  cartaoLogo().then(function(logo){
-    igDesenhar(o, logo).toBlob(function(blob){
-      if (!blob) return toast("Não foi possível gerar a imagem.");
-      var legenda = (o.title ? o.title + "\n\n" : "") + (o.body ? String(o.body).slice(0, 300) + "\n\n" : "") + "Café, Graça & Fralda · " + SITE_URL + "\n#cafegracaefralda #familia #fe";
-      var file = new File([blob], "cafe-graca-fralda.png", { type: "image/png" });
-      if (navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text: legenda }).catch(function(){}); return; }
-      var a = h("a"); a.href = URL.createObjectURL(blob); a.download = "cafe-graca-fralda.png"; document.body.appendChild(a); a.click(); a.remove();
-      copyText(legenda, "Imagem baixada e legenda copiada. Abra o Instagram, publique a imagem e cole a legenda.");
-    }, "image/png");
-  });
+  var resumo = String(o.title || o.body || "").replace(/\s+/g, " ").trim(), corte = resumo.length > 120;
+  resumo = resumo.slice(0, 120).trim();
+  var abre = o.acao === "ler" ? "Acabei de ler no Café, Graça & Fralda" : "Acabei de postar no Café, Graça & Fralda";
+  var texto = abre + (resumo ? ": “" + resumo + (corte ? "…" : "") + "”" : ".") + "\nVem conferir:";
+  if (navigator.share) { navigator.share({ title: "Café, Graça & Fralda", text: texto, url: SITE_URL }).catch(function(){}); return; }
+  copyText(texto + " " + SITE_URL, "Texto e link copiados. Cole no Instagram.");
 }
 function igBtn(o, cls){
   var b = h("button", cls || null); b.type = "button"; b.append(icon("i-ig"), document.createTextNode("Instagram"));
-  b.setAttribute("aria-label", "Compartilhar no Instagram"); b.addEventListener("click", function(){ igCompartilhar(typeof o === "function" ? o() : o); }); return b;
+  b.setAttribute("aria-label", "Compartilhar o link no Instagram"); b.addEventListener("click", function(){ igCompartilhar(typeof o === "function" ? o() : o); }); return b;
+}
+
+
+// Fotos do post: carrossel (deslizar) e, ao tocar numa foto, ela abre inteira num visualizador. Toque duplo curte.
+var lb = { srcs: [], i: 0, x0: null };
+function lbMostrar(){
+  $("lbImg").src = lb.srcs[lb.i]; $("lbCount").textContent = lb.srcs.length > 1 ? (lb.i + 1) + " / " + lb.srcs.length : "";
+  $("lbPrev").hidden = lb.i === 0; $("lbNext").hidden = lb.i >= lb.srcs.length - 1;
+}
+function lbAbrir(srcs, i){ lb.srcs = srcs.filter(Boolean); if (!lb.srcs.length) return; lb.i = Math.min(i, lb.srcs.length - 1); lbMostrar(); if (!$("lbDlg").open) $("lbDlg").showModal(); }
+function lbIr(d){ var n = lb.i + d; if (n < 0 || n >= lb.srcs.length) return; lb.i = n; lbMostrar(); }
+$("lbClose").addEventListener("click", function(){ $("lbDlg").close(); });
+$("lbPrev").addEventListener("click", function(){ lbIr(-1); });
+$("lbNext").addEventListener("click", function(){ lbIr(1); });
+$("lbDlg").addEventListener("click", function(e){ if (e.target === $("lbDlg")) $("lbDlg").close(); });
+$("lbDlg").addEventListener("keydown", function(e){ if (e.key === "ArrowLeft") lbIr(-1); if (e.key === "ArrowRight") lbIr(1); });
+$("lbDlg").addEventListener("touchstart", function(e){ lb.x0 = e.touches[0].clientX; }, { passive: true });
+$("lbDlg").addEventListener("touchend", function(e){ if (lb.x0 == null) return; var dx = e.changedTouches[0].clientX - lb.x0; lb.x0 = null; if (Math.abs(dx) > 50) lbIr(dx < 0 ? 1 : -1); });
+
+function galeria(srcs, alt, onDouble){
+  var n = srcs.length, wrap = h("div", "gal" + (n > 1 ? " multi" : "")), track = h("div", "gal-track"), heart = h("span", "post-heart"), tap = 0, timer = null;
+  heart.appendChild(icon("i-heart"));
+  srcs.forEach(function(src, k){
+    var im = h("img", "post-img"); im.alt = alt + (n > 1 ? " " + (k + 1) + " de " + n : ""); im.loading = "lazy"; im.draggable = false;
+    if (src) im.src = src; else im.hidden = true;
+    im.addEventListener("click", function(){
+      var agora = Date.now();
+      if (onDouble && agora - tap < 300) { clearTimeout(timer); tap = 0; heart.classList.remove("pop"); void heart.offsetWidth; heart.classList.add("pop"); onDouble(); return; }
+      tap = agora; clearTimeout(timer); timer = setTimeout(function(){ lbAbrir(srcs, k); }, onDouble ? 280 : 0);
+    });
+    track.appendChild(im);
+  });
+  wrap.append(track, heart);
+  if (n > 1) {
+    var cnt = h("span", "gal-count", "1/" + n), dots = h("div", "gal-dots"), ds = [];
+    for (var k = 0; k < n; k++) { var d = h("i", k === 0 ? "on" : null); ds.push(d); dots.appendChild(d); }
+    var prev = h("button", "gal-nav prev", "‹"), next = h("button", "gal-nav next", "›");
+    prev.type = next.type = "button"; prev.setAttribute("aria-label", "Foto anterior"); next.setAttribute("aria-label", "Próxima foto");
+    function ir(d2){ track.scrollBy({ left: d2 * track.clientWidth, behavior: "smooth" }); }
+    prev.addEventListener("click", function(e){ e.stopPropagation(); ir(-1); }); next.addEventListener("click", function(e){ e.stopPropagation(); ir(1); });
+    track.addEventListener("scroll", function(){
+      var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth)); cnt.textContent = (i + 1) + "/" + n;
+      ds.forEach(function(x, j){ x.className = j === i ? "on" : ""; }); prev.hidden = i === 0; next.hidden = i >= n - 1;
+    }, { passive: true });
+    prev.hidden = true;
+    wrap.append(cnt, prev, next, dots);
+  }
+  return wrap;
 }
 
 
